@@ -3,9 +3,11 @@ import calendar
 import __init__
 import util
 import plotting
-import load_data
+import data
 
-data_dict = load_data.data_dict
+data_dict, num_columns, num_rows = data.load_dict()
+assert num_columns == 19
+assert num_rows == 1258
 
 t_str_list = data_dict["Reading Date and Time (ISO)"]
 y_str_list = data_dict["Tide height (m)"]
