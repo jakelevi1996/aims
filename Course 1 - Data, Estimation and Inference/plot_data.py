@@ -37,11 +37,12 @@ t_data = [t for t, has_data in zip(t_list, has_data_list) if has_data]
 t_pred = [t for t, has_data in zip(t_list, has_data_list) if not has_data]
 
 data_line = plotting.Line(t_data, y_data, c="b", ls="-", marker="o", alpha=0.5)
-plotting.plot([data_line], "Tide height (m) vs time (days)")
+plotting.plot(data_line, plot_name="Tide height (m) vs time (days)")
 pred_lines = [plotting.HVLine(v=t, c="r", alpha=0.2) for t in t_pred]
 plotting.plot(
-    [data_line] + pred_lines,
-    "Tide height (m) vs time (days), including missing data points"
+    data_line,
+    *pred_lines,
+    plot_name="Tide height (m) vs time (days), including missing data points",
 )
 
 g = gp.GaussianProcess(mean.ZeroMean(), kernel.SquaredExponential(1, 1), 0.1)
@@ -51,6 +52,7 @@ prior_sample_lines = [
     for _ in range(num_prior_samples)
 ]
 plotting.plot(
-    [data_line] + prior_sample_lines,
-    "Samples from GP prior vs data",
+    data_line,
+    *prior_sample_lines,
+    plot_name="Samples from GP prior vs data",
 )

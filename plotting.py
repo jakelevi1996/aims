@@ -152,8 +152,8 @@ def save_and_close(plot_name, fig, dir_name=None, file_ext="png"):
     return full_path
 
 def plot(
-    line_list,
-    plot_name,
+    *lines,
+    plot_name=None,
     dir_name=None,
     axis_properties=None,
     legend_properties=None,
@@ -170,10 +170,12 @@ def plot(
             figsize = [8, 6]
         fig, plot_axis = plt.subplots(1, 1, figsize=figsize)
 
-    for line in line_list:
+    for line in lines:
         line.plot(plot_axis)
 
     plot_axis.grid(True, which="both")
+    if plot_name is None:
+        plot_name = "Output"
     if len(plot_name) > 80:
         plot_name = textwrap.fill(plot_name, width=60, break_long_words=False)
     plot_axis.set_title(plot_name)
@@ -181,7 +183,7 @@ def plot(
     if legend_properties is not None:
         legend_axis.legend(
             handles=[
-                line.get_handle() for line in line_list if line.has_label()
+                line.get_handle() for line in lines if line.has_label()
             ],
             loc="center",
         )
