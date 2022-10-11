@@ -13,8 +13,13 @@ class GaussianProcess:
 
     def sample_prior(self, x):
         mean = self._prior_mean_func(x)
-        cov = self._kernel_func(x, x) + self._noise_var * np.identity(x.size)
+        cov = self._get_cov(x)
         root_cov = np.linalg.cholesky(cov)
         pre_transform_samples = self._rng.normal(size=x.shape)
         samples = root_cov @ pre_transform_samples + mean
         return samples
+
+    def _get_cov(self, x):
+        k_data_data = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
+        cov = k_data_data + self._noise_var * np.identity(x.size)
+        return cov
