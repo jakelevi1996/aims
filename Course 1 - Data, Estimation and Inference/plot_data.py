@@ -36,7 +36,15 @@ y_data = [
 t_data = [t for t, has_data in zip(t_list, has_data_list) if has_data]
 t_pred = [t for t, has_data in zip(t_list, has_data_list) if not has_data]
 
-data_line = plotting.Line(t_data, y_data, c="b", ls="-", marker="o", alpha=0.5)
+data_line = plotting.Line(
+    t_data,
+    y_data,
+    c="k",
+    ls="",
+    marker="o",
+    alpha=0.5,
+    zorder=20,
+)
 plotting.plot(data_line, plot_name="Tide height (m) vs time (days)")
 pred_lines = [plotting.HVLine(v=t, c="r", alpha=0.2) for t in t_pred]
 plotting.plot(
@@ -61,14 +69,16 @@ g.condition(np.array(t_data), np.array(y_data))
 y_pred_mean, y_pred_std = g.predict(np.array(t_list))
 
 plotting.plot(
-    plotting.Line(t_data, y_data, c="k", ls="", marker="o", alpha=0.5),
-    plotting.Line(t_list, y_pred_mean, c="r"),
+    data_line,
+    plotting.Line(t_list, y_pred_mean, c="r", zorder=40),
     plotting.FillBetween(
         t_list,
         y_pred_mean + y_pred_std,
         y_pred_mean - y_pred_std,
         color="r",
+        lw=0,
         alpha=0.2,
+        zorder=30,
     ),
     plot_name="Data and GP predictions",
 )
