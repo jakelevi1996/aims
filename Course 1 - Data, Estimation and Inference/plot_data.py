@@ -56,3 +56,19 @@ plotting.plot(
     *prior_sample_lines,
     plot_name="Samples from GP prior vs data",
 )
+
+g.condition(np.array(t_data), np.array(y_data))
+y_pred_mean, y_pred_std = g.predict(np.array(t_list))
+
+plotting.plot(
+    plotting.Line(t_data, y_data, c="k", ls="", marker="o", alpha=0.5),
+    plotting.Line(t_list, y_pred_mean, c="r"),
+    plotting.FillBetween(
+        t_list,
+        y_pred_mean + y_pred_std,
+        y_pred_mean - y_pred_std,
+        color="r",
+        alpha=0.2,
+    ),
+    plot_name="Data and GP predictions",
+)
