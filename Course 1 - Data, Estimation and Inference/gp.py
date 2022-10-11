@@ -14,6 +14,6 @@ class GaussianProcess:
         mean = self._prior_mean_func(x)
         cov = self._kernel_func(x, x)
         root_cov = np.linalg.cholesky(cov)
-        noise = np.random.normal(size=x.shape)
+        noise = self._rng.normal(size=x.shape)
         samples = root_cov @ noise + mean
         return samples
