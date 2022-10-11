@@ -45,7 +45,7 @@ plotting.plot(
     plot_name="Tide height (m) vs time (days), including missing data points",
 )
 
-g = gp.GaussianProcess(mean.ZeroMean(), kernel.SquaredExponential(1, 1), 0.1)
+g = gp.GaussianProcess(mean.ZeroMean(), kernel.SquaredExponential(0.3, 10), 1)
 num_prior_samples = 5
 prior_sample_lines = [
     plotting.Line(t_list, g.sample_prior(np.array(t_list)), c="b", alpha=0.5)
