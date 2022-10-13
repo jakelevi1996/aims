@@ -1,5 +1,9 @@
+import numpy as np
 import __init__
 import data
+import gp
+import mean
+import kernel
 import plotting
 
 data_dict, num_columns, num_rows = data.load_dict()
@@ -10,6 +14,14 @@ assert t_pred.size == 1258
 assert t_data.size == 917
 assert y_data.size == 917
 
+g = gp.GaussianProcess(mean.ZeroMean(), kernel.SquaredExponential(1, 1), 0.001)
+num_prior_samples = 5
+prior_samples = [g.sample_prior(t_pred) for _ in range(num_prior_samples)]
+
+prior_sample_lines = [
+    plotting.Line(t_pred, y_sample, c="r", alpha=0.5)
+    for y_sample in prior_samples
+]
 plotting.plot(
     plotting.Line(
         t_data,
@@ -20,5 +32,6 @@ plotting.plot(
         alpha=0.5,
         zorder=20,
     ),
-    plot_name="Tide height (m) vs time (days)",
+    *prior_sample_lines,
+    plot_name="Samples from GP prior vs data",
 )
