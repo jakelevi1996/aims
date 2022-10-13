@@ -24,7 +24,7 @@ class GaussianProcess:
         self._x = x
         cov = self._get_cov(x)
         self._precision = np.linalg.inv(cov)
-        self._precision_times_y = self._precision @ y
+        self._scaled_error = self._precision @ (y - self._prior_mean_func(x))
         self._conditioned = True
 
     def predict(self, x_pred):
@@ -36,7 +36,8 @@ class GaussianProcess:
             self._x.reshape(1, 1, -1),
         )
 
-        mean = k_pred_data @ self._precision_times_y
+        mean_prior = self._prior_mean_func(x_pred).reshape(-1, 1)
+        mean_pred = mean_prior + k_pred_data @ self._scaled_error
 
         k_pred_pred = self._kernel_func(
             x_pred.reshape(-1, 1, 1),
@@ -44,10 +45,10 @@ class GaussianProcess:
         )
         k_data_pred = k_pred_data.transpose([0, 2, 1])
 
-        var = k_pred_pred - (k_pred_data @ self._precision @ k_data_pred)
-        std = np.sqrt(var)
+        var_pred = k_pred_pred - (k_pred_data @ self._precision @ k_data_pred)
+        std_pred = np.sqrt(var_pred)
 
-        return mean.reshape(-1), std.reshape(-1)
+        return mean_pred.reshape(-1), std_pred.reshape(-1)
 
     def _get_cov(self, x):
         k_data_data = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
