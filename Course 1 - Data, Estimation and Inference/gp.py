@@ -37,19 +37,12 @@ class GaussianProcess:
                 self._x.reshape(-1, 1),
                 x.reshape(1, -1),
             )
-            precision_new_new = np.linalg.inv(
-                k_new - k_old_new.T @ self._precision @ k_old_new
-            )
+            scaled_k = self._precision @ k_old_new
+            precision_new_new = np.linalg.inv(k_new - k_old_new.T @ scaled_k)
             precision_old_old = (
-                self._precision
-                + (
-                    self._precision @ k_old_new @ precision_new_new
-                    @ k_old_new.T @ self._precision
-                )
+                self._precision + (scaled_k @ precision_new_new @ scaled_k.T)
             )
-            precision_old_new = (
-                -self._precision @ k_old_new @ precision_new_new
-            )
+            precision_old_new = -scaled_k @ precision_new_new
             self._precision = np.block(
                 [
                     [precision_old_old, precision_old_new],
