@@ -14,7 +14,11 @@ assert t_pred.size == 1258
 assert t_data.size == 917
 assert y_data.size == 917
 
-g = gp.GaussianProcess(mean.ZeroMean(), kernel.SquaredExponential(0.3, 10), 1)
+g = gp.GaussianProcess(
+    prior_mean_func=mean.Constant(3),
+    kernel_func=kernel.SquaredExponential(0.3, 10),
+    noise_std=1,
+)
 g.condition(t_data, y_data)
 y_pred_mean, y_pred_std = g.predict(t_pred)
 
