@@ -39,11 +39,12 @@ print(prior_mean, length_scale, kernel_scale, noise_std)
 
 g = gp.GaussianProcess(
     prior_mean_func=mean.Constant(prior_mean),
-    kernel_func=kernel.SquaredExponential(length_scale, length_scale),
+    kernel_func=kernel.SquaredExponential(length_scale, kernel_scale),
     noise_std=noise_std,
 )
 g.condition(t_data, y_data)
 y_pred_mean, y_pred_std = g.predict(t_pred)
+print(g.log_marginal_likelihood())
 
 plotting.plot(
     plotting.Line(
@@ -75,4 +76,5 @@ plotting.plot(
         zorder=30,
     ),
     plot_name="Data and optimised GP predictions",
+    axis_properties=plotting.AxisProperties(ylim=[0, 6]),
 )
