@@ -23,12 +23,44 @@ class GaussianProcess:
         return samples
 
     def condition(self, x, y):
-        self._x = x
-        cov = self._get_cov(x)
-        self._precision = np.linalg.inv(cov)
-        self._error = y - self._prior_mean_func(x)
-        self._scaled_error = self._precision @ self._error
-        self._conditioned = True
+        if not self._conditioned:
+            self._x = x
+            cov = self._get_cov(x)
+            self._precision = np.linalg.inv(cov)
+            self._error = y - self._prior_mean_func(x)
+            self._scaled_error = self._precision @ self._error
+            self._conditioned = True
+        else:
+            x = np.array(x)
+            k_new = self._get_cov(x)
+            k_old_new = self._kernel_func(
+                self._x.reshape(-1, 1),
+                x.reshape(1, -1),
+            )
+            precision_new_new = np.linalg.inv(
+                k_new - k_old_new.T @ self._precision @ k_old_new
+            )
+            precision_old_old = (
+                self._precision
+                + (
+                    self._precision @ k_old_new @ precision_new_new
+                    @ k_old_new.T @ self._precision
+                )
+            )
+            precision_old_new = (
+                -self._precision @ k_old_new @ precision_new_new
+            )
+            self._precision = np.block(
+                [
+                    [precision_old_old, precision_old_new],
+                    [precision_old_new.T, precision_new_new],
+                ]
+            )
+            self._x = np.block([self._x, x])
+            self._error = np.block(
+                [self._error, y - self._prior_mean_func(x)]
+            )
+            self._scaled_error = self._precision @ self._error
 
     def predict(self, x_pred):
         if not self._conditioned:
