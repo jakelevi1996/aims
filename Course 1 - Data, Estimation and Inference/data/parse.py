@@ -29,3 +29,15 @@ def get_timestamp(t_str, t_format="%Y-%m-%dT%H:%M:%S"):
     time_struct = time.strptime(t_str, t_format)
     timestamp = calendar.timegm(time_struct)
     return timestamp
+
+def parse_column(data_dict, column_name):
+    y_str_list = data_dict[column_name]
+    has_data_list = [len(y) > 0 for y in y_str_list]
+
+    y_data = [
+        float(y_str)
+        for y_str, has_data in zip(y_str_list, has_data_list)
+        if has_data
+    ]
+
+    return np.array(y_data)
