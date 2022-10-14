@@ -77,6 +77,31 @@ class GaussianProcess:
 
         return mean_pred.reshape(-1), std_pred.reshape(-1)
 
+    def sample_posterior(self, x_pred, n_samples=1):
+        if not self._conditioned:
+            raise RuntimeError(
+                "Must condition on data before sampling from the posterior"
+            )
+
+        k_pred_data = self._kernel_func(
+            x_pred.reshape(-1, 1),
+            self._x.reshape(1, -1),
+        )
+
+        mean_prior = self._prior_mean_func(x_pred)
+        mean_pred = mean_prior + k_pred_data @ self._scaled_error
+
+        k_pred_pred = self._get_cov(x_pred)
+        k_data_pred = k_pred_data.T
+
+        var_pred = k_pred_pred - (k_pred_data @ self._precision @ k_data_pred)
+
+        root_var = np.linalg.cholesky(var_pred)
+        samples_shape = [x_pred.size, n_samples]
+        untransformed_samples = self._get_normal_samples(samples_shape)
+        samples = root_var @ untransformed_samples + mean_pred.reshape(-1, 1)
+        return samples
+
     def log_marginal_likelihood(self):
         if not self._conditioned:
             raise RuntimeError("Must condition on data before marginalising")
