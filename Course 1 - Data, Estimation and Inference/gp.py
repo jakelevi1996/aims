@@ -23,6 +23,8 @@ class GaussianProcess:
         return samples
 
     def condition(self, x, y):
+        x = np.reshape(x, [-1])
+        y = np.reshape(y, [-1])
         if not self._conditioned:
             self._x = x
             cov = self._get_cov(x)
@@ -31,7 +33,6 @@ class GaussianProcess:
             self._scaled_error = self._precision @ self._error
             self._conditioned = True
         else:
-            x = np.array(x)
             k_new = self._get_cov(x)
             k_old_new = self._kernel_func(
                 self._x.reshape(-1, 1),
