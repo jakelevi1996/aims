@@ -10,11 +10,12 @@ class GaussianProcess:
         self._rng = rng
         self._conditioned = False
 
-    def sample_prior(self, x):
+    def sample_prior(self, x, n_samples=1):
         mean = self._prior_mean_func(x)
         cov = self._get_cov(x)
         root_cov = np.linalg.cholesky(cov)
-        samples = root_cov @ self._get_normal_samples(x.shape) + mean
+        untransformed_samples = self._get_normal_samples([x.size, n_samples])
+        samples = root_cov @ untransformed_samples + mean.reshape(-1, 1)
         return samples
 
     def condition(self, x, y):

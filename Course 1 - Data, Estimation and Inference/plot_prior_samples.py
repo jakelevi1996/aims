@@ -20,12 +20,12 @@ g = gp.GaussianProcess(
     noise_std=0.001,
 )
 num_prior_samples = 5
-prior_samples = [g.sample_prior(t_pred) for _ in range(num_prior_samples)]
+prior_samples = g.sample_prior(t_pred, num_prior_samples)
 
 cp = plotting.ColourPicker(num_prior_samples)
 prior_sample_lines = [
-    plotting.Line(t_pred, y_sample, c=cp(i), alpha=0.5, zorder=30)
-    for i, y_sample in enumerate(prior_samples)
+    plotting.Line(t_pred, prior_samples[:, i], c=cp(i), alpha=0.5, zorder=30)
+    for i in range(num_prior_samples)
 ]
 plotting.plot(
     plotting.Line(
