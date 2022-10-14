@@ -1,9 +1,4 @@
-import os
-
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-SOTONMET_PATH = os.path.join(CURRENT_DIR, "sotonmet.txt")
-
-def load_dict(data_path=SOTONMET_PATH):
+def load_dict(data_path):
     with open(data_path) as f:
         data_line_list = f.read().split("\n")
 
