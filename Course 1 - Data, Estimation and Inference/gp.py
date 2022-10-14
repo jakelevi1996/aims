@@ -55,6 +55,9 @@ class GaussianProcess:
             )
             self._scaled_error = self._precision @ self._error
 
+    def decondition(self):
+        self._conditioned = False
+
     def predict(self, x_pred):
         if not self._conditioned:
             raise RuntimeError("Must condition on data before predicting")
