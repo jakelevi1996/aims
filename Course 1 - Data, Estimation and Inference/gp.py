@@ -7,10 +7,6 @@ class GaussianProcess:
         self._prior_mean_func = prior_mean_func
         self._kernel_func = kernel_func
         self._noise_var = noise_std * noise_std
-
-        if rng is None:
-            rng = np.random.default_rng()
-
         self._rng = rng
         self._conditioned = False
 
@@ -18,8 +14,7 @@ class GaussianProcess:
         mean = self._prior_mean_func(x)
         cov = self._get_cov(x)
         root_cov = np.linalg.cholesky(cov)
-        pre_transform_samples = self._rng.normal(size=x.shape)
-        samples = root_cov @ pre_transform_samples + mean
+        samples = root_cov @ self._get_normal_samples(x.shape) + mean
         return samples
 
     def condition(self, x, y):
@@ -51,9 +46,8 @@ class GaussianProcess:
                 ]
             )
             self._x = np.block([self._x, x])
-            self._error = np.block(
-                [self._error, y - self._prior_mean_func(x)]
-            )
+            error_new = y - self._prior_mean_func(x)
+            self._error = np.block([self._error, error_new])
             self._scaled_error = self._precision @ self._error
 
     def decondition(self):
@@ -101,3 +95,9 @@ class GaussianProcess:
         k_data_data = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
         cov = k_data_data + self._noise_var * np.identity(x.size)
         return cov
+
+    def _get_normal_samples(self, shape):
+        if self._rng is None:
+            self._rng = np.random.default_rng()
+
+        return self._rng.normal(size=shape)
