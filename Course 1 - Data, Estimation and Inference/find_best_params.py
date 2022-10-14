@@ -32,7 +32,7 @@ initial_params = np.log([3, .3, 10, 1])
 result = scipy.optimize.minimize(
     negative_log_marginal_likelihood,
     initial_params,
-    options={"maxiter": 30},
+    options={"maxiter": 20},
 )
 prior_mean, length_scale, kernel_scale, noise_std = np.exp(result.x)
 print(prior_mean, length_scale, kernel_scale, noise_std)
