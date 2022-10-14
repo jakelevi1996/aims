@@ -86,14 +86,14 @@ class Printer:
 
         self._print_to_console = print_to_console
 
-    def __call__(self, s):
-        self.print(s)
+    def __call__(self, *args, **kwargs):
+        self.print(*args, **kwargs)
 
-    def print(self, s):
+    def print(self, *args, **kwargs):
         if self._print_to_console:
-            print(s)
+            print(*args, **kwargs)
         if self._file is not None:
-            print(s, file=self._file)
+            print(*args, **kwargs, file=self._file)
 
     def close(self):
         if self._file is not None:
