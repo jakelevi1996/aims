@@ -55,8 +55,7 @@ class GaussianProcess:
         self._conditioned = False
 
     def predict(self, x_pred):
-        if not self._conditioned:
-            raise RuntimeError("Must condition on data before predicting")
+        self._assert_conditioned()
 
         k_pred_data = self._kernel_func(
             x_pred.reshape(-1, 1, 1),
@@ -78,10 +77,7 @@ class GaussianProcess:
         return mean_pred.reshape(-1), std_pred.reshape(-1)
 
     def sample_posterior(self, x_pred, n_samples=1):
-        if not self._conditioned:
-            raise RuntimeError(
-                "Must condition on data before sampling from the posterior"
-            )
+        self._assert_conditioned()
 
         k_pred_data = self._kernel_func(
             x_pred.reshape(-1, 1),
@@ -103,8 +99,7 @@ class GaussianProcess:
         return samples
 
     def log_marginal_likelihood(self):
-        if not self._conditioned:
-            raise RuntimeError("Must condition on data before marginalising")
+        self._assert_conditioned()
 
         sign, log_det_precision = np.linalg.slogdet(self._precision)
         if sign <= 0:
@@ -118,10 +113,7 @@ class GaussianProcess:
         return m
 
     def rmse(self, x, y):
-        if not self._conditioned:
-            raise RuntimeError(
-                "Must condition on data before calculating RMSE"
-            )
+        self._assert_conditioned()
 
         k_pred_data = self._kernel_func(
             x.reshape(-1, 1),
@@ -144,3 +136,9 @@ class GaussianProcess:
             self._rng = np.random.default_rng()
 
         return self._rng.normal(size=shape)
+
+    def _assert_conditioned(self):
+        if not self._conditioned:
+            raise RuntimeError(
+                "Must condition on data before calling this method"
+            )
