@@ -117,6 +117,23 @@ class GaussianProcess:
         )
         return m
 
+    def rmse(self, x, y):
+        if not self._conditioned:
+            raise RuntimeError(
+                "Must condition on data before calculating RMSE"
+            )
+
+        k_pred_data = self._kernel_func(
+            x.reshape(-1, 1),
+            self._x.reshape(1, -1),
+        )
+
+        mean_prior = self._prior_mean_func(x)
+        mean_pred = mean_prior + k_pred_data @ self._scaled_error
+        error = mean_pred - y
+
+        return np.sqrt(np.mean(np.square(error)))
+
     def _get_cov(self, x):
         k_data_data = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
         cov = k_data_data + self._noise_var * np.identity(x.size)

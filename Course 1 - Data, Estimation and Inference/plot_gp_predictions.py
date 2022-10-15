@@ -31,3 +31,6 @@ plotting.plot(
     ),
     plot_name="Data and GP predictions",
 )
+
+print("Log marginal likelihood = %f" % g.log_marginal_likelihood())
+print("RMSE = %f" % g.rmse(sotonmet.t_truth, sotonmet.y_truth))
