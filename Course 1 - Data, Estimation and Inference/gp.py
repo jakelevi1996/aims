@@ -12,7 +12,7 @@ class GaussianProcess:
 
     def sample_prior(self, x, n_samples=1):
         mean = self._prior_mean_func(x)
-        cov = self._get_cov(x)
+        cov = self._get_covariance(x)
         root_cov = np.linalg.cholesky(cov)
         untransformed_samples = self._get_normal_samples([x.size, n_samples])
         samples = root_cov @ untransformed_samples + mean.reshape(-1, 1)
@@ -23,13 +23,13 @@ class GaussianProcess:
         y = np.reshape(y, [-1])
         if not self._conditioned:
             self._x = x
-            cov = self._get_cov(x)
+            cov = self._get_covariance(x)
             self._precision = np.linalg.inv(cov)
             self._error = y - self._prior_mean_func(x)
             self._scaled_error = self._precision @ self._error
             self._conditioned = True
         else:
-            k_new = self._get_cov(x)
+            k_new = self._get_covariance(x)
             k_old_new = self._kernel_func(
                 self._x.reshape(-1, 1),
                 x.reshape(1, -1),
@@ -87,7 +87,7 @@ class GaussianProcess:
         mean_prior = self._prior_mean_func(x_pred)
         mean_pred = mean_prior + k_pred_data @ self._scaled_error
 
-        k_pred_pred = self._get_cov(x_pred)
+        k_pred_pred = self._get_covariance(x_pred)
         k_data_pred = k_pred_data.T
 
         var_pred = k_pred_pred - (k_pred_data @ self._precision @ k_data_pred)
@@ -126,7 +126,7 @@ class GaussianProcess:
 
         return np.sqrt(np.mean(np.square(error)))
 
-    def _get_cov(self, x):
+    def _get_covariance(self, x):
         k_data_data = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
         cov = k_data_data + self._noise_var * np.identity(x.size)
         return cov
