@@ -9,6 +9,7 @@ import plotting
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 DAYS_PER_MINUTE = 1 / (60 * 24)
+T_STEP = 10 * DAYS_PER_MINUTE
 
 sotonmet = data.Sotonmet()
 
@@ -24,17 +25,28 @@ for lookahead_minutes in [0, 5, 50, 500]:
         noise_std=0.02931095,
     )
 
+    t_previous = sotonmet.t_train[-1]
     for t, y in zip(sotonmet.t_train, sotonmet.y_train):
-        g.condition(t, y)
         t_pred = t + lookahead_days
+
+        if t_pred > t_previous + T_STEP:
+            for t_pred in np.arange(t_previous, t_pred, T_STEP):
+                y_pred_mean, y_pred_std = g.predict(t_pred)
+
+                t_pred_list.append(t_pred)
+                y_pred_mean_list.append(y_pred_mean)
+                y_pred_std_list.append(y_pred_std)
+
+        g.condition(t, y)
         y_pred_mean, y_pred_std = g.predict(t_pred)
 
         t_pred_list.append(t_pred)
         y_pred_mean_list.append(y_pred_mean)
         y_pred_std_list.append(y_pred_std)
+        t_previous = t_pred
 
     plot_name = (
-        "Sequential prediction with fixed lookahead = %i minutes"
+        "Sequential prediction with fixed minimum lookahead = %i minutes"
         % lookahead_minutes
     )
     y_pred_mean_array = np.reshape(y_pred_mean_list, -1)
