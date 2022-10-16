@@ -105,12 +105,40 @@ class GaussianProcess:
         if sign <= 0:
             raise RuntimeError("Determinant of precision is not positive!")
 
-        m = -0.5 * (
+        log_lik = -0.5 * (
             self._error @ self._scaled_error
             - log_det_precision
             + self._x.size * LOG_2_PI
         )
-        return m
+        return log_lik
+
+    def log_predictive_likelihood(self, x, y):
+        self._assert_conditioned()
+
+        k_pred_data = self._kernel_func(
+            x.reshape(-1, 1),
+            self._x.reshape(1, -1),
+        )
+
+        mean_prior = self._prior_mean_func(x)
+        mean_pred = mean_prior + k_pred_data @ self._scaled_error
+        error = y - mean_pred
+
+        k_pred_pred = self._get_prior_covariance(x)
+        k_data_pred = k_pred_data.T
+        var_pred = k_pred_pred - (k_pred_data @ self._precision @ k_data_pred)
+        scaled_error = np.linalg.solve(var_pred, error)
+
+        sign, log_det_variance = np.linalg.slogdet(var_pred)
+        if sign <= 0:
+            raise RuntimeError("Determinant of variance is not positive!")
+
+        log_lik = -0.5 * (
+            error @ scaled_error
+            + log_det_variance
+            + self._x.size * LOG_2_PI
+        )
+        return log_lik
 
     def rmse(self, x, y):
         self._assert_conditioned()
