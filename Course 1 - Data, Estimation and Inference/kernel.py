@@ -94,6 +94,7 @@ class Sum:
         parameter_vector = np.concatenate(
             [k.get_parameter_vector() for k in self._kernels]
         )
+        return parameter_vector
 
     def set_parameter_vector(self, param_vector):
         num_param_list = [
