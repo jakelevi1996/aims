@@ -194,8 +194,10 @@ def plot(
         )
         legend_axis.axis("off")
 
-    if axis_properties is not None:
-        axis_properties.apply(plot_axis, fig)
+    if axis_properties is None:
+        axis_properties = AxisProperties()
+
+    axis_properties.apply(plot_axis, fig)
 
     plot_filename = save_and_close(plot_name, fig, dir_name)
     return plot_filename
