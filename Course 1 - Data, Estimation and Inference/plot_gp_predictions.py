@@ -7,7 +7,6 @@ import kernel
 import plotting
 
 sotonmet = data.Sotonmet()
-t_pred = np.linspace(-1, 6, 1000)
 
 g = gp.GaussianProcess(
     prior_mean_func=mean.Constant(3),
@@ -15,15 +14,15 @@ g = gp.GaussianProcess(
     noise_std=1,
 )
 g.condition(sotonmet.t_train, sotonmet.y_train)
-y_pred_mean, y_pred_std = g.predict(t_pred)
+y_pred_mean, y_pred_std = g.predict(sotonmet.t_pred)
 
 plotting.plot(
     *sotonmet.get_train_test_plot_lines(),
-    plotting.Line(t_pred, y_pred_mean, c="r", zorder=40),
+    plotting.Line(sotonmet.t_pred, y_pred_mean, c="r", zorder=40),
     plotting.FillBetween(
-        t_pred,
-        y_pred_mean + y_pred_std,
-        y_pred_mean - y_pred_std,
+        sotonmet.t_pred,
+        y_pred_mean + 2 * y_pred_std,
+        y_pred_mean - 2 * y_pred_std,
         color="r",
         lw=0,
         alpha=0.2,
