@@ -85,3 +85,27 @@ class Linear:
             % (self._centre, length_scale)
         )
         return s
+
+class Sum:
+    def __init__(self, *kernels):
+        self._kernels = kernels
+
+    def get_parameter_vector(self):
+        parameter_vector = np.concatenate(
+            [k.get_parameter_vector() for k in self._kernels]
+        )
+
+    def set_parameter_vector(self, param_vector):
+        num_param_list = [
+            len(k.get_parameter_vector()) for k in self._kernels
+        ]
+        split_inds = np.cumsum(num_param_list)
+        param_list = np.split(param_vector, split_inds)
+        for kernel, params in zip(self._kernels, param_list):
+            kernel.set_parameter_vector(params)
+
+    def __call__(self, x1, x2):
+        return sum(k(x1, x2) for k in self._kernels)
+
+    def __repr__(self):
+        return "Sum(%s)" % (", ".join(repr(k) for k in self._kernels))
