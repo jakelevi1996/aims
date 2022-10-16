@@ -43,15 +43,16 @@ print(
     "Log predictive likelihood (train)= %f"
     % g.log_predictive_likelihood(sotonmet.t_train, sotonmet.y_train)
 )
-batch_inds = np.random.choice(
-    sotonmet.n_truth,
-    sotonmet.n_train,
-    replace=False,
-)
-print(
-    "Log predictive likelihood (truth subset)= %f"
-    % g.log_predictive_likelihood(
-        sotonmet.t_truth[batch_inds],
-        sotonmet.y_truth[batch_inds],
+for _ in range(5):
+    batch_inds = np.random.choice(
+        sotonmet.n_truth,
+        sotonmet.n_train,
+        replace=False,
     )
-)
+    print(
+        "Log predictive likelihood (truth subset)= %f"
+        % g.log_predictive_likelihood(
+            sotonmet.t_truth[batch_inds],
+            sotonmet.y_truth[batch_inds],
+        )
+    )
