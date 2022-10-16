@@ -149,7 +149,7 @@ class GaussianProcess:
 
         return mean_grad, std_grad
 
-    def optimise_hyperparameters(self, x, y, maxiter=20, verbose=True):
+    def optimise_hyperparameters(self, x, y, ftol=1e-6, verbose=True):
         self._x_opt = x
         self._y_opt = y
         self._verbose = verbose
@@ -157,7 +157,7 @@ class GaussianProcess:
             self._optimisation_wrapper,
             self._get_parameter_vector(),
             method="L-BFGS-B",
-            options={"maxiter": maxiter},
+            options={"ftol": 1e-6},
         )
         self._set_parameter_vector(result.x)
         self.decondition()
@@ -230,7 +230,7 @@ class GaussianProcess:
         log_lik = self.log_marginal_likelihood()
 
         if self._verbose:
-            print(self, log_lik)
+            print(log_lik, self)
 
         return -log_lik
 
