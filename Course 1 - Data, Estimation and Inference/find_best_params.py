@@ -1,3 +1,4 @@
+import time
 import numpy as np
 import __init__
 import data
@@ -21,12 +22,15 @@ g_list = [
         noise_std=1,
     ),
 ]
+running_time_list = []
 
 for g in g_list:
+    t0 = time.perf_counter()
     g.optimise_hyperparameters(sotonmet.t_train, sotonmet.y_train)
+    running_time_list.append(time.perf_counter() - t0)
 
 for g in g_list:
-    print(g)
+    print("\n%r" % g)
 
     g.decondition()
     g.condition(sotonmet.t_train, sotonmet.y_train)
@@ -48,3 +52,6 @@ for g in g_list:
         plot_name="Data and optimised GP predictions, GP = %r" % g,
         axis_properties=plotting.AxisProperties(ylim=[0, 6]),
     )
+
+print("\nTime taken to optimise each GP: %s" % running_time_list)
+print("Total time taken: %s" % sum(running_time_list))
