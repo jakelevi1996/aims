@@ -157,7 +157,7 @@ class GaussianProcess:
             self._optimisation_wrapper,
             self._get_parameter_vector(),
             method="L-BFGS-B",
-            options={"ftol": 1e-6},
+            options={"ftol": ftol},
         )
         self._set_parameter_vector(result.x)
         self.decondition()
