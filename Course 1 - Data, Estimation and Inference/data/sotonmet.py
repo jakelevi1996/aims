@@ -11,6 +11,9 @@ DAYS_PER_SECOND = 1 / (60 * 60 * 24)
 
 class Sotonmet:
     def __init__(self, data_path=SOTONMET_PATH):
+        self.n_train = 917
+        self.n_truth = 1258
+
         self._data_dict, num_cols, num_rows = data.load.load_dict(data_path)
         assert num_cols == 19
         assert num_rows == 1258
