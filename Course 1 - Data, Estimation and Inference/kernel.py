@@ -2,8 +2,15 @@ import numpy as np
 
 class SquaredExponential:
     def __init__(self, length_scale, kernel_scale):
+        self.num_params = 2
         self._length_scale = length_scale
         self._kernel_scale = kernel_scale
+
+    def get_parameter_vector(self):
+        return np.log([self._length_scale, self._kernel_scale])
+
+    def set_parameter_vector(self, param_vector):
+        [self._length_scale, self._kernel_scale] = np.exp(param_vector)
 
     def __call__(self, x1, x2):
         sq_distance = np.square((x1 - x2) / self._length_scale)
@@ -22,6 +29,21 @@ class Periodic:
         self._angular_freq = 2 * np.pi / period
         self._length_scale = length_scale
         self._kernel_scale = kernel_scale
+
+    def get_parameter_vector(self):
+        param_list = [
+            self._angular_freq,
+            self._length_scale,
+            self._kernel_scale,
+        ]
+        return np.log(param_list)
+
+    def set_parameter_vector(self, param_vector):
+        [
+            self._angular_freq,
+            self._length_scale,
+            self._kernel_scale,
+        ] = np.exp(param_vector)
 
     def __call__(self, x1, x2):
         k = (
@@ -43,8 +65,16 @@ class Periodic:
 
 class Linear:
     def __init__(self, length_scale, centre):
+        self.num_params = 2
         self._sq_length_scale = length_scale * length_scale
         self._centre = centre
+
+    def get_parameter_vector(self):
+        return [np.log(self._sq_length_scale), self._centre]
+
+    def set_parameter_vector(self, param_vector):
+        log_sq_length_scale, self._centre = param_vector
+        self._sq_length_scale = np.exp(log_sq_length_scale)
 
     def __call__(self, x1, x2):
         k = (x1 - self._centre) * (x2 - self._centre) / self._sq_length_scale

@@ -1,6 +1,19 @@
 import numpy as np
 
 class ZeroMean:
+    def __init__(self):
+        self.num_params = 0
+
+    def get_parameter_vector(self):
+        return []
+
+    def set_parameter_vector(self, param_vector):
+        if len(param_vector) > 0:
+            raise ValueError(
+                "Received %i params, expected 0"
+                % len(param_vector)
+            )
+
     def __call__(self, x):
         return np.zeros(x.shape)
 
@@ -9,7 +22,14 @@ class ZeroMean:
 
 class Constant:
     def __init__(self, offset):
+        self.num_params = 1
         self._offset = offset
+
+    def get_parameter_vector(self):
+        return [self._offset]
+
+    def set_parameter_vector(self, param_vector):
+        [self._offset] = param_vector
 
     def __call__(self, x):
         return np.full(x.shape, self._offset)
@@ -19,8 +39,15 @@ class Constant:
 
 class Linear:
     def __init__(self, scale, offset):
+        self.num_params = 2
         self._scale = scale
         self._offset = offset
+
+    def get_parameter_vector(self):
+        return [self._scale, self._offset]
+
+    def set_parameter_vector(self, param_vector):
+        [self._scale, self._offset] = param_vector
 
     def __call__(self, x):
         return (self._scale * x) + self._offset
