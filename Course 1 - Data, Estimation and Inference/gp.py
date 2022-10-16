@@ -182,6 +182,32 @@ class GaussianProcess:
                 "Must condition on data before calling this method"
             )
 
+    def _get_parameter_vector(self):
+        param_lists = [
+            [np.log(self._noise_var)],
+            self._prior_mean_func.get_parameter_vector(),
+            self._kernel_func.get_parameter_vector(),
+        ]
+        param_vector = np.concatenate(param_lists)
+        return param_vector
+
+    def _set_parameter_vector(self, param_vector):
+        num_param_list = [
+            1,
+            self._prior_mean_func.num_params,
+            self._kernel_func.num_params,
+        ]
+        split_inds = np.cumsum(num_param_list)
+        [log_noise_var], mean_params, kernel_params, excess = np.split(
+            param_vector,
+            split_inds,
+        )
+        self._noise_var = np.exp(log_noise_var)
+        self._prior_mean_func.set_parameter_vector(mean_params)
+        self._kernel_func.set_parameter_vector(kernel_params)
+        if len(excess) > 0:
+            raise ValueError("Received %i excess parameters" % len(excess))
+
     def __repr__(self):
         noise_std = np.sqrt(self._noise_var)
         s = (
