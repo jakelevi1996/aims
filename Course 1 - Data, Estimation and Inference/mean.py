@@ -1,9 +1,6 @@
 import numpy as np
 
 class ZeroMean:
-    def __init__(self):
-        self.num_params = 0
-
     def get_parameter_vector(self):
         return []
 
@@ -22,7 +19,6 @@ class ZeroMean:
 
 class Constant:
     def __init__(self, offset):
-        self.num_params = 1
         self._offset = offset
 
     def get_parameter_vector(self):
@@ -39,7 +35,6 @@ class Constant:
 
 class Linear:
     def __init__(self, scale, offset):
-        self.num_params = 2
         self._scale = scale
         self._offset = offset
 

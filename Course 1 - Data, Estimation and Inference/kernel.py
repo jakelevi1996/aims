@@ -2,7 +2,6 @@ import numpy as np
 
 class SquaredExponential:
     def __init__(self, length_scale, kernel_scale):
-        self.num_params = 2
         self._length_scale = length_scale
         self._kernel_scale = kernel_scale
 
@@ -65,7 +64,6 @@ class Periodic:
 
 class Linear:
     def __init__(self, length_scale, centre):
-        self.num_params = 2
         self._sq_length_scale = length_scale * length_scale
         self._centre = centre
 

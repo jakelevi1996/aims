@@ -207,8 +207,8 @@ class GaussianProcess:
     def _set_parameter_vector(self, param_vector):
         num_param_list = [
             1,
-            self._prior_mean_func.num_params,
-            self._kernel_func.num_params,
+            len(self._prior_mean_func.get_parameter_vector()),
+            len(self._kernel_func.get_parameter_vector()),
         ]
         split_inds = np.cumsum(num_param_list)
         [log_noise_var], mean_params, kernel_params, excess = np.split(
