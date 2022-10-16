@@ -33,4 +33,5 @@ plotting.plot(
 )
 
 print("Log marginal likelihood = %f" % g.log_marginal_likelihood())
-print("RMSE = %f" % g.rmse(sotonmet.t_truth, sotonmet.y_truth))
+print("RMSE (train) = %f" % g.rmse(sotonmet.t_train, sotonmet.y_train))
+print("RMSE (truth) = %f" % g.rmse(sotonmet.t_truth, sotonmet.y_truth))
