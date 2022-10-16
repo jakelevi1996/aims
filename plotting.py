@@ -142,6 +142,11 @@ def save_and_close(plot_name, fig, dir_name=None, file_ext="png"):
         dir_name = util.RESULTS_DIR
     if not os.path.isdir(dir_name):
         os.makedirs(dir_name)
+
+    if len(os.path.abspath(dir_name)) + len(plot_name) > 250:
+        plot_name_len = max(0, 250 - len(os.path.abspath(dir_name)))
+        plot_name = plot_name[:plot_name_len] + "(...)"
+
     file_name = "%s.%s" % (util.clean_filename(plot_name), file_ext)
     full_path = os.path.join(dir_name, file_name)
 
