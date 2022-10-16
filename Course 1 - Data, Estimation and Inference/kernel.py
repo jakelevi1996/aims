@@ -86,7 +86,7 @@ class Linear:
         )
         return s
 
-class Sum:
+class _Reduction:
     def __init__(self, *kernels):
         self._kernels = kernels
 
@@ -105,8 +105,19 @@ class Sum:
         for kernel, params in zip(self._kernels, param_list):
             kernel.set_parameter_vector(params)
 
+class Sum(_Reduction):
     def __call__(self, x1, x2):
         return sum(k(x1, x2) for k in self._kernels)
 
     def __repr__(self):
         return "Sum(%s)" % (", ".join(repr(k) for k in self._kernels))
+
+class Product(_Reduction):
+    def __call__(self, x1, x2):
+        k = self._kernels[0](x1, x2)
+        for kernel in self._kernels[1:]:
+            k *= kernel(x1, x2)
+        return k
+
+    def __repr__(self):
+        return "Product(%s)" % (", ".join(repr(k) for k in self._kernels))
