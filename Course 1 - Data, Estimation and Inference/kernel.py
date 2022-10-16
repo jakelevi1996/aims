@@ -10,6 +10,13 @@ class SquaredExponential:
         k = self._kernel_scale * np.exp(-sq_distance)
         return k
 
+    def __repr__(self):
+        s = (
+            "SquaredExponential(length_scale=%r, kernel_scale=%r)"
+            % (self._length_scale, self._kernel_scale)
+        )
+        return s
+
 class Linear:
     def __init__(self, length_scale, centre):
         self._sq_length_scale = length_scale * length_scale
@@ -18,3 +25,11 @@ class Linear:
     def __call__(self, x1, x2):
         k = (x1 - self._centre) * (x2 - self._centre) / self._sq_length_scale
         return k
+
+    def __repr__(self):
+        length_scale = np.sqrt(self._sq_length_scale)
+        s = (
+            "Linear(length_scale=%r, centre=%r)"
+            % (self._centre, length_scale)
+        )
+        return s

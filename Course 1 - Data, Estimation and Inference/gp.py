@@ -181,3 +181,12 @@ class GaussianProcess:
             raise RuntimeError(
                 "Must condition on data before calling this method"
             )
+
+    def __repr__(self):
+        noise_std = np.sqrt(self._noise_var)
+        s = (
+            "GaussianProcess(prior_mean_func=%r, kernel_func=%r, "
+            "noise_std=%r)"
+            % (self._prior_mean_func, self._kernel_func, noise_std)
+        )
+        return s
