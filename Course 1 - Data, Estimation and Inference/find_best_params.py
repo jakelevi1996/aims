@@ -21,6 +21,14 @@ g_list = [
         kernel_func=kernel.Periodic(0.5, 0.3, 10),
         noise_std=1,
     ),
+    gp.GaussianProcess(
+        prior_mean_func=mean.Constant(3),
+        kernel_func=kernel.Sum(
+            kernel.SquaredExponential(0.3, 10),
+            kernel.Periodic(0.5, 0.3, 10),
+        ),
+        noise_std=1,
+    ),
 ]
 running_time_list = []
 
