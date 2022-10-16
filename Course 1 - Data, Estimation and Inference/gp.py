@@ -132,6 +132,22 @@ class GaussianProcess:
 
         return np.sqrt(np.mean(np.square(error)))
 
+    def predict_gradient(self, x):
+        self._assert_conditioned()
+        mean_pred, var_pred = self._get_predictive_joint_distribution(x)
+
+        dx = x[1:] - x[:-1]
+        diag_inds = np.arange(x.size - 1)
+        grad_transform = np.zeros([x.size - 1, x.size])
+        grad_transform[diag_inds, diag_inds] = -1 / dx
+        grad_transform[diag_inds, diag_inds + 1] = 1 / dx
+
+        mean_grad = grad_transform @ mean_pred
+        var_grad = grad_transform @ var_pred @ grad_transform.T
+        std_grad = np.sqrt(var_grad[diag_inds, diag_inds])
+
+        return mean_grad, std_grad
+
     def _get_prior_covariance(self, x):
         k_data_data = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
         cov = k_data_data + self._noise_var * np.identity(x.size)
