@@ -156,6 +156,7 @@ class GaussianProcess:
         result = scipy.optimize.minimize(
             self._optimisation_wrapper,
             self._get_parameter_vector(),
+            method="L-BFGS-B",
             options={"maxiter": maxiter},
         )
         self._set_parameter_vector(result.x)
