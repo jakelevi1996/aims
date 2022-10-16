@@ -78,19 +78,7 @@ class GaussianProcess:
 
     def sample_posterior(self, x_pred, n_samples=1):
         self._assert_conditioned()
-
-        k_pred_data = self._kernel_func(
-            x_pred.reshape(-1, 1),
-            self._x.reshape(1, -1),
-        )
-
-        mean_prior = self._prior_mean_func(x_pred)
-        mean_pred = mean_prior + k_pred_data @ self._scaled_error
-
-        k_pred_pred = self._get_prior_covariance(x_pred)
-        k_data_pred = k_pred_data.T
-
-        var_pred = k_pred_pred - (k_pred_data @ self._precision @ k_data_pred)
+        mean_pred, var_pred = self._get_predictive_joint_distribution(x_pred)
 
         root_var = np.linalg.cholesky(var_pred)
         samples_shape = [x_pred.size, n_samples]
@@ -114,19 +102,9 @@ class GaussianProcess:
 
     def log_predictive_likelihood(self, x, y):
         self._assert_conditioned()
+        mean_pred, var_pred = self._get_predictive_joint_distribution(x)
 
-        k_pred_data = self._kernel_func(
-            x.reshape(-1, 1),
-            self._x.reshape(1, -1),
-        )
-
-        mean_prior = self._prior_mean_func(x)
-        mean_pred = mean_prior + k_pred_data @ self._scaled_error
         error = y - mean_pred
-
-        k_pred_pred = self._get_prior_covariance(x)
-        k_data_pred = k_pred_data.T
-        var_pred = k_pred_pred - (k_pred_data @ self._precision @ k_data_pred)
         scaled_error = np.linalg.solve(var_pred, error)
 
         sign, log_det_variance = np.linalg.slogdet(var_pred)
@@ -158,6 +136,23 @@ class GaussianProcess:
         k_data_data = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
         cov = k_data_data + self._noise_var * np.identity(x.size)
         return cov
+
+    def _get_predictive_joint_distribution(self, x):
+        self._assert_conditioned()
+
+        k_pred_data = self._kernel_func(
+            x.reshape(-1, 1),
+            self._x.reshape(1, -1),
+        )
+
+        mean_prior = self._prior_mean_func(x)
+        mean_pred = mean_prior + k_pred_data @ self._scaled_error
+
+        k_pred_pred = self._get_prior_covariance(x)
+        k_data_pred = k_pred_data.T
+        var_pred = k_pred_pred - (k_pred_data @ self._precision @ k_data_pred)
+
+        return mean_pred, var_pred
 
     def _get_normal_samples(self, shape):
         if self._rng is None:
