@@ -162,9 +162,10 @@ class GaussianProcess:
         self.decondition()
 
     def _get_prior_covariance(self, x):
-        k_data_data = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
-        cov = k_data_data + self._noise_var * np.identity(x.size)
-        return cov
+        k = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
+        diag_inds = np.arange(x.size)
+        k[diag_inds, diag_inds] += self._noise_var
+        return k
 
     def _get_predictive_joint_distribution(self, x):
         self._assert_conditioned()
