@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.optimize
 
 LOG_2_PI = np.log(2 * np.pi)
 
@@ -148,6 +149,18 @@ class GaussianProcess:
 
         return mean_grad, std_grad
 
+    def optimise_hyperparameters(self, x, y, maxiter=20, verbose=True):
+        self._x_opt = x
+        self._y_opt = y
+        self._verbose = verbose
+        result = scipy.optimize.minimize(
+            self._optimisation_wrapper,
+            self._get_parameter_vector(),
+            options={"maxiter": maxiter},
+        )
+        self._set_parameter_vector(result.x)
+        self.decondition()
+
     def _get_prior_covariance(self, x):
         k_data_data = self._kernel_func(x.reshape(-1, 1), x.reshape(1, -1))
         cov = k_data_data + self._noise_var * np.identity(x.size)
@@ -207,6 +220,17 @@ class GaussianProcess:
         self._kernel_func.set_parameter_vector(kernel_params)
         if len(excess) > 0:
             raise ValueError("Received %i excess parameters" % len(excess))
+
+    def _optimisation_wrapper(self, param_vector):
+        self.decondition()
+        self._set_parameter_vector(param_vector)
+        self.condition(self._x_opt, self._y_opt)
+        log_lik = self.log_marginal_likelihood()
+
+        if self._verbose:
+            print(self, log_lik)
+
+        return -log_lik
 
     def __repr__(self):
         noise_std = np.sqrt(self._noise_var)
