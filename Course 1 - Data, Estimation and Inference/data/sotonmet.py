@@ -49,6 +49,8 @@ class Sotonmet:
         assert self.t_truth.size == 1258
         assert self.y_truth.size == 1258
 
+        self.t_pred = np.linspace(-1, 7, 1000)
+
     def get_column_data(self, column_name):
         y_str_list = self._data_dict[column_name]
         y_data = [float(y_str) for y_str in y_str_list if len(y_str) > 0]
