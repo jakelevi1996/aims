@@ -13,16 +13,16 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 sotonmet = data.Sotonmet()
 
 class _GpSweep(sweep.Experiment):
-    def _get_gp(self, **kwargs):
+    def get_gp(self, **kwargs):
         raise NotImplementedError()
 
     def run(self, **kwargs):
-        gp = self._get_gp(**kwargs)
+        gp = self.get_gp(**kwargs)
         gp.condition(sotonmet.t_train, sotonmet.y_train)
         return gp.log_marginal_likelihood()
 
 class Periodic(_GpSweep):
-    def _get_gp(self, offset, period, length_scale, kernel_scale, noise_std):
+    def get_gp(self, offset, period, length_scale, kernel_scale, noise_std):
         return gp.GaussianProcess(
             prior_mean_func=mean.Constant(offset),
             kernel_func=kernel.Periodic(period, length_scale, kernel_scale),
@@ -33,7 +33,7 @@ sweeper = sweep.ParamSweeper(
     experiment=Periodic(),
     n_repeats=1,
     higher_is_better=True,
-    print_every=10,
+    verbose=False,
 )
 def add_log_range_param(sweeper, name, default, scale_factor=10, num=25):
     val_range = sweep.get_range(
@@ -55,3 +55,25 @@ optimal_param_dict = sweeper.find_best_parameters()
 
 output_dir = os.path.join(CURRENT_DIR, "Results", "Param sweep", "Periodic")
 sweeper.plot("Periodic kernel", output_dir)
+
+g = Periodic().get_gp(**optimal_param_dict)
+g.condition(sotonmet.t_train, sotonmet.y_train)
+y_pred_mean, y_pred_std = g.predict(sotonmet.t_pred)
+
+print(g)
+print(g.log_marginal_likelihood())
+plotting.plot(
+    *sotonmet.get_train_test_plot_lines(),
+    plotting.Line(sotonmet.t_pred, y_pred_mean, c="r", zorder=40),
+    plotting.FillBetween(
+        sotonmet.t_pred,
+        y_pred_mean + 2 * y_pred_std,
+        y_pred_mean - 2 * y_pred_std,
+        color="r",
+        lw=0,
+        alpha=0.2,
+        zorder=30,
+    ),
+    plot_name="Predictions after parameter sweep",
+    axis_properties=plotting.AxisProperties(ylim=[0, 6])
+)
