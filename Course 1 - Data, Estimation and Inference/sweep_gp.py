@@ -143,10 +143,17 @@ sweeper_list = [
 for sweeper in sweeper_list:
     g = sweeper.find_best_parameters()
     g.condition(sotonmet.t_train, sotonmet.y_train)
+
+    print(g)
+    print(g.log_marginal_likelihood())
+
+    g = sweeper.find_better_parameters()
+    g.condition(sotonmet.t_train, sotonmet.y_train)
     y_pred_mean, y_pred_std = g.predict(sotonmet.t_pred)
 
     print(g)
     print(g.log_marginal_likelihood())
+
     plotting.plot(
         *sotonmet.get_train_test_plot_lines(),
         plotting.Line(sotonmet.t_pred, y_pred_mean, c="r", zorder=40),
@@ -159,12 +166,10 @@ for sweeper in sweeper_list:
             alpha=0.2,
             zorder=30,
         ),
-        plot_name="Predictions for %s after parameter sweep" % sweeper.name,
+        plot_name=(
+            "Predictions for %s kernel after parameter sweep"
+            % sweeper.name
+        ),
         dir_name=sweeper.output_dir,
         axis_properties=plotting.AxisProperties(ylim=[0, 6])
     )
-
-    g = sweeper.find_better_parameters()
-    g.condition(sotonmet.t_train, sotonmet.y_train)
-    print(g)
-    print(g.log_marginal_likelihood())
