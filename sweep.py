@@ -128,7 +128,10 @@ class ParamSweeper:
         for param in self._param_list:
             val_lo = max(v for v in param.val_range if v < param.default)
             val_hi = min(v for v in param.val_range if v > param.default)
-            param.val_range = get_range(val_lo, val_hi, new_num_vals)
+            new_range = get_range(val_lo, val_hi, new_num_vals)
+            param.val_range = np.sort(
+                np.concatenate([new_range, [param.default]])
+            )
 
     def plot(self, experiment_name="Experiment", output_dir=None):
         filename_list = []
