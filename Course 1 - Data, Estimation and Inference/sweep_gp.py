@@ -139,12 +139,12 @@ class Product(_GpSweep):
         self._sweeper.add_parameter(
             sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
         )
-        self._add_log_range_param("sqe_length_scale", 0.087)
-        self._add_log_range_param("sqe_kernel_scale", 0.065)
-        self._add_log_range_param("period", 0.514954586260453, scale_factor=4)
-        self._add_log_range_param("per_length_scale", 2.9)
-        self._add_log_range_param("per_kernel_scale", 0.193)
-        self._add_log_range_param("noise_std", 0.10)
+        self._add_log_range_param("sqe_length_scale", 0.7880754080416588)
+        self._add_log_range_param("sqe_kernel_scale", 1.4457480054362188)
+        self._add_log_range_param("period", 0.5082224844864489, scale_factor=4)
+        self._add_log_range_param("per_length_scale", 0.7405355857351571)
+        self._add_log_range_param("per_kernel_scale", 0.09929886031253296)
+        self._add_log_range_param("noise_std", 0.02905329635947378)
 
     def _get_gp(
         self,
