@@ -2,41 +2,34 @@ import numpy as np
 import util
 import plotting
 
+def get_range(val_lo, val_hi, val_num=10, log_space=False):
+    if log_space:
+        log_lo, log_hi = np.log([val_lo, val_hi])
+        val_range = np.exp(np.linspace(log_lo, log_hi, val_num))
+    else:
+        val_range = np.linspace(val_lo, val_hi, val_num)
+
+    return val_range
+
 class Parameter:
     def __init__(
         self,
         name,
         default,
-        val_range=None,
-        val_lo=None,
-        val_hi=None,
-        val_num=10,
-        log_space=False,
+        val_range,
+        log_x_axis=False,
         plot_axis_properties=None,
     ):
         self.name = name
         self.default = default
-        self.val_results_dict = None
-
-        if val_range is None:
-            if (val_lo is None) or (val_hi is None):
-                raise ValueError(
-                    "Must either specify val_range or specify val_lo and "
-                    "val_hi"
-                )
-            if log_space:
-                log_lo, log_hi = np.log([val_lo, val_hi])
-                val_range = np.exp(np.linspace(log_lo, log_hi, val_num))
-            else:
-                val_range = np.linspace(val_lo, val_hi, val_num)
-
         self.val_range = val_range
+        self.val_results_dict = None
 
         if plot_axis_properties is None:
             plot_axis_properties = plotting.AxisProperties(
                 xlabel=name,
                 ylabel="Result",
-                log_xscale=log_space,
+                log_xscale=log_x_axis,
             )
 
         self.plot_axis_properties = plot_axis_properties
