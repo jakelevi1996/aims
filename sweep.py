@@ -126,6 +126,8 @@ class ParamSweeper:
 
     def tighten_ranges(self, new_num_vals=15):
         for param in self._param_list:
+            if any(not util.is_numeric(v) for v in param.val_range):
+                continue
             val_lo = max(v for v in param.val_range if v < param.default)
             val_hi = min(v for v in param.val_range if v > param.default)
             new_range = get_range(val_lo, val_hi, new_num_vals)
