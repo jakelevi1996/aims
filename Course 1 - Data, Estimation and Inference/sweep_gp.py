@@ -46,7 +46,8 @@ def add_log_range_param(sweeper, name, default, scale_factor=10, num=25):
     sweeper.add_parameter(param)
 
 sweeper.add_parameter(sweep.Parameter("offset", 3, np.arange(0, 4, 0.5)))
-add_log_range_param(sweeper, "period", 0.5, scale_factor=4)
+best_period = 0.514954586260453
+add_log_range_param(sweeper, "period", best_period, scale_factor=4, num=101)
 add_log_range_param(sweeper, "length_scale", 2.9)
 add_log_range_param(sweeper, "kernel_scale", 6.1)
 add_log_range_param(sweeper, "noise_std", 0.17)
