@@ -108,11 +108,14 @@ class ParamSweeper:
             val_results_dict[val] = results_list
 
         if update_parameters:
-            best_param_val = self._get_best_param_val(val_results_dict)
+            best_param_val, score = self._get_best_param_val(val_results_dict)
             if parameter.default != best_param_val:
                 self._print(
-                    "\nParameter %r default value changing from %s to %s"
-                    % (parameter.name, parameter.default, best_param_val),
+                    "\nParameter %r default value changing from %r to %r"
+                    % (parameter.name, parameter.default, best_param_val)
+                )
+                self._print(
+                    "New optimal objective function value = %r" % score
                 )
                 parameter.default = best_param_val
                 self._has_updated_any_parameters = True
@@ -251,4 +254,4 @@ class ParamSweeper:
                 key=lambda val: score_dict[val],
             )
 
-        return best_param_val
+        return best_param_val, score_dict[best_param_val]
