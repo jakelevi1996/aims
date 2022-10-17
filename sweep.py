@@ -222,7 +222,7 @@ class ParamSweeper:
             with self._context:
                 score = self._experiment.run(**experiment_param_dict)
                 results_list.append(score)
-                if (i % self._print_every) == 0:
+                if (self._print_every > 0) and ((i % self._print_every) == 0):
                     self._print(
                         "Repeat %i/%i, result is %s"
                         % (i, self._n_repeats, score)
