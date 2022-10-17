@@ -134,10 +134,42 @@ class Sum(_GpSweep):
             noise_std=noise_std,
         )
 
+class Product(_GpSweep):
+    def _add_parameters(self):
+        self._sweeper.add_parameter(
+            sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
+        )
+        self._add_log_range_param("sqe_length_scale", 0.087)
+        self._add_log_range_param("sqe_kernel_scale", 0.065)
+        self._add_log_range_param("period", 0.514954586260453, scale_factor=4)
+        self._add_log_range_param("per_length_scale", 2.9)
+        self._add_log_range_param("per_kernel_scale", 0.193)
+        self._add_log_range_param("noise_std", 0.10)
+
+    def _get_gp(
+        self,
+        offset,
+        sqe_length_scale,
+        sqe_kernel_scale,
+        period,
+        per_length_scale,
+        per_kernel_scale,
+        noise_std,
+    ):
+        return gp.GaussianProcess(
+            prior_mean_func=mean.Constant(offset),
+            kernel_func=kernel.Product(
+                kernel.SquaredExponential(sqe_length_scale, sqe_kernel_scale),
+                kernel.Periodic(period, per_length_scale, per_kernel_scale),
+            ),
+            noise_std=noise_std,
+        )
+
 sweeper_list = [
     SquaredExponential(),
     Periodic(),
     Sum(),
+    Product(),
 ]
 
 for sweeper in sweeper_list:
