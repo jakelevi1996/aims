@@ -70,9 +70,9 @@ class SquaredExponential(_GpSweep):
         self._sweeper.add_parameter(
             sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
         )
-        self._add_log_range_param("length_scale", 0.087)
-        self._add_log_range_param("kernel_scale", 0.65)
-        self._add_log_range_param("noise_std", 0.029)
+        self._add_log_range_param("length_scale", 0.0866675466933244)
+        self._add_log_range_param("kernel_scale", 0.6540971841037698)
+        self._add_log_range_param("noise_std", 0.029309042867821246)
 
     def _get_gp(self, offset, length_scale, kernel_scale, noise_std):
         return gp.GaussianProcess(
