@@ -128,8 +128,16 @@ class ParamSweeper:
         for param in self._param_list:
             if any(not util.is_numeric(v) for v in param.val_range):
                 continue
-            val_lo = max(v for v in param.val_range if v < param.default)
-            val_hi = min(v for v in param.val_range if v > param.default)
+            lo_candidates = [v for v in param.val_range if v < param.default]
+            hi_candidates = [v for v in param.val_range if v > param.default]
+            if len(lo_candidates) > 0:
+                val_lo = max(lo_candidates)
+            else:
+                val_lo = param.default / 2
+            if len(hi_candidates) > 0:
+                val_hi = min(hi_candidates)
+            else:
+                val_hi = param.default * 2
             new_range = get_range(val_lo, val_hi, new_num_vals)
             param.val_range = np.sort(
                 np.concatenate([new_range, [param.default]])
