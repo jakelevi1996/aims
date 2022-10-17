@@ -9,7 +9,7 @@ import sweep
 import plotting
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = os.path.join(CURRENT_DIR, "Results", "Param sweep")
+OUTPUT_DIR = os.path.join(CURRENT_DIR, "Results", "param_sweep")
 
 sotonmet = data.Sotonmet()
 
@@ -65,6 +65,22 @@ class _GpSweep(sweep.Experiment):
         param = sweep.Parameter(name, default, val_range, log_x_axis=True)
         self._sweeper.add_parameter(param)
 
+class SquaredExponential(_GpSweep):
+    def _add_parameters(self):
+        self._sweeper.add_parameter(
+            sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
+        )
+        self._add_log_range_param("length_scale", 0.087)
+        self._add_log_range_param("kernel_scale", 0.65)
+        self._add_log_range_param("noise_std", 0.029)
+
+    def _get_gp(self, offset, length_scale, kernel_scale, noise_std):
+        return gp.GaussianProcess(
+            prior_mean_func=mean.Constant(offset),
+            kernel_func=kernel.SquaredExponential(length_scale, kernel_scale),
+            noise_std=noise_std,
+        )
+
 class Periodic(_GpSweep):
     def _add_parameters(self):
         self._sweeper.add_parameter(
@@ -87,30 +103,36 @@ class Periodic(_GpSweep):
             noise_std=noise_std,
         )
 
-periodic_sweeper = Periodic()
-g = periodic_sweeper.find_best_parameters()
-g.condition(sotonmet.t_train, sotonmet.y_train)
-y_pred_mean, y_pred_std = g.predict(sotonmet.t_pred)
+sweeper_list = [
+    SquaredExponential(),
+    Periodic(),
+]
 
-print(g)
-print(g.log_marginal_likelihood())
-plotting.plot(
-    *sotonmet.get_train_test_plot_lines(),
-    plotting.Line(sotonmet.t_pred, y_pred_mean, c="r", zorder=40),
-    plotting.FillBetween(
-        sotonmet.t_pred,
-        y_pred_mean + 2 * y_pred_std,
-        y_pred_mean - 2 * y_pred_std,
-        color="r",
-        lw=0,
-        alpha=0.2,
-        zorder=30,
-    ),
-    plot_name="Predictions after parameter sweep",
-    axis_properties=plotting.AxisProperties(ylim=[0, 6])
-)
+for sweeper in sweeper_list:
+    g = sweeper.find_best_parameters()
+    g.condition(sotonmet.t_train, sotonmet.y_train)
+    y_pred_mean, y_pred_std = g.predict(sotonmet.t_pred)
 
-g = periodic_sweeper.find_better_parameters()
-g.condition(sotonmet.t_train, sotonmet.y_train)
-print(g)
-print(g.log_marginal_likelihood())
+    print(g)
+    print(g.log_marginal_likelihood())
+    plotting.plot(
+        *sotonmet.get_train_test_plot_lines(),
+        plotting.Line(sotonmet.t_pred, y_pred_mean, c="r", zorder=40),
+        plotting.FillBetween(
+            sotonmet.t_pred,
+            y_pred_mean + 2 * y_pred_std,
+            y_pred_mean - 2 * y_pred_std,
+            color="r",
+            lw=0,
+            alpha=0.2,
+            zorder=30,
+        ),
+        plot_name="Predictions for %s after parameter sweep" % sweeper.name,
+        dir_name=sweeper.output_dir,
+        axis_properties=plotting.AxisProperties(ylim=[0, 6])
+    )
+
+    g = sweeper.find_better_parameters()
+    g.condition(sotonmet.t_train, sotonmet.y_train)
+    print(g)
+    print(g.log_marginal_likelihood())
