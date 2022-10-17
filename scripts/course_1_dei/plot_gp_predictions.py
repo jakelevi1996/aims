@@ -2,15 +2,13 @@ import numpy as np
 import __init__
 import data
 import gp
-import mean
-import kernel
 import plotting
 
 sotonmet = data.Sotonmet()
 
 g = gp.GaussianProcess(
-    prior_mean_func=mean.Constant(3),
-    kernel_func=kernel.SquaredExponential(0.3, 10),
+    prior_mean_func=gp.mean.Constant(3),
+    kernel_func=gp.kernel.SquaredExponential(0.3, 10),
     noise_std=1,
 )
 g.condition(sotonmet.t_train, sotonmet.y_train)
