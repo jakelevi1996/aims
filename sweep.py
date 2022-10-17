@@ -52,6 +52,7 @@ class ParamSweeper:
         n_sigma=1,
         higher_is_better=True,
         print_every=1,
+        verbose=True,
         printer=None,
     ):
         self._experiment = experiment
@@ -59,6 +60,7 @@ class ParamSweeper:
         self._n_sigma = n_sigma
         self._higher_is_better = higher_is_better
         self._print_every = print_every
+        self._verbose = verbose
         if printer is None:
             printer = util.Printer()
         self._print = printer
@@ -206,16 +208,17 @@ class ParamSweeper:
         return filename_list
 
     def _run_experiment(self, experiment_param_dict):
-        self._print("Running an experiment with the following parameters:")
-        for name, value in experiment_param_dict.items():
-            self._print("| %20r = %r" % (name, value))
+        if self._verbose:
+            self._print("Running an experiment with parameters:")
+            for name, value in experiment_param_dict.items():
+                self._print("| %20r = %r" % (name, value))
 
         results_list = []
         for i in range(self._n_repeats):
             with self._context:
                 score = self._experiment.run(**experiment_param_dict)
                 results_list.append(score)
-                if (self._print_every > 0) and ((i % self._print_every) == 0):
+                if self._verbose and ((i % self._print_every) == 0):
                     self._print(
                         "Repeat %i/%i, result is %s"
                         % (i, self._n_repeats, score)
