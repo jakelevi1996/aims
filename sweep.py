@@ -159,45 +159,41 @@ class ParamSweeper:
             else:
                 param_default_str = str(param.default)
 
-            all_results_line = plotting.Line(
-                all_results_x,
-                all_results_y,
-                c="b",
-                ls="",
-                marker="o",
-                alpha=0.3,
-                label="Result",
-                zorder=20,
-            )
-            mean_line = plotting.Line(
-                val_list,
-                mean,
-                c="b",
-                label="Mean results",
-                zorder=30,
-            )
-            std_line = plotting.FillBetween(
-                val_list,
-                mean + (self._n_sigma * std),
-                mean - (self._n_sigma * std),
-                color="b",
-                label="$\\pm %s \\sigma$" % self._n_sigma,
-                alpha=0.3,
-                zorder=10,
-            )
-            default_line = plotting.HVLine(
-                v=param.default,
-                h=optimal_h,
-                c="r",
-                ls="--",
-                label="Optimal value = %s" % param_default_str,
-                zorder=40,
-            )
             plot_filename = plotting.plot(
-                all_results_line,
-                mean_line,
-                std_line,
-                default_line,
+                plotting.Line(
+                    all_results_x,
+                    all_results_y,
+                    c="b",
+                    ls="",
+                    marker="o",
+                    alpha=0.3,
+                    label="Result",
+                    zorder=20,
+                ),
+                plotting.Line(
+                    val_list,
+                    mean,
+                    c="b",
+                    label="Mean results",
+                    zorder=30,
+                ),
+                plotting.FillBetween(
+                    val_list,
+                    mean + (self._n_sigma * std),
+                    mean - (self._n_sigma * std),
+                    color="b",
+                    label="$\\pm %s \\sigma$" % self._n_sigma,
+                    alpha=0.3,
+                    zorder=10,
+                ),
+                plotting.HVLine(
+                    v=param.default,
+                    h=optimal_h,
+                    c="r",
+                    ls="--",
+                    label="Optimal value = %s" % param_default_str,
+                    zorder=40,
+                ),
                 plot_name=(
                     "Parameter sweep results for %r, varying parameter %r"
                     % (experiment_name, param.name)
