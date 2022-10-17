@@ -196,7 +196,10 @@ class ParamSweeper:
                 zorder=40,
             )
             plot_filename = plotting.plot(
-                [all_results_line, mean_line, std_line, default_line],
+                all_results_line,
+                mean_line,
+                std_line,
+                default_line,
                 plot_name=(
                     "Parameter sweep results for %r, varying parameter %r"
                     % (experiment_name, param.name)
