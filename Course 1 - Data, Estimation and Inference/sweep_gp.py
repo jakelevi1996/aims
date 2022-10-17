@@ -71,7 +71,7 @@ class SquaredExponential(_GpSweep):
             sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
         )
         self._add_log_range_param("length_scale", 0.0866675466933244)
-        self._add_log_range_param("kernel_scale", 0.6540971841037698)
+        self._add_log_range_param("kernel_scale", 0.6540971841037699)
         self._add_log_range_param("noise_std", 0.029309042867821246)
 
     def _get_gp(self, offset, length_scale, kernel_scale, noise_std):
@@ -108,12 +108,12 @@ class Sum(_GpSweep):
         self._sweeper.add_parameter(
             sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
         )
-        self._add_log_range_param("sqe_length_scale", 0.087)
-        self._add_log_range_param("sqe_kernel_scale", 0.65)
+        self._add_log_range_param("sqe_length_scale", 0.06917512071945595)
+        self._add_log_range_param("sqe_kernel_scale", 0.029895345214372513)
         self._add_log_range_param("period", 0.514954586260453, scale_factor=4)
-        self._add_log_range_param("per_length_scale", 2.9)
-        self._add_log_range_param("per_kernel_scale", 6.1)
-        self._add_log_range_param("noise_std", 0.10)
+        self._add_log_range_param("per_length_scale", 0.6512752017924203)
+        self._add_log_range_param("per_kernel_scale", 0.13082827454160073)
+        self._add_log_range_param("noise_std", 0.02871806422941413)
 
     def _get_gp(
         self,
