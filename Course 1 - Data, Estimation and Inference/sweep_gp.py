@@ -77,3 +77,13 @@ plotting.plot(
     plot_name="Predictions after parameter sweep",
     axis_properties=plotting.AxisProperties(ylim=[0, 6])
 )
+sweeper.tighten_ranges()
+optimal_param_dict = sweeper.find_best_parameters()
+sweeper.plot(
+    "Periodic kernel (tightened range)",
+    os.path.join(output_dir, "tightened_range"),
+)
+g = Periodic().get_gp(**optimal_param_dict)
+g.condition(sotonmet.t_train, sotonmet.y_train)
+print(g)
+print(g.log_marginal_likelihood())
