@@ -57,27 +57,6 @@ class Sotonmet:
 
         return np.array(y_data)
 
-    def get_train_test_plot_lines(self):
-        train_data_line = plotting.Line(
-            self.t_train,
-            self.y_train,
-            c="k",
-            ls="",
-            marker="o",
-            alpha=0.5,
-            zorder=20,
-        )
-        test_data_line = plotting.Line(
-            self.t_truth,
-            self.y_truth,
-            c="k",
-            ls="",
-            marker="x",
-            alpha=0.5,
-            zorder=20,
-        )
-        return train_data_line, test_data_line
-
 def get_timestamp(t_str, t_format="%Y-%m-%dT%H:%M:%S"):
     time_struct = time.strptime(t_str, t_format)
     timestamp = calendar.timegm(time_struct)
