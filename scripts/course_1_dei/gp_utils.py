@@ -29,6 +29,7 @@ def get_optimal_gp():
     return g
 
 def plot_gp(g, dataset, plot_name, dir_name=RESULTS_DIR):
+    g.decondition()
     g.condition(dataset.t_train, dataset.y_train)
     y_pred_mean, y_pred_std = g.predict(dataset.t_pred)
 
