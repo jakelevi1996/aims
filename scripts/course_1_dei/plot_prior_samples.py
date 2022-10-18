@@ -23,11 +23,15 @@ prior_sample_lines = [
         c=cp(i),
         alpha=0.5,
         zorder=30,
+        label="Prior sample %i" % (i + 1)
     )
     for i in range(num_prior_samples)
 ]
 plotting.plot(
     *scripts.course_1_dei.gp_utils.get_dataset_lines(sotonmet),
     *prior_sample_lines,
-    plot_name="Samples from GP prior vs data",
+    plot_name="Samples from GP prior",
+    dir_name=scripts.course_1_dei.gp_utils.RESULTS_DIR,
+    axis_properties=scripts.course_1_dei.gp_utils.AXIS_PROPERTIES,
+    legend_properties=plotting.LegendProperties(),
 )
