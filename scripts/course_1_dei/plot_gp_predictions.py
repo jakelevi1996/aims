@@ -3,6 +3,7 @@ import __init__
 import data
 import gp
 import plotting
+import scripts.course_1_dei.gp_utils
 
 sotonmet = data.Sotonmet()
 
@@ -15,8 +16,51 @@ g.condition(sotonmet.t_train, sotonmet.y_train)
 y_pred_mean, y_pred_std = g.predict(sotonmet.t_pred)
 
 plotting.plot(
-    *sotonmet.get_train_test_plot_lines(),
-    plotting.Line(sotonmet.t_pred, y_pred_mean, c="r", zorder=40),
+    plotting.Line(
+        sotonmet.t_train,
+        sotonmet.y_train,
+        c="k",
+        ls="",
+        marker="o",
+        alpha=0.5,
+        zorder=20,
+        label="Training data",
+    ),
+    plotting.Line(
+        sotonmet.t_truth,
+        sotonmet.y_truth,
+        c="k",
+        ls="",
+        marker="x",
+        alpha=0.5,
+        zorder=20,
+        label="Ground truth data",
+    ),
+    plotting.Line(
+        sotonmet.t_pred,
+        y_pred_mean,
+        c="r",
+        zorder=40,
+        label="GP mean prediction",
+    ),
+    plotting.FillBetween(
+        sotonmet.t_pred,
+        y_pred_mean + y_pred_std,
+        y_pred_mean - y_pred_std,
+        color="r",
+        lw=0,
+        alpha=0.2,
+        zorder=30,
+    ),
+    plotting.FillBetween(
+        [],
+        [],
+        [],
+        color="r",
+        lw=0,
+        alpha=0.5,
+        label="$\\pm \\sigma$",
+    ),
     plotting.FillBetween(
         sotonmet.t_pred,
         y_pred_mean + 2 * y_pred_std,
@@ -25,8 +69,12 @@ plotting.plot(
         lw=0,
         alpha=0.2,
         zorder=30,
+        label="$\\pm 2 \\sigma$",
     ),
     plot_name="Data and GP predictions",
+    dir_name=scripts.course_1_dei.gp_utils.RESULTS_DIR,
+    axis_properties=plotting.AxisProperties("Time (days)", "Tide height (m)"),
+    legend_properties=plotting.LegendProperties(),
 )
 
 print("Log marginal likelihood = %f" % g.log_marginal_likelihood())
