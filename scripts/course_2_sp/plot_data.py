@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import scipy.linalg
 import __init__
 import plotting
 
@@ -38,11 +39,9 @@ def get_autocorrelation_coefficients_embedding(x, n_coeffs):
     coeffs, *_ = np.linalg.lstsq(embedding_matrix, x[n_coeffs:], rcond=None)
     return coeffs
 
-coeffs = get_autocorrelation_coefficients_embedding(qbo_array[:, 0], 4)
-print(coeffs)
-
 def get_autocorrelation_coefficients_autocovariance(x, n_coeffs):
-    # TODO: this function has a bug and doesn't give the correct answers
+    # TODO: this function doesn't give answers consistent with
+    # get_autocorrelation_coefficients_embedding
     x_zero_mean = x - np.mean(x)
     var = np.mean(x_zero_mean * x_zero_mean)
     auto_cov_list = [
@@ -61,7 +60,8 @@ def get_autocorrelation_coefficients_autocovariance(x, n_coeffs):
     return coeffs
 
 def get_autocorrelation_coefficients_autocovariance_toeplitz(x, n_coeffs):
-    # TODO: this function has a bug and doesn't give the correct answers
+    # TODO: this function doesn't give answers consistent with
+    # get_autocorrelation_coefficients_embedding
     x_zero_mean = x - np.mean(x)
     var = np.mean(x_zero_mean * x_zero_mean)
     auto_cov_list = [
@@ -73,5 +73,31 @@ def get_autocorrelation_coefficients_autocovariance_toeplitz(x, n_coeffs):
 
     coeffs = scipy.linalg.solve_toeplitz(toeplitz_vector, auto_cov)
     return coeffs
+
+def get_cross_regression_coefficients_x_from_y(x, y, n_coeffs):
+    embedding_matrix = y[
+        np.flip(np.arange(n_coeffs))
+        + np.arange(y.size - n_coeffs).reshape(-1, 1)
+    ]
+    coeffs, *_ = np.linalg.lstsq(embedding_matrix, x[n_coeffs:], rcond=None)
+    return coeffs
+
+coeffs = get_autocorrelation_coefficients_embedding(qbo_array[:, 0], 4)
+print(coeffs)
 coeffs = get_autocorrelation_coefficients_autocovariance(qbo_array[:, 0], 4)
 print(coeffs)
+coeffs = get_autocorrelation_coefficients_autocovariance_toeplitz(
+    qbo_array[:, 0],
+    4,
+)
+
+print(coeffs)
+for x in range(3):
+    for y in range(3):
+        print("Predict stream %i from stream %i:" % (x + 1, y + 1))
+        coeffs = get_cross_regression_coefficients_x_from_y(
+            qbo_array[:, x],
+            qbo_array[:, y],
+            4,
+        )
+        print(coeffs, np.sum(np.square(coeffs)))
