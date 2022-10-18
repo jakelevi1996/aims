@@ -54,6 +54,27 @@ Joint samples from the predictive distribution of a Gaussian process can be plot
 
 ## Calculating RMSE, log marginal likelihood, and log predictive likelihood
 
+The RMSE, log marginal likelihood, and log predictive likelihood can be printed by running the command `python scripts/course_1_dei/print_likelihoods.py`. The output for the same 2 Gaussian Processes is shown below. Note that although the first Gaussian process has a very low RMSE evaluated on the training data, it has an RMSE which is 30x higher when evaluated on the ground truth data, which is to say that the first Gaussian Process overfits the training data very badly, which is reflected in the significantly worse marginal and predictive likelihoods when compared to the second Gaussian process. The second Gaussian process has worse RMSE on the training data than the first Gaussian Process, but better RMSE on the ground truth data, which is to say that the second Gaussian process generalises better to the ground truth data, and this is reflected in the better marginal and predictive likelihoods of the second Gaussian process.
+
+```
+$ python scripts/course_1_dei/print_likelihoods.py
+GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.1, kernel_scale=1), noise_std=0.001)
+RMSE (train) = 0.026773
+RMSE (truth) = 0.804001
+Log marginal likelihood = -327743.802128
+Log predictive likelihood = -87596.252923
+Log predictive likelihood (train) = -321611.898886
+Log predictive likelihoods (truth subsets) = [-71286.49205436907, -70791.55218104349, -69201.39767392409, -72901.750074576, -67057.98517408842]
+
+GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)
+RMSE (train) = 0.224601
+RMSE (truth) = 0.257348
+Log marginal likelihood = -941.950765
+Log predictive likelihood = -894.297501
+Log predictive likelihood (train) = -875.394063
+Log predictive likelihoods (truth subsets) = [-881.0536967813545, -881.2814887339877, -881.2690405818164, -881.9491977973705, -882.3644788024241]
+```
+
 ## Optimising hyperparameters
 
 ## Epistemic and aleatoric uncertainty
