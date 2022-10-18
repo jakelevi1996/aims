@@ -20,6 +20,14 @@ The website for Michael Osborne's DEI lectures can be found [here](https://www.r
 
 ## Loading and plotting data
 
+Sotonmet (the dataset used in this assignment) can be loaded and plotted using the command `python scripts/course_1_dei/plot_data.py`. This produces the following figure:
+
+![](https://raw.githubusercontent.com/jakelevi1996/aims/main/scripts/course_1_dei/Results/Protected/Sotonmet_data.png)
+
+This script also plots the independent GP predictions provided in `sotonmet.txt`, shown below:
+
+![](https://raw.githubusercontent.com/jakelevi1996/aims/main/scripts/course_1_dei/Results/Protected/Data_and_independent_GP_predictions.png)
+
 ## Plotting samples from the GP prior
 
 ## Plotting the GP predictive mean and standard deviation
