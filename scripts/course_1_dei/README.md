@@ -77,6 +77,18 @@ Log predictive likelihoods (truth subsets) = [-881.0536967813545, -881.281488733
 
 ## Optimising hyperparameters
 
+The log marginal likelihood can be used to optimise the hyperparameters of a Gaussian process. Starting with the 2nd Gaussian process above (the one with the higher marginal likelihood out of the 2 Gaussian processes considered so far), described by the string `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)`, the parameters of this Gaussian process can be optimised by running the command `python scripts/course_1_dei/find_best_params.py` (this command takes about 26 seconds to run), leading to a Gaussian process described by the string `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)`, whose log marginal likelihood is equal to 1574.440872 (increased from -941.950765). A summary of the Gaussian Processes considered so far and their resulting log marginal likelihoods is provided in the table below.
+
+Gaussian Process description | Log marginal likelihood
+--- | ---
+`GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.1, kernel_scale=1), noise_std=0.001)` | -327743.802128
+`GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)` | -941.950765
+`GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)` | 1574.440872
+
+The predictions of the Gaussian Process with optimised hyperparameters are shown below.
+
+![](./Results/Protected/Data_and_optimised_GP_predictions,_GP___GaussianProcess_prior_mean_func_Constant_offset_2.9904846516133974_,_kernel_func_SquaredExponential_length_scale_0.08665037458_..._.png)
+
 ## Epistemic and aleatoric uncertainty
 
 ## Periodic kernels
