@@ -60,5 +60,18 @@ def get_autocorrelation_coefficients_autocovariance(x, n_coeffs):
     coeffs = np.linalg.solve(auto_cov_matrix, auto_cov)
     return coeffs
 
+def get_autocorrelation_coefficients_autocovariance_toeplitz(x, n_coeffs):
+    # TODO: this function has a bug and doesn't give the correct answers
+    x_zero_mean = x - np.mean(x)
+    var = np.mean(x_zero_mean * x_zero_mean)
+    auto_cov_list = [
+        np.mean(x_zero_mean[i:] * x_zero_mean[:-i])
+        for i in range(1, n_coeffs + 1)
+    ]
+    auto_cov = np.array(auto_cov_list)
+    toeplitz_vector = np.concatenate([[var], auto_cov[:-1]])
+
+    coeffs = scipy.linalg.solve_toeplitz(toeplitz_vector, auto_cov)
+    return coeffs
 coeffs = get_autocorrelation_coefficients_autocovariance(qbo_array[:, 0], 4)
 print(coeffs)
