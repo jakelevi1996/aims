@@ -56,6 +56,19 @@ class _GpSweep(sweep.Experiment):
         g = self._get_gp(**optimal_param_dict)
         return g
 
+    def _add_param(self, name, default, val_range):
+        self._sweeper.add_parameter(
+            sweep.Parameter(
+                name,
+                default,
+                val_range,
+                plot_axis_properties=plotting.AxisProperties(
+                    xlabel=name,
+                    ylabel="Log marginal likelihood",
+                ),
+            )
+        )
+
     def _add_log_range_param(self, name, default, scale_factor=10, num=25):
         val_range = sweep.get_range(
             val_lo=default / scale_factor,
@@ -63,14 +76,21 @@ class _GpSweep(sweep.Experiment):
             val_num=num,
             log_space=True,
         )
-        param = sweep.Parameter(name, default, val_range, log_x_axis=True)
+        param = sweep.Parameter(
+            name,
+            default,
+            val_range,
+            plot_axis_properties=plotting.AxisProperties(
+                xlabel=name,
+                ylabel="Log marginal likelihood",
+                log_xscale=True,
+            ),
+        )
         self._sweeper.add_parameter(param)
 
 class SquaredExponential(_GpSweep):
     def _add_parameters(self):
-        self._sweeper.add_parameter(
-            sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
-        )
+        self._add_param("offset", 3, np.arange(0, 4, 0.5))
         self._add_log_range_param("length_scale", 0.0866675466933244)
         self._add_log_range_param("kernel_scale", 0.6540971841037699)
         self._add_log_range_param("noise_std", 0.029309042867821246)
@@ -87,9 +107,7 @@ class SquaredExponential(_GpSweep):
 
 class Periodic(_GpSweep):
     def _add_parameters(self):
-        self._sweeper.add_parameter(
-            sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
-        )
+        self._add_param("offset", 3, np.arange(0, 4, 0.5))
         self._add_log_range_param(
             "period",
             0.514954586260453,
@@ -113,9 +131,7 @@ class Periodic(_GpSweep):
 
 class Sum(_GpSweep):
     def _add_parameters(self):
-        self._sweeper.add_parameter(
-            sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
-        )
+        self._add_param("offset", 3, np.arange(0, 4, 0.5))
         self._add_log_range_param("sqe_length_scale", 0.06917512071945595)
         self._add_log_range_param("sqe_kernel_scale", 0.029895345214372513)
         self._add_log_range_param("period", 0.514954586260453, scale_factor=4)
@@ -151,9 +167,7 @@ class Sum(_GpSweep):
 
 class Product(_GpSweep):
     def _add_parameters(self):
-        self._sweeper.add_parameter(
-            sweep.Parameter("offset", 3, np.arange(0, 4, 0.5))
-        )
+        self._add_param("offset", 3, np.arange(0, 4, 0.5))
         self._add_log_range_param("sqe_length_scale", 0.7880754080416588)
         self._add_log_range_param("sqe_kernel_scale", 1.4457480054362188)
         self._add_log_range_param("period", 0.5082224844864489, scale_factor=4)
