@@ -28,6 +28,23 @@ def get_optimal_gp():
     )
     return g
 
+def plot_gp(g, dataset, plot_name, dir_name=RESULTS_DIR):
+    g.condition(dataset.t_train, dataset.y_train)
+    y_pred_mean, y_pred_std = g.predict(dataset.t_pred)
+
+    num_posterior_samples = 5
+    posterior_samples = g.sample_posterior(dataset.t_pred, num_posterior_samples)
+
+    plotting.plot(
+        *get_dataset_lines(dataset),
+        *get_gp_prediction_lines(dataset.t_pred, y_pred_mean, y_pred_std),
+        *get_gp_posterior_sample_lines(dataset.t_pred, posterior_samples),
+        plot_name=plot_name,
+        dir_name=dir_name,
+        axis_properties=AXIS_PROPERTIES,
+        legend_properties=plotting.LegendProperties(),
+    )
+
 def get_dataset_lines(dataset):
     train_line = plotting.Line(
         dataset.t_train,
