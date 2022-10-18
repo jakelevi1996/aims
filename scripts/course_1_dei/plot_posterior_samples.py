@@ -21,5 +21,5 @@ gp_list = [
 ]
 
 for g in gp_list:
-    plot_name = "Data and GP predictions and posterior samples, GP = %r" % g
+    plot_name = "Data and GP predictions and predictive samples, GP = %r" % g
     scripts.course_1_dei.gp_utils.plot_gp(g, sotonmet, plot_name)
