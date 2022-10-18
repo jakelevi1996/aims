@@ -22,35 +22,35 @@ The website for Michael Osborne's DEI lectures can be found [here](https://www.r
 
 Sotonmet (the dataset used in this assignment) can be loaded and plotted using the command `python scripts/course_1_dei/plot_data.py`. This produces the following figure:
 
-![](https://raw.githubusercontent.com/jakelevi1996/aims/main/scripts/course_1_dei/Results/Protected/Sotonmet_data.png)
+![](./Results/Protected/Sotonmet_data.png)
 
 This script also plots the independent GP predictions provided in `sotonmet.txt`, shown below:
 
-![](https://raw.githubusercontent.com/jakelevi1996/aims/main/scripts/course_1_dei/Results/Protected/Data_and_independent_GP_predictions.png)
+![](./Results/Protected/Data_and_independent_GP_predictions.png)
 
 ## Plotting samples from the GP prior
 
 Samples from the prior of a Gaussian Process can be plotted using the command `python scripts/course_1_dei/plot_prior_samples.py`. Samples from 2 different Gaussian Processes (each with a squared exponential kernel) are shown below:
 
-![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Samples_from_GP_prior,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.1,_kernel_scale_1),_noise_std_0.001).png?raw=true)
+![](./Results/Protected/Samples_from_GP_prior,_GP___GaussianProcess_prior_mean_func_Constant_offset_3_,_kernel_func_SquaredExponential_length_scale_0.1,_kernel_scale_1_,_noise_std_0.001_.png)
 
-![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Samples_from_GP_prior,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.3,_kernel_scale_10),_noise_std_1.0).png?raw=true)
+![](./Results/Protected/Samples_from_GP_prior,_GP___GaussianProcess_prior_mean_func_Constant_offset_3_,_kernel_func_SquaredExponential_length_scale_0.3,_kernel_scale_10_,_noise_std_1.0_.png)
 
 ## Plotting the GP predictive mean and standard deviation
 
 The mean and standard deviation of the predictive distribution of a Gaussian Process can be plotted using the command `python scripts/course_1_dei/plot_gp_predictions.py`. The predictive distributions of 2 different Gaussian Processes (with identical parameters to the 2 Gaussian Processes used for plotting samples from the prior distribution above) are shown below. Note that, although the first Gaussian Process produces a *prior* distribution which looks like a more plausible explanation for the training data, the second Gaussian Process produces a *predictive* distribution which looks like a much better fit to the training data.
 
-![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Data_and_GP_predictions,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.1,_kernel_scale_1),_noise_std_0.001).png?raw=true)
+![](./Results/Protected/Data_and_GP_predictions,_GP___GaussianProcess_prior_mean_func_Constant_offset_3_,_kernel_func_SquaredExponential_length_scale_0.1,_kernel_scale_1_,_noise_std_0.001_.png)
 
-![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Data_and_GP_predictions,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.3,_kernel_scale_10),_noise_std_1.0).png?raw=true)
+![](./Results/Protected/Data_and_GP_predictions,_GP___GaussianProcess_prior_mean_func_Constant_offset_3_,_kernel_func_SquaredExponential_length_scale_0.3,_kernel_scale_10_,_noise_std_1.0_.png)
 
 ## Plotting samples from the GP predictive distribution
 
 Joint samples from the predictive distribution of a Gaussian process can be plotted using the command `python scripts/course_1_dei/plot_predictive_samples.py`. Joint samples from the predictive distributions of the same 2 Gaussian Processes are shown below. Note that, although the first Gaussian Process produces a *prior* distribution which looks like a plausible explanation for the training data, and the second Gaussian Process produces a *predictive* distribution which looks like a good fit to the training data, neither Gaussian Process produces a joint predictive distribution whose *samples* look like a plausible explanation for the training data.
 
-![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Data_and_GP_predictions_and_predictive_samples,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.1,_kernel_scale(...).png?raw=true)
+![](./Results/Protected/Data_and_GP_predictions_and_predictive_samples,_GP___GaussianProcess_prior_mean_func_Constant_offset_3_,_kernel_func_SquaredExponential_length_scale_0.1,_kernel_scale_..._.png)
 
-![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Data_and_GP_predictions_and_predictive_samples,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.3,_kernel_scale(...).png?raw=true)
+![](./Results/Protected/Data_and_GP_predictions_and_predictive_samples,_GP___GaussianProcess_prior_mean_func_Constant_offset_3_,_kernel_func_SquaredExponential_length_scale_0.3,_kernel_scale_..._.png)
 
 ## Calculating RMSE, log marginal likelihood, and log predictive likelihood
 
