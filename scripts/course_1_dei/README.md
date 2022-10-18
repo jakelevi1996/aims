@@ -46,6 +46,12 @@ The mean and standard deviation of the predictive distribution of a Gaussian Pro
 
 ## Plotting samples from the GP predictive distribution
 
+Joint samples from the predictive distribution of a Gaussian process can be plotted using the command `python scripts/course_1_dei/plot_predictive_samples.py`. Joint samples from the predictive distributions of the same 2 Gaussian Processes are shown below. Note that, although the first Gaussian Process produces a *prior* distribution which looks like a plausible explanation for the training data, and the second Gaussian Process produces a *predictive* distribution which looks like a good fit to the training data, neither Gaussian Process produces a joint predictive distribution whose *samples* look like a plausible explanation for the training data.
+
+![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Data_and_GP_predictions_and_predictive_samples,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.1,_kernel_scale(...).png?raw=true)
+
+![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Data_and_GP_predictions_and_predictive_samples,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.3,_kernel_scale(...).png?raw=true)
+
 ## Calculating RMSE, log marginal likelihood, and log predictive likelihood
 
 ## Optimising hyperparameters
