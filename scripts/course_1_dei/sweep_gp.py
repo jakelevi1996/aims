@@ -3,13 +3,14 @@ import numpy as np
 import __init__
 import data
 import gp
-import mean
-import kernel
 import sweep
 import plotting
+import scripts.course_1_dei.gp_utils
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-OUTPUT_DIR = os.path.join(CURRENT_DIR, "Results", "param_sweep")
+OUTPUT_DIR = os.path.join(
+    scripts.course_1_dei.gp_utils.RESULTS_DIR,
+    "param_sweep",
+)
 
 sotonmet = data.Sotonmet()
 
@@ -76,8 +77,11 @@ class SquaredExponential(_GpSweep):
 
     def _get_gp(self, offset, length_scale, kernel_scale, noise_std):
         return gp.GaussianProcess(
-            prior_mean_func=mean.Constant(offset),
-            kernel_func=kernel.SquaredExponential(length_scale, kernel_scale),
+            prior_mean_func=gp.mean.Constant(offset),
+            kernel_func=gp.kernel.SquaredExponential(
+                length_scale,
+                kernel_scale,
+            ),
             noise_std=noise_std,
         )
 
@@ -98,8 +102,12 @@ class Periodic(_GpSweep):
 
     def _get_gp(self, offset, period, length_scale, kernel_scale, noise_std):
         return gp.GaussianProcess(
-            prior_mean_func=mean.Constant(offset),
-            kernel_func=kernel.Periodic(period, length_scale, kernel_scale),
+            prior_mean_func=gp.mean.Constant(offset),
+            kernel_func=gp.kernel.Periodic(
+                period,
+                length_scale,
+                kernel_scale,
+            ),
             noise_std=noise_std,
         )
 
@@ -126,10 +134,17 @@ class Sum(_GpSweep):
         noise_std,
     ):
         return gp.GaussianProcess(
-            prior_mean_func=mean.Constant(offset),
-            kernel_func=kernel.Sum(
-                kernel.SquaredExponential(sqe_length_scale, sqe_kernel_scale),
-                kernel.Periodic(period, per_length_scale, per_kernel_scale),
+            prior_mean_func=gp.mean.Constant(offset),
+            kernel_func=gp.kernel.Sum(
+                gp.kernel.SquaredExponential(
+                    sqe_length_scale,
+                    sqe_kernel_scale,
+                ),
+                gp.kernel.Periodic(
+                    period,
+                    per_length_scale,
+                    per_kernel_scale,
+                ),
             ),
             noise_std=noise_std,
         )
@@ -157,10 +172,17 @@ class Product(_GpSweep):
         noise_std,
     ):
         return gp.GaussianProcess(
-            prior_mean_func=mean.Constant(offset),
-            kernel_func=kernel.Product(
-                kernel.SquaredExponential(sqe_length_scale, sqe_kernel_scale),
-                kernel.Periodic(period, per_length_scale, per_kernel_scale),
+            prior_mean_func=gp.mean.Constant(offset),
+            kernel_func=gp.kernel.Product(
+                gp.kernel.SquaredExponential(
+                    sqe_length_scale,
+                    sqe_kernel_scale,
+                ),
+                gp.kernel.Periodic(
+                    period,
+                    per_length_scale,
+                    per_kernel_scale,
+                ),
             ),
             noise_std=noise_std,
         )
@@ -181,27 +203,16 @@ for sweeper in sweeper_list:
 
     g = sweeper.find_better_parameters()
     g.condition(sotonmet.t_train, sotonmet.y_train)
-    y_pred_mean, y_pred_std = g.predict(sotonmet.t_pred)
 
     print(g)
     print(g.log_marginal_likelihood())
 
-    plotting.plot(
-        *sotonmet.get_train_test_plot_lines(),
-        plotting.Line(sotonmet.t_pred, y_pred_mean, c="r", zorder=40),
-        plotting.FillBetween(
-            sotonmet.t_pred,
-            y_pred_mean + 2 * y_pred_std,
-            y_pred_mean - 2 * y_pred_std,
-            color="r",
-            lw=0,
-            alpha=0.2,
-            zorder=30,
-        ),
+    scripts.course_1_dei.gp_utils.plot_gp(
+        g,
+        sotonmet,
         plot_name=(
             "Predictions for %s kernel after parameter sweep"
             % sweeper.name
         ),
         dir_name=sweeper.output_dir,
-        axis_properties=plotting.AxisProperties(ylim=[0, 6])
     )
