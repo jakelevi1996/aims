@@ -8,7 +8,7 @@ RESULTS_DIR = os.path.join(scripts.course_1_dei.CURRENT_DIR, "Results")
 
 X_LABEL = "Time (days)"
 Y_LABEL = "Tide height (m)"
-AXIS_PROPERTIES = plotting.AxisProperties(X_LABEL, Y_LABEL)
+AXIS_PROPERTIES = plotting.AxisProperties(X_LABEL, Y_LABEL, ylim=[0, 6])
 
 def get_optimal_gp():
     g = gp.GaussianProcess(
