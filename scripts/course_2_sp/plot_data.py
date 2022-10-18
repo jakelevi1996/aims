@@ -29,3 +29,14 @@ plotting.plot(
     ),
     legend_properties=plotting.LegendProperties(),
 )
+
+def get_autocorrelation_coefficients_embedding(x, n_coeffs):
+    embedding_matrix = x[
+        np.flip(np.arange(n_coeffs))
+        + np.arange(x.size - n_coeffs).reshape(-1, 1)
+    ]
+    coeffs, *_ = np.linalg.lstsq(embedding_matrix, x[n_coeffs:], rcond=None)
+    return coeffs
+
+coeffs = get_autocorrelation_coefficients_embedding(qbo_array[:, 0], 4)
+print(coeffs)
