@@ -17,7 +17,7 @@ gp_list = [
         prior_mean_func=gp.mean.Constant(3),
         kernel_func=gp.kernel.SquaredExponential(0.3, 10),
         noise_std=1,
-    )
+    ),
 ]
 
 for g in gp_list:
@@ -36,28 +36,3 @@ for g in gp_list:
         axis_properties=scripts.course_1_dei.gp_utils.AXIS_PROPERTIES,
         legend_properties=plotting.LegendProperties(),
     )
-
-    print("Log marginal likelihood = %f" % g.log_marginal_likelihood())
-    print("RMSE (train) = %f" % g.rmse(sotonmet.t_train, sotonmet.y_train))
-    print("RMSE (truth) = %f" % g.rmse(sotonmet.t_truth, sotonmet.y_truth))
-    print(
-        "Log predictive likelihood = %f"
-        % g.log_predictive_likelihood(sotonmet.t_truth, sotonmet.y_truth)
-    )
-    print(
-        "Log predictive likelihood (train)= %f"
-        % g.log_predictive_likelihood(sotonmet.t_train, sotonmet.y_train)
-    )
-    for _ in range(5):
-        batch_inds = np.random.choice(
-            sotonmet.n_truth,
-            sotonmet.n_train,
-            replace=False,
-        )
-        print(
-            "Log predictive likelihood (truth subset)= %f"
-            % g.log_predictive_likelihood(
-                sotonmet.t_truth[batch_inds],
-                sotonmet.y_truth[batch_inds],
-            )
-        )
