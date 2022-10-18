@@ -11,7 +11,7 @@ The website for Michael Osborne's DEI lectures can be found [here](https://www.r
   - [Plotting the GP predictive mean and standard deviation](#plotting-the-gp-predictive-mean-and-standard-deviation)
   - [Plotting samples from the GP predictive distribution](#plotting-samples-from-the-gp-predictive-distribution)
   - [Calculating RMSE, log marginal likelihood, and log predictive likelihood](#calculating-rmse-log-marginal-likelihood-and-log-predictive-likelihood)
-  - [Optimising hyperparameters](#optimising-hyperparameters)
+  - [Hyperparameter optimisation](#hyperparameter-optimisation)
   - [Hyperparameter sensitivity](#hyperparameter-sensitivity)
   - [Epistemic and aleatoric uncertainty](#epistemic-and-aleatoric-uncertainty)
   - [Periodic kernels](#periodic-kernels)
@@ -76,7 +76,7 @@ Log predictive likelihood (train) = -875.394063
 Log predictive likelihoods (truth subsets) = [-881.0536967813545, -881.2814887339877, -881.2690405818164, -881.9491977973705, -882.3644788024241]
 ```
 
-## Optimising hyperparameters
+## Hyperparameter optimisation
 
 The log marginal likelihood can be used to optimise the hyperparameters of a Gaussian process. Starting with the 2nd Gaussian process above (the one with the higher marginal likelihood out of the 2 Gaussian processes considered so far), described by the string `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)`, the parameters of this Gaussian process can be optimised by running the command `python scripts/course_1_dei/find_best_params.py` (this command takes about 26 seconds to run), leading to a Gaussian process described by the string `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)`, whose log marginal likelihood is equal to 1574.440872 (increased from -941.950765). A summary of the Gaussian Processes considered so far and their resulting log marginal likelihoods is provided in the table below.
 
