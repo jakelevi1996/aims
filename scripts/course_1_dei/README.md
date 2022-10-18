@@ -38,6 +38,12 @@ Samples from the prior of a Gaussian Process can be plotted using the command `p
 
 ## Plotting the GP predictive mean and standard deviation
 
+The mean and standard deviation of the predictive distribution of a Gaussian Process can be plotted using the command `python scripts/course_1_dei/plot_gp_predictions.py`. The predictive distributions of 2 different Gaussian Processes (the same 2 Gaussian Processes used for plotting samples from the prior distribution) are shown below:
+
+![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Data_and_GP_predictions,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.1,_kernel_scale_1),_noise_std_0.001).png?raw=true)
+
+![](https://github.com/jakelevi1996/aims/blob/main/scripts/course_1_dei/Results/Protected/Data_and_GP_predictions,_GP___GaussianProcess(prior_mean_func_Constant(offset_3),_kernel_func_SquaredExponential(length_scale_0.3,_kernel_scale_10),_noise_std_1.0).png?raw=true)
+
 ## Plotting samples from the GP predictive distribution
 
 ## Calculating RMSE, log marginal likelihood, and log predictive likelihood
