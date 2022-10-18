@@ -12,6 +12,7 @@ The website for Michael Osborne's DEI lectures can be found [here](https://www.r
   - [Plotting samples from the GP predictive distribution](#plotting-samples-from-the-gp-predictive-distribution)
   - [Calculating RMSE, log marginal likelihood, and log predictive likelihood](#calculating-rmse-log-marginal-likelihood-and-log-predictive-likelihood)
   - [Optimising hyperparameters](#optimising-hyperparameters)
+  - [Hyperparameter sensitivity](#hyperparameter-sensitivity)
   - [Epistemic and aleatoric uncertainty](#epistemic-and-aleatoric-uncertainty)
   - [Periodic kernels](#periodic-kernels)
   - [Sum and product kernels](#sum-and-product-kernels)
@@ -88,6 +89,24 @@ Gaussian Process description | Log marginal likelihood
 The predictions of the Gaussian Process with optimised hyperparameters are shown below.
 
 ![](./Results/Protected/Data_and_optimised_GP_predictions,_GP___GaussianProcess_prior_mean_func_Constant_offset_2.9904846516133974_,_kernel_func_SquaredExponential_length_scale_0.08665037458_..._.png)
+
+## Hyperparameter sensitivity
+
+The sensitivity of the optimised Gaussian Process to the choice of hyperparameters can be investigated using the command `python scripts/course_1_dei/sweep_gp.py`, which produces the following images, demonstrating how the log maginal likelihood varies as a function of each individual hyperparameter while the other hyperparameters are kept equal to their optimal values, shown by the red dotted lines:
+
+![](./Results/Protected/param_sweep/SquaredExponential/Parameter_sweep_results_for__SquaredExponential_kernel_,_varying_parameter__offset_.png)
+
+![](./Results/Protected/param_sweep/SquaredExponential/Parameter_sweep_results_for__SquaredExponential_kernel_,_varying_parameter__length_scale_.png)
+
+![](./Results/Protected/param_sweep/SquaredExponential/Parameter_sweep_results_for__SquaredExponential_kernel_,_varying_parameter__kernel_scale_.png)
+
+![](./Results/Protected/param_sweep/SquaredExponential/Parameter_sweep_results_for__SquaredExponential_kernel_,_varying_parameter__noise_std_.png)
+
+These images show that the log marginal likelihood is extremely sensitive to large values of `length_scale` and small values of `noise_std`, so zoomed in versions of these images are shown below for these 2 parameters:
+
+![](./Results/Protected/param_sweep/SquaredExponential/tightened_range/Parameter_sweep_results_for__SquaredExponential_kernel__tightened_range__,_varying_parameter__length_scale_.png)
+
+![](./Results/Protected/param_sweep/SquaredExponential/tightened_range/Parameter_sweep_results_for__SquaredExponential_kernel__tightened_range__,_varying_parameter__noise_std_.png)
 
 ## Epistemic and aleatoric uncertainty
 
