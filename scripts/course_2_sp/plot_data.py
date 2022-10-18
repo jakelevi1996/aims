@@ -40,3 +40,25 @@ def get_autocorrelation_coefficients_embedding(x, n_coeffs):
 
 coeffs = get_autocorrelation_coefficients_embedding(qbo_array[:, 0], 4)
 print(coeffs)
+
+def get_autocorrelation_coefficients_autocovariance(x, n_coeffs):
+    # TODO: this function has a bug and doesn't give the correct answers
+    x_zero_mean = x - np.mean(x)
+    var = np.mean(x_zero_mean * x_zero_mean)
+    auto_cov_list = [
+        np.mean(x_zero_mean[i:] * x_zero_mean[:-i])
+        for i in range(1, n_coeffs + 1)
+    ]
+    auto_cov = np.array(auto_cov_list)
+    auto_cov_matrix = np.empty([n_coeffs, n_coeffs])
+    diag_inds = np.arange(n_coeffs)
+    auto_cov_matrix[diag_inds, diag_inds] = var
+    for i in range(1, n_coeffs):
+        auto_cov_matrix[i - 1, i:] = auto_cov[:-i]
+        auto_cov_matrix[i:, i - 1] = auto_cov[:-i]
+
+    coeffs = np.linalg.solve(auto_cov_matrix, auto_cov)
+    return coeffs
+
+coeffs = get_autocorrelation_coefficients_autocovariance(qbo_array[:, 0], 4)
+print(coeffs)
