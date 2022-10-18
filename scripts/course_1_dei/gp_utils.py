@@ -88,3 +88,22 @@ def get_gp_prediction_lines(x, y_mean, y_std):
         label="$\\pm \\sigma$",
     )
     return mean_line, pm_std_line, pm_std_label_line, pm_2_std_line
+
+def get_gp_posterior_sample_lines(x, posterior_samples):
+    posterior_sample_lines = [
+        plotting.Line(
+            x,
+            posterior_samples[:, i],
+            c="k",
+            alpha=0.1,
+            zorder=30,
+        )
+        for i in range(posterior_samples.shape[1])
+    ]
+    label_line = plotting.Line(
+        [],
+        [],
+        c="k",
+        label="GP posterior sample",
+    )
+    return posterior_sample_lines + [label_line]

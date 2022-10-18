@@ -18,17 +18,6 @@ y_pred_mean, y_pred_std = g.predict(sotonmet.t_pred)
 num_posterior_samples = 5
 posterior_samples = g.sample_posterior(sotonmet.t_pred, num_posterior_samples)
 
-posterior_sample_lines = [
-    plotting.Line(
-        sotonmet.t_pred,
-        posterior_samples[:, i],
-        c="r",
-        alpha=0.2,
-        zorder=30,
-    )
-    for i in range(num_posterior_samples)
-]
-
 plotting.plot(
     *scripts.course_1_dei.gp_utils.get_dataset_lines(sotonmet),
     *scripts.course_1_dei.gp_utils.get_gp_prediction_lines(
@@ -36,7 +25,10 @@ plotting.plot(
         y_pred_mean,
         y_pred_std,
     ),
-    *posterior_sample_lines,
+    *scripts.course_1_dei.gp_utils.get_gp_posterior_sample_lines(
+        sotonmet.t_pred,
+        posterior_samples,
+    ),
     plot_name="Data and GP predictions and posterior samples",
     dir_name=scripts.course_1_dei.gp_utils.RESULTS_DIR,
     axis_properties=scripts.course_1_dei.gp_utils.AXIS_PROPERTIES,
