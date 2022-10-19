@@ -29,7 +29,7 @@ gp_dict = {
         ),
         noise_std=0.02930675775064153,
     ),
-    "prod_opt": gp.GaussianProcess(
+    "sum_opt": gp.GaussianProcess(
         prior_mean_func=gp.mean.Constant(offset=3),
         kernel_func=gp.kernel.Sum(
             gp.kernel.SquaredExponential(
@@ -47,7 +47,7 @@ gp_dict = {
 }
 
 def get_optimal_gp():
-    return gp_dict["prod_opt"]
+    return gp_dict["sum_opt"]
 
 def plot_gp(g, dataset, plot_name, dir_name=RESULTS_DIR):
     g.decondition()
