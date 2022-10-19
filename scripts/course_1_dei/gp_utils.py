@@ -10,8 +10,26 @@ X_LABEL = "Time (days)"
 Y_LABEL = "Tide height (m)"
 AXIS_PROPERTIES = plotting.AxisProperties(X_LABEL, Y_LABEL, ylim=[0, 6])
 
-def get_optimal_gp():
-    g = gp.GaussianProcess(
+gp_dict = {
+    "sqe_1": gp.GaussianProcess(
+        prior_mean_func=gp.mean.Constant(3),
+        kernel_func=gp.kernel.SquaredExponential(0.1, 1),
+        noise_std=0.001,
+    ),
+    "sqe_2": gp.GaussianProcess(
+        prior_mean_func=gp.mean.Constant(3),
+        kernel_func=gp.kernel.SquaredExponential(0.3, 10),
+        noise_std=1,
+    ),
+    "sqe_opt": gp.GaussianProcess(
+        prior_mean_func=gp.mean.Constant(offset=2.9904846516133974),
+        kernel_func=gp.kernel.SquaredExponential(
+            length_scale=0.08665037458315064,
+            kernel_scale=0.6522383851241347
+        ),
+        noise_std=0.02930675775064153,
+    ),
+    "prod_opt": gp.GaussianProcess(
         prior_mean_func=gp.mean.Constant(offset=3),
         kernel_func=gp.kernel.Sum(
             gp.kernel.SquaredExponential(
@@ -25,8 +43,11 @@ def get_optimal_gp():
             ),
         ),
         noise_std=0.02871806422941413,
-    )
-    return g
+    ),
+}
+
+def get_optimal_gp():
+    return gp_dict["prod_opt"]
 
 def plot_gp(g, dataset, plot_name, dir_name=RESULTS_DIR):
     g.decondition()
