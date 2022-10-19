@@ -8,12 +8,7 @@ import scripts.course_1_dei.gp_utils
 
 sotonmet = data.Sotonmet()
 
-g = gp.GaussianProcess(
-    prior_mean_func=gp.mean.Constant(3),
-    kernel_func=gp.kernel.SquaredExponential(0.3, 10),
-    noise_std=1,
-)
-
+g = scripts.course_1_dei.gp_utils.gp_dict["sqe_2"]
 g.optimise_hyperparameters(sotonmet.t_train, sotonmet.y_train)
 
 g.decondition()
