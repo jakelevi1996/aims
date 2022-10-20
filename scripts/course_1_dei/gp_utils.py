@@ -2,13 +2,21 @@ import os
 import __init__
 import gp
 import plotting
+import data
 import scripts.course_1_dei
 
 RESULTS_DIR = os.path.join(scripts.course_1_dei.CURRENT_DIR, "Results")
 
 X_LABEL = "Time (days)"
 Y_LABEL = "Tide height (m)"
-AXIS_PROPERTIES = plotting.AxisProperties(X_LABEL, Y_LABEL, ylim=[0, 6])
+X_LIM = data.sotonmet.T_LIM
+Y_LIM = [0, 6]
+AXIS_PROPERTIES = plotting.AxisProperties(
+    X_LABEL,
+    Y_LABEL,
+    xlim=X_LIM,
+    ylim=Y_LIM,
+)
 
 gp_dict = {
     "sqe_1": gp.GaussianProcess(
@@ -49,13 +57,22 @@ gp_dict = {
 def get_optimal_gp():
     return gp_dict["sum_opt"]
 
-def plot_gp(g, dataset, plot_name, dir_name=RESULTS_DIR):
+def plot_gp(
+    g,
+    dataset,
+    plot_name,
+    dir_name=RESULTS_DIR,
+    axis_properties=AXIS_PROPERTIES,
+):
     g.decondition()
     g.condition(dataset.t_train, dataset.y_train)
     y_pred_mean, y_pred_std = g.predict(dataset.t_pred)
 
     num_posterior_samples = 5
-    posterior_samples = g.sample_posterior(dataset.t_pred, num_posterior_samples)
+    posterior_samples = g.sample_posterior(
+        dataset.t_pred,
+        num_posterior_samples,
+    )
 
     plotting.plot(
         *get_dataset_lines(dataset),
@@ -63,7 +80,7 @@ def plot_gp(g, dataset, plot_name, dir_name=RESULTS_DIR):
         *get_gp_posterior_sample_lines(dataset.t_pred, posterior_samples),
         plot_name=plot_name,
         dir_name=dir_name,
-        axis_properties=AXIS_PROPERTIES,
+        axis_properties=axis_properties,
         legend_properties=plotting.LegendProperties(),
     )
 
@@ -96,7 +113,7 @@ def get_gp_prediction_lines(x, y_mean, y_std):
         y_mean,
         c="r",
         zorder=40,
-        label="GP mean prediction",
+        label="GP predictive mean",
     )
     pm_std_line = plotting.FillBetween(
         x,
@@ -143,6 +160,6 @@ def get_gp_posterior_sample_lines(x, posterior_samples):
         [],
         [],
         c="k",
-        label="GP posterior sample",
+        label="GP predictive sample",
     )
     return posterior_sample_lines + [label_line]

@@ -8,6 +8,7 @@ import data.load
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 SOTONMET_PATH = os.path.join(CURRENT_DIR, "sotonmet.txt")
 DAYS_PER_SECOND = 1 / (60 * 60 * 24)
+T_LIM = [-1, 7]
 
 class Sotonmet:
     def __init__(self, data_path=SOTONMET_PATH):
@@ -49,7 +50,7 @@ class Sotonmet:
         assert self.t_truth.size == 1258
         assert self.y_truth.size == 1258
 
-        self.t_pred = np.linspace(-1, 7, 1000)
+        self.t_pred = np.linspace(*T_LIM, 1000)
 
     def get_column_data(self, column_name):
         y_str_list = self._data_dict[column_name]
