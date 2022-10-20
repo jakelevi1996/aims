@@ -7,9 +7,7 @@ import scripts.course_1_dei.gp_utils
 
 sotonmet = data.Sotonmet()
 
-gp_name_list = ["sqe_1", "sqe_2"]
-
-for gp_name in gp_name_list:
+for gp_name in ["sqe_1", "sqe_2"]:
     g = scripts.course_1_dei.gp_utils.gp_dict[gp_name]
     plot_name = "GP predictions and predictive samples, GP = %r" % gp_name
 

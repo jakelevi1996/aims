@@ -7,10 +7,9 @@ import scripts.course_1_dei.gp_utils
 
 sotonmet = data.Sotonmet()
 
-gp_name_list = ["sqe_1", "sqe_2"]
 num_prior_samples = 5
 
-for gp_name in gp_name_list:
+for gp_name in ["sqe_1", "sqe_2"]:
     g = scripts.course_1_dei.gp_utils.gp_dict[gp_name]
     prior_samples = g.sample_prior(sotonmet.t_pred, num_prior_samples)
 
