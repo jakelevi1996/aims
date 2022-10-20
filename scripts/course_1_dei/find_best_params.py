@@ -18,9 +18,3 @@ print(
     "Final GP = %r\nFinal log likelihood = %f"
     % (g, g.log_marginal_likelihood())
 )
-
-scripts.course_1_dei.gp_utils.plot_gp(
-    g,
-    sotonmet,
-    plot_name="Data and optimised GP predictions, GP = %r" % g,
-)
