@@ -118,6 +118,20 @@ These images show that the log marginal likelihood is extremely sensitive to lar
 
 ## Epistemic and aleatoric uncertainty
 
+To quote [Kendall, Alex, and Yarin Gal. "What uncertainties do we need in bayesian deep learning for computer vision?." Advances in neural information processing systems 30 (2017).](https://arxiv.org/abs/1703.04977):
+
+> There are two major types of uncertainty one can model. Aleatoric uncertainty captures noise inherent in the observations. On the other hand, epistemic uncertainty accounts for uncertainty in the model - uncertainty which can be explained away given enough data.
+
+We can model the performance of a GP in the presence of epistemic or aleatoric uncertainty by either removing or artificially adding noise to a restricted subsection of the data. For the case of the GP `sqe_opt` (which was optimised to have low marginal likelihood), this can be performed with the command `python scripts/course_1_dei/compare_epistemic_aleatoric_uncertainty.py`, and the results are shown in the figures below:
+
+![](./Results/Protected/GP_predictions_with_epistemic_uncertainty.png)
+
+![](./Results/Protected/GP_predictions_with_aleatoric_uncertainty.png)
+
+Although this GP performs well in the presence of epistemic uncertainty, reverting to a larger predictive standard deviation when far from the vicinity of any training data, we see that this GP does not perform well in the presence of aleatoric uncertainty, making confidently wrong predictions (predictions which are far away from the ground truth labels and with high certainty/low standard deviation) in the vicinity of training data with a high degree of noise.
+
+We can understand this behaviour by looking at the expression for the predictive variance of the Gaussian Process, which depends only on the input locations of the training data and predictions, and not on the labels of the training data. Of course, the predictive variance of `sqe_opt` considered here depends indirectly on the training labels, as a result of its hyperparameters having been optimised with respect to the marginal likelihood of the training data, however this model has no capacity to increase its predictive uncertainty in the presence of more noisy data. This could be a very undesirable property for the model to have in a safety-critical prediction scenario, for example if one of the input sensors failed and started producing very noisy measurements, we would not want the model to produce wildly incorrect predictions with a high degree of certainty, rather we would prefer the model to increase its predictive uncertainty to fit the uncertainty in the newly observed data. One possible solution to this problem would be to model the observation noise (which does affect the predictive uncertainty of a Gaussian Process) using the output from a second Gaussian Process, which predicts observation noise as a function of the same input data as the original Gaussian process, and conditions on the noise of the training data, however we leave this as a direction for future work.
+
 ## Periodic kernels
 
 ## Sum and product kernels
