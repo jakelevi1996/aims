@@ -31,7 +31,14 @@ This script also plots the independent GP predictions provided in `sotonmet.txt`
 
 ## Plotting samples from the GP prior
 
-Samples from the prior of a Gaussian Process can be plotted using the command `python scripts/course_1_dei/plot_prior_samples.py`. Samples from 2 different Gaussian Processes (each with a squared exponential kernel) are shown below:
+Samples from the prior of a Gaussian Process can be plotted using the command `python scripts/course_1_dei/plot_prior_samples.py`. Initially we consider 2 different Gaussian Processes, `sqe_1` and `sqe_2`, described in the table below:
+
+GP name | GP description
+--- | ---
+`sqe_1` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.1, kernel_scale=1), noise_std=0.001)`
+`sqe_2` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)`
+
+Samples from `sqe_1` and `sqe_2` (which each use a squared exponential kernel) are shown below. Note that the prior distribution of `sqe_1` looks like a much more plausible explanation for the data:
 
 ![](./Results/Protected/Samples_from_GP_prior,_GP____sqe_1_.png)
 
@@ -39,7 +46,7 @@ Samples from the prior of a Gaussian Process can be plotted using the command `p
 
 ## Plotting the GP predictive mean and standard deviation
 
-The mean and standard deviation of the predictive distribution of a Gaussian Process can be plotted using the command `python scripts/course_1_dei/plot_gp_predictions.py`. The predictive distributions of 2 different Gaussian Processes (with identical parameters to the 2 Gaussian Processes used for plotting samples from the prior distribution above) are shown below. Note that, although the first Gaussian Process produces a *prior* distribution which looks like a more plausible explanation for the training data, the second Gaussian Process produces a *predictive* distribution which looks like a much better fit to the training data.
+The mean and standard deviation of the predictive distribution of a Gaussian Process can be plotted using the command `python scripts/course_1_dei/plot_gp_predictions.py`. The predictive distributions of `sqe_1` and `sqe_2` are shown below. Note that, although `sqe_1` produced a *prior* distribution which looks like a more plausible explanation for the training data, `sqe_2` produces a *predictive* distribution which looks like a much better fit to the training data. Furthermore, the predictive distribution of `sqe_1` is "confidently wrong" (the mean is far away from the ground truth labels and with high certainty/low standard deviation) in regions containing ground truth labels but no training data, which could be a very undesirable property to have in a safety-critical prediction scenario:
 
 ![](./Results/Protected/GP_predictions,_GP____sqe_1_.png)
 
@@ -47,7 +54,7 @@ The mean and standard deviation of the predictive distribution of a Gaussian Pro
 
 ## Plotting samples from the GP predictive distribution
 
-Joint samples from the predictive distribution of a Gaussian process can be plotted using the command `python scripts/course_1_dei/plot_predictive_samples.py`. Joint samples from the predictive distributions of the same 2 Gaussian Processes are shown below. Note that, although the first Gaussian Process produces a *prior* distribution which looks like a plausible explanation for the training data, and the second Gaussian Process produces a *predictive* distribution which looks like a good fit to the training data, neither Gaussian Process produces a joint predictive distribution whose *samples* look like a plausible explanation for the training data.
+Joint samples from the predictive distribution of a Gaussian process can be plotted using the command `python scripts/course_1_dei/plot_predictive_samples.py`. Joint samples from the predictive distributions of `sqe_1` and `sqe_2` are shown below. Note that, although `sqe_1` produces a *prior* distribution which looks like a plausible explanation for the training data, and `sqe_2` produces a *predictive* distribution which looks like a good fit to the training data, neither Gaussian Process produces a joint predictive distribution whose *samples* look like a plausible explanation for the training data.
 
 ![](./Results/Protected/GP_predictions_and_predictive_samples,_GP____sqe_1_.png)
 
@@ -55,38 +62,39 @@ Joint samples from the predictive distribution of a Gaussian process can be plot
 
 ## Calculating RMSE, log marginal likelihood, and log predictive likelihood
 
-The RMSE, log marginal likelihood, and log predictive likelihood can be printed by running the command `python scripts/course_1_dei/print_likelihoods.py`. The output for the same 2 Gaussian Processes is shown below. Note that although the first Gaussian process has a very low RMSE evaluated on the training data, it has an RMSE which is 30x higher when evaluated on the ground truth data, which is to say that the first Gaussian Process overfits the training data very badly, which is reflected in the significantly worse marginal and predictive likelihoods when compared to the second Gaussian process. The second Gaussian process has worse RMSE on the training data than the first Gaussian Process, but better RMSE on the ground truth data, which is to say that the second Gaussian process generalises better to the ground truth data, and this is reflected in the better marginal and predictive likelihoods of the second Gaussian process.
+The RMSE, log marginal likelihood, and log predictive likelihood can be printed by running the command `python scripts/course_1_dei/print_likelihoods.py`. The output for `sqe_1` and `sqe_2` is shown below. Note that although `sqe_1` has a very low RMSE evaluated on the training data, it has an RMSE which is 30x higher when evaluated on the ground truth data, which is to say that `sqe_1` overfits the training data very badly, which is reflected in the significantly worse marginal and predictive likelihoods when compared to the second Gaussian process. `sqe_2` has worse RMSE on the training data than the first Gaussian Process, but better RMSE on the ground truth data, which is to say that `sqe_2` generalises better to the ground truth data (although it does so with low confidence/high uncertainty), and this is reflected in the better marginal and predictive likelihoods of the second Gaussian process.
 
 ```
 $ python scripts/course_1_dei/print_likelihoods.py
+sqe_1
 GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.1, kernel_scale=1), noise_std=0.001)
 RMSE (train) = 0.026773
 RMSE (truth) = 0.804001
 Log marginal likelihood = -327743.802128
 Log predictive likelihood = -87596.252923
 Log predictive likelihood (train) = -321611.898886
-Log predictive likelihoods (truth subsets) = [-71286.49205436907, -70791.55218104349, -69201.39767392409, -72901.750074576, -67057.98517408842]
+Log predictive likelihoods (truth subsets) = [-70744.57040334182, -69734.5348385596, -69641.87073220311, -66131.11803932585, -69388.783040178]
 
+sqe_2
 GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)
 RMSE (train) = 0.224601
 RMSE (truth) = 0.257348
 Log marginal likelihood = -941.950765
 Log predictive likelihood = -894.297501
 Log predictive likelihood (train) = -875.394063
-Log predictive likelihoods (truth subsets) = [-881.0536967813545, -881.2814887339877, -881.2690405818164, -881.9491977973705, -882.3644788024241]
+Log predictive likelihoods (truth subsets) = [-881.3432355020102, -882.2694733003166, -881.03627091921, -881.5985634962216, -882.1593240818942]
 ```
 
 ## Hyperparameter optimisation
 
-The log marginal likelihood can be used to optimise the hyperparameters of a Gaussian process. Starting with the 2nd Gaussian process above (the one with the higher marginal likelihood out of the 2 Gaussian processes considered so far), described by the string `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)`, the parameters of this Gaussian process can be optimised by running the command `python scripts/course_1_dei/find_best_params.py` (this command takes about 26 seconds to run), leading to a Gaussian process described by the string `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)`, whose log marginal likelihood is equal to 1574.440872 (increased from -941.950765). A summary of the Gaussian Processes considered so far and their resulting log marginal likelihoods is provided in the table below.
+The log marginal likelihood can be used to optimise the hyperparameters of a Gaussian process. Starting with `sqe_2` (which has a higher marginal likelihood than `sqe_1`), the parameters of this Gaussian process can be optimised by running the command `python scripts/course_1_dei/find_best_params.py` (this command takes about 26 seconds to run), leading to a Gaussian process denoted `sqe_opt` and described by the string `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)`, whose log marginal likelihood is equal to 1574.440872 (increased from -941.950765). A summary of the Gaussian Processes considered so far and their resulting log marginal likelihoods is provided in the table below.
 
-Gaussian Process description | Log marginal likelihood
---- | ---
-`GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.1, kernel_scale=1), noise_std=0.001)` | -327743.802128
-`GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)` | -941.950765
-`GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)` | 1574.440872
+GP name | GP description | Log marginal likelihood
+--- | --- | ---
+`sqe_1` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.1, kernel_scale=1), noise_std=0.001)` | -649119.257386
+`sqe_2` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)` | -1817.344828`sqe_opt` | `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)` | 1574.440872
 
-The predictions of the Gaussian Process with optimised hyperparameters are shown below.
+The predictions of `sqe_opt` can be plotted with the command `python scripts/course_1_dei/plot_optimal_gp.py`, and are shown below:
 
 ![](./Results/Protected/Optimised_GP_predictions,_GP____sqe_opt_.png)
 
