@@ -20,7 +20,16 @@ sotonmet_epistemic.t_train = sotonmet_epistemic.t_train[other_day_inds]
 sotonmet_epistemic.y_train = sotonmet_epistemic.y_train[other_day_inds]
 
 plot_name = "GP predictions with epistemic uncertainty"
-scripts.course_1_dei.gp_utils.plot_gp(g, sotonmet_epistemic, plot_name)
+scripts.course_1_dei.gp_utils.plot_gp(
+    g,
+    sotonmet_epistemic,
+    plot_name,
+    axis_properties=plotting.AxisProperties(
+        xlabel=scripts.course_1_dei.gp_utils.X_LABEL,
+        ylabel=scripts.course_1_dei.gp_utils.Y_LABEL,
+        xlim=scripts.course_1_dei.gp_utils.X_LIM,
+    ),
+)
 
 sotonmet_aleatoric = data.Sotonmet()
 rng = np.random.default_rng()
@@ -29,4 +38,13 @@ sotonmet_aleatoric.y_train[day_2_3_inds] += rng.normal(
 )
 
 plot_name = "GP predictions with aleatoric uncertainty"
-scripts.course_1_dei.gp_utils.plot_gp(g, sotonmet_aleatoric, plot_name)
+scripts.course_1_dei.gp_utils.plot_gp(
+    g,
+    sotonmet_aleatoric,
+    plot_name,
+    axis_properties=plotting.AxisProperties(
+        xlabel=scripts.course_1_dei.gp_utils.X_LABEL,
+        ylabel=scripts.course_1_dei.gp_utils.Y_LABEL,
+        xlim=scripts.course_1_dei.gp_utils.X_LIM,
+    ),
+)
