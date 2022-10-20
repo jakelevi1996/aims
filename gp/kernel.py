@@ -25,7 +25,7 @@ class SquaredExponential:
 
 class Periodic:
     def __init__(self, period, length_scale, kernel_scale):
-        self._angular_freq = 2 * np.pi / period
+        self._angular_freq = np.pi / period
         self._length_scale = length_scale
         self._kernel_scale = kernel_scale
 
@@ -48,7 +48,7 @@ class Periodic:
         k = (
             self._kernel_scale
             * np.exp(
-                np.cos(self._angular_freq * (x1 - x2))
+                -2 * np.square(np.sin(self._angular_freq * (x1 - x2)))
                 / self._length_scale
             )
         )
