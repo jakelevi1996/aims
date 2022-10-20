@@ -7,10 +7,10 @@ import scripts.course_1_dei.gp_utils
 
 sotonmet = data.Sotonmet()
 
-g = scripts.course_1_dei.gp_utils.gp_dict["sqe_opt"]
-plot_name = "Predictions from optimal GP with squared exponential kernel"
-scripts.course_1_dei.gp_utils.plot_gp(g, sotonmet, plot_name)
 
-g = scripts.course_1_dei.gp_utils.get_optimal_gp()
-plot_name = "Predictions from optimal GP with sum of kernels"
-scripts.course_1_dei.gp_utils.plot_gp(g, sotonmet, plot_name)
+gp_name_list = ["sqe_opt", "sum_opt"]
+
+for gp_name in gp_name_list:
+    g = scripts.course_1_dei.gp_utils.gp_dict[gp_name]
+    plot_name = "Optimised GP predictions, GP = %r" % gp_name
+    scripts.course_1_dei.gp_utils.plot_gp(g, sotonmet, plot_name)
