@@ -55,7 +55,7 @@ class Periodic:
         return k
 
     def __repr__(self):
-        period = 2 * np.pi / self._angular_freq
+        period = np.pi / self._angular_freq
         s = (
             "Periodic(period=%r, length_scale=%r, kernel_scale=%r)"
             % (period, self._length_scale, self._kernel_scale)
