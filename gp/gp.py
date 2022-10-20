@@ -187,7 +187,7 @@ class GaussianProcess:
 
     def _get_normal_samples(self, shape):
         if self._rng is None:
-            self._rng = np.random.default_rng()
+            self._rng = np.random.default_rng(0)
 
         return self._rng.normal(size=shape)
 
