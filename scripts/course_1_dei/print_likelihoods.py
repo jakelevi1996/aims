@@ -7,14 +7,11 @@ import scripts.course_1_dei.gp_utils
 
 sotonmet = data.Sotonmet()
 
-gp_list = [
-    scripts.course_1_dei.gp_utils.gp_dict["sqe_1"],
-    scripts.course_1_dei.gp_utils.gp_dict["sqe_2"],
-]
-
-for g in gp_list:
+for gp_name in ["sqe_1", "sqe_2"]:
+    g = scripts.course_1_dei.gp_utils.gp_dict[gp_name]
     g.condition(sotonmet.t_train, sotonmet.y_train)
 
+    print(gp_name)
     print(g)
     print("RMSE (train) = %f" % g.rmse(sotonmet.t_train, sotonmet.y_train))
     print("RMSE (truth) = %f" % g.rmse(sotonmet.t_truth, sotonmet.y_truth))
@@ -44,3 +41,11 @@ for g in gp_list:
         "Log predictive likelihoods (truth subsets) = %s\n"
         % log_lik_list
     )
+
+print("Markdown table:")
+print("GP name | GP description | Log marginal likelihood")
+print("--- | --- | ---")
+for gp_name in ["sqe_1", "sqe_2", "sqe_opt"]:
+    g = scripts.course_1_dei.gp_utils.gp_dict[gp_name]
+    g.condition(sotonmet.t_train, sotonmet.y_train)
+    print("`%s` | `%s` | %f" % (gp_name, g, g.log_marginal_likelihood()))
