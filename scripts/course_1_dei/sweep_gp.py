@@ -114,8 +114,8 @@ class Periodic(_GpSweep):
             scale_factor=4,
             num=101,
         )
-        self._add_log_range_param("length_scale", 1.2507974381079883)
-        self._add_log_range_param("kernel_scale", 0.480600322135365)
+        self._add_log_range_param("length_scale", 1.2393972623108889)
+        self._add_log_range_param("kernel_scale", 1.0545420279961848)
         self._add_log_range_param("noise_std", 0.17313920673121166)
 
     def _get_gp(self, offset, period, length_scale, kernel_scale, noise_std):
