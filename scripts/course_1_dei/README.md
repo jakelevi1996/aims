@@ -177,6 +177,34 @@ In general, given the sensitivity and sharpness of the peak of the log marginal 
 
 ## Sum and product kernels
 
+We can define sum and product kernels by taking the element-wise sum or product of existing kernels, which correspond to the assumptions that covariance is dependent on similarity under either term or on similarity under both terms, respectively. We define the `sum_1` and `prod_1` Gaussian Processes by taking the sum and product respectively of the kernels of the `sqe_opt` and `per_opt` Gaussian processes, and using the observation noise of `per_opt`, because this is larger than the observation noise of `sqe_opt`, and the log marginal likelihood is generally more sensitive to small values of observation noise than large ones. The predictions of `sum_1` and `prod_1` are shown below:
+
+![](./Results/Protected/GP_predictions_and_predictive_samples,_GP____sum_1_.png)
+
+![](./Results/Protected/GP_predictions_and_predictive_samples,_GP____prod_1_.png)
+
+The hyperparameters of `sum_1` and `prod_1` could be optimised as before using the command `python scripts/course_1_dei/find_best_params.py`, however this approach (which uses the "L-BFGS-B" [[Wright, Stephen, and Jorge Nocedal. "Numerical optimization." Springer Science 35.67-68 (1999): 7.](https://www.math.uci.edu/~qnie/Publications/NumericalOptimization.pdf)] method of optimisation with gradient estimation based on finite differences) is slow and does not actually find the best parameters. Empirically, it was found that a better approach is to sweep over each hyperparameter sequentially, evaluating the log marginal likelihood on a pre-defined range of values, greedily updating each parameter to the value that gives the best marginal likelihood, and to keep cycling through and updating the hyperparameters until they converge. This led to the optimised Gaussian Processes `sum_opt` and `prod_opt`, whose predictions are shown below:
+
+![](./Results/Protected/GP_predictions_and_predictive_samples,_GP____sum_opt_.png)
+
+![](./Results/Protected/GP_predictions_and_predictive_samples,_GP____prod_opt_.png)
+
+Hyperparameter sensitivities for `sum_opt` and `prod_opt` are similar to those of `sqe_opt` and `per_opt` and are not included here, but can be seen in [the param_sweep directory of this repository on GitHub](https://github.com/jakelevi1996/aims/tree/main/scripts/course_1_dei/Results/Protected/param_sweep).
+
+The marginal log likelihoods for all Gaussian Processes considered here are displayed in the table below. From this table, we can see that the Gaussian Process with the highest log marginal likelihood is `sum_opt`, with a marginal likelihood of 1672.928716:
+
+GP name | GP description | Log marginal likelihood
+--- | --- | ---
+`sqe_1` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.1, kernel_scale=1), noise_std=0.001)` | -649119.257386
+`sqe_2` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)` | -1817.344828
+`sqe_opt` | `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)` | 1574.440872
+`per_1` | `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=Periodic(period=0.5, length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)` | -142748.097076
+`per_opt` | `GaussianProcess(prior_mean_func=Constant(offset=2.994526707406642), kernel_func=Periodic(period=0.5149342760919302, length_scale=1.2264134716027426, kernel_scale=1.0346460845353729), noise_std=0.17334345487465788)` | 276.323647
+`sum_1` | `GaussianProcess(prior_mean_func=Constant(offset=2.994526707406642), kernel_func=Sum(SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), Periodic(period=0.5149342760919302, length_scale=1.2264134716027426, kernel_scale=1.0346460845353729)), noise_std=0.17334345487465788)` | 544.815513
+`prod_1` | `GaussianProcess(prior_mean_func=Constant(offset=2.994526707406642), kernel_func=Product(SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), Periodic(period=0.5149342760919302, length_scale=1.2264134716027426, kernel_scale=1.0346460845353729)), noise_std=0.17334345487465788)` | 499.332443
+`sum_opt` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=Sum(SquaredExponential(length_scale=0.06917512071945595, kernel_scale=0.029895345214372513), Periodic(period=0.514954586260453, length_scale=0.6453392671906066, kernel_scale=0.5962321347520633)), noise_std=0.02871806422941413)` | 1672.928716
+`prod_opt` | `GaussianProcess(prior_mean_func=Constant(offset=2.9285714285714284), kernel_func=Product(SquaredExponential(length_scale=0.7880754080416588, kernel_scale=5.538930746200925), Periodic(period=0.5082224844864489, length_scale=0.7270981370167336, kernel_scale=0.0974970247641131)), noise_std=0.02905329635947378)` | 1621.612079
+
 ## Sequential prediction
 
 ## Predicting gradients
