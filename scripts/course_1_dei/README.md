@@ -92,11 +92,12 @@ The log marginal likelihood can be used to optimise the hyperparameters of a Gau
 GP name | GP description | Log marginal likelihood
 --- | --- | ---
 `sqe_1` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.1, kernel_scale=1), noise_std=0.001)` | -649119.257386
-`sqe_2` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)` | -1817.344828`sqe_opt` | `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)` | 1574.440872
+`sqe_2` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)` | -1817.344828
+`sqe_opt` | `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)` | 1574.440872
 
-The predictions of `sqe_opt` can be plotted with the command `python scripts/course_1_dei/plot_optimal_gp.py`, and are shown below:
+The predictions of `sqe_opt` can be plotted with the command `python scripts/course_1_dei/plot_predictive_samples.py`, and are shown below:
 
-![](./Results/Protected/Optimised_GP_predictions,_GP____sqe_opt_.png)
+![](./Results/Protected/GP_predictions_and_predictive_samples,_GP____sqe_opt_.png)
 
 ## Hyperparameter sensitivity
 
