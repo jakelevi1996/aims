@@ -2,29 +2,22 @@ import os
 import numpy as np
 import __init__
 import data
-import gp
-import mean
-import kernel
+import scripts.course_1_dei.gp_utils
 import plotting
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 DAYS_PER_MINUTE = 1 / (60 * 24)
 T_STEP = 10 * DAYS_PER_MINUTE
 T_MAX = 7
 
 sotonmet = data.Sotonmet()
 
-for lookahead_minutes in [0, 5, 50, 500]:
+for lookahead_minutes in [0, 5, 50, 500, 5000]:
     lookahead_days = lookahead_minutes * DAYS_PER_MINUTE
     t_pred_list = []
     y_pred_mean_list = []
     y_pred_std_list = []
 
-    g = gp.GaussianProcess(
-        prior_mean_func=mean.Constant(3),
-        kernel_func=kernel.SquaredExponential(0.08666701, 0.65337298),
-        noise_std=0.02931095,
-    )
+    g = scripts.course_1_dei.gp_utils.get_optimal_gp()
 
     t_previous = sotonmet.t_train[-1]
     for t, y in zip(sotonmet.t_train, sotonmet.y_train):
@@ -57,21 +50,24 @@ for lookahead_minutes in [0, 5, 50, 500]:
         "Sequential prediction with fixed minimum lookahead = %i minutes"
         % lookahead_minutes
     )
-    y_pred_mean_array = np.reshape(y_pred_mean_list, -1)
-    y_pred_std_array = np.reshape(y_pred_std_list, -1)
     plotting.plot(
-        *sotonmet.get_train_test_plot_lines(),
-        plotting.Line(t_pred_list, y_pred_mean_list, c="r", zorder=40),
-        plotting.FillBetween(
+        *scripts.course_1_dei.gp_utils.get_dataset_lines(sotonmet),
+        *scripts.course_1_dei.gp_utils.get_gp_prediction_lines(
             t_pred_list,
-            y_pred_mean_array + 2 * y_pred_std_array,
-            y_pred_mean_array - 2 * y_pred_std_array,
-            color="r",
-            lw=0,
-            alpha=0.2,
-            zorder=30,
+            np.reshape(y_pred_mean_list, -1),
+            np.reshape(y_pred_std_list, -1),
+        ),
+        plotting.HVLine(
+            v=lookahead_days,
+            c="r",
+            ls="--",
+            label="Start of lookahead predictions",
         ),
         plot_name=plot_name,
-        dir_name=os.path.join(CURRENT_DIR, "Results", "Fixed lookahead"),
-        axis_properties=plotting.AxisProperties(ylim=[0, 6]),
+        dir_name=os.path.join(
+            scripts.course_1_dei.gp_utils.RESULTS_DIR,
+            "fixed_lookahead"
+        ),
+        axis_properties=scripts.course_1_dei.gp_utils.AXIS_PROPERTIES,
+        legend_properties=plotting.LegendProperties(),
     )
