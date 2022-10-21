@@ -118,7 +118,9 @@ gp_dict = {
 }
 
 def get_optimal_gp():
-    return gp_dict["sum_opt"]
+    g = gp_dict["sum_opt"]
+    g.decondition()
+    return g
 
 def plot_gp(
     g,
