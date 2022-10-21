@@ -3,6 +3,7 @@
 *.png
 __pycache__
 
+*.pdf
 *.aux
 *.bbl
 *.blg
@@ -10,4 +11,5 @@ __pycache__
 *.fls
 *.log
 *.gz
+*.out
 *.synctex(busy)
