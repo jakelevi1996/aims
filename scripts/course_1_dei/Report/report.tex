@@ -61,7 +61,7 @@ We start off by considering Gaussian processes with constant mean function and s
 K(x, x') &= k \exp\left( -\left( \frac{x - x'}{\lambda} \right)^2 \right)
 \end{align}
 
-Within the domain of such Gaussian Processes, we start off by considering two Gaussian processes denoted by sqe\textunderscore 1 and sqe\textunderscore 2, as described in Table \ref{table:sqe_table}. Samples from the prior distributions of sqe\textunderscore 1 and sqe\textunderscore 1 are shown in Figure \ref{fig:prior_samples}.
+Within the domain of such Gaussian Processes, we start off by considering two Gaussian processes denoted by sqe\_1 and sqe\_2, as described in Table \ref{table:sqe_table}. Samples from the prior distributions of sqe\_1 and sqe\_1 are shown in Figure \ref{fig:prior_samples}.
 
 
 \appendix
@@ -74,12 +74,12 @@ Within the domain of such Gaussian Processes, we start off by considering two Ga
 \centering
 \begin{tabular}{|c|c|c|c|}
 \hline
-GP name & sqe\textunderscore 1 & sqe\textunderscore 2 & sqe\textunderscore opt \\
+GP name & sqe\_1 & sqe\_2 & sqe\_opt \\
 \hline
 offset                      & 3     & 3   & 2.9904846516133974 \\
-length\textunderscore scale & 0.1   & 0.3 & 0.08665037458315064 \\
-kernel\textunderscore scale & 1     & 10  & 0.6522383851241347 \\
-noise\textunderscore std    & 0.001 & 1   & 0.02930675775064153 \\
+length\_scale & 0.1   & 0.3 & 0.08665037458315064 \\
+kernel\_scale & 1     & 10  & 0.6522383851241347 \\
+noise\_std    & 0.001 & 1   & 0.02930675775064153 \\
 \hline
 \end{tabular}
 \caption{Description of Gaussian Processes with squared exponential kernel that were evaluated in this report}
@@ -107,13 +107,13 @@ noise\textunderscore std    & 0.001 & 1   & 0.02930675775064153 \\
 \begin{figure}[ht]
     \centering
     \subfloat[
-        \centering Samples from the prior distribution of Gaussian Process sqe\textunderscore 1
+        \centering Samples from the prior distribution of Gaussian Process sqe\_1
         \label{fig:prior_sqe_1}
     ]{
         \includegraphics[width=0.45\textwidth]{Samples_from_GP_prior,_GP____sqe_1_.png}
     }
     \subfloat[
-        \centering Samples from the prior distribution of Gaussian Process sqe\textunderscore 2
+        \centering Samples from the prior distribution of Gaussian Process sqe\_2
         \label{fig:prior_sqe_2}
     ]{
         \includegraphics[width=0.45\textwidth]{Samples_from_GP_prior,_GP____sqe_2_.png}
