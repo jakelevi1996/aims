@@ -207,4 +207,32 @@ GP name | GP description | Log marginal likelihood
 
 ## Sequential prediction
 
+Sequential predictions with a fixed lookahead can be plotted with the command `python scripts/course_1_dei/compare_fixed_lookaheads.py`, and the results are shown below. In each figure, each prediction is conditioned only on points at least the fixed minimum lookahead number of minutes before the time of prediction, demonstrating the model's ability to predict a fixed time period into the future. Note that the `condition` method is implemented such that the Gaussian process avoids inverting a matrix on every time step. As the fixed minimum lookahead increases, the predictions become more noisy and less accurate.
+
+![](./Results/Protected/fixed_lookahead/Sequential_prediction_with_fixed_minimum_lookahead___5_minutes.png)
+
+![](./Results/Protected/fixed_lookahead/Sequential_prediction_with_fixed_minimum_lookahead___50_minutes.png)
+
+![](./Results/Protected/fixed_lookahead/Sequential_prediction_with_fixed_minimum_lookahead___500_minutes.png)
+
+![](./Results/Protected/fixed_lookahead/Sequential_prediction_with_fixed_minimum_lookahead___5000_minutes.png)
+
+Sequential predictions with a variable lookahead can be plotted with the command `python scripts/course_1_dei/compare_varying_lookaheads.py`, and the result is shown below for the `sum_opt` GP, as well as animated plots of variable lookahead for `sqe_opt`, `prod_opt`, and `sum_opt`, showing that `sum_opt` performs the most accurate long-term predictions.
+
+![](./Results/Protected/varying_lookahead/Lookahead,_GP____sum_opt_,_boundary___1.00_days.png)
+
+![](./Results/Protected/varying_lookahead/Lookahead,_GP____sum_opt_,_boundary___2.00_days.png)
+
+![](./Results/Protected/varying_lookahead/Lookahead,_GP____sum_opt_,_boundary___3.00_days.png)
+
+![](./Results/Protected/varying_lookahead/Lookahead,_GP____sum_opt_,_boundary___4.00_days.png)
+
+![](./Results/Protected/varying_lookahead/Lookahead,_GP____sum_opt_,_boundary___5.00_days.png)
+
+![](./Results/Protected/sequential_predictions_sqe_opt.gif)
+
+![](./Results/Protected/sequential_predictions_prod_opt.gif)
+
+![](./Results/Protected/sequential_predictions_sum_opt.gif)
+
 ## Predicting gradients
