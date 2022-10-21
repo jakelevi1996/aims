@@ -1,41 +1,33 @@
+import os
 import numpy as np
 import __init__
 import data
-import gp
-import mean
-import kernel
+import scripts.course_1_dei.gp_utils
 import plotting
 
 sotonmet = data.Sotonmet()
-t_pred = np.linspace(-1, 6, 1000)
 
-g_list = [
-    gp.GaussianProcess(
-        prior_mean_func=mean.Constant(3),
-        kernel_func=kernel.SquaredExponential(0.3, 10),
-        noise_std=1,
-    ),
-    gp.GaussianProcess(
-        prior_mean_func=mean.Constant(3),
-        kernel_func=kernel.SquaredExponential(0.08666701, 0.65337298),
-        noise_std=0.02931095,
-    ),
-]
-for g in g_list:
+for gp_name in ["sqe_opt", "prod_opt", "sum_opt"]:
+    g = scripts.course_1_dei.gp_utils.gp_dict[gp_name]
     g.condition(sotonmet.t_train, sotonmet.y_train)
-    y_grad_mean, y_grad_std = g.predict_gradient(t_pred)
-    t_grad = (t_pred[:-1] + t_pred[1:]) / 2
+    y_grad_mean, y_grad_std = g.predict_gradient(sotonmet.t_pred)
+    t_grad = (sotonmet.t_pred[:-1] + sotonmet.t_pred[1:]) / 2
 
     plotting.plot(
-        plotting.Line(t_grad, y_grad_mean, c="r", zorder=40),
-        plotting.FillBetween(
+        *scripts.course_1_dei.gp_utils.get_gp_prediction_lines(
             t_grad,
-            y_grad_mean + y_grad_std,
-            y_grad_mean - y_grad_std,
-            color="r",
-            lw=0,
-            alpha=0.2,
-            zorder=30,
+            y_grad_mean,
+            y_grad_std,
         ),
-        plot_name="GP gradients, GP = %r" % g,
+        plot_name="GP gradients, GP = %r" % gp_name,
+        dir_name=os.path.join(
+            scripts.course_1_dei.gp_utils.RESULTS_DIR,
+            "gradients"
+        ),
+        axis_properties=plotting.AxisProperties(
+                xlabel=scripts.course_1_dei.gp_utils.X_LABEL,
+                ylabel="Gradient (metres/day)",
+                xlim=scripts.course_1_dei.gp_utils.X_LIM,
+        ),
+        legend_properties=plotting.LegendProperties(),
     )
