@@ -33,7 +33,7 @@ gp_dict = {
         prior_mean_func=gp.mean.Constant(offset=2.9904846516133974),
         kernel_func=gp.kernel.SquaredExponential(
             length_scale=0.08665037458315064,
-            kernel_scale=0.6522383851241347
+            kernel_scale=0.6522383851241347,
         ),
         noise_std=0.02930675775064153,
     ),
@@ -52,6 +52,36 @@ gp_dict = {
             period=0.5149342760919302,
             length_scale=1.2264134716027426,
             kernel_scale=1.0346460845353729,
+        ),
+        noise_std=0.17334345487465788,
+    ),
+    "sum_1": gp.GaussianProcess(
+        prior_mean_func=gp.mean.Constant(offset=2.994526707406642),
+        kernel_func=gp.kernel.Sum(
+            gp.kernel.SquaredExponential(
+                length_scale=0.08665037458315064,
+                kernel_scale=0.6522383851241347,
+            ),
+            gp.kernel.Periodic(
+                period=0.5149342760919302,
+                length_scale=1.2264134716027426,
+                kernel_scale=1.0346460845353729,
+            ),
+        ),
+        noise_std=0.17334345487465788,
+    ),
+    "prod_1": gp.GaussianProcess(
+        prior_mean_func=gp.mean.Constant(offset=2.994526707406642),
+        kernel_func=gp.kernel.Product(
+            gp.kernel.SquaredExponential(
+                length_scale=0.08665037458315064,
+                kernel_scale=0.6522383851241347,
+            ),
+            gp.kernel.Periodic(
+                period=0.5149342760919302,
+                length_scale=1.2264134716027426,
+                kernel_scale=1.0346460845353729,
+            ),
         ),
         noise_std=0.17334345487465788,
     ),
