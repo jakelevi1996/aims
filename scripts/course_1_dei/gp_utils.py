@@ -100,6 +100,21 @@ gp_dict = {
         ),
         noise_std=0.02871806422941413,
     ),
+    "prod_opt": gp.GaussianProcess(
+        prior_mean_func=gp.mean.Constant(offset=2.9285714285714284),
+        kernel_func=gp.kernel.Product(
+            gp.kernel.SquaredExponential(
+                length_scale=0.7880754080416588,
+                kernel_scale=5.538930746200925,
+            ),
+            gp.kernel.Periodic(
+                period=0.5082224844864489,
+                length_scale=0.7270981370167336,
+                kernel_scale=0.0974970247641131,
+            ),
+        ),
+        noise_std=0.02905329635947378,
+    ),
 }
 
 def get_optimal_gp():
