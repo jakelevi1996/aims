@@ -18,7 +18,7 @@
 
 \section{Introduction}
 
-This lab report investigates the use of Gaussian Processes, a type of machine learning model motivated by Bayesian probability theory, for modelling a meteorological dataset called Sotonmet. In a Gaussian Process model, given a mean function $\mu$, kernel function $K$, training input data $x$ (represented as a vector), and prediction inputs $x^*$, the noisy training labels $y$ (which we assume are noisy observations of unknown noiseless training labels $f$) and noiseless prediction labels $f^*$ have a joint Gaussian distribution:
+This lab report investigates the use of Gaussian Processes (GPs), a type of machine learning model motivated by Bayesian probability theory, for modelling a meteorological dataset called Sotonmet. In a GP model, given a mean function $\mu$, kernel function $K$, training input data $x$ (represented as a vector), and prediction inputs $x^*$, the noisy training labels $y$ (which we assume are noisy observations of unknown noiseless training labels $f$) and noiseless prediction labels $f^*$ have a joint Gaussian distribution:
 
 % Equation: joint distribution
 
@@ -59,13 +59,13 @@ The log marginal likelihood (LML) of the noisy training labels $y$ given trainin
 
 This expression implies that maximising the LML encourages $\mu(x)$, $K(x,x)$ and $\sigma$ to fit the data accurately and with calibrated uncertainty. Maximising the LML can also be motivated from a Bayesian perspective, which is discussed further in Appendix \ref{appendix:why_lml}.
 
-The focus in this coursework submission is on predicting the tide height given the time of day, for which the the training and ground truth data is shown in Figure \ref{fig:data}, alongside an independent Gaussian Process prediction in Figure \ref{fig:ind_pres}.
+The focus in this coursework submission is on predicting the tide height given the time of day, for which the the training and ground truth data is shown in Figure \ref{fig:data}, alongside an independent GP prediction in Figure \ref{fig:ind_pres}.
 
 % Section: results
 
 \section{Results}
 
-We start off by considering Gaussian processes with constant mean function and squared exponential kernel, whose mean and kernel functions are related to the hyperparameters $c$, $k$, and $\lambda$ as follows ($\sigma$ is also considered to be a hyperparameter, although it is not explicitly part of the mean or kernel functions):
+We start off by considering GPs with constant mean function and squared exponential kernel, whose mean and kernel functions are related to the hyperparameters $c$, $k$, and $\lambda$ as follows ($\sigma$ is also considered to be a hyperparameter, although it is not explicitly part of the mean or kernel functions):
 
 % Equation: constant mean and squared exponential kernel function
 
@@ -74,7 +74,7 @@ We start off by considering Gaussian processes with constant mean function and s
 K_{\mathrm{sqe}}(x, x') &= k \exp\left( -\left( \frac{x - x'}{\lambda} \right)^2 \right)
 \end{align}
 
-Within the domain of such Gaussian Processes, we start off by considering two Gaussian processes denoted by sqe\_1 and sqe\_2, as described in Table \ref{table:sqe_table}. Samples from the prior distributions of sqe\_1 and sqe\_1 are shown in Figure \ref{fig:prior_samples}, which show that the prior distribution of sqe\_1 looks subjectively like a much more plausible explanation for the data. The predictive distributions of these Gaussian Processes are shown in Figure \ref{fig:pred_distribution}, which show that, although sqe\_1 produced a \emph{prior} distribution which looks like a more plausible explanation for the training data, sqe\_2 produces a \emph{predictive} distribution which looks like a much better fit to the training data. Furthermore, the predictive distribution of sqe\_1 is "confidently wrong" (the mean is far away from the ground truth labels and with high certainty/low standard deviation) in regions containing ground truth labels but no training data, which could be a very undesirable property to have in a safety-critical prediction scenario. Lastly, samples from the predictive distribution of both Gaussian Processes are shown in Figure \ref{fig:pred_samples}, which show that neither Gaussian Process produces samples that reflect the data distribution particularly well.
+Within the domain of such GPs, we start off by considering two GPs denoted by sqe\_1 and sqe\_2, as described in Table \ref{table:sqe_table}. Samples from the prior distributions of sqe\_1 and sqe\_1 are shown in Figure \ref{fig:prior_samples}, which show that the prior distribution of sqe\_1 looks subjectively like a much more plausible explanation for the data. The predictive distributions of these GPs are shown in Figure \ref{fig:pred_distribution}, which show that, although sqe\_1 produced a \emph{prior} distribution which looks like a more plausible explanation for the training data, sqe\_2 produces a \emph{predictive} distribution which looks like a much better fit to the training data. Furthermore, the predictive distribution of sqe\_1 is "confidently wrong" (the mean is far away from the ground truth labels and with high certainty/low standard deviation) in regions containing ground truth labels but no training data, which could be a very undesirable property to have in a safety-critical prediction scenario. Lastly, samples from the predictive distribution of both GPs are shown in Figure \ref{fig:pred_samples}, which show that neither GP produces samples that reflect the data distribution particularly well.
 
 \appendix
 
@@ -91,7 +91,7 @@ Within the domain of such Gaussian Processes, we start off by considering two Ga
         \includegraphics[width=0.45\textwidth]{Sotonmet_data.png}
     }
     \subfloat[
-        \centering Independent Gaussian Process predictions
+        \centering Independent GP predictions
         \label{fig:ind_pres}
     ]{
         \includegraphics[width=0.45\textwidth]{Data_and_independent_GP_predictions.png}
@@ -116,7 +116,7 @@ Within the domain of such Gaussian Processes, we start off by considering two Ga
     ]{
         \includegraphics[width=0.45\textwidth]{Samples_from_GP_prior,_GP____sqe_2_.png}
     }
-    \caption{Samples from the prior distribution of Gaussian Processes with square exponential kernels}
+    \caption{Samples from the prior distribution of GPs with square exponential kernels}
     \label{fig:prior_samples}
 \end{figure}
 
@@ -136,7 +136,7 @@ Within the domain of such Gaussian Processes, we start off by considering two Ga
     ]{
         \includegraphics[width=0.45\textwidth]{GP_predictions,_GP____sqe_2_.png}
     }
-    \caption{Predictive distributions of Gaussian Processes with square exponential kernels}
+    \caption{Predictive distributions of GPs with square exponential kernels}
     \label{fig:pred_distribution}
 \end{figure}
 
@@ -156,15 +156,15 @@ Within the domain of such Gaussian Processes, we start off by considering two Ga
     ]{
         \includegraphics[width=0.45\textwidth]{GP_predictions_and_predictive_samples,_GP____sqe_2_.png}
     }
-    \caption{Predictive distributions of Gaussian Processes with square exponential kernels}
+    \caption{Predictive distributions of GPs with square exponential kernels}
     \label{fig:pred_samples}
 \end{figure}
 
 % Section: GP tables
 
-\section{Description of Gaussian Processes used}\label{appendix:gp_table}
+\section{Description of GPs used}\label{appendix:gp_table}
 
-% Table: SQE Gaussian processes
+% Table: SQE GPs
 
 \begin{table}[ht]
 \centering
@@ -177,7 +177,7 @@ sqe\_2   & 3     & 0.3       & 10     & 1        & -1817.3   \\
 sqe\_opt & 2.990 & 0.08665   & 0.6522 & 0.02931  & 1574.4    \\
 \hline
 \end{tabular}
-\caption{Description of Gaussian Processes with squared exponential kernel that were evaluated in this report, and their log marginal likelihoods (LML)}
+\caption{Description of GPs with squared exponential kernel that were evaluated in this report, and their log marginal likelihoods (LML)}
 \label{table:sqe_table}
 \end{table}
 
