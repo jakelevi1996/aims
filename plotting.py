@@ -176,6 +176,7 @@ def plot(
     axis_properties=None,
     legend_properties=None,
     figsize=None,
+    save=True,
 ):
     if legend_properties is not None:
         if figsize is None:
@@ -212,8 +213,9 @@ def plot(
 
     axis_properties.apply(plot_axis, fig)
 
-    plot_filename = save_and_close(plot_name, fig, dir_name)
-    return plot_filename
+    if save:
+        plot_filename = save_and_close(plot_name, fig, dir_name)
+        return plot_filename
 
 def make_gif(
     *input_paths,
