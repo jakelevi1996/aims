@@ -44,17 +44,47 @@ Where $K(x, x^*)$ is a matrix whose $(i, j)$th element is given by $K(x, x^*)_{i
 
 The log marginal likelihood (LML) of the noisy training labels $y$ given training input data $x$ (and also implicitly given any hyperparameters of the model) is given by:
 
-\begin{align}
+\begin{equation}
     \log \left( p(y \mid x) \right) = -\frac{1}{2}\log\left(\det \left(2\pi\left( K(x, x) + \sigma^2 I \right)\right)\right) -\frac{1}{2}(y - \mu(x))^T \left( K(x, x) + \sigma^2 I \right)^{-1} (y - \mu(x))
+\end{equation}
+
+This expression implies that maximising the LML encourages $\mu(x)$, $K(x,x)$ and $\sigma$ to fit the data accurately and with calibrated uncertainty. Maximising the LML can also be motivated from a Bayesian perspective, which is discussed further in Appendix \ref{appendix:why_lml}.
+
+The focus in this coursework submission is on predicting the tide height given the time of day, for which the the training and ground truth data is shown in Figure \ref{fig:data}, alongside an independent Gaussian Process prediction in Figure \ref{fig:ind_pres}.
+
+\section{Results}
+
+We start off by considering Gaussian processes with constant mean function and squared exponential kernel, whose mean and kernel functions are related to the hyperparameters $c$, $k$, $\lambda$ as follows ($\sigma$ is also considered to be a hyperparameter, although it is not explicitly part of the mean or kernel functions):
+
+\begin{align}
+\mu(x) &= c \\
+K(x, x') &= k \exp\left( -\left( \frac{x - x'}{\lambda} \right)^2 \right)
 \end{align}
 
-This expression implies that maximising the LML encourages $\mu(x)$, $K(x,x)$ and $\sigma$ to fit the data accurately and with calibrated uncertainty. Maximising the LML can also be motivated from a Bayesian perspective, which is discussed further in appendix \ref{appendix:why_lml}.
+Within the domain of such Gaussian Processes, we start off by considering two Gaussian processes denoted by sqe\textunderscore 1 and sqe\textunderscore 2, as described in Table \ref{table:sqe_table}. Samples from the prior distributions of sqe\textunderscore 1 and sqe\textunderscore 1 are shown in Figure \ref{fig:prior_samples}.
 
-The focus in this coursework submission is on predicting the tide height given the time of day, for which the the training and ground truth data is shown in \ref{fig:data}, alongside an independent Gaussian Process prediction in \ref{fig:ind_pres}.
 
 \appendix
 
 \section{Figures}\label{appendix:figures}
+
+\section{Description of Gaussian Processes used}\label{appendix:gp_table}
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+GP name & sqe\textunderscore 1 & sqe\textunderscore 2 & sqe\textunderscore opt \\
+\hline
+offset                      & 3     & 3   & 2.9904846516133974 \\
+length\textunderscore scale & 0.1   & 0.3 & 0.08665037458315064 \\
+kernel\textunderscore scale & 1     & 10  & 0.6522383851241347 \\
+noise\textunderscore std    & 0.001 & 1   & 0.02930675775064153 \\
+\hline
+\end{tabular}
+\caption{Description of Gaussian Processes with squared exponential kernel that were evaluated in this report}
+\label{table:sqe_table}
+\end{table}
 
 \begin{figure}[ht]
     \centering
@@ -71,7 +101,25 @@ The focus in this coursework submission is on predicting the tide height given t
         \includegraphics[width=0.45\textwidth]{Data_and_independent_GP_predictions.png}
     }
     \caption{The Sotonmet dataset}
-    \label{fig:RBF_manual}
+    \label{fig:sotonmet}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \subfloat[
+        \centering Samples from the prior distribution of Gaussian Process sqe\textunderscore 1
+        \label{fig:prior_sqe_1}
+    ]{
+        \includegraphics[width=0.45\textwidth]{Samples_from_GP_prior,_GP____sqe_1_.png}
+    }
+    \subfloat[
+        \centering Samples from the prior distribution of Gaussian Process sqe\textunderscore 2
+        \label{fig:prior_sqe_2}
+    ]{
+        \includegraphics[width=0.45\textwidth]{Samples_from_GP_prior,_GP____sqe_2_.png}
+    }
+    \caption{Samples from the prior distribution of Gaussian Processes with square exponential kernels}
+    \label{fig:prior_samples}
 \end{figure}
 
 
