@@ -69,6 +69,18 @@ class Bar(FillBetween):
     def plot(self, axis):
         axis.bar(self._x, self._height, **self._kwargs)
 
+class HVSpan(FillBetween):
+    def __init__(self, xlims=None, ylims=None, **kwargs):
+        self._xlims = xlims
+        self._ylims = ylims
+        self._kwargs = kwargs
+
+    def plot(self, axis):
+        if self._xlims is not None:
+            axis.axvspan(*self._xlims, **self._kwargs)
+        if self._ylims is not None:
+            axis.axhspan(*self._ylims, **self._kwargs)
+
 class ColourPicker:
     def __init__(self, num_colours, cyclic=True, cmap_name=None):
         if cmap_name is None:

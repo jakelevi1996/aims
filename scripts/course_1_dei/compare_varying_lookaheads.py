@@ -34,11 +34,11 @@ for condition_boundary in np.arange(1, max(sotonmet.t_train)):
             sotonmet.t_pred,
             posterior_samples,
         ),
-        plotting.HVLine(
-            v=condition_boundary,
-            c="r",
-            ls="--",
-            label="Conditioning boundary",
+        plotting.HVSpan(
+            xlims=[0, condition_boundary],
+            color="b",
+            alpha=0.3,
+            label="Conditioning set",
         ),
         plot_name="Lookahead, boundary = %.1f days" % condition_boundary,
         dir_name=os.path.join(
