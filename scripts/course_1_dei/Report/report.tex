@@ -1,13 +1,11 @@
 \documentclass{article}
 
-\usepackage{amsmath}
 \usepackage[a4paper, total={7in, 10in}]{geometry}
-\usepackage{graphicx} %LaTeX package to import graphics
-\graphicspath{{../Results/Protected/}} %configuring the graphicx package
-\usepackage[export]{adjustbox}
-\usepackage{caption,subcaption}
 
-
+\usepackage{amsmath}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\graphicspath{{../Results/Protected/}}
 
 \title{AIMS Course 1: Data, Estimation and Inference}
 \author{Jake Levi}
@@ -52,7 +50,7 @@ The log marginal likelihood (LML) of the noisy training labels $y$ given trainin
 
 This expression implies that maximising the LML encourages $\mu(x)$, $K(x,x)$ and $\sigma$ to fit the data accurately and with calibrated uncertainty. Maximising the LML can also be motivated from a Bayesian perspective, which is discussed further in appendix \ref{appendix:why_lml}.
 
-The focus in this coursework submission is on predicting the tide height given the time of day, for which the the training and ground truth data is shown in \ref{fig:data}, alongside some independent Gaussian Process predictions in \ref{fig:ind_pres}.
+The focus in this coursework submission is on predicting the tide height given the time of day, for which the the training and ground truth data is shown in \ref{fig:data}, alongside an independent Gaussian Process prediction in \ref{fig:ind_pres}.
 
 \appendix
 
