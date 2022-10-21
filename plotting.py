@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.lines
 import matplotlib.patches
 import numpy as np
+import PIL
 import util
 
 class Line:
@@ -213,3 +214,37 @@ def plot(
 
     plot_filename = save_and_close(plot_name, fig, dir_name)
     return plot_filename
+
+def make_gif(
+    *input_paths,
+    output_name=None,
+    output_dir=None,
+    frame_duration_ms=100,
+    optimise=False,
+    loop_forever=True,
+    n_loops=1,
+):
+    if output_name is None:
+        output_name = "Output"
+
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir)
+
+    if loop_forever:
+        n_loops = 0
+
+    first_frame = PIL.Image.open(input_paths[0])
+    file_name = "%s.gif" % util.clean_filename(output_name)
+    full_path = os.path.join(output_dir, file_name)
+
+    print("Saving gif in \"%s\"" % full_path)
+    first_frame.save(
+        full_path,
+        format="gif",
+        save_all=True,
+        append_images=[PIL.Image.open(f) for f in input_paths[1:]],
+        duration=frame_duration_ms,
+        optimise=optimise,
+        loop=n_loops,
+    )
+    return full_path
