@@ -17,7 +17,6 @@ The website for Michael Osborne's DEI lectures can be found [here](https://www.r
   - [Periodic kernels](#periodic-kernels)
   - [Sum and product kernels](#sum-and-product-kernels)
   - [Sequential prediction](#sequential-prediction)
-  - [Predicting gradients](#predicting-gradients)
 
 ## Loading and plotting data
 
@@ -234,5 +233,3 @@ Sequential predictions with a variable lookahead can be plotted with the command
 ![](./Results/Protected/sequential_predictions_prod_opt.gif)
 
 ![](./Results/Protected/sequential_predictions_sum_opt.gif)
-
-## Predicting gradients
