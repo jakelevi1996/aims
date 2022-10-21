@@ -137,6 +137,44 @@ This could be a very undesirable property for the model to have in a safety-crit
 
 ## Periodic kernels
 
+We define a new GP `per_1` with a periodic kernel, and set its hyperparameters to be identical to those of `sqe_opt`, except that the `period` hyperparameter is set to 0.5. The predictions and predictive samples of `per_1` are shown below:
+
+![](./Results/Protected/GP_predictions_and_predictive_samples,_GP____per_1_.png)
+
+We note that the predictive uncertainty of `per_1` is very low compared to `sqe_opt`, which has exactly the same parameters, with the exception that `per_1` has an additional `period` hyperparameter. We can understand this behaviour again by looking at the expression for the periodic kernel, and interpreting the behaviour in terms of epistemic uncertainty. To the periodic kernel, two training points might be separated by a long time lag, but they can be interpreted by the periodic kernel as occuring at the same (or nearby) input location if they are separated by an exact (or close to exact) integer multiple of the period. For the Sotonmet data considered here, the training data is spread over 10 periods of high/low tide, but to the periodic kernel, it would process the data in exactly the same way if all 917 training points were shifted by an integer multiple of the period to lie in the first half day, in which case we would would have a large number of training points all in a very close vicinity to each other. In the previous section, we saw that the predictive uncertainty increases when the number of nearby data points decreases (this is epistemic uncertainty), and here we see the inverse effect, that the predictive uncertainty decreases when, from the perspective of the kernel, the number of nearby data points increases. This explains why the predictive uncertainty of `per_1` is very low compared to `sqe_opt`.
+
+We can optimise the hyperparameters of `per_1` using the command `python scripts/course_1_dei/find_best_params.py`, leading to a Gaussian Process referred to as `per_opt`. The log marginal likelihoods of all Gaussian Processes considered so far are shown in the table below. We see that `per_1` has a very bad marginal likelihood (worse than `sqe_2`, but not as bad as `sqe_1`), and that `per_opt` has a marginal likelihood which is better than `sqe_2`, but not as good as `sqe_opt`:
+
+GP name | GP description | Log marginal likelihood
+--- | --- | ---
+`sqe_1` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.1, kernel_scale=1), noise_std=0.001)` | -649119.257386
+`sqe_2` | `GaussianProcess(prior_mean_func=Constant(offset=3), kernel_func=SquaredExponential(length_scale=0.3, kernel_scale=10), noise_std=1.0)` | -1817.344828
+`sqe_opt` | `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=SquaredExponential(length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)` | 1574.440872
+`per_1` | `GaussianProcess(prior_mean_func=Constant(offset=2.9904846516133974), kernel_func=Periodic(period=0.5, length_scale=0.08665037458315064, kernel_scale=0.6522383851241347), noise_std=0.02930675775064153)` | -142748.097076
+`per_opt` | `GaussianProcess(prior_mean_func=Constant(offset=2.994526707406642), kernel_func=Periodic(period=0.5149342760919302, length_scale=1.2264134716027426, kernel_scale=1.0346460845353729), noise_std=0.17334345487465788)` | 276.323647
+
+The predictions of `per_opt` can be plotted with the command `python scripts/course_1_dei/plot_predictive_samples.py`, and are shown below. We note that the predictive samples of `per_opt` have much better calibrated uncertainty than those of `per_1`, and that the optimised period is more well-aligned with the data. Again, the predictive standard deviation (plotted without observation noise) of `per_opt` is low relative to the data (because the training data points are all effectively very close together from the perspective of the periodic kernel), but the predictive samples (which include observation noise) have standard deviation which is more well calibrated with the training data:
+
+![](./Results/Protected/GP_predictions_and_predictive_samples,_GP____per_opt_.png)
+
+The command `python scripts/course_1_dei/sweep_gp.py` can be used to plot the sensitivity of `per_opt` to its hyperparameters, and the resulting figures are shown below:
+
+![](./Results/Protected/param_sweep/Periodic/Parameter_sweep_results_for__Periodic_kernel_,_varying_parameter__offset_.png)
+
+![](./Results/Protected/param_sweep/Periodic/Parameter_sweep_results_for__Periodic_kernel_,_varying_parameter__period_.png)
+
+![](./Results/Protected/param_sweep/Periodic/Parameter_sweep_results_for__Periodic_kernel_,_varying_parameter__length_scale_.png)
+
+![](./Results/Protected/param_sweep/Periodic/Parameter_sweep_results_for__Periodic_kernel_,_varying_parameter__kernel_scale_.png)
+
+![](./Results/Protected/param_sweep/Periodic/Parameter_sweep_results_for__Periodic_kernel_,_varying_parameter__noise_std_.png)
+
+We note that the log marginal likelihood of `per_1` is very sensitive to and sharply peaked around its optimal value, so we provide a zoomed in version of this figure below:
+
+![](./Results/Protected/param_sweep/Periodic/tightened_range/Parameter_sweep_results_for__Periodic_kernel__tightened_range__,_varying_parameter__period_.png)
+
+In general, given the sensitivity and sharpness of the peak of the log marginal likelihood with respect to the period, it might be difficult for a gradient-based optimisation algorithm to find the optimal period. A possible solution to this problem would be to model the objective function using a second Gaussian process, and use Bayesian Optimisation [[Snoek, Jasper, Hugo Larochelle, and Ryan P. Adams. "Practical bayesian optimization of machine learning algorithms." Advances in neural information processing systems 25 (2012).](https://proceedings.neurips.cc/paper/2012/hash/05311655a15b75fab86956663e1819cd-Abstract.html)] to optimise the period, which would naturally spend more time searching in the vicinity of the peak, but this raises the question of how to optimise the hyperparameters of this second Gaussian Process - clearly we can't use a separate Bayesian Optimisation routine to optimise the hyperparameters of every Gaussian Process without ending up with an infinite number of Gaussian Processes.
+
 ## Sum and product kernels
 
 ## Sequential prediction
