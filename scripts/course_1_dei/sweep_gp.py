@@ -135,8 +135,8 @@ class Sum(_GpSweep):
         self._add_log_range_param("sqe_length_scale", 0.06917512071945595)
         self._add_log_range_param("sqe_kernel_scale", 0.029895345214372513)
         self._add_log_range_param("period", 0.514954586260453, scale_factor=4)
-        self._add_log_range_param("per_length_scale", 0.6512752017924203)
-        self._add_log_range_param("per_kernel_scale", 0.13082827454160073)
+        self._add_log_range_param("per_length_scale", 0.6453392671906066)
+        self._add_log_range_param("per_kernel_scale", 0.5962321347520633)
         self._add_log_range_param("noise_std", 0.02871806422941413)
 
     def _get_gp(

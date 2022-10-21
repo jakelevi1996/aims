@@ -64,8 +64,8 @@ gp_dict = {
             ),
             gp.kernel.Periodic(
                 period=0.514954586260453,
-                length_scale=0.6512752017924203,
-                kernel_scale=0.13082827454160073,
+                length_scale=0.6453392671906066,
+                kernel_scale=0.5962321347520633,
             ),
         ),
         noise_std=0.02871806422941413,
