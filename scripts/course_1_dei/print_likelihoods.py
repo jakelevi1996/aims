@@ -45,7 +45,6 @@ for gp_name in ["sqe_1", "sqe_2"]:
 print("Markdown table:")
 print("GP name | GP description | Log marginal likelihood")
 print("--- | --- | ---")
-for gp_name in ["sqe_1", "sqe_2", "sqe_opt"]:
-    g = scripts.course_1_dei.gp_utils.gp_dict[gp_name]
+for gp_name, g in scripts.course_1_dei.gp_utils.gp_dict.items():
     g.condition(sotonmet.t_train, sotonmet.y_train)
     print("`%s` | `%s` | %f" % (gp_name, g, g.log_marginal_likelihood()))
