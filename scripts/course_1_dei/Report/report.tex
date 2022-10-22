@@ -19,7 +19,7 @@
 
 \section{Introduction}
 
-This lab report investigates the use of Gaussian Processes (GPs), a type of machine learning model motivated by Bayesian probability theory, for modelling a meteorological dataset called Sotonmet. In a GP model, given a mean function $\mu$, kernel function $K$, training input data $x$ (represented as a vector), and prediction inputs $x^*$, the noisy training labels $y$ (which we assume are noisy observations of unknown noiseless training labels $f$) and noiseless prediction labels $f^*$ have a joint Gaussian distribution:
+This lab report investigates the use of Gaussian Processes (GPs), a type of machine learning model motivated by Bayesian probability theory, for modelling a meteorological dataset called Sotonmet. In a GP model, given a mean function $\mu$, kernel function $K$, vaiance of observation noise $\sigma^2$, training inputs $x$ (represented as a vector), and prediction inputs $x^*$, the noisy training labels $y$ (which we assume are noisy observations of unknown labels $f$) and noiseless prediction labels $f^*$ have a joint Gaussian distribution:
 
 % Equation: joint distribution
 
@@ -46,7 +46,7 @@ Where $K(x, x^*)$ is a matrix whose $(i, j)$th element is given by $K(x, x^*)_{i
 
 \begin{align}
     p(f^* \mid y) &= \mathcal{N}\left(f^* \mid \mu^*, \Sigma^* \right) \\
-    \text{where} \qquad \mu^* &= \mu(x^*) + K(x^*, x) \left( K(x, x) + \sigma^2 I \right)^{-1} (y - \mu(x)) \\
+    \text{where} \quad \mu^* &= \mu(x^*) + K(x^*, x) \left( K(x, x) + \sigma^2 I \right)^{-1} (y - \mu(x)) \\
     \Sigma^* &= K(x^*, x^*) - K(x^*, x) \left( K(x, x) + \sigma^2 I \right) ^{-1} K(x, x^*)
 \end{align}
 
@@ -54,13 +54,14 @@ The log marginal likelihood (LML) of the noisy training labels $y$ given trainin
 
 % Equation: log marginal likelihood
 
-\begin{equation}
-    \log \left( p(y \mid x) \right) = -\frac{1}{2}\log\left(\det \left(2\pi\left( K(x, x) + \sigma^2 I \right)\right)\right) -\frac{1}{2}(y - \mu(x))^T \left( K(x, x) + \sigma^2 I \right)^{-1} (y - \mu(x))
-\end{equation}
+\begin{align}
+    \log \left( p(y \mid x) \right) &= -\frac{1}{2}\log\left(\det \left(2\pi \Sigma_y \right)\right) -\frac{1}{2}(y - \mu(x))^T \Sigma_y^{-1} (y - \mu(x)) \\
+    \text{where} \quad \Sigma_y &= K(x, x) + \sigma^2 I
+\end{align}
 
 This expression implies that maximising the LML encourages $\mu(x)$, $K(x,x)$ and $\sigma$ to fit the data accurately and with calibrated uncertainty. Maximising the LML can also be motivated from a Bayesian perspective, which is discussed further in Appendix \ref{appendix:why_lml}.
 
-The focus in this coursework submission is on predicting the tide height given the time of day, for which the the training and ground truth data is shown in Figure \ref{fig:data}, alongside an independent GP prediction in Figure \ref{fig:ind_pres}.
+The focus in this coursework submission is on predicting the tide height given the time of day, for which the training and ground truth data is shown in Figure \ref{fig:data}, alongside an independent GP prediction in Figure \ref{fig:ind_pres}.
 
 % Section: results
 
@@ -75,7 +76,9 @@ We start off by considering GPs with constant mean function and squared exponent
 K_{\mathrm{sqe}}(x, x') &= k \exp\left( -\left( \frac{x - x'}{\lambda} \right)^2 \right)
 \end{align}
 
-Within the domain of such GPs, we start off by considering two GPs denoted by sqe\_1 and sqe\_2, as described in Table \ref{table:sqe_details_table}. Samples from the prior distributions of sqe\_1 and sqe\_1 are shown in Figures \ref{fig:prior_sqe_1} and \ref{fig:prior_sqe_2}, which show that the prior distribution of sqe\_1 looks subjectively like a much more plausible explanation for the data. The predictive distributions of these GPs are shown in Figures \ref{fig:pred_dist_sqe_1} and \ref{fig:pred_dist_sqe_2}, which show that, although sqe\_1 produced a \emph{prior} distribution which looks like a more plausible explanation for the training data, sqe\_2 produces a \emph{predictive} distribution which looks like a much better fit to the training data. Furthermore, the predictive distribution of sqe\_1 is "confidently wrong" (the mean is far away from the ground truth labels and with high certainty/low standard deviation) in regions containing ground truth labels but no training data, which could be a very undesirable property to have in a safety-critical prediction scenario. Lastly, samples from the predictive distribution of both GPs are shown in Figures \ref{fig:pred_samples_sqe_1} and \ref{fig:pred_samples_sqe_2}, which show that neither GP produces samples that reflect the data distribution particularly well.
+Within the domain of such GPs, we start off by considering two GPs denoted by sqe\_1 and sqe\_2, as described in Table \ref{table:sqe_details_table}. Samples from the prior distributions of sqe\_1 and sqe\_1 are shown in Figures \ref{fig:prior_sqe_1} and \ref{fig:prior_sqe_2}, which show that the prior distribution of sqe\_1 looks subjectively like a much more plausible explanation for the data. The predictive distributions of these GPs are shown in Figures \ref{fig:pred_dist_sqe_1} and \ref{fig:pred_dist_sqe_2}, which show that, although sqe\_1 produced a \emph{prior} distribution which looks like a more plausible explanation for the training data, sqe\_2 produces a \emph{predictive} distribution which looks like a much better fit to the training data. Furthermore, the predictive distribution of sqe\_1 is "confidently wrong" (the mean is far away from the ground truth labels and with high certainty/low standard deviation) in regions containing ground truth labels but no training data, which could be a very undesirable property in a safety-critical prediction scenario. Samples from the predictive distribution of both GPs are shown in Figures \ref{fig:pred_samples_sqe_1} and \ref{fig:pred_samples_sqe_2}, which show that neither GP produces samples that reflect the data distribution particularly well.
+
+Metrics, hyperparameter optimisation, etc. Remarkably, sqe\_opt has worse RMSE on train data than sqe\_1, but better RMSE on ground truth data, which implies that maximising the log marginal likelihood alone encourages models not to overfit their training data, and furthermore to generalise well to unseen data, which arguably is the entire purpose of supervised machine learning.
 
 \appendix
 
@@ -103,44 +106,45 @@ Within the domain of such GPs, we start off by considering two GPs denoted by sq
 
 \begin{figure}[pht]
     \centering
-        \subfloat[
-            \centering Samples from the prior of sqe\_1
-            \label{fig:prior_sqe_1}
-        ]{
-            \includegraphics[width=0.45\textwidth]{Samples_from_GP_prior,_GP____sqe_1_.png}
-        }
-        \subfloat[
-            \centering Samples from the prior of sqe\_2
-            \label{fig:prior_sqe_2}
-        ]{
-            \includegraphics[width=0.45\textwidth]{Samples_from_GP_prior,_GP____sqe_2_.png}
-        }
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Samples_from_GP_prior,_GP____sqe_1_.png}
+        \caption{Samples from the prior of sqe\_1}
+        \label{fig:prior_sqe_1}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Samples_from_GP_prior,_GP____sqe_2_.png}
+        \caption{Samples from the prior of sqe\_2}
+        \label{fig:prior_sqe_2}
+    \end{subfigure}
     \newline
-        \subfloat[
-            \centering Predictive distribution of sqe\_1
-            \label{fig:pred_dist_sqe_1}
-        ]{
-            \includegraphics[width=0.45\textwidth]{GP_predictions,_GP____sqe_1_.png}
-        }
-        \subfloat[
-            \centering Predictive distribution of sqe\_2
-            \label{fig:pred_dist_sqe_2}
-        ]{
-            \includegraphics[width=0.45\textwidth]{GP_predictions,_GP____sqe_2_.png}
-        }
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{GP_predictions,_GP____sqe_1_.png}
+        \caption{Predictive distribution of sqe\_1}
+        \label{fig:pred_dist_sqe_1}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{GP_predictions,_GP____sqe_2_.png}
+        \caption{Predictive distribution of sqe\_2}
+        \label{fig:pred_dist_sqe_2}
+    \end{subfigure}
     \newline
-        \subfloat[
-            \centering Samples from the predictive distribution of sqe\_1
-            \label{fig:pred_samples_sqe_1}
-        ]{
-            \includegraphics[width=0.45\textwidth]{GP_predictions_and_predictive_samples,_GP____sqe_1_.png}
-        }
-        \subfloat[
-            \centering Samples from the predictive distribution of sqe\_2
-            \label{fig:pred_samples_sqe_2}
-        ]{
-            \includegraphics[width=0.45\textwidth]{GP_predictions_and_predictive_samples,_GP____sqe_2_.png}
-        }
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{GP_predictions_and_predictive_samples,_GP____sqe_1_.png}
+        \caption{Samples from the predictive distribution of sqe\_1}
+        \label{fig:pred_samples_sqe_1}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{GP_predictions_and_predictive_samples,_GP____sqe_2_.png}
+        \caption{Samples from the predictive distribution of sqe\_2}
+        \label{fig:pred_samples_sqe_2}
+    \end{subfigure}
+
     \caption{Prior and predictive distributions of GPs with square exponential kernels}
     \label{fig:sqe}
 \end{figure}
