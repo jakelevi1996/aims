@@ -50,43 +50,25 @@ for row in table:
     print(" & ".join(row), end=" \\\\\n")
 
 # Metrics
-for gp_name_list in [sqe_name_list, per_name_list]:
-    print("\nTable: %s metrics\n" % gp_name_list)
-    gp_list = [
-        scripts.course_1_dei.gp_utils.gp_dict[name]
-        for name in gp_name_list
+print("\nTable: metrics\n")
+metrics = "GP name, RMSE (train), RMSE (truth), LML, LPL (train), LPL (truth)"
+table = [metrics.split(", ")]
+for gp_name, g in scripts.course_1_dei.gp_utils.gp_dict.items():
+    row = [
+        gp_name.replace("_", "\\_"),
+        "%.4f" % g.rmse(sotonmet.t_train, sotonmet.y_train),
+        "%.4f" % g.rmse(sotonmet.t_truth, sotonmet.y_truth),
+        "%.1f" % g.log_marginal_likelihood(),
+        "%.1f" % g.log_predictive_likelihood(
+            sotonmet.t_train,
+            sotonmet.y_train,
+        ),
+        "%.1f" % g.log_predictive_likelihood(
+            sotonmet.t_train,
+            sotonmet.y_train,
+        ),
     ]
-    table = [
-        ["Metric"] + [
-            gp_name.replace("_", "\\_") for gp_name in gp_name_list
-        ],
-        ["RMSE (train)"] + [
-            "%.4f" % g.rmse(sotonmet.t_train, sotonmet.y_train)
-            for g in gp_list
-        ],
-        ["RMSE (truth)"] + [
-            "%.4f" % g.rmse(sotonmet.t_truth, sotonmet.y_truth)
-            for g in gp_list
-        ],
-        ["LML"] + [
-            "%.1f" % g.log_marginal_likelihood()
-            for g in gp_list
-        ],
-        ["LPL (train)"] + [
-            "%.1f" % g.log_predictive_likelihood(
-                sotonmet.t_train,
-                sotonmet.y_train,
-            )
-            for g in gp_list
-        ],
-        ["LPL (truth)"] + [
-            "%.1f" % g.log_predictive_likelihood(
-                sotonmet.t_truth,
-                sotonmet.y_truth,
-            )
-            for g in gp_list
-        ],
-    ]
+    table.append(row)
 
-    for row in table:
-        print(" & ".join(row), end=" \\\\\n")
+for row in table:
+    print(" & ".join(row), end=" \\\\\n")
