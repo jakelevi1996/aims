@@ -51,24 +51,40 @@ for row in table:
 
 # Metrics
 print("\nTable: metrics\n")
-metrics = "GP name, RMSE (train), RMSE (truth), LML, LPL (train), LPL (truth)"
-table = [metrics.split(", ")]
-for gp_name, g in scripts.course_1_dei.gp_utils.gp_dict.items():
-    row = [
-        gp_name.replace("_", "\\_"),
-        "%.4f" % g.rmse(sotonmet.t_train, sotonmet.y_train),
-        "%.4f" % g.rmse(sotonmet.t_truth, sotonmet.y_truth),
-        "%.1f" % g.log_marginal_likelihood(),
+gp_name_list = scripts.course_1_dei.gp_utils.gp_dict.keys()
+gp_list = scripts.course_1_dei.gp_utils.gp_dict.values()
+table = [
+    ["Metric"] + [
+        gp_name.replace("_", "\\_")
+        for gp_name in scripts.course_1_dei.gp_utils.gp_dict.keys()
+    ],
+    ["RMSE (train)"] + [
+        "%.4f" % g.rmse(sotonmet.t_train, sotonmet.y_train)
+        for g in gp_list
+    ],
+    ["RMSE (truth)"] + [
+        "%.4f" % g.rmse(sotonmet.t_truth, sotonmet.y_truth)
+        for g in gp_list
+    ],
+    ["LML"] + [
+        "%.1f" % g.log_marginal_likelihood()
+        for g in gp_list
+    ],
+    ["LPL (train)"] + [
         "%.1f" % g.log_predictive_likelihood(
             sotonmet.t_train,
             sotonmet.y_train,
-        ),
+        )
+        for g in gp_list
+    ],
+    ["LPL (truth)"] + [
         "%.1f" % g.log_predictive_likelihood(
-            sotonmet.t_train,
-            sotonmet.y_train,
-        ),
-    ]
-    table.append(row)
+            sotonmet.t_truth,
+            sotonmet.y_truth,
+        )
+        for g in gp_list
+    ],
+]
 
 for row in table:
     print(" & ".join(row), end=" \\\\\n")
