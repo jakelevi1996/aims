@@ -1,6 +1,6 @@
 A periodic kernel for a Gaussian process can be defined as follows:
 \begin{equation}
-    K_\mathrm{per}(x, x') = k \exp\left( -\frac{2}{\lambda} \left( \sin \left( \pi \frac{x-x'}{T} \right) \right)^2 \right) \label{eq:periodic kernel}
+    K_\text{per}(x, x') = k \exp\left( -\frac{2}{\lambda} \left( \sin \left( \pi \frac{x-x'}{T} \right) \right)^2 \right) \label{eq:periodic kernel}
 \end{equation}
 We define a new GP with a periodic kernel, set its hyperparameters to be identical to those of sqe\_opt, except that $T=0.5$, and denote this GP as per\_1. We then optimise the LML of this GP with respect to its hyperparameters as before, leading to a GP denoted by per\_opt. The hyperparameters of both GPs are summarised in table \ref{table:per hyperparameters}, evaluation metrics are summarised in table \ref{table:metrics}, and the predictive distribution of per\_opt is shown in figure \ref{fig:pred_samples_per_opt}. We see that per\_1 has a very bad LML (worse than sqe\_2, but not as bad as sqe\_1), and that per\_opt has a LML which is better than sqe\_2, but not as good as sqe\_opt.
 

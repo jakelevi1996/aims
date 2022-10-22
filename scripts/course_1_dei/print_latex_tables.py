@@ -42,12 +42,34 @@ table = [
     ["$c$"]        + ["%.4f" % g._prior_mean_func._offset   for g in per_list],
     ["$\\lambda$"] + ["%.4f" % g._kernel_func._length_scale for g in per_list],
     ["$k$"]        + ["%.4f" % g._kernel_func._kernel_scale for g in per_list],
-    ["$\\sigma$"]  + ["%.4f" % np.sqrt(g._noise_var)        for g in per_list],
     ["$T$"]        + ["%.4f" % (np.pi / g._kernel_func._angular_freq) for g in per_list],
+    ["$\\sigma$"]  + ["%.4f" % np.sqrt(g._noise_var)        for g in per_list],
 ]
 
 for row in table:
     print(" & ".join(row), end=" \\\\\n")
+
+for per_name_list in [["sum_1", "sum_opt"], ["prod_1", "prod_opt"]]:
+    print("\nTable: %s GPs\n" % per_name_list)
+    per_list = [
+        scripts.course_1_dei.gp_utils.gp_dict[name]
+        for name in per_name_list
+    ]
+    table = [
+        ["Hyperparameter"] + [
+            name.replace("_", "\\_") for name in per_name_list
+        ],
+        ["$c$"]                      + ["%.4f" % g._prior_mean_func._offset               for g in per_list],
+        ["$\\lambda_{\\text{sqe}}$"] + ["%.4f" % g._kernel_func._kernels[0]._length_scale for g in per_list],
+        ["$k_{\\text{sqe}}$"]        + ["%.4f" % g._kernel_func._kernels[0]._kernel_scale for g in per_list],
+        ["$\\lambda_{\\text{per}}$"] + ["%.4f" % g._kernel_func._kernels[1]._length_scale for g in per_list],
+        ["$k_{\\text{per}}$"]        + ["%.4f" % g._kernel_func._kernels[1]._kernel_scale for g in per_list],
+        ["$T$"]                      + ["%.4f" % (np.pi / g._kernel_func._kernels[1]._angular_freq) for g in per_list],
+        ["$\\sigma$"]                + ["%.4f" % np.sqrt(g._noise_var)                    for g in per_list],
+    ]
+
+    for row in table:
+        print(" & ".join(row), end=" \\\\\n")
 
 # Metrics
 print("\nTable: metrics\n")
