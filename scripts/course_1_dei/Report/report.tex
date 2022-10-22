@@ -21,9 +21,7 @@
 \section{Introduction} \label{section:intro}
 
 This lab report investigates the use of Gaussian Processes (GPs), a type of machine learning model motivated by Bayesian probability theory, for modelling a meteorological dataset called Sotonmet. In a GP model, given a mean function $\mu$, kernel function $K$, vaiance of observation noise $\sigma^2$, training inputs $x$ (represented as a vector), and prediction inputs $x^*$, the noisy training labels $y$ (which we assume are noisy observations of unknown labels $f$) and noiseless prediction labels $f^*$ have a joint Gaussian distribution:
-
 % Equation: joint distribution
-
 \begin{equation}
     p\left( \begin{bmatrix}
         y \\
@@ -42,9 +40,7 @@ This lab report investigates the use of Gaussian Processes (GPs), a type of mach
 \end{equation}
 
 Where $K(x, x^*)$ is a matrix whose $(i, j)$th element is given by $K(x, x^*)_{i,j} = K(x_i, x^*_j)$. The predictive distribution $p(f^* \mid y)$ follows from the formula for the conditional distribution of a jointly Gaussian random variable \cite{bishop2006pattern}:
-
 % Equation: conditional distribution
-
 \begin{align}
     p(f^* \mid y) &= \mathcal{N}\left(f^* \mid \mu^*, \Sigma^* \right) \label{eq:conditional distribution} \\
     \text{where} \quad \mu^* &= \mu(x^*) + K(x^*, x) \left( K(x, x) + \sigma^2 I \right)^{-1} (y - \mu(x)) \label{eq:conditional mean} \\
@@ -52,9 +48,7 @@ Where $K(x, x^*)$ is a matrix whose $(i, j)$th element is given by $K(x, x^*)_{i
 \end{align}
 
 The log marginal likelihood (LML) of the noisy training labels $y$ given training input data $x$ (and also implicitly given any hyperparameters of the model) is given by:
-
 % Equation: log marginal likelihood
-
 \begin{align}
     \log \left( p(y \mid x) \right) &= -\frac{1}{2}\log\left(\det \left(2\pi \Sigma_y \right)\right) -\frac{1}{2}(y - \mu(x))^T \Sigma_y^{-1} (y - \mu(x)) \\
     \text{where} \quad \Sigma_y &= K(x, x) + \sigma^2 I
@@ -62,16 +56,14 @@ The log marginal likelihood (LML) of the noisy training labels $y$ given trainin
 
 This expression implies that maximising the LML encourages $\mu(x)$, $K(x,x)$ and $\sigma$ to fit the data accurately and with calibrated uncertainty. Maximising the LML can also be motivated from a Bayesian perspective, which is discussed further in Appendix \ref{appendix:why_lml}.
 
-The focus in this coursework submission is on predicting the tide height given the time of day, for which the training and ground truth data is shown in figure \ref{fig:data}, alongside an independent GP prediction in figure \ref{fig:ind_pres}.
+The focus in this coursework submission is on predicting tide height as a function of time, for which the training and ground truth data is shown in figure \ref{fig:data}, alongside an independent GP prediction in figure \ref{fig:ind_pres}.
 
 % Section: results
 
 \section{Results}
 
 We start off by considering GPs with constant mean function and squared exponential kernel, whose mean and kernel functions are related to the hyperparameters $c$, $k$, and $\lambda$ as follows ($\sigma$ is also considered to be a hyperparameter, although it is not explicitly part of the mean or kernel functions):
-
 % Equation: constant mean and squared exponential kernel function
-
 \begin{align}
 \mu(x) &= c \\
 K_{\mathrm{sqe}}(x, x') &= k \exp\left( -\left( \frac{x - x'}{\lambda} \right)^2 \right)
@@ -81,7 +73,7 @@ Initially we consider two GPs denoted by sqe\_1 and sqe\_2, whose hyperparameter
 
 The evaluation of GPs sqe\_1 and sqe\_2 according to the metrics RMSE (square root of the mean-squared-error between labels and the GP's predictive mean), LML, and log predictive likelihood (LPL, which is just the logarithm of equation \ref{eq:conditional distribution} given the expression for a multivariate Gaussian probability density function \cite{bishop2006pattern}), is summarised in table \ref{table:sqe_metrics}. Note that although sqe\_1 has a very low RMSE evaluated on the training data, it has an RMSE which is $30\times$ higher when evaluated on the ground truth data, which is to say that sqe\_1 overfits the training data very badly, which is reflected in its relatively bad LML and LPLs. sqe\_2 has worse RMSE on the training data than the sqe\_1, but better RMSE on the ground truth data, which is to say that sqe\_2 generalises better to unseen data (although it does so with low confidence/high uncertainty, as seen in sqe\_2's predictive samples in figure \ref{fig:pred_samples_sqe_2}), and this is reflected in the better LML and LPLs of sqe\_2.
 
-As mentioned in section \ref{section:intro}, the LML can be used as an objective function to optimise the hyperparameters of a GP. Starting with sqe\_2 (because this GP has greater LML than sqe\_1), the parameters of this GP can be optimised using the L-BFGS-B algorithm \cite{wright1999numerical}, leading to a GP referred to as sqe\_opt, whose hyperparameter values and evaluation metrics are described in table \ref{table:sqe}. Remarkably, sqe\_opt has worse RMSE on training data than sqe\_1, but better RMSE on ground truth data. This implies that optimising RMSE on training data (which is often performed in machine learning) is not always a good approach, because an improvement in the RMSE on training data might lead to decreased predictive performance on unseen data, which is generally of greater importance in machine learning.
+As mentioned in section \ref{section:intro}, the LML can be used as an objective function to optimise the hyperparameters of a GP. Starting with sqe\_2 (because this GP has greater LML than sqe\_1), the parameters of this GP can be optimised using the L-BFGS-B algorithm \cite{wright1999numerical}, leading to a GP referred to as sqe\_opt, whose hyperparameter values and evaluation metrics are described in table \ref{table:sqe}. Remarkably, sqe\_opt has worse RMSE on \emph{training} data than sqe\_1, but better RMSE on \emph{unseen} ground truth data. This implies that optimising RMSE on training data (which is often performed in machine learning) is not always a good approach, because an improvement in the RMSE on training data might lead to decreased predictive performance on unseen data (which is generally of greater importance in machine learning), and that where possible, a better approach might be to optimise LML instead. The predictive distribution of sqe\_opt is shown in figure \ref{fig:pred_samples_sqe_opt}.
 
 \appendix
 
@@ -150,6 +142,40 @@ As mentioned in section \ref{section:intro}, the LML can be used as an objective
 
     \caption{Prior and predictive distributions of GPs with square exponential kernels}
     \label{fig:sqe}
+\end{figure}
+
+% Figure: predictions of optimised GPs
+
+\begin{figure}[pht]
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{GP_predictions_and_predictive_samples,_GP____sqe_opt_.png}
+        \caption{sqe\_opt}
+        \label{fig:pred_samples_sqe_opt}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{GP_predictions_and_predictive_samples,_GP____per_opt_.png}
+        \caption{per\_opt}
+        \label{fig:pred_samples_per_opt}
+    \end{subfigure}
+    \newline
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{GP_predictions_and_predictive_samples,_GP____prod_opt_.png}
+        \caption{prod\_opt}
+        \label{fig:pred_samples_prod_opt}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{GP_predictions_and_predictive_samples,_GP____sum_opt_.png}
+        \caption{sum\_opt}
+        \label{fig:pred_samples_sum_opt}
+    \end{subfigure}
+
+    \caption{Predictive distributions of GPs with different kernel functions and optimised hyperparameters}
+    \label{fig:opt}
 \end{figure}
 
 % Table: SQE GPs
