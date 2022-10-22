@@ -1,17 +1,17 @@
 \begin{figure}[pht]
     \centering
-    \subfloat[
-        \centering Training and ground truth data
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Sotonmet_data.png}
+        \caption{Training and ground truth data}
         \label{fig:data}
-    ]{
-        \includegraphics[width=0.45\textwidth]{Sotonmet_data.png}
-    }
-    \subfloat[
-        \centering Independent GP predictions
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Data_and_independent_GP_predictions.png}
+        \caption{Independent GP predictions}
         \label{fig:ind_pres}
-    ]{
-        \includegraphics[width=0.45\textwidth]{Data_and_independent_GP_predictions.png}
-    }
+    \end{subfigure}
     \caption{The Sotonmet dataset}
     \label{fig:sotonmet}
 \end{figure}
