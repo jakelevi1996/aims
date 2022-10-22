@@ -4,7 +4,7 @@ To quote Alex Kendall and Yarin Gal in \cite{kendall2017uncertainties}:
     There are two major types of uncertainty one can model. Aleatoric uncertainty captures noise inherent in the observations. On the other hand, epistemic uncertainty accounts for uncertainty in the model - uncertainty which can be explained away given enough data.
 \end{quote}
 
-We can model the performance of a GP in the presence of epistemic or aleatoric uncertainty by either removing a subsection of the data or by artificially adding noise to a subsection of the data respectively. In the case of sqe\_opt (which was optimised to have low LML), the results of one such experiment are shown in figure \ref{fig:uncertainty}.
+We can model the performance of a GP in the presence of epistemic or aleatoric uncertainty by either removing a subsection of the data or by artificially adding noise to a subsection of the data respectively. In the case of sqe\_opt (which was optimised to have high LML), the results of one such experiment are shown in figure \ref{fig:uncertainty}.
 
 Although this GP performs well in the presence of epistemic uncertainty, reverting to a larger predictive standard deviation when far from the vicinity of any training data, we see that this GP does not perform well in the presence of aleatoric uncertainty, making confidently wrong predictions (predictions which are far away from the ground truth labels and with high certainty/low standard deviation) in the vicinity of training data which has a high degree of noise.
 
