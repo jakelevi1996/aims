@@ -1,0 +1,34 @@
+This lab report investigates the use of Gaussian Processes (GPs), a type of machine learning model motivated by Bayesian probability theory, for modelling a meteorological dataset called Sotonmet. In a GP model, given a mean function $\mu$, kernel function $K$, vaiance of observation noise $\sigma^2$, training inputs $x$ (represented as a vector), and prediction inputs $x^*$, the noisy training labels $y$ (which we assume are noisy observations of unknown labels $f$) and noiseless prediction labels $f^*$ have a joint Gaussian distribution:
+% Equation: joint distribution
+\begin{equation}
+    p\left( \begin{bmatrix}
+        y \\
+        f^*
+    \end{bmatrix} \right)
+    = \mathcal{N} \left( \begin{bmatrix}
+        y \\
+        f^*
+    \end{bmatrix} \middle| \begin{bmatrix}
+        \mu(x) \\
+        \mu(x^*)
+    \end{bmatrix}, \begin{bmatrix}
+        K(x, x) + \sigma^2 I & K(x, x^*) \\
+        K(x, x^*)^T & K(x^*, x^*) \\
+    \end{bmatrix} \right)
+\end{equation}
+Where $K(x, x^*)$ is a matrix whose $(i, j)$th element is given by $K(x, x^*)_{i,j} = K(x_i, x^*_j)$. The predictive distribution $p(f^* \mid y)$ follows from the formula for the conditional distribution of a jointly Gaussian random variable \cite{bishop2006pattern}:
+% Equation: conditional distribution
+\begin{align}
+    p(f^* \mid y) &= \mathcal{N}\left(f^* \mid \mu^*, \Sigma^* \right) \label{eq:conditional distribution} \\
+    \text{where} \quad \mu^* &= \mu(x^*) + K(x^*, x) \left( K(x, x) + \sigma^2 I \right)^{-1} (y - \mu(x)) \label{eq:conditional mean} \\
+    \Sigma^* &= K(x^*, x^*) - K(x^*, x) \left( K(x, x) + \sigma^2 I \right) ^{-1} K(x, x^*) \label{eq:conditional variance}
+\end{align}
+The log marginal likelihood (LML) of the noisy training labels $y$ given training input data $x$ (and also implicitly given any hyperparameters of the model) is given by:
+% Equation: log marginal likelihood
+\begin{align}
+    \log \left( p(y \mid x) \right) &= -\frac{1}{2}\log\left(\det \left(2\pi \Sigma_y \right)\right) -\frac{1}{2}(y - \mu(x))^T \Sigma_y^{-1} (y - \mu(x)) \\
+    \text{where} \quad \Sigma_y &= K(x, x) + \sigma^2 I
+\end{align}
+This expression implies that maximising the LML encourages $\mu(x)$, $K(x,x)$ and $\sigma$ to fit the data accurately and with calibrated uncertainty. Maximising the LML can also be motivated from a Bayesian perspective, which is discussed further in Appendix \ref{appendix:why_lml}.
+
+The focus in this coursework submission is on predicting tide height as a function of time, for which the training and ground truth data is shown in figure \ref{fig:data}, alongside an independent GP prediction in figure \ref{fig:ind_pres}.
