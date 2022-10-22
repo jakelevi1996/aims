@@ -5,6 +5,7 @@
 \usepackage{hyperref}
 \usepackage{amsmath}
 \usepackage{subcaption}
+\usepackage{parskip}
 \usepackage{graphicx}
 \graphicspath{{../Results/Protected/}}
 
@@ -45,9 +46,9 @@ Where $K(x, x^*)$ is a matrix whose $(i, j)$th element is given by $K(x, x^*)_{i
 % Equation: conditional distribution
 
 \begin{align}
-    p(f^* \mid y) &= \mathcal{N}\left(f^* \mid \mu^*, \Sigma^* \right) \\
-    \text{where} \quad \mu^* &= \mu(x^*) + K(x^*, x) \left( K(x, x) + \sigma^2 I \right)^{-1} (y - \mu(x)) \\
-    \Sigma^* &= K(x^*, x^*) - K(x^*, x) \left( K(x, x) + \sigma^2 I \right) ^{-1} K(x, x^*)
+    p(f^* \mid y) &= \mathcal{N}\left(f^* \mid \mu^*, \Sigma^* \right) \label{eq:conditional distribution} \\
+    \text{where} \quad \mu^* &= \mu(x^*) + K(x^*, x) \left( K(x, x) + \sigma^2 I \right)^{-1} (y - \mu(x)) \label{eq:conditional mean} \\
+    \Sigma^* &= K(x^*, x^*) - K(x^*, x) \left( K(x, x) + \sigma^2 I \right) ^{-1} K(x, x^*) \label{eq:conditional variance}
 \end{align}
 
 The log marginal likelihood (LML) of the noisy training labels $y$ given training input data $x$ (and also implicitly given any hyperparameters of the model) is given by:
@@ -78,7 +79,9 @@ K_{\mathrm{sqe}}(x, x') &= k \exp\left( -\left( \frac{x - x'}{\lambda} \right)^2
 
 Initially we consider two GPs denoted by sqe\_1 and sqe\_2, whose hyperparameter values are described in Table \ref{table:sqe_hyperparameters}. Samples from the prior distributions of sqe\_1 and sqe\_1 are shown in Figures \ref{fig:prior_sqe_1} and \ref{fig:prior_sqe_2}, which show that the prior distribution of sqe\_1 looks subjectively like a much more plausible explanation for the data. The predictive distributions of these GPs are shown in Figures \ref{fig:pred_dist_sqe_1} and \ref{fig:pred_dist_sqe_2}, which show that, although sqe\_1 produced a \emph{prior} distribution which looks like a more plausible explanation for the training data, sqe\_2 produces a \emph{predictive} distribution which looks like a much better fit to the training data. Furthermore, the predictive distribution of sqe\_1 is "confidently wrong" (the mean is far away from the ground truth labels and with high certainty/low standard deviation) in regions containing ground truth labels but no training data, which could be a very undesirable property in a safety-critical prediction scenario. Samples from the predictive distribution of both GPs are shown in Figures \ref{fig:pred_samples_sqe_1} and \ref{fig:pred_samples_sqe_2}, which show that neither GP produces samples that reflect the data distribution particularly well.
 
-Metrics, hyperparameter optimisation, etc. Remarkably, sqe\_opt has worse RMSE on train data than sqe\_1, but better RMSE on ground truth data, which implies that maximising the log marginal likelihood alone encourages models not to overfit their training data, and furthermore to generalise well to unseen data, which arguably is the entire purpose of supervised machine learning.
+The evaluation of GPs sqe\_1 and sqe\_2 according to the metrics RMSE (square root of the mean-squared-error between labels and the GP's predictive mean), LML, and log predictive likelihood (LPL, which is just the logarithm of equation \ref{eq:conditional distribution} given equations \ref{eq:conditional mean} and \ref{eq:conditional variance} and the expression for a multivariate Gaussian probability density function \cite{bishop2006pattern}), is summarised in table \ref{table:sqe_metrics}. Note that although sqe\_1 has a very low RMSE evaluated on the training data, it has an RMSE which is 30x higher when evaluated on the ground truth data, which is to say that sqe\_1 overfits the training data very badly, which is reflected in its relatively bad marginal and predictive likelihoods. sqe\_2 has worse RMSE on the training data than the sqe\_1, but better RMSE on the ground truth data, which is to say that sqe\_2 generalises better to unseen data (although it does so with low confidence/high uncertainty), and this is reflected in the better marginal and predictive likelihoods of sqe\_2.
+
+Metrics, hyperparameter optimisation, etc. Remarkably, sqe\_opt has worse RMSE on training data than sqe\_1, but better RMSE on ground truth data, which implies that maximising the log marginal likelihood alone encourages models not to overfit their training data, and furthermore to generalise well to unseen data, which arguably is the entire purpose of supervised machine learning.
 
 \appendix
 
