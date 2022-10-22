@@ -15,27 +15,21 @@
 
 \begin{document}
 \maketitle
-% Section: introduction
 \section{Introduction} \label{section:intro}
 \input{Sections/Intro.tex}
-% Section: results
 \section{Results}
+\subsection{Squared Exponential Kernels}
 \input{Sections/Sqe.tex}
-% Figure: Sotonmet dataset
+\subsection{Epistemic and aleatoric uncertainty}
+\input{Figures/Uncertainty.tex}
+\input{Sections/Uncertainty.tex}
 \input{Figures/Sotonmet.tex}
-% Figure: GPs with SQE kernel
 \input{Figures/Sqe.tex}
-% Figure: hyperparameter sensitivity
 \input{Figures/Sqe_sensitivity.tex}
-% Figure: predictions of optimised GPs
 \input{Figures/Predictions_optimised_GPs.tex}
-% Table: SQE GPs
 \input{Tables/Sqe.tex}
-% References
 \bibliographystyle{plain}
 \bibliography{references}
-% Appendix
 \appendix
 \section{Motivation for maximising the log marginal likelihood}\label{appendix:why_lml}
-% End of document
 \end{document}
