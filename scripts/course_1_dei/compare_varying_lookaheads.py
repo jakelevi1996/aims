@@ -29,7 +29,10 @@ else:
 t_ind = 0
 for condition_boundary in condition_boundary_array:
 
-    while sotonmet.t_train[t_ind] <= condition_boundary:
+    while (
+        t_ind < sotonmet.t_train.size
+        and sotonmet.t_train[t_ind] + condition_boundary
+    ):
         g.condition(sotonmet.t_train[t_ind], sotonmet.y_train[t_ind])
         t_ind += 1
 
