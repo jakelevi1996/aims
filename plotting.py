@@ -150,7 +150,7 @@ class LegendProperties:
     def __init__(self, width_ratio=0.2):
         self.width_ratio = width_ratio
 
-def save_and_close(plot_name, fig, dir_name=None, file_ext="png"):
+def save_and_close(plot_name, dir_name, fig, verbose, file_ext="png"):
     if dir_name is None:
         dir_name = util.RESULTS_DIR
     if not os.path.isdir(dir_name):
@@ -163,7 +163,9 @@ def save_and_close(plot_name, fig, dir_name=None, file_ext="png"):
     file_name = "%s.%s" % (util.clean_filename(plot_name), file_ext)
     full_path = os.path.join(dir_name, file_name)
 
-    print("Saving image in \"%s\"" % full_path)
+    if verbose:
+        print("Saving image in \"%s\"" % full_path)
+
     fig.savefig(full_path)
     plt.close(fig)
 
@@ -177,6 +179,7 @@ def plot(
     legend_properties=None,
     figsize=None,
     save=True,
+    verbose=True,
 ):
     if legend_properties is not None:
         if figsize is None:
@@ -214,7 +217,7 @@ def plot(
     axis_properties.apply(plot_axis, fig)
 
     if save:
-        plot_filename = save_and_close(plot_name, fig, dir_name)
+        plot_filename = save_and_close(plot_name, dir_name, fig, verbose)
         return plot_filename
 
 def make_gif(
@@ -225,6 +228,7 @@ def make_gif(
     optimise=False,
     loop_forever=True,
     n_loops=1,
+    verbose=True,
 ):
     if output_name is None:
         output_name = "Output"
@@ -241,7 +245,9 @@ def make_gif(
     file_name = "%s.gif" % util.clean_filename(output_name)
     full_path = os.path.join(output_dir, file_name)
 
-    print("Saving gif in \"%s\"" % full_path)
+    if verbose:
+        print("Saving gif in \"%s\"" % full_path)
+
     first_frame.save(
         full_path,
         format="gif",
