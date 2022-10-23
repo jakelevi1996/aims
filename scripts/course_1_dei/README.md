@@ -17,6 +17,9 @@ The website for Michael Osborne's DEI lectures can be found [here](https://www.r
   - [Periodic kernels](#periodic-kernels)
   - [Sum and product kernels](#sum-and-product-kernels)
   - [Sequential prediction](#sequential-prediction)
+    - [Animated sequential predictions for `sqe_opt`](#animated-sequential-predictions-for-sqe_opt)
+    - [Animated sequential predictions for `prod_opt`](#animated-sequential-predictions-for-prod_opt)
+    - [Animated sequential predictions for `sum_opt`](#animated-sequential-predictions-for-sum_opt)
 
 ## Loading and plotting data
 
@@ -228,8 +231,14 @@ Sequential predictions with a variable lookahead can be plotted with the command
 
 ![](./Results/Protected/varying_lookahead/Lookahead,_GP____sum_opt_,_boundary___5.00_days.png)
 
+### Animated sequential predictions for `sqe_opt`
+
 ![](./Results/Protected/sequential_predictions_sqe_opt.gif)
 
+### Animated sequential predictions for `prod_opt`
+
 ![](./Results/Protected/sequential_predictions_prod_opt.gif)
+
+### Animated sequential predictions for `sum_opt`
 
 ![](./Results/Protected/sequential_predictions_sum_opt.gif)
