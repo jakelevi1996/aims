@@ -1,0 +1,27 @@
+In a Bayesian regression problem, we generally have a set of weights $w$, a set of data $\mathcal{D}$, and a set of hyperparameters $\theta$, for which the posterior, likelihood, prior, and marginal likelihood distributions are related by Bayes' rule:
+\begin{equation}
+    p(w \mid \mathcal{D}, \theta ) = \frac{p( \mathcal{D} \mid w, \theta ) p( w \mid \theta )}{p( \mathcal{D} \mid \theta )}
+\end{equation}
+The predictive distribution of an unknown target $y^*$ given the dataset and hyperparameters is then found by marginalising with respect to the posterior distribution of the weights:
+\begin{align}
+    p(y^* \mid \mathcal{D}, \theta ) &= \int{dw \left[ p(y^*, w \mid \mathcal{D}, \theta ) \right]} \\
+    &= \int{dw\left[ p(y^* \mid w, \mathcal{D}, \theta ) p(w \mid \mathcal{D}, \theta ) \right]}
+\end{align}
+Specifically this gives us the predictive distribution of the target $y^*$ given that we know the "correct" values of the hyperparameters $\theta$, however in general this is not the case, and in a "truly" Bayesian approach, we should marginalise over the hyperparameters as well:
+\begin{align}
+    p(y^* \mid \mathcal{D} ) &= \int{d \theta \left[ p(y^*, \theta \mid \mathcal{D} ) \right]} \\
+    &= \int{d \theta \left[ p(y^* \mid \mathcal{D}, \theta ) p( \theta \mid \mathcal{D} ) \right]} \\
+    &= \int{d \theta \left[ p(y^* \mid \mathcal{D}, \theta ) \left( \frac{p( \mathcal{D} \mid \theta ) p( \theta )}{p( \mathcal{D} )} \right) \right]}
+\end{align}
+We denote value of the hyperparameters which maximise the marginal likelihood by $\hat{\theta}$, and if we assume that the marginal likelihood is so sharply peaked around $\hat{\theta}$ that it can be approximated by a delta function, as well as assuming that the prior distribution over hyperparameters is uninformative, then we obtain the following simplification:
+\begin{align}
+    \hat{\theta} &= \underset{\theta}{\operatorname{argmax}}{\left[ p( \mathcal{D} \mid \theta ) \right]} \\
+    p( \mathcal{D} \mid \theta ) &\approx \delta( \theta - \hat{\theta} ) \\
+    \Rightarrow p(y^* \mid \mathcal{D} ) &\approx p(y^* \mid \mathcal{D}, \hat{\theta} )
+\end{align}
+Therefore, assuming we have found $\hat{\theta}$ which maximises the marginal likelihood, then $\hat{\theta}$ is the best point estimate of the hyperparameters for approximating the marginalised predictive distribution $p(y^* \mid \mathcal{D})$.
+
+The situation is the same for GPs, except that instead of defining distributions over weights, we define a joint distribution over predictions and observations directly, and derive the predictive distribution using the product rule:
+\begin{equation}
+    p(y^* \mid \mathcal{D}, \theta ) = \frac{p(y^*, \mathcal{D} \mid \theta )}{p(\mathcal{D} \mid \theta )}
+\end{equation}
