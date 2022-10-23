@@ -13,36 +13,30 @@ sotonmet = data.Sotonmet()
 
 for lookahead_minutes in [0, 5, 50, 500, 5000]:
     lookahead_days = lookahead_minutes * DAYS_PER_MINUTE
-    t_pred_list = []
+    t_pred_array = np.linspace(lookahead_days, T_MAX, 1000)
+    t_train_ind = 0
     y_pred_mean_list = []
     y_pred_std_list = []
 
     g = scripts.course_1_dei.gp_utils.get_optimal_gp()
+    g.condition(
+        sotonmet.t_train[t_train_ind],
+        sotonmet.y_train[t_train_ind],
+    )
+    t_train_ind += 1
 
-    t_previous = sotonmet.t_train[-1]
-    for t, y in zip(sotonmet.t_train, sotonmet.y_train):
-        t_pred = t + lookahead_days
+    for t_pred in t_pred_array:
+        while (
+            t_train_ind < sotonmet.t_train.size
+            and sotonmet.t_train[t_train_ind] + lookahead_days <= t_pred
+        ):
+            g.condition(
+                sotonmet.t_train[t_train_ind],
+                sotonmet.y_train[t_train_ind],
+            )
+            t_train_ind += 1
 
-        if t_pred > t_previous + T_STEP:
-            for t_pred in np.arange(t_previous, t_pred, T_STEP):
-                y_pred_mean, y_pred_std = g.predict(t_pred)
-
-                t_pred_list.append(t_pred)
-                y_pred_mean_list.append(y_pred_mean)
-                y_pred_std_list.append(y_pred_std)
-
-        g.condition(t, y)
         y_pred_mean, y_pred_std = g.predict(t_pred)
-
-        t_pred_list.append(t_pred)
-        y_pred_mean_list.append(y_pred_mean)
-        y_pred_std_list.append(y_pred_std)
-        t_previous = t_pred
-
-    for t_pred in np.arange(t_previous, T_MAX, T_STEP):
-        y_pred_mean, y_pred_std = g.predict(t_pred)
-
-        t_pred_list.append(t_pred)
         y_pred_mean_list.append(y_pred_mean)
         y_pred_std_list.append(y_pred_std)
 
@@ -53,7 +47,7 @@ for lookahead_minutes in [0, 5, 50, 500, 5000]:
     plotting.plot(
         *scripts.course_1_dei.gp_utils.get_dataset_lines(sotonmet),
         *scripts.course_1_dei.gp_utils.get_gp_prediction_lines(
-            t_pred_list,
+            t_pred_array,
             np.reshape(y_pred_mean_list, -1),
             np.reshape(y_pred_std_list, -1),
         ),
