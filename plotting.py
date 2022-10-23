@@ -229,6 +229,8 @@ def make_gif(
     if output_name is None:
         output_name = "Output"
 
+    if output_dir is None:
+        output_dir = util.RESULTS_DIR
     if not os.path.isdir(output_dir):
         os.makedirs(output_dir)
 
