@@ -6,10 +6,11 @@
 \usepackage{amsmath}
 \usepackage{subcaption}
 \usepackage{parskip}
+\usepackage{xcolor}
 \usepackage{graphicx}
 \graphicspath{{../Results/Protected/}}
 
-\title{AIMS Course 1: Data, Estimation and Inference}
+\title{AIMS Course 1: Data, Estimation And Inference}
 \author{Jake Levi}
 \date{October 2022}
 
@@ -19,9 +20,9 @@
 \input{Sections/Intro.tex}
 \input{Figures/Sotonmet.tex}
 \section{Results}
-\subsection{Squared Exponential Kernels}
+\subsection{Squared Exponential Kernels} \label{section:sqe}
 \input{Sections/Sqe.tex}
-\subsection{Epistemic and aleatoric uncertainty}
+\subsection{Epistemic And Aleatoric Uncertainty} \label{section:uncertainty}
 \input{Sections/Uncertainty.tex}
 \input{Figures/Uncertainty.tex}
 \subsection{Periodic Kernels}
@@ -29,13 +30,18 @@
 \input{Figures/Per_sensitivity.tex}
 \subsection{Sum and Product Kernels}
 \input{Sections/Sum_product.tex}
+\subsection{Sequential Prediction}
+\input{Sections/Sequential.tex}
+\input{Figures/Sequential.tex}
+\section{Conclusions}
+\input{Sections/Conclusions.tex}
+\bibliographystyle{plain}
+\bibliography{references}
+\appendix
+\section{Motivation For Maximising The Log Marginal Likelihood}\label{appendix:why_lml}
 \input{Tables/Hyperparams.tex}
 \input{Tables/Metrics.tex}
 \input{Figures/Sqe.tex}
 \input{Figures/Sqe_sensitivity.tex}
 \input{Figures/Predictions_optimised_GPs.tex}
-\bibliographystyle{plain}
-\bibliography{references}
-\appendix
-\section{Motivation for maximising the log marginal likelihood}\label{appendix:why_lml}
 \end{document}

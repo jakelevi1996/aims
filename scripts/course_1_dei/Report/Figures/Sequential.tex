@@ -1,0 +1,31 @@
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fixed_lookahead/Sequential_prediction_with_fixed_minimum_lookahead___5_minutes.png}
+        \caption{5 minute fixed lookahead}
+        \label{fig:5 min fixed lookahead}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{fixed_lookahead/Sequential_prediction_with_fixed_minimum_lookahead___50_minutes.png}
+        \caption{50 minute fixed lookahead}
+        \label{fig:50 min fixed lookahead}
+    \end{subfigure}
+    \newline
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{varying_lookahead/Lookahead,_GP____sum_opt_,_boundary___0.10_days.png}
+        \caption{Predictions after 0.1 days}
+        \label{fig:0.1 day preds}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{varying_lookahead/Lookahead,_GP____sum_opt_,_boundary___1.00_days.png}
+        \caption{Predictions after 1 day}
+        \label{fig:1 day preds}
+    \end{subfigure}
+
+    \caption{Sequential predictions of GP sum\_opt (see table \ref{table:sum hyperparameters}) using different fixed and varying lookaheads}
+    \label{fig:sequential}
+\end{figure}
