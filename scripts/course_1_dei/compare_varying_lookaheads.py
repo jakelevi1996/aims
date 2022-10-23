@@ -26,12 +26,13 @@ else:
         "varying_lookahead",
     )
 
+t_ind = 0
 for condition_boundary in condition_boundary_array:
-    t_train = sotonmet.t_train[sotonmet.t_train < condition_boundary]
-    y_train = sotonmet.y_train[sotonmet.t_train < condition_boundary]
 
-    g.decondition()
-    g.condition(t_train, y_train)
+    while sotonmet.t_train[t_ind] <= condition_boundary:
+        g.condition(sotonmet.t_train[t_ind], sotonmet.y_train[t_ind])
+        t_ind += 1
+
     y_pred_mean, y_pred_std = g.predict(sotonmet.t_pred)
 
     output_filename = plotting.plot(
