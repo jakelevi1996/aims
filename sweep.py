@@ -143,7 +143,12 @@ class ParamSweeper:
                 np.concatenate([new_range, [param.default]])
             )
 
-    def plot(self, experiment_name="Experiment", output_dir=None):
+    def plot(
+        self,
+        experiment_name="Experiment",
+        output_dir=None,
+        **plot_kwargs,
+    ):
         filename_list = []
         for param in self._param_list:
             if param.val_results_dict is None:
@@ -220,6 +225,7 @@ class ParamSweeper:
                 dir_name=output_dir,
                 legend_properties=plotting.LegendProperties(),
                 axis_properties=param.plot_axis_properties,
+                **plot_kwargs,
             )
             filename_list.append(plot_filename)
 
