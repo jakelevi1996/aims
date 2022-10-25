@@ -7,3 +7,28 @@ python -m pip install -U pip
 python -m pip install cvxpy
 python -m pip install cvxopt
 ```
+
+## Solving a toy binary problem with constraints
+
+Below is an example of solving a toy binary problem using `cvxpy` and `cvxopt`, including a 3D binary variable `x`, and constraints:
+
+```
+import cvxpy as cp
+
+x = cp.Variable(3, boolean=True)
+constraints = [
+    x[0] + x[1] == 1,
+    x[1] + x[2] == 1.
+]
+objective = cp.Maximize(x[0] + x[1] + x[2])
+prob = cp.Problem(objective, constraints)
+print(prob.solve())
+print(x.value)
+```
+
+Output:
+
+```
+2.0
+[1. 0. 1.]
+```
