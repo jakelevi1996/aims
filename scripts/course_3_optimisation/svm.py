@@ -1,6 +1,7 @@
 import cvxpy as cp
 
-def solve_separable(x, labels, x_dim, n):
+def solve_separable(x, labels):
+    n, x_dim = x.shape
     a = cp.Variable(shape=x_dim)
     b = cp.Variable(shape=1)
     constraints = [cp.multiply(labels, x @ a + b) >= 1]
@@ -9,7 +10,8 @@ def solve_separable(x, labels, x_dim, n):
     prob.solve()
     return a.value, b.value
 
-def solve(x, labels, x_dim, n, norm_penalty=0):
+def solve(x, labels, norm_penalty=0):
+    n, x_dim = x.shape
     t = cp.Variable(shape=n)
     a = cp.Variable(shape=x_dim)
     b = cp.Variable(shape=1)

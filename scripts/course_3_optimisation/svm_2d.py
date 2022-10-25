@@ -10,7 +10,7 @@ def make_plot(n=1000, x_offset=6, y_offset=2, norm_penalty=0.1):
     y = np.where(rng.random(size=n) > 0.5, 1, -1)
     x[y == -1] += np.array([x_offset, y_offset])
 
-    a, b = svm.solve(x, y, 2, n, norm_penalty)
+    a, b = svm.solve(x, y, norm_penalty)
 
     x0_min, x1_min = np.min(x, axis=0)
     x0_max, x1_max = np.max(x, axis=0)
