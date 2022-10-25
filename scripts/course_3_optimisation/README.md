@@ -1,5 +1,11 @@
 # Course 3 - Optimisation
 
+- [Course 3 - Optimisation](#course-3---optimisation)
+  - [Installation](#installation)
+  - [Solving a toy binary problem with constraints](#solving-a-toy-binary-problem-with-constraints)
+
+## Installation
+
 Optimisation of convex problems with continuous variables can be performed using the `cvxpy` package. Integer, binary, and mixed problems can be solved by `cvxpy` only if the `cvxopt` package is also installed. These packages can be installed as follows:
 
 ```
