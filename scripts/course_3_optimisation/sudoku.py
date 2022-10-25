@@ -1,4 +1,5 @@
 import cvxpy as cp
+import numpy as np
 
 # Define x (the decision variable), the list of coordinates, and the dictionary
 # mapping coordinates to elements in x. x[coord_to_ind_dict[val, row, col]] ==
@@ -93,3 +94,17 @@ objective = cp.Maximize(0)
 prob = cp.Problem(objective, constraints)
 print(prob.solve())
 print(x.value)
+
+# Convert solution into a numpy array and print
+s = np.zeros(shape=[9, 9])
+for i in range(len(x.value)):
+    if x.value[i] == 1:
+        val, row, col = coord_list[i]
+        if s[row - 1, col - 1] != 0:
+            raise RuntimeError(
+                "Found 2 values %i and %i in row %i and column %i"
+                % (val, s[row - 1, col - 1], row, col)
+            )
+        s[row - 1, col - 1] = val
+
+print(s)
