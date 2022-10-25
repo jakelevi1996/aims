@@ -141,6 +141,7 @@ class AxisProperties:
         log_yscale=False,
         tight_layout=True,
         rotate_xticklabels=False,
+        axis_equal=False,
     ):
         self._xlabel = xlabel
         self._ylabel = ylabel
@@ -150,6 +151,7 @@ class AxisProperties:
         self._log_yscale = log_yscale
         self._tight_layout = tight_layout
         self._rotate_xticklabels = rotate_xticklabels
+        self._axis_equal = axis_equal
 
     def apply(self, axis, figure):
         if self._xlabel is not None:
@@ -158,6 +160,8 @@ class AxisProperties:
             axis.set_ylabel(self._ylabel)
         if self._xlim is not None:
             axis.set_xlim(self._xlim)
+        if self._axis_equal:
+            axis.axis("equal")
         if self._ylim is not None:
             axis.set_ylim(self._ylim)
         if self._log_xscale:
