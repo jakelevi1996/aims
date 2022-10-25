@@ -16,5 +16,5 @@ def solve(x, labels, x_dim, n, norm_penalty=0):
     constraints = [t >= 0, t >= (1 - cp.multiply(labels, x @ a + b))]
     objective = cp.Minimize(cp.sum(t) + norm_penalty * cp.sum_squares(a))
     prob = cp.Problem(objective, constraints)
-    prob.solve()
+    prob.solve(solver="ECOS")
     return a.value, b.value
