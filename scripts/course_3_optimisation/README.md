@@ -18,7 +18,7 @@ python -m pip install cvxopt
 
 Below is an example of solving a toy binary problem using `cvxpy` and `cvxopt`, including a 3D binary variable `x`, and constraints:
 
-```
+```python
 import cvxpy as cp
 
 x = cp.Variable(3, boolean=True)
