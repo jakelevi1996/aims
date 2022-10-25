@@ -42,7 +42,7 @@ Output:
 
 ## Solving a sudoku using `cvxpy`
 
-The module [`sudoku.py`](./sudoku_example.py) contains the function `solve` for solving a sudoku. The script [`sudoku_example.py`](./sudoku_example.py) contains an example testing the `sudoku.solve` method:
+The module [`sudoku.py`](./sudoku.py) contains the function `solve` for solving a sudoku. The script [`sudoku_example.py`](./sudoku_example.py) contains an example testing the `sudoku.solve` method:
 
 ```python
 import time
