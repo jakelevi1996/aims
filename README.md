@@ -6,3 +6,4 @@ The code for each different coursework assignment is located in a dedicated dire
 
 - [Course 1 - Data, Estimation and Inference](https://github.com/jakelevi1996/aims/tree/main/scripts/course_1_dei)
 - [Course 2 - Signal Processing](https://github.com/jakelevi1996/aims/tree/main/scripts/course_2_sp)
+- [Course 2 - Optimisation](./scripts/course_3_optimisation)
