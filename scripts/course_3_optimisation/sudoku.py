@@ -65,8 +65,7 @@ def solve(known_values):
 
     # Each value can only be in each 3x3 cell once, EG for the value 8 in the
     # cell which is 3 down and 2 accross, x_from_coord[8, 7, 4] +
-    # x_from_coord[8, 7, 5]
-    #+ ... + x_from_coord[8, 9, 6]] == 1
+    # x_from_coord[8, 7, 5] + ... + x_from_coord[8, 9, 6]] == 1
     for val in numbers_1_to_9:
         for cell_row in [0, 1, 2]:
             for cell_col in [0, 1, 2]:
@@ -88,6 +87,7 @@ def solve(known_values):
             if val > 0:
                 constraints.append(x_from_coord[val, row, col] == 1)
 
+    # Solve the problem
     objective = cp.Maximize(0)
     prob = cp.Problem(objective, constraints)
     prob.solve()
@@ -103,5 +103,15 @@ def solve(known_values):
                     % (val, s[row - 1, col - 1], row, col)
                 )
             s[row - 1, col - 1] = val
+
+    # Check sudoku is correct
+    for i in range(9):
+        assert len(np.unique(s[i, :])) == 9
+        assert len(np.unique(s[:, i])) == 9
+
+    for cell_row in range(0, 9, 3):
+        for cell_col in range(0, 9, 3):
+            cell = s[cell_row:(cell_row + 3), cell_col:(cell_col + 3)]
+            assert len(np.unique(cell)) == 9
 
     return s
