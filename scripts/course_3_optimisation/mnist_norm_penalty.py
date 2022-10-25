@@ -1,58 +1,10 @@
-import os
-import pickle
 import numpy as np
 import __init__
 import scripts.course_3_optimisation
 import plotting
-import svm
+import mnist
 
-MNIST_PATH = os.path.join(
-    scripts.course_3_optimisation.CURRENT_DIR,
-    "mnist.pkl",
-)
-
-def load_data():
-    if os.path.isfile(MNIST_PATH):
-        with open(MNIST_PATH, "rb") as f:
-            x_train, y_train, x_test, y_test = pickle.load(f)
-    else:
-        import tensorflow as tf
-        mnist_data = tf.keras.datasets.mnist.load_data()
-        (x_train, y_train), (x_test, y_test) = mnist_data
-        with open(MNIST_PATH, "wb") as f:
-            pickle.dump([x_train, y_train, x_test, y_test], f)
-
-    return x_train, y_train, x_test, y_test
-
-def predict_digit(
-    x_train,
-    y_train,
-    x_test,
-    digit,
-    batch_size,
-    norm_penalty,
-    rng,
-):
-    x_i = x_train[y_train == digit]
-    x_not_i = x_train[y_train != digit]
-    x_i_batch = x_i[
-        rng.choice(x_i.shape[0], batch_size, replace=False)
-    ]
-    x_not_i_batch = x_not_i[
-        rng.choice(x_not_i.shape[0], batch_size, replace=False)
-    ]
-    labels = np.ones(2 * batch_size)
-    labels[batch_size:] = -1
-    a, b = svm.solve(
-        np.block([[x_i_batch], [x_not_i_batch]]),
-        labels,
-        norm_penalty,
-    )
-    y_train_i_pred = x_train @ a + b
-    y_test_i_pred = x_test @ a + b
-    return y_train_i_pred, y_test_i_pred
-
-x_train, y_train, x_test, y_test = load_data()
+x_train, y_train, x_test, y_test = mnist.load_data()
 x_train = x_train.reshape([x_train.shape[0], -1])
 x_test = x_test.reshape([x_test.shape[0], -1])
 norm_penalty_list = np.exp(np.linspace(*np.log([0.1, 10]), 20))
@@ -63,7 +15,7 @@ batch_size = 1000
 
 for norm_penalty in norm_penalty_list:
     print(norm_penalty)
-    y_train_i_pred, y_test_i_pred = predict_digit(
+    y_train_i_pred, y_test_i_pred = mnist.predict_digit(
         x_train,
         y_train,
         x_test,
