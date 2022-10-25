@@ -75,20 +75,22 @@ for val in numbers_1_to_9:
                 ) == 1
             )
 
-# Specify sudoku as a numpy array
-known_row_col_val_list = [
-    [1, 2, 1], [1, 8, 8],
-    [2, 1, 8], [2, 3, 4], [2, 7, 7], [2, 9, 6],
-    [3, 2, 3], [3, 5, 9], [3, 8, 1],
-    [4, 4, 7], [4, 6, 8],
-    [5, 3, 5], [5, 5, 1], [5, 7, 8],
-    [6, 4, 3], [6, 6, 4],
-    [7, 2, 4], [7, 5, 2], [7, 8, 6],
-    [8, 1, 5], [8, 3, 2], [8, 7, 3], [8, 9, 9],
-    [9, 2, 9], [9, 8, 5],
+# Specify known values as constraints
+known_values = [
+    [0, 1, 0, 0, 0, 0, 0, 8, 0],
+    [8, 0, 4, 0, 0, 0, 7, 0, 6],
+    [0, 3, 0, 0, 9, 0, 0, 1, 0],
+    [0, 0, 0, 7, 0, 8, 0, 0, 0],
+    [0, 0, 5, 0, 1, 0, 8, 0, 0],
+    [0, 0, 0, 3, 0, 4, 0, 0, 0],
+    [0, 4, 0, 0, 2, 0, 0, 6, 0],
+    [5, 0, 2, 0, 0, 0, 3, 0, 9],
+    [0, 9, 0, 0, 0, 0, 0, 5, 0],
 ]
-for row, col, val in known_row_col_val_list:
-    constraints.append(x[coord_to_ind_dict[val, row, col]] == 1)
+for row, row_list in zip(numbers_1_to_9, known_values):
+    for col, val in zip(numbers_1_to_9, row_list):
+        if val > 0:
+            constraints.append(x[coord_to_ind_dict[val, row, col]] == 1)
 
 objective = cp.Maximize(0)
 prob = cp.Problem(objective, constraints)
