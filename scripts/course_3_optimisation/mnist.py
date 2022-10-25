@@ -50,3 +50,29 @@ def predict_digit(
     y_train_i_pred = x_train @ a + b
     y_test_i_pred = x_test @ a + b
     return y_train_i_pred, y_test_i_pred
+
+def predict_all_digits(
+    x_train,
+    y_train,
+    x_test,
+    batch_size,
+    norm_penalty,
+    rng,
+):
+    test_pred_list = []
+    for digit in range(10):
+        print(digit)
+        _, y_test_i_pred = predict_digit(
+            x_train,
+            y_train,
+            x_test,
+            digit,
+            batch_size,
+            norm_penalty,
+            rng,
+        )
+        test_pred_list.append(y_test_i_pred)
+
+    test_preds = np.argmax(test_pred_list, axis=0)
+
+    return test_preds
