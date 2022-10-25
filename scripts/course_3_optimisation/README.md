@@ -2,10 +2,12 @@
 
 - [Course 3 - Optimisation](#course-3---optimisation)
   - [Installation](#installation)
-  - [Solving a toy binary problem with constraints](#solving-a-toy-binary-problem-with-constraints)
-  - [Solving a sudoku using `cvxpy`](#solving-a-sudoku-using-cvxpy)
-  - [Solving a simple 2D SVM problem](#solving-a-simple-2d-svm-problem)
-  - [Calculating the best norm penalty for predicting 5s](#calculating-the-best-norm-penalty-for-predicting-5s)
+  - [Integer programming](#integer-programming)
+    - [Solving a toy binary problem with constraints](#solving-a-toy-binary-problem-with-constraints)
+    - [Solving a sudoku using `cvxpy`](#solving-a-sudoku-using-cvxpy)
+  - [Support Vector Machines (SVMs)](#support-vector-machines-svms)
+    - [Solving a simple 2D SVM problem](#solving-a-simple-2d-svm-problem)
+    - [Calculating the best norm penalty for predicting 5s](#calculating-the-best-norm-penalty-for-predicting-5s)
 
 ## Installation
 
@@ -17,7 +19,9 @@ python -m pip install cvxpy
 python -m pip install cvxopt
 ```
 
-## Solving a toy binary problem with constraints
+## Integer programming
+
+### Solving a toy binary problem with constraints
 
 Below is an example of solving a toy binary problem using `cvxpy` and `cvxopt`, including a 3D binary variable `x`, and constraints:
 
@@ -42,7 +46,7 @@ Output:
 [1. 0. 1.]
 ```
 
-## Solving a sudoku using `cvxpy`
+### Solving a sudoku using `cvxpy`
 
 The module [`sudoku.py`](./sudoku.py) contains the function `solve` for solving a sudoku. The script [`sudoku_example.py`](./sudoku_example.py) contains an example testing the `sudoku.solve` method:
 
@@ -83,7 +87,9 @@ Solution =
 Solution found in 0.541 seconds
 ```
 
-## Solving a simple 2D SVM problem
+## Support Vector Machines (SVMs)
+
+### Solving a simple 2D SVM problem
 
 The script `scripts/course_3_optimisation/svm_2d.py` solves a simple 2D SVM problem and plots the results, which are shown below:
 
@@ -95,7 +101,7 @@ The script `scripts/course_3_optimisation/svm_2d.py` solves a simple 2D SVM prob
 
 ![](./Results/2D_SVM_gif.gif)
 
-## Calculating the best norm penalty for predicting 5s
+### Calculating the best norm penalty for predicting 5s
 
 The script `scripts/course_3_optimisation/mnist_norm_penalty.py` uses SVMs with different norm penalties to predict whether a digit is 5 or not 5, and plots the results of prediction accuracy of 5 vs not 5 on the training and test sets, as shown below:
 
