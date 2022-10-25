@@ -41,3 +41,14 @@ def make_plot(n=1000, x_offset=6, y_offset=2, norm_penalty=0.1):
 make_plot()
 make_plot(x_offset=10)
 make_plot(x_offset=1)
+
+filename_list = []
+for x in 5 * (1 + np.sin(np.linspace(0, 2 * np.pi))):
+    filename_list.append(make_plot(x_offset=x))
+
+plotting.make_gif(
+    *filename_list,
+    output_name="2D SVM gif",
+    output_dir=scripts.course_3_optimisation.RESULTS_DIR,
+    frame_duration_ms=2*1000/50,
+)

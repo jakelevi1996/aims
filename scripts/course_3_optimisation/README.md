@@ -91,3 +91,5 @@ The script `scripts/course_3_optimisation/svm_2d.py` solves a simple 2D SVM prob
 ![](./Results/SVM_2D,_x_offset___6.000.png)
 
 ![](./Results/SVM_2D,_x_offset___10.000.png)
+
+![](./Results/2D_SVM_gif.gif)
