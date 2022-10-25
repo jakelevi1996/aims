@@ -2,7 +2,9 @@ import cvxpy as cp
 
 # Define x (the decision variable), the list of coordinates, and the dictionary
 # mapping coordinates to elements in x. x[coord_to_ind_dict[val, row, col]] ==
-# 1 implies that the element at position (row, col) has value val
+# 1 implies that the element at position (row, col) has value val. In
+# subsequent comments, the shorthand x[[val, row, col]] is used for
+# x[coord_to_ind_dict[val, row, col]]
 x = cp.Variable(shape=(9*9*9), boolean=True)
 numbers_1_to_9 = list(range(1, 10))
 
@@ -19,8 +21,7 @@ coord_to_ind_dict = {coord: i for i, coord in enumerate(coord_list)}
 constraints = []
 
 # Each element can only have one value, EG in the 3rd row and the 5th column,
-# x[[1, 3, 5]] + x[[2, 3, 5] + ... + x[[9, 3, 5]]] == 1 (where x[[val, row,
-# col]] is shorthand for x[coord_to_ind_dict[val, row, col]])
+# x[[1, 3, 5]] + x[[2, 3, 5] + ... + x[[9, 3, 5]]] == 1
 for row in numbers_1_to_9:
     for col in numbers_1_to_9:
         constraints.append(
