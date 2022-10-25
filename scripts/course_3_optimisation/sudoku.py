@@ -52,3 +52,23 @@ for val in numbers_1_to_9:
                 for row in numbers_1_to_9
             ) == 1
         )
+
+# Each value can only be in each 3x3 cell once, EG for the value 8 in the cell
+# which is 3 down and 2 accross, x[[8, 7, 4]] + x[[8, 7, 5]] + ... + x[[8, 9,
+# 6]] == 1
+for val in numbers_1_to_9:
+    for cell_row in [0, 1, 2]:
+        for cell_col in [0, 1, 2]:
+            constraints.append(
+                sum(
+                    x[
+                        coord_to_ind_dict[
+                            val,
+                            3 * cell_row + row_in_cell,
+                            3 * cell_col + col_in_cell,
+                        ]
+                    ]
+                    for row_in_cell in [1, 2, 3]
+                    for col_in_cell in [1, 2, 3]
+                ) == 1
+            )
