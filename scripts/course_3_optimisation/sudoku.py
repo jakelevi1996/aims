@@ -16,6 +16,7 @@ coord_list = [
 ]
 
 coord_to_ind_dict = {coord: i for i, coord in enumerate(coord_list)}
+# x_from_coord = {coord: x[i] for i, coord in enumerate(coord_list)}
 
 # Initialise list of constraints
 constraints = []
@@ -72,3 +73,23 @@ for val in numbers_1_to_9:
                     for col_in_cell in [1, 2, 3]
                 ) == 1
             )
+
+# Specify sudoku as a numpy array
+known_row_col_val_list = [
+    [1, 2, 1], [1, 8, 8],
+    [2, 1, 8], [2, 3, 4], [2, 7, 7], [2, 9, 6],
+    [3, 2, 3], [3, 5, 9], [3, 8, 1],
+    [4, 4, 7], [4, 6, 8],
+    [5, 3, 5], [5, 5, 1], [5, 7, 8],
+    [6, 4, 3], [6, 6, 4],
+    [7, 2, 4], [7, 5, 2], [7, 8, 6],
+    [8, 1, 5], [8, 3, 2], [8, 7, 3], [8, 9, 9],
+    [9, 2, 9], [9, 8, 5],
+]
+for row, col, val in known_row_col_val_list:
+    constraints.append(x[coord_to_ind_dict[val, row, col]] == 1)
+
+objective = cp.Maximize(0)
+prob = cp.Problem(objective, constraints)
+print(prob.solve())
+print(x.value)
