@@ -4,6 +4,7 @@
   - [Installation](#installation)
   - [Solving a toy binary problem with constraints](#solving-a-toy-binary-problem-with-constraints)
   - [Solving a sudoku using `cvxpy`](#solving-a-sudoku-using-cvxpy)
+  - [Solving a simple 2D SVM problem](#solving-a-simple-2d-svm-problem)
 
 ## Installation
 
@@ -80,3 +81,13 @@ Solution =
  [1. 9. 6. 4. 8. 3. 2. 5. 7.]]
 Solution found in 0.541 seconds
 ```
+
+## Solving a simple 2D SVM problem
+
+The script `scripts/course_3_optimisation/svm_2d.py` solves a simple 2D SVM problem and plots the results, which are shown below:
+
+![](./Results/SVM_2D,_x_offset___1.000.png)
+
+![](./Results/SVM_2D,_x_offset___6.000.png)
+
+![](./Results/SVM_2D,_x_offset___10.000.png)
