@@ -140,12 +140,26 @@ class Seeder:
         rng = np.random.default_rng(seed)
         return rng
 
-def time_func(func, *args, **kwargs):
-    t_start = time.perf_counter()
-    func(*args, **kwargs)
-    t_total = time.perf_counter() - t_start
+class Timer:
+    def __init__(self, printer=None):
+        self._t0 = time.perf_counter()
+        if printer is None:
+            printer = Printer()
+        self._print = printer
 
-    print("\nFinished %r function in %.1fs" % (func.__name__, t_total))
+    def time_taken(self):
+        t1 = time.perf_counter()
+        return t1 - self._t0
+
+    def print_time_taken(self):
+        self._print("Time taken = %.3f s" % self.time_taken())
+
+def time_func(func, *args, **kwargs):
+    timer = Timer()
+    func(*args, **kwargs)
+    t_total = timer.time_taken()
+
+    print("\nFinished %r function in %.1f s" % (func.__name__, t_total))
 
 def clean_filename(filename_str, allowed_non_alnum_chars="-_.,"):
     filename_str_clean = "".join(
