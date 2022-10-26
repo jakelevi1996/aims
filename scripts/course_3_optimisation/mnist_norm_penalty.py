@@ -2,6 +2,7 @@ import numpy as np
 import __init__
 import scripts.course_3_optimisation
 import plotting
+import util
 import mnist
 
 x_train, y_train, x_test, y_test = mnist.load_data()
@@ -12,9 +13,11 @@ train_accuracy = []
 test_accuracy = []
 rng = np.random.default_rng(0)
 batch_size = 1000
+total_timer = util.Timer()
 
 for norm_penalty in norm_penalty_list:
-    print(norm_penalty)
+    print(norm_penalty, end=", ", flush=True)
+    timer = util.Timer()
     y_train_i_pred, y_test_i_pred = mnist.predict_digit(
         x_train,
         y_train,
@@ -24,9 +27,11 @@ for norm_penalty in norm_penalty_list:
         norm_penalty=norm_penalty,
         rng=rng,
     )
+    timer.print_time_taken()
     train_accuracy.append(np.mean((y_train_i_pred > 0) == (y_train == 5)))
     test_accuracy.append(np.mean((y_test_i_pred > 0) == (y_test == 5)))
 
+print("Total time taken = %.3f s" % total_timer.time_taken())
 best_test_accuracy = max(test_accuracy)
 best_norm_penalty = norm_penalty_list[test_accuracy.index(best_test_accuracy)]
 print(
