@@ -142,10 +142,10 @@ class Seeder:
 
 class Timer:
     def __init__(self, printer=None):
-        self._t0 = time.perf_counter()
         if printer is None:
             printer = Printer()
         self._print = printer
+        self._t0 = time.perf_counter()
 
     def time_taken(self):
         t1 = time.perf_counter()
@@ -170,3 +170,11 @@ def clean_filename(filename_str, allowed_non_alnum_chars="-_.,"):
 
 def is_numeric(x):
     return any(isinstance(x, t) for t in [int, float, np.number])
+
+def numpy_set_print_options():
+    np.set_printoptions(
+        precision=3,
+        linewidth=10000,
+        suppress=True,
+        threshold=10000,
+    )
