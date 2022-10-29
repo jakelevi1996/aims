@@ -112,7 +112,7 @@ m = 100
 A, b, c = gen_problem(n, m, rng)
 
 timer = util.Timer()
-p, x = solve_cp(A, b, c)
+p, x_cp = solve_cp(A, b, c)
 timer.print_time_taken()
 
 timer = util.Timer()
@@ -138,12 +138,28 @@ x_pgdp = x_pgp + A_proj.T @ np.linalg.solve(
     b_proj - A_proj @ x_pgp,
 )
 
-print(np.linalg.norm(x - x_pg))
-print(np.linalg.norm(x), np.linalg.norm(x_pg))
-print(np.max(x), np.max(x_pg))
-print(np.min(x), np.min(x_pg))
-print(np.linalg.norm(A @ x - b), np.linalg.norm(A @ x_pg - b))
-print(np.linalg.norm(c @ x), np.linalg.norm(c @ x_pg))
+print(np.linalg.norm(x_cp - x_pg))
+print("  name | norm(x) | max(x) |     min(x) | norm(Ax - b) |  c @ x")
+print("------ | ------- | ------ | ---------- | ------------ | ------")
+for name, x in [
+    ["x_cp", x_cp],
+    ["x_pg", x_pg],
+    ["x_dpg", x_dpg],
+    ["x_pgp", x_pgp],
+    ["x_pgdp", x_pgdp],
+]:
+    table_element_list = [
+        format(s, f).rjust(w)
+        for s, f, w in [
+            [name,                      "s",    6   ],
+            [np.linalg.norm(x),         ".3f",  7   ],
+            [np.max(x),                 ".3f",  6   ],
+            [np.min(x),                 ".3e",  10  ],
+            [np.linalg.norm(A @ x - b), ".3e",  12  ],
+            [c @ x,                     ".3f",  6   ],
+        ]
+    ]
+    print(" | ".join(table_element_list))
 
 plotting.plot(
     plotting.Line(np.arange(len(error_norm_list)), error_norm_list, c="b"),
