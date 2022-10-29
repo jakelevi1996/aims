@@ -15,7 +15,10 @@ def gen_problem(n=500, m=100, rng=None):
     c[c < 0] *= -1
     return A, b, c
 
-def solve_cp(A, b, c, n):
+def solve_cp(A, b, c):
+    m, n = A.shape
+    assert b.size == m
+    assert c.size == n
     x = cp.Variable(n)
     constraints = [A @ x == b, x >= 0]
     objective = cp.Minimize(c @ x)
@@ -31,7 +34,7 @@ m = 100
 A, b, c = gen_problem(n, m, rng)
 
 timer = util.Timer()
-p, x = solve_cp(A, b, c, n)
+p, x = solve_cp(A, b, c)
 timer.print_time_taken()
 
 print(x, p, np.min(x))
