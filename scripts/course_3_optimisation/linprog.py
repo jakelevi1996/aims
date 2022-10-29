@@ -60,6 +60,50 @@ def solve_pg(
     x = z[:n]
     return x, error_norm_list
 
+def solve_dpg(A, b, c, n_iterations=1000, tol=1e-3):
+    m, n = A.shape
+    assert b.size == m
+    assert c.size == n
+    F = np.block(
+        [
+            [c.reshape(1, n)    , b.reshape(1, m)   , np.zeros([1, n])  ],
+            [A                  , np.zeros([m, m])  , np.zeros([m, n])  ],
+            [np.zeros([n, n])   , A.T               , -np.identity(n)   ],
+        ]
+    )
+    g = np.block([0, b, -c])
+    F_proj = F
+    g_proj = g
+    F_num_rows, F_num_cols = F.shape
+    z = np.zeros((2 * n) + m)
+    z_inds = np.arange(z.size)
+    x_nu_inds = np.block(
+        [
+            np.full(n, True),
+            np.full(m, False),
+            np.full(n, True),
+        ]
+    )
+
+    error_norm_list = []
+    for i in range(n_iterations):
+        dz = F_proj.T @ np.linalg.solve(
+            F_proj @ F_proj.T,
+            g_proj - F_proj @ z,
+        )
+        z += dz
+        error_norm_list.append(np.linalg.norm(dz))
+        proj_inds = z_inds[np.logical_and(z < -tol, x_nu_inds)]
+        if proj_inds.size == 0:
+            break
+
+        F_proj = np.block([[F], [np.zeros([proj_inds.size, F_num_cols])]])
+        F_proj[F_num_rows + np.arange(proj_inds.size), proj_inds] = 1
+        g_proj = np.block([g, np.zeros(proj_inds.size)])
+
+    x = z[:n]
+    return x, error_norm_list
+
 rng = np.random.default_rng(2)
 util.numpy_set_print_options()
 
@@ -73,6 +117,10 @@ timer.print_time_taken()
 
 timer = util.Timer()
 x_pg, error_norm_list = solve_pg(A, b, c)
+timer.print_time_taken()
+
+timer = util.Timer()
+x_dpg, dpg_error_norm_list = solve_dpg(A, b, c)
 timer.print_time_taken()
 
 x_pgp = x_pg + A.T @ np.linalg.solve(A @ A.T, b - A @ x_pg)
