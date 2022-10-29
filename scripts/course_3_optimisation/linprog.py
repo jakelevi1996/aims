@@ -1,4 +1,5 @@
 import numpy as np
+import scipy.linalg
 import cvxpy as cp
 import __init__
 import util
@@ -26,6 +27,35 @@ def solve_cp(A, b, c):
     problem.solve()
     return problem.value, x.value
 
+def solve_pg(
+    A,
+    b,
+    c,
+    n_iterations=1000,
+    ignore_stationarity=False,
+    cache_inverse=False,
+):
+    m, n = A.shape
+    assert b.size == m
+    assert c.size == n
+    F = np.block(
+        [
+            [c.reshape(1, n)    , b.reshape(1, m)   , np.zeros([1, n])  ],
+            [A                  , np.zeros([m, m])  , np.zeros([m, n])  ],
+            [np.zeros([n, n])   , A.T               , -np.identity(n)   ],
+        ]
+    )
+    F_fact = scipy.linalg.lu_factor(F @ F.T)
+    g = np.block([0, b, -c])
+    z = np.zeros((2 * n) + m)
+    clip_inds = np.block([np.ones(n), np.zeros(m), np.ones(n)])
+    for _ in range(n_iterations):
+        z_hat = z + F.T @ scipy.linalg.lu_solve(F_fact, g - F @ z)
+        z = np.where(clip_inds, np.clip(z_hat, 0, None), z_hat)
+
+    x = z[:n]
+    return x
+
 rng = np.random.default_rng(2)
 util.numpy_set_print_options()
 
@@ -37,4 +67,13 @@ timer = util.Timer()
 p, x = solve_cp(A, b, c)
 timer.print_time_taken()
 
-print(x, p, np.min(x))
+timer = util.Timer()
+x_pg = solve_pg(A, b, c)
+timer.print_time_taken()
+
+print(np.linalg.norm(x - x_pg))
+print(np.linalg.norm(x), np.linalg.norm(x_pg))
+print(np.max(x), np.max(x_pg))
+print(np.min(x), np.min(x_pg))
+print(np.linalg.norm(A @ x - b), np.linalg.norm(A @ x_pg - b))
+print(np.linalg.norm(c @ x), np.linalg.norm(c @ x_pg))
