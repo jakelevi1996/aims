@@ -75,6 +75,21 @@ timer = util.Timer()
 x_pg, error_norm_list = solve_pg(A, b, c)
 timer.print_time_taken()
 
+x_pgp = x_pg + A.T @ np.linalg.solve(A @ A.T, b - A @ x_pg)
+
+negative_inds = np.arange(x_pgp.size)[x_pgp < 0]
+m, n = A.shape
+A_proj = np.block([[A], [np.zeros([negative_inds.size, n])]])
+A_proj[m + np.arange(negative_inds.size), negative_inds] = 1
+b_proj = np.block([b, np.zeros(negative_inds.size)])
+for i, j in enumerate(negative_inds):
+    A_proj[m + i, j] = 1
+
+x_pgdp = x_pgp + A_proj.T @ np.linalg.solve(
+    A_proj @ A_proj.T,
+    b_proj - A_proj @ x_pgp,
+)
+
 print(np.linalg.norm(x - x_pg))
 print(np.linalg.norm(x), np.linalg.norm(x_pg))
 print(np.max(x), np.max(x_pg))
