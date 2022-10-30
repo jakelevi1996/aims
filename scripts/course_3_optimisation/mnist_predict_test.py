@@ -10,7 +10,7 @@ test_preds = mnist.predict_all_digits(
     y_train,
     x_test,
     batch_size=1000,
-    norm_penalty=1.438450,
+    norm_penalty=62.647540,
     rng=rng,
 )
 test_accuracy = np.mean(test_preds == y_test)
