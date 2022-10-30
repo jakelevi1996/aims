@@ -59,11 +59,71 @@ This equivalence can be proved as follows:
         2x \\
         y - z
     \end{bmatrix}\right\Vert_2 &\le y + z \\
-    \Leftrightarrow \quad && 0 \le \sqrt{4x^T x + y^2 - 2yz + z^2} &\le y + z \\
-    \Leftrightarrow \quad && 4x^T x + y^2 - 2yz + z^2 &\le y^2 + 2yz + z^2 \\
-    \Leftrightarrow \quad && 4x^T x &\le 4yz \\
-    \Leftrightarrow \quad && x^T x &\le yz
+    \Leftrightarrow && 0 \le \sqrt{4x^T x + y^2 - 2yz + z^2} &\le y + z \\
+    \Leftrightarrow && 4x^T x + y^2 - 2yz + z^2 &\le y^2 + 2yz + z^2 \\
+    \Leftrightarrow && 4x^T x &\le 4yz \\
+    \Leftrightarrow && x^T x &\le yz
 \end{align*}
+This equivalence can be used for example to show that the following optimisation problem, which can be interpreted as maximising a harmonic mean, is equivalent to a SOCP ($a_i^T$ refers to the $i$th row of $A$):
+\begin{equation}
+\begin{aligned}
+    \underset{x}{\text{Maximise}} \quad & \left( \sum_{i=1}^{m}\left[ \frac{1}{a_i^T x - b_i} \right] \right)^{-1} \\
+    \text{Subject to} \quad & Ax > b
+\end{aligned}
+\end{equation}
+This equivalence can be demonstrated as follows ($\cong$ is used to denote equivalence between optimisation problems, $\textbf{0}$ in bold-face is used to denote an appropriately sized matrix or vector in which every element is equal to 0, $\textbf{1}$ in bold-face is used to denote an appropriately sized vector in which every element is equal to 1, and $e_i$ is used to denote the $i$th basis vector in which the $i$th element is equal to 1 and all other elements are equal to 0):
+\begin{align*}
+    \underset{x}{\text{Maximise}} \quad & \left( \sum_{i=1}^{m}\left[ \frac{1}{a_i^T x - b_i} \right] \right)^{-1} \\
+    \text{Subject to} \quad & Ax > b \\ \\
+    \cong \quad \underset{x}{\text{Minimise}} \quad & \sum_{i=1}^{m}\left[ \frac{1}{a_i^T x - b_i} \right] \\
+    \text{Subject to} \quad & Ax > b \\ \\
+    \cong \quad \underset{x, y}{\text{Minimise}} \quad & \textbf{1}^T y \\
+    \text{Subject to} \quad & Ax > b \\
+    & y_i(a_i^T x - b_i) = 1 \quad (\forall i) \\ \\
+    \cong \quad \underset{x, y}{\text{Minimise}} \quad & \textbf{1}^T y \\
+    \text{Subject to} \quad & y \ge 0 \\
+    & y_i(a_i^T x - b_i) \ge 1 \quad (\forall i) \\ \\
+    \cong \quad \underset{x, y}{\text{Minimise}} \quad & \textbf{1}^T y \\
+    \text{Subject to} \quad & \Vert 0 \Vert_2 \le y_i \quad (\forall i) \\
+    & \left\Vert\begin{bmatrix}
+        2 \\
+        y_i - a_i^T x + b_i
+    \end{bmatrix}\right\Vert_2 \le y_i + a_i^T x - b_i \quad (\forall i) \\ \\
+    \cong \quad \underset{x, y}{\text{Minimise}} \quad & \begin{bmatrix} \mathbf{0} \\ \mathbf{1} \end{bmatrix}^T \begin{bmatrix} x \\ y \end{bmatrix} \\
+    \text{Subject to} \quad & \left\Vert\begin{bmatrix} \mathbf{0} & \mathbf{0} \\ \mathbf{0} & \mathbf{0} \end{bmatrix}\begin{bmatrix} x \\ y \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \end{bmatrix} \right\Vert_2 \le \begin{bmatrix} \mathbf{0} \\ e_i \end{bmatrix}^T \begin{bmatrix} x \\ y \end{bmatrix} + 0 \quad (\forall i) \\
+    & \left\Vert\begin{bmatrix} \mathbf{0} & \mathbf{0} \\ -a_i^T & e_i^T \end{bmatrix}\begin{bmatrix} x \\ y \end{bmatrix} + \begin{bmatrix} 2 \\ b_i \end{bmatrix} \right\Vert_2 \le \begin{bmatrix} a_i \\ e_i \end{bmatrix}^T \begin{bmatrix} x \\ y \end{bmatrix} - b_i \quad (\forall i)
+\end{align*}
+Which at last is in the form of a SOCP defined in equation \ref{eq:SOCP}.
+
+The equivalence in equation \ref{eq:SOCP identity} can also be used to show that a similar problem which can be interpreted as maximising a geometric mean can be reformulated as a SOCP (assuming $m$ is a power of 2):
+\begin{equation}
+\begin{aligned}
+    \underset{x}{\text{Maximise}} \quad & \left( \prod_{i=1}^{m}\left[ a_i^T x - b_i \right] \right)^{1/m} \\
+    \text{Subject to} \quad & Ax > b
+\end{aligned} \label{eq:geometric mean SOCP}
+\end{equation}
+The trick is to recursively define variables $t_{j, i}$ for $j\in\{1,\hdots,\log_2(m)\}$ as follows:
+\begin{align*}
+    t_{0, i} &= a_i^T x - b_i \\
+    t_{j+1, i} &= \sqrt{(t_{j, 2i})(t_{j, 2i+1})} \\
+    \Rightarrow \quad t_{j+1, i}^2 &\le (t_{j, 2i})(t_{j, 2i+1}) \\
+    \Leftrightarrow \quad \left\Vert\begin{bmatrix}
+        2t_{j+1, i} \\
+        t_{j, 2i} - t_{j, 2i+1}
+    \end{bmatrix}\right\Vert_2 &\le t_{j, 2i} + t_{j, 2i+1}
+\end{align*}
+The optimisation problem in equation \ref{eq:geometric mean SOCP} can therefore be expressed as an equivalent SOCP as follows:
+\begin{equation}
+\begin{aligned}
+    \underset{x}{\text{Maximise}} \quad & t_{\log_2(m), 1} \\
+    \text{Subject to} \quad & t_{0, i} = a_i^T x - b_i \quad & (\forall i) \\
+    & t_{j, i} \ge 0 \quad & (\forall i)(\forall j \in \{0, \hdots, \log_2(m)\}) \\
+    & \left\Vert\begin{bmatrix}
+        2t_{j+1, i} \\
+        t_{j, 2i} - t_{j, 2i+1}
+    \end{bmatrix}\right\Vert_2 \le t_{j, 2i} + t_{j, 2i+1} \quad & (\forall i)(\forall j \in \{0, \hdots, \log_2(m-1)\}) \\
+\end{aligned}
+\end{equation}
 
 \subsection{Support Functions}
 \subsection{Largest-L Norm Of A Vector}
