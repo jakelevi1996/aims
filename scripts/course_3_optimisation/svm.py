@@ -10,13 +10,13 @@ def solve_separable(x, labels):
     prob.solve()
     return a.value, b.value
 
-def solve(x, labels, norm_penalty=0):
+def solve(x, labels, norm_penalty):
     n, x_dim = x.shape
     t = cp.Variable(shape=n)
     a = cp.Variable(shape=x_dim)
     b = cp.Variable(shape=1)
     constraints = [t >= 0, t >= (1 - cp.multiply(labels, x @ a + b))]
-    objective = cp.Minimize(cp.sum(t) + norm_penalty * cp.sum_squares(a))
+    objective = cp.Minimize(cp.sum(t)/n + norm_penalty * cp.sum_squares(a))
     prob = cp.Problem(objective, constraints)
     prob.solve(solver="ECOS")
     return a.value, b.value
