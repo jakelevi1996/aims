@@ -34,17 +34,11 @@ def predict_digit(
 ):
     x_i = x_train[y_train == digit]
     x_not_i = x_train[y_train != digit]
-    x_i_batch = x_i[
-        rng.choice(x_i.shape[0], batch_size, replace=False)
-    ]
-    x_not_i_batch = x_not_i[
-        rng.choice(x_not_i.shape[0], batch_size, replace=False)
-    ]
-    labels = np.ones(2 * batch_size)
-    labels[batch_size:] = -1
+    x_i_batch = x_i[:batch_size]
+    x_not_i_batch = x_not_i[:batch_size]
     a, b = svm.solve(
         np.block([[x_i_batch], [x_not_i_batch]]),
-        labels,
+        np.block([np.ones(batch_size), -np.ones(batch_size)]),
         norm_penalty,
     )
     y_train_i_pred = x_train @ a + b
