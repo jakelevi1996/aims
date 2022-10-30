@@ -1,0 +1,43 @@
+We consider optimisation problems consisting of a decision variable $x$, which takes values in a set $\mathcal{X}$ (referred to as the domain of $x$), an objective function $f_0(x)$, inequality constraints $f_i(x)$ (for $i\in\{1, \hdots, m\}$), and equality constraints $h_i(x)$ (for $i\in\{1, \hdots, p\}$), which can be expressed in` the following form:
+\begin{equation}
+\begin{aligned}
+    \underset{x \in \mathcal{X}}{\text{Minimise}} \quad & f_0(x) \\
+    \text{Subject to} \quad & f_i(x) \le 0 \quad i\in\{1, \hdots, m\} \\
+    & h_i(x) = 0 \quad i\in\{1, \hdots, p\}
+\end{aligned} \label{eq:optimisation problem}
+\end{equation}
+We refer to the set of values of $x\in\mathcal{X}$ which satisfy the equality and inequality constraints as the feasible set, which is denoted by $\mathcal{F}$:
+\begin{equation}
+    \mathcal{F} = \{ x\in\mathcal{X}: (\forall i\in\{1, \hdots, m\}) \quad f_i(x) \le 0 \quad \text{and} \quad (\forall i\in\{1, \hdots, p\}) \quad h_i(x) = 0 \}
+\end{equation}
+The limit of the smallest value of $f_0(x)$ for any value of $x$ in the feasible set $\mathcal{F}$ is referred to as the optimal cost, and denoted by $p^*$:
+\begin{equation}
+    p^* = \underset{x\in\mathcal{F}}{\inf}\left[f_0(x)\right]
+\end{equation}
+When solving an optimisation problem in the form described by equation \ref{eq:optimisation problem}, it is useful to introduce the Lagrangian function \cite{boyd2004convex} (intuition for the form of the Lagrangian function is provided in appendix \ref{appendix:why lagrangian}), which is a function of the decision variable $x\in\mathcal{X}$, and also the variables $\lambda \in \mathbb{R}^m $ and $\nu\in\mathbb{R}^p$, which are referred to as the Lagrange multipliers for the inequality and equality constraints respectively:
+\begin{equation}
+    \mathcal{L}(x, \lambda, \nu) = f_0(x) + \sum_{i=1}^{m}[\lambda_i f_i(x)] + \sum_{i=1}^{p}[\nu_i h_i(x)] \label{eq:Lagrangian}
+\end{equation}
+The limit of the smallest value of the Lagrangian function for any value of $x$ in its domain $\mathcal{X}$ (not only in the feasible set $\mathcal{F}$) as a function of the Lagrange multipliers $\lambda$ and $\nu$ is referred to as the Lagrange dual function $g$:
+\begin{align}
+    g(\lambda, \nu) &= \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda, \nu)\right] \label{eq:dual function} \\
+    &= \underset{x\in\mathcal{X}}{\inf}\left[f_0(x) + \sum_{i=1}^{m}[\lambda_i f_i(x)] + \sum_{i=1}^{p}[\nu_i h_i(x)]\right]
+\end{align}
+The dual function is concave with respect to $\lambda$ and $\nu$, which is equivalent to the following statements:
+\begin{align}
+    (\forall\lambda^{(1)},\lambda^{(2)}\in\mathbb{R}^m)(\forall\alpha\in[0, 1]) \quad g(\alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu) &\ge \alpha g(\lambda^{(1)}, \nu) + (1 - \alpha) g(\lambda^{(2)}, \nu) \label{eq:dual concave lambda} \\
+    (\forall\nu^{(1)},\nu^{(2)}\in\mathbb{R}^m)(\forall\alpha\in[0, 1]) \quad g(\lambda, \alpha\nu^{(1)} + (1 - \alpha)\nu^{(2)}) &\ge \alpha g(\lambda, \nu^{(1)}) + (1 - \alpha) g(\lambda, \nu^{(2)})\label{eq:dual concave nu}
+\end{align}
+Both of these statements can be easily proved. We start by proving equation \ref{eq:dual concave lambda}, for which it is useful to define the variable $x^*\in\bar{\mathcal{X}}$ (where $\bar{\mathcal{X}}$ denotes the closure of the set $\mathcal{X}$) which satisfies the following equation, given $\alpha$, $\lambda^{(1)}$, $\lambda^{(2)}$, and $\nu$:
+\begin{align}
+    \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu)\right] &= \mathcal{L}(x^*, \alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu) \\
+    \Rightarrow & \begin{cases}
+        \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(1)}, \nu)\right] \le \mathcal{L}(x^*, \lambda^{(1)}, \nu) \\
+        \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(2)}, \nu)\right] \le \mathcal{L}(x^*, \lambda^{(2)}, \nu)
+    \end{cases} \\
+    \Rightarrow (\forall\alpha\in[0, 1]) \quad \alpha \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(1)}, \nu)\right] + (1 - \alpha) \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(2)}, \nu)\right] &\le \alpha\mathcal{L}(x^*, \lambda^{(1)}, \nu) + (1 - \alpha)\mathcal{L}(x^*, \lambda^{(2)}, \nu) \\
+    &= \mathcal{L}(x^*, \alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu) \label{eq:follows from Lagrangian} \\
+    &= \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu)\right] \\
+    \Rightarrow (\forall\lambda^{(1)},\lambda^{(2)}\in\mathbb{R}^m)(\forall\alpha\in[0, 1]) \quad \alpha g(\lambda^{(1)}, \nu) + (1 - \alpha) g(\lambda^{(2)}, \nu) &\le g(\alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu) \label{eq:follows from dual}
+\end{align}
+Where (\ref{eq:follows from Lagrangian}) follows from the definition of the Lagrangian function $\mathcal{L}$ in equation \ref{eq:Lagrangian} and the fact that $\alpha + (1 - \alpha) = 1$, and (\ref{eq:follows from dual}) follows from the definition of the Lagrangian dual function $g$ in equation \ref{eq:dual function}.
