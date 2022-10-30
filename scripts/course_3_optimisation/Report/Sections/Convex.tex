@@ -1,4 +1,30 @@
 \subsection{Standard Form Of Convex Problems}
+A convex optimisation problem is one in which the objective function $f_0(x)$ (defined in equation \ref{eq:optimisation problem}) is a convex function, and the feasible set $\mathcal{F}$ (defined in equation \ref{eq:feasible set}) is a convex set. In order for $\mathcal{F}$ to be a convex set, any inequality constraints must restrict $x$ to be in a convex subset of its domain, and any equality constraints must restrict $x$ to be in an affine subspace of its domain. Therefore, a convex optimisation problem in the form of equation \ref{eq:optimisation problem} is said to be a standard form convex optimisation problem if the objective function $f_0(x)$ is a convex function, all inequality constraint functions $f_i(x)$ are convex functions ($\forall i\in\{1, \hdots, m\}$), and all equality constraint functions $h_i(x)$ are affine functions ($\forall i\in\{1, \hdots, p\}$), in which case the problem is a convex optimisation problem. However, not all convex optimisation problems are in standard form, as the following example demonstrates:
+\begin{equation}
+\begin{aligned}
+    \underset{x \in \mathbb{R}^2}{\text{Minimise}} \quad & x_1^2 + x_2^2 \\
+    \text{Subject to} \quad & f_1(x) = \frac{x_1}{1 + x_2^2} \le 0 \\
+    & h_1(x) = (x_1 + x_2)^2 = 0
+\end{aligned} \label{eq:non standard convex problem}
+\end{equation}
+In this case, $f_1(x)$ is not a convex function, and $h_1(x)$ is not an affine function, therefore the problem is not a standard form convex optimisation problem, however the objective function is a convex function, and the feasible set defined by these constraints is a convex set:
+\begin{align*}
+    \frac{x_1}{1 + x_2^2} &\le 0 \\
+    (\forall x_2 \in \mathbb{R}) \quad \frac{1}{1 + x_2^2} &> 0 \\
+    \Rightarrow x_1 &\le 0 \\
+    (x_1 + x_2)^2 &= 0 \\
+    \Rightarrow x_1 + x_2 &= 0 \\
+    \Rightarrow x_2 &= -x_1 \\
+    \Rightarrow x_2 &\ge 0 \\
+    \Rightarrow \mathcal{F} &= \{ x\in\mathbb{R}^2: x_1 \le 0 \quad \text{and} \quad x_2 = -x_1 \}
+\end{align*}
+Therefore the problem in equation \ref{eq:non standard convex problem} is equivalent to the following standard form convex optimisation problem (for which the primal optimal cost is clearly $0$, achieved when $x_1=x_2=0$):
+\begin{align*}
+    \underset{x \in \mathbb{R}^2}{\text{Minimise}} \quad & x_1^2 + x_2^2 \\
+    \text{Subject to} \quad & f_1(x) = x_1 \le 0 \\
+    & h_1(x) = x_1 + x_2 = 0
+\end{align*}
+
 \subsection{Hyperbolic Constraints And Second-Order Cones}
 \subsection{Support Functions}
 \subsection{Largest-L Norm Of A Vector}

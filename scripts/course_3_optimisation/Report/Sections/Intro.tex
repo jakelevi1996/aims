@@ -1,4 +1,4 @@
-We consider optimisation problems consisting of a decision variable $x$, which takes values in a set $\mathcal{X}$ (referred to as the domain of $x$), an objective function $f_0(x)$, inequality constraints $f_i(x)$ (for $i\in\{1, \hdots, m\}$), and equality constraints $h_i(x)$ (for $i\in\{1, \hdots, p\}$), which can be expressed in` the following form:
+We consider optimisation problems consisting of a decision variable $x$, which takes values in a set $\mathcal{X}$ (referred to as the domain of $x$), an objective function $f_0(x)$, inequality constraints $f_i(x)$ (for $i\in\{1, \hdots, m\}$), and equality constraints $h_i(x)$ (for $i\in\{1, \hdots, p\}$), which can be expressed in the following form:
 \begin{equation}
 \begin{aligned}
     \underset{x \in \mathcal{X}}{\text{Minimise}} \quad & f_0(x) \\
@@ -8,7 +8,7 @@ We consider optimisation problems consisting of a decision variable $x$, which t
 \end{equation}
 We refer to the set of values of $x\in\mathcal{X}$ which satisfy the equality and inequality constraints as the feasible set, which is denoted by $\mathcal{F}$:
 \begin{equation}
-    \mathcal{F} = \{ x\in\mathcal{X}: (\forall i\in\{1, \hdots, m\}) \quad f_i(x) \le 0 \quad \text{and} \quad (\forall i\in\{1, \hdots, p\}) \quad h_i(x) = 0 \}
+    \mathcal{F} = \{ x\in\mathcal{X}: (\forall i\in\{1, \hdots, m\}) \quad f_i(x) \le 0 \quad \text{and} \quad (\forall i\in\{1, \hdots, p\}) \quad h_i(x) = 0 \} \label{eq:feasible set}
 \end{equation}
 The limit of the smallest value of $f_0(x)$ for any value of $x$ in the feasible set $\mathcal{F}$ is referred to as the optimal cost, and denoted by $p^*$:
 \begin{equation}
@@ -49,7 +49,7 @@ The limit of the greatest value of $g(\lambda, \nu)$ for any $\lambda \ge 0$ and
     &= \underset{\lambda \ge 0, \nu}{\sup}\left[\underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda, \nu)\right]\right] \\
     & \le p^*
 \end{align}
-Therefore we have that the dual optimal cost $d^*$ is always less than or equal to the primal optimal cost, $p^*$. An interesting symmetry exists between the optimal cost $p^*$ (also referred to as the primal optimal cost) and the dual optimal cost, $d^*$. To see this, we start by noting that the Lagrangian function $\mathcal{L}(x, \lambda, \nu)$ is unbounded above (and below) with respect to $\lambda$ and $\nu $ unless $x$ is in the feasible set $\mathcal{F}$, in which case the Lagrangian function is bounded above by the objective function, $f_0(x)$:
+Therefore we have that the dual optimal cost $d^*$ is always less than or equal to the optimal cost, $p^*$ (also referred to as the primal optimal cost). An interesting symmetry exists between the primal optimal cost, $p^*$ and the dual optimal cost, $d^*$. To see this, we start by noting that the Lagrangian function $\mathcal{L}(x, \lambda, \nu)$ is unbounded above (and below) with respect to $\lambda \ge 0$ and $\nu $ unless $x$ is in the feasible set $\mathcal{F}$, in which case the Lagrangian function is bounded above by the objective function, $f_0(x)$:
 \begin{align}
     \underset{\lambda \ge 0, \nu}{\sup}\left[ \mathcal{L}(x, \lambda, \nu) \right] &= \begin{cases}
         f_0(x) & x \in \mathcal{F} \\
