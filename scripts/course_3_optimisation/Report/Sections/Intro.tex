@@ -26,7 +26,7 @@ The limit of the smallest value of the Lagrangian function for any value of $x$ 
 The dual function is concave with respect to $\lambda$ and $\nu$, which is equivalent to the following statements:
 \begin{align}
     (\forall\lambda^{(1)},\lambda^{(2)}\in\mathbb{R}^m)(\forall\alpha\in[0, 1]) \quad g(\alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu) &\ge \alpha g(\lambda^{(1)}, \nu) + (1 - \alpha) g(\lambda^{(2)}, \nu) \label{eq:dual concave lambda} \\
-    (\forall\nu^{(1)},\nu^{(2)}\in\mathbb{R}^m)(\forall\alpha\in[0, 1]) \quad g(\lambda, \alpha\nu^{(1)} + (1 - \alpha)\nu^{(2)}) &\ge \alpha g(\lambda, \nu^{(1)}) + (1 - \alpha) g(\lambda, \nu^{(2)})\label{eq:dual concave nu}
+    (\forall\nu^{(1)},\nu^{(2)}\in\mathbb{R}^p)(\forall\alpha\in[0, 1]) \quad g(\lambda, \alpha\nu^{(1)} + (1 - \alpha)\nu^{(2)}) &\ge \alpha g(\lambda, \nu^{(1)}) + (1 - \alpha) g(\lambda, \nu^{(2)})\label{eq:dual concave nu}
 \end{align}
 Both of these statements can be easily proved. We start by proving equation \ref{eq:dual concave lambda}, for which it is useful to define the variable $x^*\in\bar{\mathcal{X}}$ (where $\bar{\mathcal{X}}$ denotes the closure of the set $\mathcal{X}$) which satisfies the following equation, given $\alpha$, $\lambda^{(1)}$, $\lambda^{(2)}$, and $\nu$:
 \begin{align}
@@ -35,9 +35,41 @@ Both of these statements can be easily proved. We start by proving equation \ref
         \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(1)}, \nu)\right] \le \mathcal{L}(x^*, \lambda^{(1)}, \nu) \\
         \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(2)}, \nu)\right] \le \mathcal{L}(x^*, \lambda^{(2)}, \nu)
     \end{cases} \\
-    \Rightarrow (\forall\alpha\in[0, 1]) \quad \alpha \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(1)}, \nu)\right] + (1 - \alpha) \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(2)}, \nu)\right] &\le \alpha\mathcal{L}(x^*, \lambda^{(1)}, \nu) + (1 - \alpha)\mathcal{L}(x^*, \lambda^{(2)}, \nu) \\
+    \Rightarrow \alpha \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(1)}, \nu)\right] + (1 - \alpha) \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda^{(2)}, \nu)\right] &\le \alpha\mathcal{L}(x^*, \lambda^{(1)}, \nu) + (1 - \alpha)\mathcal{L}(x^*, \lambda^{(2)}, \nu) \\
     &= \mathcal{L}(x^*, \alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu) \label{eq:follows from Lagrangian} \\
     &= \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu)\right] \\
     \Rightarrow (\forall\lambda^{(1)},\lambda^{(2)}\in\mathbb{R}^m)(\forall\alpha\in[0, 1]) \quad \alpha g(\lambda^{(1)}, \nu) + (1 - \alpha) g(\lambda^{(2)}, \nu) &\le g(\alpha\lambda^{(1)} + (1 - \alpha)\lambda^{(2)}, \nu) \label{eq:follows from dual}
 \end{align}
-Where (\ref{eq:follows from Lagrangian}) follows from the definition of the Lagrangian function $\mathcal{L}$ in equation \ref{eq:Lagrangian} and the fact that $\alpha + (1 - \alpha) = 1$, and (\ref{eq:follows from dual}) follows from the definition of the Lagrangian dual function $g$ in equation \ref{eq:dual function}.
+Where (\ref{eq:follows from Lagrangian}) follows from the definition of the Lagrangian function $\mathcal{L}$ in equation \ref{eq:Lagrangian} and the fact that $\alpha + (1 - \alpha) = 1$, and (\ref{eq:follows from dual}) follows from the definition of the Lagrangian dual function $g$ in equation \ref{eq:dual function}. The proof that the dual Lagrangian function is concave with respect to $\nu$ (equation \ref{eq:dual concave nu}) follows using similar reasoning.
+
+We also note that for any $\lambda \ge 0$ (where $\ge$ is understood to apply element-wise to each element of $\lambda$) and for any $\nu$, the Lagrangian dual function $g(\lambda, \nu)$ is a lower bound for the optimal cost $p^*$. To prove this, it is useful to note that for any feasible point $\tilde{x}\in\mathcal{F}$ (which necessarily satisfies $f_i(x) \le 0$ for all $i\in\{1, \hdots, m\}$ and $h_i(x) = 0$ for all $i\in\{1, \hdots, p\}$), and for any $\lambda\ge 0$ and any $\nu$, the following inequality holds:
+\begin{align}
+    (\forall \tilde{x} \in \mathcal{F}, \lambda \ge 0, \nu) \quad 0 &\ge \sum_{i=1}^{m}[\lambda_i f_i(\tilde{x})] + \sum_{i=1}^{p}[\nu_i h_i(\tilde{x})] \\
+    \Rightarrow (\forall \tilde{x} \in \mathcal{F}, \lambda \ge 0, \nu) \quad f_0(\tilde{x}) &\ge f_0(\tilde{x}) + \sum_{i=1}^{m}[\lambda_i f_i(\tilde{x})] + \sum_{i=1}^{p}[\nu_i h_i(\tilde{x})] \\
+    &= \mathcal{L}(\tilde{x}, \lambda, \nu) \\
+    &\ge \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda, \nu)\right] \\
+    &= g(\lambda, \nu)
+\end{align}
+Since this is true for any feasible $\tilde{x}$, it is also true for the value of $\tilde{x} \in \mathcal{F}$ which minimises the objective function, $f_0(x)$:
+\begin{align}
+    (\forall \tilde{x} \in \mathcal{F}, \lambda \ge 0, \nu) \quad g(\lambda, \nu) &\le f_0(\tilde{x}) \\
+    \Rightarrow (\forall \lambda \ge 0, \nu) \quad g(\lambda, \nu) &\le \underset{x\in\mathcal{F}}{\inf}\left[f_0(x)\right] \\
+    &= p^*
+\end{align}
+The limit of the greatest value of $g(\lambda, \nu)$ for any $\lambda \ge 0$ and $\nu$ is the best lower bound on $p^*$, and is referred to as the dual optimal cost, denoted by $d^*$:
+\begin{align}
+    d^* &= \underset{\lambda \ge 0, \nu}{\sup}\left[g(\lambda, \nu)\right] \\
+    &= \underset{\lambda \ge 0, \nu}{\sup}\left[\underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda, \nu)\right]\right] \\
+    & \le p^*
+\end{align}
+Therefore we have that the dual optimal cost $d^*$ is always less than or equal to the primal optimal cost, $p^*$. An interesting symmetry exists between the optimal cost $p^*$ (also referred to as the primal optimal cost) and the dual optimal cost, $d^*$. To see this, we start by noting that the Lagrangian function $\mathcal{L}(x, \lambda, \nu)$ is unbounded above (and below) with respect to $\lambda$ and $\nu $ unless $x$ is in the feasible set $\mathcal{F}$, in which case the Lagrangian function is bounded above by the objective function, $f_0(x)$:
+\begin{align}
+    \underset{\lambda \ge 0, \nu}{\sup}\left[ \mathcal{L}(x, \lambda, \nu) \right] &= \begin{cases}
+        f_0(x) & x \in \mathcal{F} \\
+        \infty & \text{otherwise}
+    \end{cases} \\
+    \Rightarrow \underset{x\in\mathcal{X}}{\inf}\left[\underset{\lambda \ge 0, \nu}{\sup}\left[\mathcal{L}(x, \lambda, \nu)\right]\right] &= \underset{x\in\mathcal{F}}{\inf}\left[f_0(x)\right] \\
+    &= p^* \\
+    \Rightarrow \underset{\lambda \ge 0, \nu}{\sup}\left[\underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda, \nu)\right]\right] &\le \underset{x\in\mathcal{X}}{\inf}\left[\underset{\lambda \ge 0, \nu}{\sup}\left[\mathcal{L}(x, \lambda, \nu)\right]\right]
+\end{align}
+This latter inequality is a special case of the Max–min inequality, and in the context of optimisation, it is known as the principle of weak duality. In cases where equality holds, and the dual optimal cost is equal to the primal optimal cost, $d^* = p^*$, this is known as strong duality.
