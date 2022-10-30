@@ -8,12 +8,25 @@ import mnist
 x_train, y_train, x_test, y_test = mnist.load_data()
 x_train = x_train.reshape([x_train.shape[0], -1])
 x_test = x_test.reshape([x_test.shape[0], -1])
-norm_penalty_list = np.exp(np.linspace(*np.log([0.1, 10]), 20))
+norm_penalty_list = np.exp(np.linspace(*np.log([1, 700]), 20))
 train_accuracy = []
 test_accuracy = []
 rng = np.random.default_rng(0)
 batch_size = 1000
 total_timer = util.Timer()
+
+x_train = np.block(
+    [
+        [x_train[y_train == 5][:batch_size]],
+        [x_train[y_train != 5][:batch_size]],
+    ]
+)
+y_train = np.block(
+    [
+        y_train[y_train == 5][:batch_size],
+        y_train[y_train != 5][:batch_size],
+    ]
+)
 
 for norm_penalty in norm_penalty_list:
     print(norm_penalty, end=", ", flush=True)
@@ -31,7 +44,7 @@ for norm_penalty in norm_penalty_list:
     train_accuracy.append(np.mean((y_train_i_pred > 0) == (y_train == 5)))
     test_accuracy.append(np.mean((y_test_i_pred > 0) == (y_test == 5)))
 
-print("Total time taken = %.3f s" % total_timer.time_taken())
+total_timer.print_time_taken()
 best_test_accuracy = max(test_accuracy)
 best_norm_penalty = norm_penalty_list[test_accuracy.index(best_test_accuracy)]
 print(
