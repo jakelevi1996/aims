@@ -43,7 +43,7 @@ The following equivalence can be used to express several different types of prob
 \end{equation}
 This equivalence can be proved as follows:
 \begin{align*}
-    \left\Vert\begin{bmatrix}
+    && \left\Vert\begin{bmatrix}
         2x \\
         y - z
     \end{bmatrix}\right\Vert_2 &= \sqrt{\begin{bmatrix}
@@ -53,16 +53,16 @@ This equivalence can be proved as follows:
         2x \\
         y - z
     \end{bmatrix}} \\
-    &= \sqrt{(2x)^T(2x) + (y-z)^2} \\
-    &= \sqrt{4x^T x + y^2 - 2yz + z^2} \\
-    0 \le \left\Vert\begin{bmatrix}
+    && &= \sqrt{(2x)^T(2x) + (y-z)^2} \\
+    && &= \sqrt{4x^T x + y^2 - 2yz + z^2} \\
+    && 0 \le \left\Vert\begin{bmatrix}
         2x \\
         y - z
     \end{bmatrix}\right\Vert_2 &\le y + z \\
-    \Leftrightarrow \quad 0 \le \sqrt{4x^T x + y^2 - 2yz + z^2} &\le y + z \\
-    \Leftrightarrow \quad 4x^T x + y^2 - 2yz + z^2 &\le y^2 + 2yz + z^2 \\
-    \Leftrightarrow \quad 4x^T x &\le 4yz \\
-    \Leftrightarrow \quad x^T x &\le yz
+    \Leftrightarrow \quad && 0 \le \sqrt{4x^T x + y^2 - 2yz + z^2} &\le y + z \\
+    \Leftrightarrow \quad && 4x^T x + y^2 - 2yz + z^2 &\le y^2 + 2yz + z^2 \\
+    \Leftrightarrow \quad && 4x^T x &\le 4yz \\
+    \Leftrightarrow \quad && x^T x &\le yz
 \end{align*}
 
 \subsection{Support Functions}
