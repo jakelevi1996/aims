@@ -152,7 +152,12 @@ class Timer:
         return t1 - self._t0
 
     def print_time_taken(self):
-        self._print("Time taken = %.3f s" % self.time_taken())
+        t = self.time_taken()
+        if t > 60:
+            m, s = divmod(t, 60)
+            self._print("Time taken = %i minutes %.1f seconds" % (m, s))
+        else:
+            self._print("Time taken = %.3f s" % t)
 
 def time_func(func, *args, **kwargs):
     timer = Timer()
