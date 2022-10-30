@@ -26,5 +26,44 @@ Therefore the problem in equation \ref{eq:non standard convex problem} is equiva
 \end{align*}
 
 \subsection{Hyperbolic Constraints And Second-Order Cones}
+A second-order cone problem (SOCP) is an optimisation problem that has the following form (see \cite{boyd2004convex}, equation 4.36, page 156):
+\begin{equation}
+\begin{aligned}
+    \underset{x \in \mathcal{X}}{\text{Minimise}} \quad & f^Tx \\
+    \text{Subject to} \quad & \Vert A_ix + b_i \Vert_2 \le c_i^Tx + d_i \quad i\in\{1, \hdots, m\} \\
+    & Fx = g
+\end{aligned} \label{eq:SOCP}
+\end{equation}
+The following equivalence can be used to express several different types of problems as SOCPs, which holds for any $x \in \mathbb{R}^n$ and $y, z \in \mathbb{R}$ which satisfy $y>0$ and $z>0$:
+\begin{equation}
+    x^Tx \le yz \quad \Leftrightarrow \quad \left\Vert\begin{bmatrix}
+        2x \\
+        y - z
+    \end{bmatrix}\right\Vert_2 \le y + z \label{eq:SOCP identity}
+\end{equation}
+This equivalence can be proved as follows:
+\begin{align*}
+    \left\Vert\begin{bmatrix}
+        2x \\
+        y - z
+    \end{bmatrix}\right\Vert_2 &= \sqrt{\begin{bmatrix}
+        2x \\
+        y - z
+    \end{bmatrix}^T \begin{bmatrix}
+        2x \\
+        y - z
+    \end{bmatrix}} \\
+    &= \sqrt{(2x)^T(2x) + (y-z)^2} \\
+    &= \sqrt{4x^T x + y^2 - 2yz + z^2} \\
+    0 \le \left\Vert\begin{bmatrix}
+        2x \\
+        y - z
+    \end{bmatrix}\right\Vert_2 &\le y + z \\
+    \Leftrightarrow \quad 0 \le \sqrt{4x^T x + y^2 - 2yz + z^2} &\le y + z \\
+    \Leftrightarrow \quad 4x^T x + y^2 - 2yz + z^2 &\le y^2 + 2yz + z^2 \\
+    \Leftrightarrow \quad 4x^T x &\le 4yz \\
+    \Leftrightarrow \quad x^T x &\le yz
+\end{align*}
+
 \subsection{Support Functions}
 \subsection{Largest-L Norm Of A Vector}
