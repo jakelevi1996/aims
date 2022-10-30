@@ -126,4 +126,35 @@ The optimisation problem in equation \ref{eq:geometric mean SOCP} can therefore 
 \end{equation}
 
 \subsection{Support Functions}
+The support function $S_C$ of a set $C$ is defined as follows:
+\begin{equation}
+    S_C(y) = \underset{x\in C}{\sup}\left[ y^T x \right] \label{eq:support function}
+\end{equation}
+The support function $S_C$ is convex, regardless of whether $C$ is convex or not, which is proved below (the proof is similar to the proof that the Lagrangian dual function is concave, provided in appendix \ref{appendix:proof dual concave}). To start the proof, it is useful to define a variable $x^*\in\bar{C}$ (where $\bar{C}$ denotes the closure of the set $C$) which is chosen to satisfy the following equation, given $\lambda\in[0, 1]$, $y$, and $z$:
+\begin{align*}
+    \underset{x\in C}{\sup}\left[ \lambda y^T x + (1-\lambda) z^T x \right] &= \lambda y^T x^* + (1-\lambda) z^T x^* \\
+    \Rightarrow & \begin{cases}
+        \underset{x\in C}{\sup}\left[ y^T x \right] \ge y^T x^* \\
+        \underset{x\in C}{\sup}\left[ z^T x \right] \ge z^T x^*
+    \end{cases} \\
+    \Rightarrow \lambda \underset{x\in C}{\sup}\left[ y^T x \right] + (1 - \lambda) \underset{x\in C}{\sup}\left[ z^T x \right] &\ge \lambda y^T x^* + (1 - \lambda) z^T x^* \\
+    &= \underset{x\in C}{\sup}\left[ \lambda y^T x + (1-\lambda) z^T x \right] \\
+    \Rightarrow (\forall y, z)(\forall\lambda\in[0, 1]) \quad \lambda S_C(y) + (1 - \lambda) S_C(z) &\ge S_C( \lambda y + (1 - \lambda) z )
+\end{align*}
+It can also be prooved that $S_C = S_{\text{conv}(C)}$, where $\text{conv}(C)$ is the convex hull of $C$, defined below:
+\begin{equation}
+    \text{conv}(C) = \left\{ x:(\exists\lambda\in[0, 1])(\exists a, b \in C) \quad x = \lambda a + (1 - \lambda) b \right\}
+\end{equation}
+To prove that $S_C(y) = S_{\text{conv}(C)}(y)$, it is useful to consider a point $x\in \text{conv}(C)$, which by definition can be expressed as a convex combination of points $a, b \in C$:
+\begin{align*}
+    (\forall x\in\text{conv}(C))(\exists \lambda\in[0, 1], a, b\in C) \quad x &= \lambda a + (1 - \lambda) b \\
+    \Rightarrow(\forall y) \quad y^T x &= \lambda y^T a + (1 - \lambda) y^T b \\
+    & \le \lambda \underset{a\in C}{\sup}\left[ y^T a \right] + (1 - \lambda) \underset{b\in C}{\sup}\left[ y^T b \right] \\
+    &= \lambda S_C(y) + (1 - \lambda) S_C(y) \\
+    &= S_C(y) \\
+    \Rightarrow(\forall y) \quad \underset{x\in\text{conv}(C)}{\sup}\left[ y^T x \right] &\le S_C(y) \\
+    \Rightarrow(\forall y) \quad S_{\text{conv}(C)}(y) &\le S_C(y) \\
+\end{align*}
+Therefore, for any $y$, $S_{\text{conv}(C)}(y)$ is always a lower bound on $S_C(y)$. Because $C \subseteq \text{conv}(C)$, from the definition of the support function in equation \ref{eq:support function}, we must also have that for any $y$, $S_{\text{conv}(C)}(y) \ge S_C(y)$, by inclusion. Therefore it follows that for any $y$, $S_{\text{conv}(C)}(y) = S_C(y)$, and therefore $S_{\text{conv}(C)} = S_C$.
+
 \subsection{Largest-L Norm Of A Vector}
