@@ -31,7 +31,7 @@ The dual function is concave with respect to $\lambda$ and $\nu$, which is equiv
 
 We also note that for any $\lambda \ge 0$ (where $\ge$ is understood to apply element-wise to each element of $\lambda$) and for any $\nu$, the Lagrangian dual function $g(\lambda, \nu)$ is a lower bound for the optimal cost $p^*$. To prove this, it is useful to note that for any feasible point $\tilde{x}\in\mathcal{F}$ (which necessarily satisfies $f_i(x) \le 0$ for all $i\in\{1, \hdots, m\}$ and $h_i(x) = 0$ for all $i\in\{1, \hdots, p\}$), and for any $\lambda\ge 0$ and any $\nu$, the following inequality holds:
 \begin{align}
-    (\forall \tilde{x} \in \mathcal{F}, \lambda \ge 0, \nu) \quad 0 &\ge \sum_{i=1}^{m}[\lambda_i f_i(\tilde{x})] + \sum_{i=1}^{p}[\nu_i h_i(\tilde{x})] \\
+    (\forall \tilde{x} \in \mathcal{F}, \lambda \ge 0, \nu) \quad 0 &\ge \sum_{i=1}^{m}[\underbrace{\lambda_i}_{\ge 0} \underbrace{f_i(\tilde{x})}_{\le 0}] + \sum_{i=1}^{p}[\nu_i \underbrace{h_i(\tilde{x})}_{= 0}] \\
     \Rightarrow (\forall \tilde{x} \in \mathcal{F}, \lambda \ge 0, \nu) \quad f_0(\tilde{x}) &\ge f_0(\tilde{x}) + \sum_{i=1}^{m}[\lambda_i f_i(\tilde{x})] + \sum_{i=1}^{p}[\nu_i h_i(\tilde{x})] \\
     &= \mathcal{L}(\tilde{x}, \lambda, \nu) \\
     &\ge \underset{x\in\mathcal{X}}{\inf}\left[\mathcal{L}(x, \lambda, \nu)\right] \\
