@@ -231,3 +231,60 @@ for degree in range(2, 8):
             % degree
         ),
     )
+
+# Evaluating the Quality of the Model
+rng = np.random.default_rng(0)
+
+def f(x):
+    return np.cos(x) + 0.2*rng.normal(size=(x.shape))
+
+X = np.linspace(-4,4,20).reshape(-1,1)
+y = f(X)
+data_line = plotting.Line(
+    X,
+    y,
+    marker="+",
+    ms=10,
+    ls="",
+    c="b",
+    label="Data",
+    zorder=30,
+)
+plotting.plot(
+    data_line,
+    axis_properties=plotting.AxisProperties("$x$", "$y$"),
+    plot_name="Noisy cosine dataset",
+)
+
+Xtest = np.linspace(-5,5,100).reshape(-1,1)
+ytest = f(Xtest) # ground-truth y-values
+
+for degree in range(2, 8):
+    model = LinearRegression(features=Polynomial(degree=degree))
+    model.estimate_ml(X, y)
+    mle_prediction = model.predict(Xtest)
+    test_line = plotting.Line(
+        Xtest,
+        ytest,
+        c="g",
+        label="Test data",
+        zorder=10,
+    )
+    mle_prediction_line = plotting.Line(
+        Xtest,
+        mle_prediction,
+        c="r",
+        label="MLE estimate",
+        zorder=20,
+    )
+    plotting.plot(
+        data_line,
+        test_line,
+        mle_prediction_line,
+        axis_properties=plotting.AxisProperties("$x$", "$y$"),
+        plot_name=(
+            "Noisy cosine dataset with polynomial degree = %i"
+            % degree
+        ),
+        legend_properties=plotting.LegendProperties(),
+    )
