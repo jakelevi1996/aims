@@ -9,13 +9,19 @@ class LinearRegression:
             features = Linear()
         self._features = features
 
-    def estimate_ml(self, X, y):
+    def estimate_ml(self, X, y, jitter=1e-8):
         """
         X: N x D matrix of training inputs
         y: N x 1 vector of training targets/observations
         Calculates maximum likelihood parameters (D x 1) and stores in _params
         """
-        self._params, *_ = np.linalg.lstsq(self._features(X), y, rcond=None)
+        phi = self._features(np.array(X, float))
+        N, D = phi.shape
+        diag_inds = np.arange(D)
+        phi_gram = phi.T @ phi
+        phi_gram[diag_inds, diag_inds] += jitter
+
+        self._params = np.linalg.solve(phi_gram, phi.T @ y)
 
     def predict(self, X):
         """
@@ -39,6 +45,22 @@ class Affine(_Features):
     def __call__(self, X):
         N, D = X.shape
         return np.block([X, np.ones([N, 1])])
+
+class Polynomial(_Features):
+    def __init__(self, degree):
+        self._degree = degree
+
+    def __call__(self, X):
+        N, D = X.shape
+        phi = np.ones([N, 1 + self._degree * D])
+        p = 1
+        X_pow = np.array(X)
+        for _ in range(self._degree):
+            phi[:, p:(p + D)] = X_pow
+            X_pow *= X
+            p += D
+
+        return phi
 
 # Define training set
 X = np.array([-3, -1, 0, 1, 3]).reshape(-1,1) # 5x1 vector, N=5, D=1
@@ -172,3 +194,40 @@ plotting.plot(
     legend_properties=plotting.LegendProperties(),
 )
 
+# Nonlinear features
+y = np.array([10.05, 1.5, -1.234, 0.02, 8.03]).reshape(-1,1)
+data_line = plotting.Line(
+    X,
+    y,
+    marker="+",
+    ls="",
+    c="b",
+    label="Data",
+    zorder=30,
+)
+plotting.plot(
+    data_line,
+    axis_properties=plotting.AxisProperties("$x$", "$y$"),
+    plot_name="Linear regression dataset for nonlinear features",
+)
+
+for degree in range(2, 8):
+    model = LinearRegression(features=Polynomial(degree=degree))
+    model.estimate_ml(X, y)
+    mle_prediction = model.predict(Xtest)
+    mle_prediction_line = plotting.Line(
+        Xtest,
+        mle_prediction,
+        c="r",
+        label="MLE estimate",
+        zorder=20,
+    )
+    plotting.plot(
+        data_line,
+        mle_prediction_line,
+        axis_properties=plotting.AxisProperties("$x$", "$y$"),
+        plot_name=(
+            "Linear regression prediction with polynomial degree = %i"
+            % degree
+        ),
+    )
