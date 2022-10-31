@@ -24,6 +24,18 @@ The Lagrangian and Lagrangian dual functions can be defined for this problem as 
         -\infty & \text{Otherwise}
     \end{cases}
 \end{align*}
+The dual problem in this case is equivalent to maximising the dual function $g(\lambda)$ with respect to $\lambda\ge0$, which can be expressed as the following quadratic program:
+\begin{align*}
+    \underset{\lambda_1, \lambda_2, \lambda_3}{\text{Maximise}} \quad & -\frac{1}{2}(a - \lambda_1 + \lambda_2)^T(a - \lambda_1 + \lambda_2) + \frac{1}{2}a^Ta - \lambda_3c \\
+    \text{Subject to} \quad & -\lambda_1 - \lambda_2 + \lambda_3\mathbf{1} = 0 \\
+    & \lambda_1 \ge 0 \\
+    & \lambda_2 \ge 0 \\
+    & \lambda_3 \ge 0
+\end{align*}
+The dual problem could be solved efficiently by using an interior point method, for example. From the solution to the dual problem, the optimal value for $x$ can be found easily as the value that minimises the Lagrangian function:
+\begin{equation*}
+    x = a - \lambda_1 + \lambda_2
+\end{equation*}
 
 \subsection{Svm Duality}
 \subsection{Adjustable Optimization}
