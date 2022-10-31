@@ -3,8 +3,11 @@ import __init__
 import plotting
 
 class LinearRegression:
-    def __init__(self):
+    def __init__(self, features=None):
         self._params = None
+        if features is None:
+            features = Linear()
+        self._features = features
 
     def estimate_ml(self, X, y):
         """
@@ -12,7 +15,7 @@ class LinearRegression:
         y: N x 1 vector of training targets/observations
         Calculates maximum likelihood parameters (D x 1) and stores in _params
         """
-        self._params, *_ = np.linalg.lstsq(X, y, rcond=None)
+        self._params, *_ = np.linalg.lstsq(self._features(X), y, rcond=None)
 
     def predict(self, X):
         """
@@ -22,7 +25,20 @@ class LinearRegression:
         if self._params is None:
             raise ValueError("Must estimate parameters before predicting")
 
-        return X @ self._params
+        return self._features(X) @ self._params
+
+class _Features:
+    def __call__(self, X):
+        raise NotImplementedError()
+
+class Linear(_Features):
+    def __call__(self, X):
+        return X
+
+class Affine(_Features):
+    def __call__(self, X):
+        N, D = X.shape
+        return np.block([X, np.ones([N, 1])])
 
 # Define training set
 X = np.array([-3, -1, 0, 1, 3]).reshape(-1,1) # 5x1 vector, N=5, D=1
@@ -110,3 +126,15 @@ plotting.plot(
     axis_properties=plotting.AxisProperties("$x$", "$y_{new}$"),
     plot_name="Linear regression prediction with offset",
 )
+
+# Make predictions with affine features
+model = LinearRegression(features=Affine())
+model.estimate_ml(X, y_new)
+ml_prediction = model.predict(Xtest)
+plotting.plot(
+    plotting.Line(X, y_new, marker="+", ms=10, ls="", c="b"),
+    plotting.Line(Xtest, ml_prediction, c="r"),
+    axis_properties=plotting.AxisProperties("$x$", "$y_{new}$"),
+    plot_name="Linear regression prediction with affine features",
+)
+print(model._params)
