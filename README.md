@@ -7,3 +7,4 @@ The code for each different coursework assignment is located in a dedicated dire
 - [Course 1 - Data, Estimation and Inference](./scripts/course_1_dei)
 - [Course 2 - Signal Processing](./scripts/course_2_sp)
 - [Course 3 - Optimisation](./scripts/course_3_optimisation)
+- [Course 3 - Machine learning](./scripts/course_4_ml/README.md)
