@@ -32,9 +32,15 @@ import PIL
 import util
 
 class Line:
-    def __init__(self, x, y, **kwargs):
+    def __init__(self, x=None, y=None, **kwargs):
+        if y is None:
+            if x is None:
+                raise ValueError("Must specify x and/or y")
+            y = x
+            x = None
         if x is None:
-            x = range(len(y))
+            x = np.arange(np.array(y).size)
+
         self._x = x
         self._y = y
         self._kwargs = kwargs
