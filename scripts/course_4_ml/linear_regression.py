@@ -85,3 +85,15 @@ plotting.plot(
     plot_name="Comparing different values for $\\theta$",
     legend_properties=plotting.LegendProperties(),
 )
+
+# Modify the training targets and re-run
+y[-2] += 20
+model = LinearRegression()
+model.estimate_ml(X, y)
+ml_prediction = model.predict(Xtest)
+plotting.plot(
+    plotting.Line(X, y, marker="+", ms=10, ls="", c="b"),
+    plotting.Line(Xtest, ml_prediction, c="r"),
+    axis_properties=plotting.AxisProperties("$x$", "$y$"),
+    plot_name="Linear regression prediction with modified data",
+)
