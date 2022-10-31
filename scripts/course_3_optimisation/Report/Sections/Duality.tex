@@ -77,3 +77,36 @@ The dual problem in this case is equivalent to maximising the dual function $g(\
 \end{align*}
 
 \subsection{Adjustable Optimization}
+In an uncertain optimisation problem, a decision $x$ is made, after which a vector $w$ is observed, which initially is only known to lie in the set $\mathcal{W} = \{ w: Fw \le 1 \}$, and the decision is updated to $x + f(w)$. To simplify the problem, it can be assumed that $f(w)$ is linear, which is to say that $f(w) = Mw$ for some matrix $M$, and the problem becomes choosing both $x$ and $M$ to minimise some worst-case cost, depending on the observed value of $w$. This scenario can be expressed as the following optimisation problem:
+\begin{align*}
+    \underset{M, x}{\text{Minimise}} \quad & \underset{w\in\mathcal{W}}{\max}\Bigl[ c^T(x + Mw) \Bigr] \\
+    \text{Subject to} \quad & A(x + Mw) \le b + Bw \quad (\forall w\in\mathcal{W})
+\end{align*}
+An upper bound on the worst-case cost can be found using the Lagrangian dual function of the following problem:
+\begin{align*}
+    \underset{w}{\text{Maximise}} \quad & c^T(x + Mw) \\
+    \text{Subject to} \quad & Fw \le \mathbf{1}
+\end{align*}
+The Lagrangian and Langrangian dual functions can be defined as follows:
+\begin{align*}
+    \mathcal{L}(w, \lambda) &= c^T(x + Mw) + \lambda^T(Fw - \mathbf{1}) \\
+    g(\lambda) &= \underset{w}{\sup}\Bigl[\mathcal{L}(w, \lambda)\Bigr] \\
+    &= \begin{cases}
+        c^Tx - \lambda^T\mathbf{1} & M^Tc + F^T\lambda = 0 \\
+        \infty & \text{Otherwise}
+    \end{cases}
+\end{align*}
+The Lagrangian dual function is an upper bound on the worst-case cost for all values of $\lambda \ge 0$, therefore the tightest upper bound on the worst-case cost can be expressed as the solution to the following optimisation problem:
+\begin{align*}
+    \underset{\lambda}{\text{Minimise}} \quad & c^Tx - \lambda^T\mathbf{1} \\
+    \text{Subject to} \quad & M^Tc + F^T\lambda = 0 \\
+    & \lambda \ge 0
+\end{align*}
+The original optimisation problem can now be expressed as minimising the tightest upper bound on the worst-case cost:
+\begin{align*}
+    \underset{M, x, \lambda}{\text{Minimise}} \quad & c^Tx - \lambda^T\mathbf{1} \\
+    \text{Subject to} \quad & Ax + (AM - B)w \le b \quad (\forall w\in\mathcal{W}) \\
+    & M^Tc + F^T\lambda = 0 \\
+    & \lambda \ge 0 \\
+\end{align*}
+The problem now requires finding bounds on each element of the vector $(AM - B)w$ for all $w\in\mathcal{W}$, which depends on the decision variable $M$.
