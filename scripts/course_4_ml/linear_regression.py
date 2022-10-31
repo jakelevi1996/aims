@@ -23,6 +23,22 @@ class LinearRegression:
 
         self._params = np.linalg.solve(phi_gram, phi.T @ y)
 
+    def estimate_map(self, X, y, sigma, alpha):
+        """
+        Phi: training inputs, Size of N x D
+        y: training targets, Size of D x 1
+        sigma: standard deviation of the noise
+        alpha: standard deviation of the prior on the parameters
+        Calculates MAP estimate of parameters (D x 1) and stores in _params
+        """
+        phi = self._features(np.array(X, float))
+        N, D = phi.shape
+        diag_inds = np.arange(D)
+        phi_gram = phi.T @ phi
+        phi_gram[diag_inds, diag_inds] += np.square(sigma / alpha)
+
+        self._params = np.linalg.solve(phi_gram, phi.T @ y)
+
     def predict(self, X):
         """
         Xtest: K x D matrix of test inputs
@@ -259,7 +275,7 @@ plotting.plot(
 Xtest = np.linspace(-5,5,100).reshape(-1,1)
 ytest = f(Xtest) # ground-truth y-values
 
-for degree in range(2, 8):
+for degree in range(2, 13):
     model = LinearRegression(features=Polynomial(degree=degree))
     model.estimate_ml(X, y)
     mle_prediction = model.predict(Xtest)
