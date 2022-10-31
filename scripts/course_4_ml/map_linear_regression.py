@@ -4,21 +4,24 @@ import linear_regression
 import plotting
 import util
 
-rng = np.random.default_rng(1)
-
 # define the function we wish to estimate later
 def g(x, sigma):
     p = np.hstack([x**0, x**1, np.sin(x)])
     w = np.array([-1.0, 0.1, 1.0]).reshape(-1,1)
-    return p @ w + sigma*rng.normal(size=x.shape)
+    return p @ w + sigma*np.random.normal(size=x.shape)
 
 # Generate some data
 sigma = 1.0 # noise standard deviation
 alpha = 1.0 # standard deviation of the parameter prior
 N = 20
 
-X = (rng.random(N)*10.0 - 5.0).reshape(-1,1)
+np.random.seed(42)
+
+X = (np.random.rand(N)*10.0 - 5.0).reshape(-1,1)
 y = g(X, sigma) # training targets
+
+Xtest = np.linspace(-5,5,100).reshape(-1,1)
+ytest = g(Xtest, sigma)
 
 plotting.plot(
     plotting.Line(X, y, marker="+", c="b", ls=""),
@@ -38,9 +41,6 @@ map_model = linear_regression.LinearRegression(
     features=linear_regression.features.Polynomial(degree=K),
 )
 map_model.estimate_map(X, y, sigma, alpha)
-
-Xtest = np.linspace(-5,5,100).reshape(-1,1)
-ytest = g(Xtest, sigma)
 
 y_pred_mle = mle_model.predict(Xtest)
 y_pred_map = map_model.predict(Xtest)
