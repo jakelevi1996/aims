@@ -288,3 +288,32 @@ for degree in range(2, 8):
         ),
         legend_properties=plotting.LegendProperties(),
     )
+
+# Plot RMSE vs polynomial degree
+def rmse(y, ypred):
+    return np.sqrt(np.mean(np.square(y - ypred)))
+
+K_max = 20
+rmse_train = []
+rmse_test = []
+
+for k in range(K_max+1):
+    model = LinearRegression(features=Polynomial(degree=k))
+    model.estimate_ml(X, y)
+    mle_prediction_train = model.predict(X)
+    mle_prediction_test = model.predict(Xtest)
+
+    rmse_train.append(rmse(y, mle_prediction_train))
+    rmse_test.append(rmse(ytest, mle_prediction_test))
+
+plotting.plot(
+    plotting.Line(rmse_train, c="b", label="RMSE on training data"),
+    plotting.Line(rmse_test, c="r", label="RMSE on test data"),
+    axis_properties=plotting.AxisProperties(
+        xlabel="degree of polynomial",
+        ylabel="RMSE",
+        log_yscale=True,
+    ),
+    legend_properties=plotting.LegendProperties(),
+    plot_name="RMSE vs degree of polynomial for training and test data"
+)
