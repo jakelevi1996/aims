@@ -32,7 +32,7 @@ The dual problem in this case is equivalent to maximising the dual function $g(\
     & \lambda_2 \ge 0 \\
     & \lambda_3 \ge 0
 \end{align*}
-The dual problem could be solved efficiently by using an interior point method, for example. From the solution to the dual problem, the optimal value for $x$ can be found easily as the value that minimises the Lagrangian function:
+The dual problem could be solved efficiently by using an interior point method, for example. From the solution to the dual problem, the optimal value for $x$ can be found easily as the value that minimises the Lagrangian function, where $\lambda_1$ and $\lambda_2$ represent the Lagrange multipliers for the inequality constraints $x \le t$ and $x \ge -t$ respectively:
 \begin{equation*}
     x = a - \lambda_1 + \lambda_2
 \end{equation*}
@@ -52,6 +52,28 @@ This problem can be expressed as a quadratic program by introducing the slack va
     \Rightarrow \quad \underset{a, b, t}{\text{Maximise}} \quad & \mathbf{1}^T t + k a^T a \\
     & t \ge 0 \\
     & t \ge \mathbf{1} - S(Va + b\mathbf{1})
+\end{align*}
+The Lagrangian and Lagrangian dual functions can be defined for this problem as follows:
+\begin{align*}
+    \mathcal{L}(a, b, t, \lambda) &= \mathbf{1}^T t + k a^T a - \lambda_1^Tt + \lambda_2^T(\mathbf{1} - S(Va + b\mathbf{1}) - t) \\
+    &= (\mathbf{1} - \lambda_1 - \lambda_2)^T t + ka^T a - \lambda_2^TSVa - \lambda_2^TS\mathbf{1}b + \lambda_2^T\mathbf{1} \\
+    \frac{\partial\mathcal{L}}{\partial a} &= 2ka - V^TS\lambda_2 \\
+    \frac{\partial\mathcal{L}}{\partial a} = 0 \quad &\Rightarrow \quad a = \frac{1}{2k}V^TS\lambda_2 \\
+    &\Rightarrow \quad \mathcal{L}(a, b, t, \lambda) = (\mathbf{1} - \lambda_1 - \lambda_2)^T t -\frac{1}{4k}\lambda_2^TSVV^TS\lambda_2 - \lambda_2^TS\mathbf{1}b + \lambda_2^T\mathbf{1} \\
+    g(\lambda) &= \underset{a, b, t}{\inf}\left[\mathcal{L}(a, b, t, \lambda)\right] \\
+    &= \begin{cases}
+        -\frac{1}{4k}\lambda_2^TSVV^TS\lambda_2 + \lambda_2^T\mathbf{1} \quad & \mathbf{1} - \lambda_1 - \lambda_2 = 0 \quad \text{and} \quad \lambda_2^TS\mathbf{1} = 0 \\
+        -\infty & \text{Otherwise}
+    \end{cases}
+\end{align*}
+The dual problem in this case is equivalent to maximising the dual function $g(\lambda)$ with respect to $\lambda\ge0$, which can be expressed as the following quadratic program:
+\begin{align*}
+    \underset{\lambda_1, \lambda_2, \lambda_3}{\text{Maximise}} \quad & -\frac{1}{4k}\lambda_2^TSVV^TS\lambda_2 + \lambda_2^T\mathbf{1} \\
+    \text{Subject to} \quad & \mathbf{1} - \lambda_1 - \lambda_2 = 0 \\
+    & \lambda_2^TS\mathbf{1} = 0 \\
+    & \lambda_1 \ge 0 \\
+    & \lambda_2 \ge 0 \\
+    & \lambda_3 \ge 0
 \end{align*}
 
 \subsection{Adjustable Optimization}
