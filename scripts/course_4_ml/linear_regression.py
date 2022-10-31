@@ -137,4 +137,38 @@ plotting.plot(
     axis_properties=plotting.AxisProperties("$x$", "$y_{new}$"),
     plot_name="Linear regression prediction with affine features",
 )
-print(model._params)
+
+# Compare different values of the model parameters with affine features
+data_line = plotting.Line(
+    X,
+    y_new,
+    marker="+",
+    ms=10,
+    ls="",
+    c="b",
+    label="Data",
+    zorder=30,
+)
+mle_prediction_line = plotting.Line(
+    Xtest,
+    mle_prediction,
+    c="r",
+    label="MLE estimate",
+    zorder=20,
+)
+line_list = [data_line, mle_prediction_line]
+param_list = [[a, b] for a in [0.3, 0.5, 0.6] for b in [1, 2, 3]]
+cp = plotting.ColourPicker(len(param_list), cyclic=False)
+for i, param in enumerate(param_list):
+    model._params = np.array(param).reshape(model._params.shape)
+    Ytest = model.predict(Xtest)
+    line_list.append(
+        plotting.Line(Xtest, Ytest, c=cp(i), label="Theta = %s" % param)
+    )
+plotting.plot(
+    *line_list,
+    axis_properties=plotting.AxisProperties("$x$", "$y$"),
+    plot_name="Comparing different values for $\\theta$ with affine features",
+    legend_properties=plotting.LegendProperties(),
+)
+
