@@ -1,82 +1,7 @@
 import numpy as np
 import __init__
+import linear_regression
 import plotting
-
-class LinearRegression:
-    def __init__(self, features=None):
-        self._params = None
-        if features is None:
-            features = Linear()
-        self._features = features
-
-    def estimate_ml(self, X, y, jitter=1e-8):
-        """
-        X: N x D matrix of training inputs
-        y: N x 1 vector of training targets/observations
-        Calculates maximum likelihood parameters (D x 1) and stores in _params
-        """
-        phi = self._features(np.array(X, float))
-        N, D = phi.shape
-        diag_inds = np.arange(D)
-        phi_gram = phi.T @ phi
-        phi_gram[diag_inds, diag_inds] += jitter
-
-        self._params = np.linalg.solve(phi_gram, phi.T @ y)
-
-    def estimate_map(self, X, y, sigma, alpha):
-        """
-        Phi: training inputs, Size of N x D
-        y: training targets, Size of D x 1
-        sigma: standard deviation of the noise
-        alpha: standard deviation of the prior on the parameters
-        Calculates MAP estimate of parameters (D x 1) and stores in _params
-        """
-        phi = self._features(np.array(X, float))
-        N, D = phi.shape
-        diag_inds = np.arange(D)
-        phi_gram = phi.T @ phi
-        phi_gram[diag_inds, diag_inds] += np.square(sigma / alpha)
-
-        self._params = np.linalg.solve(phi_gram, phi.T @ y)
-
-    def predict(self, X):
-        """
-        Xtest: K x D matrix of test inputs
-        returns: prediction of f(Xtest); K x 1 vector
-        """
-        if self._params is None:
-            raise ValueError("Must estimate parameters before predicting")
-
-        return self._features(X) @ self._params
-
-class _Features:
-    def __call__(self, X):
-        raise NotImplementedError()
-
-class Linear(_Features):
-    def __call__(self, X):
-        return X
-
-class Affine(_Features):
-    def __call__(self, X):
-        N, D = X.shape
-        return np.block([X, np.ones([N, 1])])
-
-class Polynomial(_Features):
-    def __init__(self, degree):
-        self._degree = degree
-
-    def __call__(self, X):
-        N, D = X.shape
-        phi = np.ones([N, 1 + self._degree * D])
-        p = 1
-        X_pow = np.array(X)
-        for _ in range(self._degree):
-            phi[:, p:(p + D)] = X_pow
-            X_pow *= X
-            p += D
-
-        return phi
 
 # Define training set
 X = np.array([-3, -1, 0, 1, 3]).reshape(-1,1) # 5x1 vector, N=5, D=1
@@ -104,7 +29,7 @@ Xtest = np.linspace(-5,5,100).reshape(-1,1) # 100 x 1 vector of test inputs
 
 # predict the function values at the test points using the maximum likelihood
 # estimator
-model = LinearRegression()
+model = linear_regression.LinearRegression()
 model.estimate_ml(X, y)
 mle_prediction = model.predict(Xtest)
 
@@ -143,7 +68,7 @@ plotting.plot(
 # Modify the training targets and re-run
 y_new = np.array(y)
 y_new[-2] += 20
-model = LinearRegression()
+model = linear_regression.LinearRegression()
 model.estimate_ml(X, y_new)
 mle_prediction = model.predict(Xtest)
 plotting.plot(
@@ -155,7 +80,7 @@ plotting.plot(
 
 # Add offsets and make predictions
 y_new = y + 2
-model = LinearRegression()
+model = linear_regression.LinearRegression()
 model.estimate_ml(X, y_new)
 mle_prediction = model.predict(Xtest)
 plotting.plot(
@@ -166,7 +91,9 @@ plotting.plot(
 )
 
 # Make predictions with affine features
-model = LinearRegression(features=Affine())
+model = linear_regression.LinearRegression(
+    features=linear_regression.features.Affine(),
+)
 model.estimate_ml(X, y_new)
 mle_prediction = model.predict(Xtest)
 plotting.plot(
@@ -228,7 +155,9 @@ plotting.plot(
 )
 
 for degree in range(2, 8):
-    model = LinearRegression(features=Polynomial(degree=degree))
+    model = linear_regression.LinearRegression(
+        features=linear_regression.features.Polynomial(degree=degree),
+    )
     model.estimate_ml(X, y)
     mle_prediction = model.predict(Xtest)
     mle_prediction_line = plotting.Line(
@@ -276,7 +205,9 @@ Xtest = np.linspace(-5,5,100).reshape(-1,1)
 ytest = f(Xtest) # ground-truth y-values
 
 for degree in range(2, 13):
-    model = LinearRegression(features=Polynomial(degree=degree))
+    model = linear_regression.LinearRegression(
+        features=linear_regression.features.Polynomial(degree=degree),
+    )
     model.estimate_ml(X, y)
     mle_prediction = model.predict(Xtest)
     test_line = plotting.Line(
@@ -314,7 +245,9 @@ rmse_train = []
 rmse_test = []
 
 for k in range(K_max+1):
-    model = LinearRegression(features=Polynomial(degree=k))
+    model = linear_regression.LinearRegression(
+        features=linear_regression.features.Polynomial(degree=k),
+    )
     model.estimate_ml(X, y)
     mle_prediction_train = model.predict(X)
     mle_prediction_test = model.predict(Xtest)
