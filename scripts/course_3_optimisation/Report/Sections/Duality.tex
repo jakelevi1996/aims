@@ -37,5 +37,21 @@ The dual problem could be solved efficiently by using an interior point method, 
     x = a - \lambda_1 + \lambda_2
 \end{equation*}
 
-\subsection{Svm Duality}
+\subsection{SVM Duality}
+A standard support vector machine problem can be expressed as follows:
+\begin{equation*}
+    \min_{a, b}{\left[ \sum_i{\Bigl[ \max{ \Bigl[ \{ 0, 1-s_i(a^Tv_i + b) \} \Bigl] } \Bigl]} + k\Vert a \Vert_2^2 \right]}
+\end{equation*}
+This problem can be expressed as a quadratic program by introducing the slack variables $t$, matrix $V$, and diagonal matrix $S$ as follows:
+\begin{align*}
+    V_{ij} = &(v_i)_j \\
+    S_{ij} = &\begin{cases}
+        s_i & i = j \\
+        0 & i \ne j
+    \end{cases} \\
+    \Rightarrow \quad \underset{a, b, t}{\text{Maximise}} \quad & \mathbf{1}^T t + k a^T a \\
+    & t \ge 0 \\
+    & t \ge \mathbf{1} - S(Va + b\mathbf{1})
+\end{align*}
+
 \subsection{Adjustable Optimization}
