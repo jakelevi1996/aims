@@ -121,3 +121,57 @@ plotting.plot(
     plot_name="MAP vs MLE predictions, polynomial degree = 4",
     legend_properties=plotting.LegendProperties(),
 )
+
+# Find best value of alpha
+alpha_list = np.exp(np.linspace(*np.log([0.1, 10])))
+rmse_list = []
+for alpha in alpha_list:
+    map_model = linear_regression.LinearRegression(
+        features=linear_regression.features.Polynomial(degree=4),
+    )
+    map_model.estimate_map(X, y, sigma, alpha)
+    y_pred_map = map_model.predict(Xtest)
+    rmse_list.append(rmse(ytest, y_pred_map))
+
+plotting.plot(
+    plotting.Line(alpha_list, rmse_list, c="b"),
+    axis_properties=plotting.AxisProperties(
+        xlabel="$\\alpha$",
+        ylabel="RMSE",
+        log_xscale=True,
+        log_yscale=True,
+    ),
+    plot_name="RMSE vs prior standard deviation",
+)
+best_rmse = min(rmse_list)
+best_alpha = alpha_list[rmse_list.index(best_rmse)]
+print("Best alpha = %s, best RMSE = %s" % (best_alpha, best_rmse))
+
+# Plot predictions of best polynomial order and best alpha
+K = 4 # polynomial degree
+
+mle_model = linear_regression.LinearRegression(
+    features=linear_regression.features.Polynomial(degree=K),
+)
+mle_model.estimate_ml(X, y)
+map_model = linear_regression.LinearRegression(
+    features=linear_regression.features.Polynomial(degree=K),
+)
+map_model.estimate_map(X, y, sigma, best_alpha)
+
+y_pred_mle = mle_model.predict(Xtest)
+y_pred_map = map_model.predict(Xtest)
+
+plotting.plot(
+    plotting.Line(X, y, marker="+", c="b", ls="", label="Training data"),
+    plotting.Line(Xtest, g(Xtest, 0), c="g", label="Ground truth function"),
+    plotting.Line(Xtest, y_pred_mle, c="r", label="MLE prediction"),
+    plotting.Line(Xtest, y_pred_map, c="m", label="MAP prediction"),
+    axis_properties=plotting.AxisProperties("$x$", "$y$"),
+    plot_name=(
+        "MAP vs MLE predictions, polynomial degree = 4, "
+        "$\\alpha_{MAP} = %.3f$"
+        % best_alpha
+    ),
+    legend_properties=plotting.LegendProperties(),
+)
