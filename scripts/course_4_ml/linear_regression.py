@@ -87,13 +87,26 @@ plotting.plot(
 )
 
 # Modify the training targets and re-run
-y[-2] += 20
+y_new = np.array(y)
+y_new[-2] += 20
 model = LinearRegression()
-model.estimate_ml(X, y)
+model.estimate_ml(X, y_new)
 ml_prediction = model.predict(Xtest)
 plotting.plot(
-    plotting.Line(X, y, marker="+", ms=10, ls="", c="b"),
+    plotting.Line(X, y_new, marker="+", ms=10, ls="", c="b"),
     plotting.Line(Xtest, ml_prediction, c="r"),
-    axis_properties=plotting.AxisProperties("$x$", "$y$"),
+    axis_properties=plotting.AxisProperties("$x$", "$y_{new}$"),
     plot_name="Linear regression prediction with modified data",
+)
+
+# Add offsets and make predictions
+y_new = y + 2
+model = LinearRegression()
+model.estimate_ml(X, y_new)
+ml_prediction = model.predict(Xtest)
+plotting.plot(
+    plotting.Line(X, y_new, marker="+", ms=10, ls="", c="b"),
+    plotting.Line(Xtest, ml_prediction, c="r"),
+    axis_properties=plotting.AxisProperties("$x$", "$y_{new}$"),
+    plot_name="Linear regression prediction with offset",
 )
