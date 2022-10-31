@@ -198,19 +198,15 @@ Now it is straightforward to prove that $f(x) = \Vert x \Vert_{[L]}$ is a convex
 This concludes the proof that $f(x) = \Vert x \Vert_{[L]}$ is convex.
 
 The computation of $\Vert x \Vert_{[L]}$ for $x\in\mathbb{R}^N$ can be formulated as an integer programming problem as follows, where $(x_\text{abs})_i = \vert x_i \vert$:
-
 \begin{align*}
     \underset{s\in\mathbb{Z}^N}{\text{Maximise}} \quad & x_\text{abs}^T s \\
     \text{Subject to} \quad & \mathbf{1}^Ts = L \\
     & s_i\in\{0, 1\} \quad (\forall i\in\{1, \hdots, n\})
 \end{align*}
-
 The computation of $\Vert x \Vert_{[L]}$ for $x\in\mathbb{R}^N$ can also be formulated as a linear program as follows:
-
 \begin{align*}
     \underset{s\in\mathbb{R}^N}{\text{Maximise}} \quad & x_\text{abs}^T s \\
     \text{Subject to} \quad & \mathbf{1}^Ts = L \\
     & 0 \le s_i \le 1 \quad (\forall i\in\{1, \hdots, n\})
 \end{align*}
-
 The former approach can be interpreted as the support function of $x_\text{abs}$ over the set $S_\text{bin} = \left\{ s\in\{0,1\}^N:\mathbf{1}^T s = 1 \right\}$, and the latter approach can be interpreted as the support function of $x_\text{abs}$ over the set $S_\text{cont} = \left\{ s\in[0,1]^N:\mathbf{1}^T s = 1 \right\}$. The set $S_\text{cont}$ is the convex hull of the set $S_\text{bin}$, therefore the results of section \ref{section:support functions} imply that the two results should be equivalent.

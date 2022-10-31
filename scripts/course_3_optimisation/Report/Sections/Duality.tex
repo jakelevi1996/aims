@@ -1,3 +1,29 @@
 \subsection{Projection Onto The L1 Ball}
+A point $a \in \mathbb{R}^N$ can be projected onto the unit ball in the $\ell_1$ norm by solving the following quadratic program:
+\begin{align*}
+    \underset{x}{\text{Minimise}} \quad & \frac{1}{2}\Vert x - a \Vert_2^2 \\
+    \text{Subject to} \quad & \Vert x \Vert_1 \le c
+\end{align*}
+This is equivalent to the following quadratic program with slack variables $t$ introduced:
+\begin{align*}
+    \underset{x,t}{\text{Minimise}} \quad & \frac{1}{2}(x - a)^T(x - a) \\
+    \text{Subject to} \quad & x \le t \\
+    & x \ge -t \\
+    & \mathbf{1}^T t \le c
+\end{align*}
+The Lagrangian and Lagrangian dual functions can be defined for this problem as follows:
+\begin{align*}
+    \mathcal{L}(x, t, \lambda) &= \frac{1}{2}(x - a)^T(x - a) + \lambda_1^T(x - t) + \lambda_2^T(-x - t) + \lambda_3(\mathbf{1}^T t - c) \\
+    &= \frac{1}{2}x^Tx + (-a + \lambda_1 - \lambda_2)^T x + \frac{1}{2}a^Ta + (-\lambda_1 - \lambda_2 + \lambda_3\mathbf{1})^Tt - \lambda_3c \\
+    \frac{\partial\mathcal{L}}{\partial x} &= x + (-a + \lambda_1 - \lambda_2) \\
+    \frac{\partial\mathcal{L}}{\partial x} = 0 \quad &\Rightarrow \quad x = a - \lambda_1 + \lambda_2 \\
+    &\Rightarrow \quad \mathcal{L}(x, t, \lambda) = -\frac{1}{2}(a - \lambda_1 + \lambda_2)^T(a - \lambda_1 + \lambda_2) + \frac{1}{2}a^Ta + (-\lambda_1 - \lambda_2 + \lambda_3\mathbf{1})^Tt - \lambda_3c \\
+    g(\lambda) &= \underset{x, t}{\inf}\left[\mathcal{L}(x, t, \lambda)\right] \\
+    &= \begin{cases}
+        -\frac{1}{2}(a - \lambda_1 + \lambda_2)^T(a - \lambda_1 + \lambda_2) + \frac{1}{2}a^Ta - \lambda_3c \quad & -\lambda_1 - \lambda_2 + \lambda_3\mathbf{1} = 0 \\
+        -\infty & \text{Otherwise}
+    \end{cases}
+\end{align*}
+
 \subsection{Svm Duality}
 \subsection{Adjustable Optimization}
