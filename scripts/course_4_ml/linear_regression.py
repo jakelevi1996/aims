@@ -68,12 +68,12 @@ Xtest = np.linspace(-5,5,100).reshape(-1,1) # 100 x 1 vector of test inputs
 # estimator
 model = LinearRegression()
 model.estimate_ml(X, y)
-ml_prediction = model.predict(Xtest)
+mle_prediction = model.predict(Xtest)
 
 # plot
 mle_prediction_line = plotting.Line(
     Xtest,
-    ml_prediction,
+    mle_prediction,
     c="r",
     label="MLE estimate",
     zorder=20,
@@ -107,10 +107,10 @@ y_new = np.array(y)
 y_new[-2] += 20
 model = LinearRegression()
 model.estimate_ml(X, y_new)
-ml_prediction = model.predict(Xtest)
+mle_prediction = model.predict(Xtest)
 plotting.plot(
     plotting.Line(X, y_new, marker="+", ms=10, ls="", c="b"),
-    plotting.Line(Xtest, ml_prediction, c="r"),
+    plotting.Line(Xtest, mle_prediction, c="r"),
     axis_properties=plotting.AxisProperties("$x$", "$y_{new}$"),
     plot_name="Linear regression prediction with modified data",
 )
@@ -119,10 +119,10 @@ plotting.plot(
 y_new = y + 2
 model = LinearRegression()
 model.estimate_ml(X, y_new)
-ml_prediction = model.predict(Xtest)
+mle_prediction = model.predict(Xtest)
 plotting.plot(
     plotting.Line(X, y_new, marker="+", ms=10, ls="", c="b"),
-    plotting.Line(Xtest, ml_prediction, c="r"),
+    plotting.Line(Xtest, mle_prediction, c="r"),
     axis_properties=plotting.AxisProperties("$x$", "$y_{new}$"),
     plot_name="Linear regression prediction with offset",
 )
@@ -130,10 +130,10 @@ plotting.plot(
 # Make predictions with affine features
 model = LinearRegression(features=Affine())
 model.estimate_ml(X, y_new)
-ml_prediction = model.predict(Xtest)
+mle_prediction = model.predict(Xtest)
 plotting.plot(
     plotting.Line(X, y_new, marker="+", ms=10, ls="", c="b"),
-    plotting.Line(Xtest, ml_prediction, c="r"),
+    plotting.Line(Xtest, mle_prediction, c="r"),
     axis_properties=plotting.AxisProperties("$x$", "$y_{new}$"),
     plot_name="Linear regression prediction with affine features",
 )
