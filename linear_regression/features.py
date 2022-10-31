@@ -4,6 +4,9 @@ class _Features:
     def __call__(self, X):
         raise NotImplementedError()
 
+    def __repr__(self):
+        return "%s()" % type(self).__name__
+
 class Linear(_Features):
     def __call__(self, X):
         return X
@@ -28,3 +31,6 @@ class Polynomial(_Features):
             p += D
 
         return phi
+
+    def __repr__(self):
+        return "%s(degree=%i)" % (type(self).__name__, self._degree)

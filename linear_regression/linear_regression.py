@@ -47,3 +47,10 @@ class LinearRegression:
             raise ValueError("Must estimate parameters before predicting")
 
         return self._features(X) @ self._params
+
+    def __repr__(self):
+        s = (
+            "LinearRegression(features=%s, params.T=%s)"
+            % (self._features, self._params.T)
+        )
+        return s
