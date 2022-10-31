@@ -158,3 +158,41 @@ To prove that $S_C(y) = S_{\text{conv}(C)}(y)$, it is useful to consider a point
 Therefore, for any $y$, $S_{\text{conv}(C)}(y)$ is always a lower bound on $S_C(y)$. Because $C \subseteq \text{conv}(C)$, from the definition of the support function in equation \ref{eq:support function}, we must also have that for any $y$, $S_{\text{conv}(C)}(y) \ge S_C(y)$, by inclusion. Therefore it follows that for any $y$, $S_{\text{conv}(C)}(y) = S_C(y)$, and therefore $S_{\text{conv}(C)} = S_C$.
 
 \subsection{Largest-L Norm Of A Vector}
+For any vector $x\in\mathbb{R}^n$, the notation $x_{[i]}$ is used to denote the element of $x$ with the $i$th largest magnitude, which implies the following ordering of the elements of $x$:
+\begin{equation*}
+    |x_{[1]}| \ge |x_{[2]}| \ge \hdots \ge |x_{[n]}| \ge 0
+\end{equation*}
+The largest-$L$ norm of $x$ is defined as follows:
+\begin{equation}
+    \Vert x \Vert_{[L]} = \sum_{i=1}^L{\Bigl[ \left\vert x_{[i]} \right\vert \Bigr]}
+\end{equation}
+It can be proved that $f(x) = \Vert x \Vert_{[L]}$ is a convex function. First, it is useful to define the permutation $\rho_x$ as the permutation which maps each integer $i\in\{1,\hdots,n\}$ to the $i$th largest element of $x$ (with ties broken arbitrarily):
+\begin{align*}
+    \rho_x: \{1,\hdots,n\} &\rightarrow \{1,\hdots,n\} \\
+    x_{\rho_x(i)} &= x_{[i]} \\
+    \Rightarrow \quad &\begin{cases}
+        |x_{\rho_x(1)}| \ge |x_{\rho_x(2)}| \ge \hdots \ge |x_{\rho_x(n)}| \ge 0 \\
+        \Vert x \Vert_{[L]} = \sum_{i=1}^L{\Bigl[ \left\vert x_{\rho_x(i)} \right\vert \Bigr]}
+    \end{cases}
+\end{align*}
+For any permutation $\rho: \{1,\hdots,n\} \rightarrow \{1,\hdots,n\}$ besides $\rho_x$, the following inequality must hold:
+\begin{equation*}
+    \sum_{i=1}^L{\Bigl[ \left\vert x_{\rho_x(i)} \right\vert \Bigr]} \ge \sum_{i=1}^L{\Bigl[ \left\vert x_{\rho(i)} \right\vert \Bigr]}
+\end{equation*}
+To prove this inequality, assume that the inequality were violated, then it must be the case that $\rho(i)$ for $i\in\{1,\hdots,L\}$ selects the $L$ largest-in-magnitude elements of $x$, but $\rho_x$ does not, which contradicts the definition of $\rho_x$.
+
+Similarly, for any vector $y\in\mathbb{R}^n$ and any scalar $\lambda\in[0, 1]$, it is useful to define the permutations $\rho_y$ and $\rho_{xy\lambda}$ on the integers $i\in\{1,\hdots,n\}$ as follows:
+\begin{align*}
+    x_{\rho_y(i)} &= y_{[i]} \\
+    x_{\rho_{xy\lambda}(i)} &= (\lambda x + (1 - \lambda)y)_{[i]}
+\end{align*}
+Now it is straightforward to prove that $f(x) = \Vert x \Vert_{[L]}$ is a convex function, given any $x, y\in\mathbb{R}^n$ and any $\lambda\in[0, 1]$:
+\begin{align*}
+    \Vert \lambda x + (1 - \lambda)y \Vert_{[L]} &= \sum_{i=1}^L{\Bigl[ \left\vert (\lambda x + (1 - \lambda)y)_{[i]} \right\vert \Bigr]} \\
+    &= \sum_{i=1}^L{\Bigl[ \left\vert (\lambda x + (1 - \lambda)y)_{\rho_{xy\lambda}(i)} \right\vert \Bigr]} \\
+    &\le \lambda\sum_{i=1}^L{\Bigl[ \left\vert x_{\rho_{xy\lambda}(i)} \right\vert \Bigr]} + (1 - \lambda)\sum_{i=1}^L{\Bigl[ \left\vert y_{\rho_{xy\lambda}(i)} \right\vert \Bigr]} \\
+    &\le \lambda\sum_{i=1}^L{\Bigl[ \left\vert x_{\rho_x(i)} \right\vert \Bigr]} + (1 - \lambda)\sum_{i=1}^L{\Bigl[ \left\vert y_{\rho_y(i)} \right\vert \Bigr]} \\
+    &= \lambda\sum_{i=1}^L{\Bigl[ \left\vert x_{[i]} \right\vert \Bigr]} + (1 - \lambda)\sum_{i=1}^L{\Bigl[ \left\vert y_{[i]} \right\vert \Bigr]} \\
+    &= \lambda\Vert x \Vert_{[L]} + (1 - \lambda)\Vert y \Vert_{[L]}
+\end{align*}
+This concludes the proof that $f(x) = \Vert x \Vert_{[L]}$ is convex.
