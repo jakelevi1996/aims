@@ -1,0 +1,29 @@
+Consider the following optimisation problem, with decision variable $x\in\mathbb{R}^n$, objective function $f_0(x)$, a single equality constraint $h(x)$, and no inequality constraints:
+\begin{align*}
+    \underset{x \in \mathcal{X}}{\text{Minimise}} \quad & f_0(x) \\
+    \text{Subject to} \quad & h(x) = 0
+\end{align*}
+The objective and constraint functions have the following first-order Taylor expansions:
+\begin{align*}
+    f_0(x + \delta) &= f_0(x) + \delta^T\frac{\partial f_0}{\partial x} + \hdots \\
+    h(x + \delta) &= h(x) + \delta^T\frac{\partial h}{\partial x} + \hdots
+\end{align*}
+Assuming a feasible point $\tilde{x}$ has been found (which implies that $h\left(\tilde{x}\right)=0$), a feasible direction $\tilde{\delta}$ in which to move must satisfy $\tilde{\delta}^T\frac{\partial h}{\partial x}=0$, because moving in this direction does not (to first order) change the value of $h\left(\tilde{x}\right)$, and therefore does not violate the constraint $h(\tilde{x}+\tilde{\delta})=0$. If there is a feasible direction $\tilde{\delta}$ for which $\tilde{\delta}^T\frac{\partial f_0}{\partial x}<0$, then moving in direction $\tilde{\delta}$ will improve the value of the objective function. Therefore, at a local optimum of the feasible set, at which there is no feasible direction that improves the value of the objective function, it must be the case that any feasible direction $\tilde{\delta}$ (which must satisfy $\tilde{\delta}^T\frac{\partial h}{\partial x}=0$) must also satisfy $\tilde{\delta}^T\frac{\partial f_0}{\partial x} = 0$ (if this was not true, we could feasibly move in direction $\pm\tilde{\delta}$ and improve the objective function, in which case this point would not be a local optimum of the feasible set). If all vectors $\tilde{\delta}$ which are satisfy $\tilde{\delta}^T\frac{\partial h}{\partial x}=0$ also satisfy $\tilde{\delta}^T\frac{\partial f_0}{\partial x}=0$, then it must be the case that $\frac{\partial f_0}{\partial x}$ and $\frac{\partial h}{\partial x}$ are parallel to each other, for some constant of proportionality $\lambda$:
+\begin{align*}
+    \frac{\partial f_0}{\partial x} &\propto \frac{\partial h}{\partial x} \\
+    \Rightarrow (\exists \lambda)\quad\frac{\partial f_0}{\partial x} &= -\lambda \frac{\partial h}{\partial x} \\
+    \Rightarrow\quad\frac{\partial f_0}{\partial x} + \lambda \frac{\partial h}{\partial x} &= 0 \\
+    \Rightarrow\quad\frac{\partial}{\partial x}\Bigl[f_0(x) + \lambda h(x) \Bigr] &= 0 \\
+    \Rightarrow\quad\frac{\partial}{\partial x}\Bigl[\mathcal{L}(x, \lambda) \Bigr] &= 0 \\
+    \text{where} \quad \mathcal{L}(x, \lambda) &= f_0(x) + \lambda h(x)
+\end{align*}
+If the function $\mathcal{L}(x, \lambda)$ is also stationary with respect to $\lambda$, then this implies that the constraint $h(x)$ is satisfied, and therefore we have found a local optimum of the feasible set.
+
+In the case of multiple equality constraint functions, $h_i(x) = 0$ for $i \in \{1,\hdots,p\}$, a feasible direction $\tilde{\delta}$ is one for which $\tilde{\delta}^T\frac{\partial h_i}{\partial x}=0$ for all $i \in \{1,\hdots,p\}$. Starting from a feasible point $\tilde{x}$, if the gradient of the objective function $\frac{\partial f_0}{\partial x}$ has a component which is orthogonal to the linear subspace spanned by the gradients of the constraint functions $\frac{\partial h_i}{\partial x}$ for $i \in \{1,\hdots,p\}$, we can feasibly move in $\pm$ this direction, while still satisfying all constraints, and improving the value of the objective function. Therefore at a local optimum of the feasible set, at which there is no feasible direction in which to move that improves the value of the objective function, it must be the case that the gradient of the objective function has no component which is orthogonal to the linear subspace spanned by the gradients of the constraint functions (otherwise we could move in $\pm$ this direction while satisfying the constraints and improving the objective function), which implies that the gradient the gradient of the objective function is in the linear subspace spanned by the gradients of the constraint functions, and therefore can be expressed as a linear combination of the gradients of the constraint functions:
+\begin{align*}
+    (\exists \lambda\in\mathbb{R}^p)\quad\frac{\partial f_0}{\partial x} &= -\sum_{i=1}^{p}{\Bigl[\lambda_i \frac{\partial h_i}{\partial x}\Bigr]} \\
+    \Rightarrow\quad\frac{\partial}{\partial x}\Bigl[f_0(x) + \sum_{i=1}^{p}{\Bigl[\lambda_i h_i(x)\Bigr]} \Bigr] &= 0 \\
+    \Rightarrow\quad\frac{\partial}{\partial x}\Bigl[\mathcal{L}(x, \lambda) \Bigr] &= 0 \\
+    \text{where} \quad \mathcal{L}(x, \lambda) &= f_0(x) + \sum_{i=1}^{p}{\Bigl[\lambda_i h_i(x)\Bigr]}
+\end{align*}
+If the function $\mathcal{L}(x, \lambda)$ is also stationary with respect to $\lambda$, then this implies that the all constraints $h_i(x)=0$ for $i \in \{1,\hdots,p\}$ are satisfied, and therefore we have found a local optimum of the feasible set.
