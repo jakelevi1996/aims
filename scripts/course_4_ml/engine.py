@@ -9,7 +9,16 @@ class Value:
         # internal variables used for autograd graph construction
         self._backward = lambda: None # this will be called on the backward pass
         self._children = set()
+        self._parents = set()
         self._op = _op # the op that produced this node, for graphviz / debugging / etc
+
+    def connect_to_children(self, *children):
+        for child in children:
+            self.add_child(child)
+            child.add_parent(self)
+
+    def add_parent(self, other):
+        self._parents.add(other)
 
     def add_child(self, other):
         self._children.add(other)
@@ -21,8 +30,7 @@ class Value:
         other = self._to_value(other)
         out_data = self.data + other.data
         out = Value(out_data, '+')
-        out.add_child(self)
-        out.add_child(other)
+        out.connect_to_children(self, other)
 
         def _backward():
             self.grad += out.grad
@@ -35,8 +43,7 @@ class Value:
         other = self._to_value(other)
         out_data = self.data * other.data
         out = Value(out_data, '*')
-        out.add_child(self)
-        out.add_child(other)
+        out.connect_to_children(self, other)
 
         def _backward():
             raise NotImplementedError
@@ -48,8 +55,7 @@ class Value:
         other = self._to_value(other)
         out_data = self.data ** other.data
         out = Value(out_data, '^')
-        out.add_child(self)
-        out.add_child(other)
+        out.connect_to_children(self, other)
 
         def _backward():
             raise NotImplementedError
@@ -60,7 +66,7 @@ class Value:
     def relu(self):
         out_data = max(self.data, 0)
         out = Value(out_data, 'relu')
-        out.add_child(self)
+        out.connect_to_children(self)
 
         def _backward():
             raise NotImplementedError
@@ -71,7 +77,7 @@ class Value:
     def sigmoid(self):
         out_data = 1.0 / (1.0 + math.exp(self.data))
         out = Value(out_data, 'sigmoid')
-        out.add_child(self)
+        out.connect_to_children(self)
 
         def _backward():
             raise NotImplementedError
@@ -82,7 +88,7 @@ class Value:
     def cos(self):
         out_data = math.cos(self.data)
         out = Value(out_data, 'cos')
-        out.add_child(self)
+        out.connect_to_children(self)
 
         def _backward():
             raise NotImplementedError
@@ -93,7 +99,7 @@ class Value:
     def sin(self):
         out_data = math.sin(self.data)
         out = Value(out_data, 'sin')
-        out.add_child(self)
+        out.connect_to_children(self)
 
         def _backward():
             raise NotImplementedError
@@ -128,7 +134,7 @@ class Value:
     def __neg__(self): # -self
         out_data = -self.data
         out = Value(out_data, '-')
-        out.add_child(self)
+        out.connect_to_children(self)
 
         def _backward():
             raise NotImplementedError
@@ -140,8 +146,7 @@ class Value:
         other = self._to_value(other)
         out_data = self.data + other.data
         out = Value(out_data, '+')
-        out.add_child(self)
-        out.add_child(other)
+        out.connect_to_children(self, other)
 
         def _backward():
             raise NotImplementedError
@@ -153,8 +158,7 @@ class Value:
         other = self._to_value(other)
         out_data = self.data - other.data
         out = Value(out_data, '-')
-        out.add_child(self)
-        out.add_child(other)
+        out.connect_to_children(self, other)
 
         def _backward():
             raise NotImplementedError
@@ -166,8 +170,7 @@ class Value:
         other = self._to_value(other)
         out_data = other.data - self.data
         out = Value(out_data, '-')
-        out.add_child(self)
-        out.add_child(other)
+        out.connect_to_children(self, other)
 
         def _backward():
             raise NotImplementedError
@@ -179,8 +182,7 @@ class Value:
         other = self._to_value(other)
         out_data = other.data * self.data
         out = Value(out_data, '*')
-        out.add_child(self)
-        out.add_child(other)
+        out.connect_to_children(self, other)
 
         def _backward():
             raise NotImplementedError
@@ -192,8 +194,7 @@ class Value:
         other = self._to_value(other)
         out_data = self.data / other.data
         out = Value(out_data, '/')
-        out.add_child(self)
-        out.add_child(other)
+        out.connect_to_children(self, other)
 
         def _backward():
             raise NotImplementedError
@@ -205,8 +206,7 @@ class Value:
         other = self._to_value(other)
         out_data = other.data / self.data
         out = Value(out_data, '/')
-        out.add_child(self)
-        out.add_child(other)
+        out.connect_to_children(self, other)
 
         def _backward():
             raise NotImplementedError
