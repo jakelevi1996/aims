@@ -122,7 +122,7 @@ class Value:
 
     def __neg__(self): # -self
         out_data = -self.data
-        out = Value(out_data, 'sin')
+        out = Value(out_data, '-')
         out.add_child(self)
 
         def _backward():
