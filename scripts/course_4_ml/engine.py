@@ -101,23 +101,28 @@ class Value:
 
         return out
 
-    def backward(self):
-
-        # topological order all of the children in the graph
-        topo = []
+    def get_all_children(self):
+        # TODO: this method might not return children in order if a child has
+        # multiple parents. A child should occur only after all of its parents.
+        # Store all parents in a second set?
         visited = set()
-        def build_topo(v):
-            # this needs to fill topo with the nodes in a topological ordering of the graph
-            # so we can visit them and call their _backward() in the correct order
+        all_children = [self]
+        visited.add(self)
+        for child in self._children:
+            if child not in visited:
+                all_children.append(child)
+                visited.add(child)
+            for child_child in child.get_all_children():
+                if child_child not in visited:
+                    all_children.append(child_child)
+                    visited.add(child_child)
 
-            # for p in self._prev:
+        return all_children
 
-            raise NotImplementedError
-        build_topo(self)
-
+    def backward(self):
         # go one variable at a time and apply the chain rule to get its gradient
         self.grad = 1
-        for v in reversed(topo):
+        for v in self.get_all_children():
             v._backward()
 
     def __neg__(self): # -self
