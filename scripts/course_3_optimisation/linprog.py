@@ -8,7 +8,7 @@ import scripts.course_3_optimisation
 
 def gen_problem(n=500, m=100, rng=None):
     if rng is None:
-        rng = np.random.default_rng()
+        rng = np.random.default_rng(0)
 
     A = rng.normal(size=[m, n])
     x_init = rng.normal(size=n)
