@@ -77,7 +77,7 @@ The dual problem in this case is equivalent to maximising the dual function $g(\
 \end{align*}
 
 \subsection{Adjustable Optimization}
-In an uncertain optimisation problem, a decision $x$ is made, after which a vector $w$ is observed, which initially is only known to lie in the set $\mathcal{W} = \{ w: Fw \le \mathbf{1} \}$, and the decision is then updated to $x + f(w)$. To simplify the problem, it can be assumed that $f(w)$ is linear, which is to say that $f(w) = Mw$ for some matrix $M$, and the problem becomes choosing both $x$ and $M$ to minimise some worst-case cost, depending on the (initially unknown) observed value of $w$. This scenario can be expressed as the following optimisation problem:
+In an uncertain optimisation problem, a decision $x$ is made, after which a vector $w$ is observed, which initially is only known to lie in the set $\mathcal{W} = \{ w: Fw \le \mathbf{1} \}$, and the decision is then updated to $x + f(w)$. To simplify the problem, it can be assumed that $f(w)$ is linear, which is to say that $f(w) = Mw$ for some matrix $M$, and the problem becomes choosing both $x$ and $M$ to minimise some worst-case cost, depending on the (initially unknown, but later observed) value of $w$. This scenario can be expressed as the following optimisation problem:
 \begin{align*}
     \underset{M, x}{\text{Minimise}} \quad & \underset{w\in\mathcal{W}}{\max}\Bigl[ c^T(x + Mw) \Bigr] \\
     \text{Subject to} \quad & A(x + Mw) \le b + Bw \quad (\forall w\in\mathcal{W})
@@ -134,9 +134,9 @@ The Lagrangian dual function is an upper bound on $(a_i^TM - b_i^T)w$ for all va
 At last, the solution to the original optimisation problem can be expressed as follows, wherein $[b]_i$ refers to the $i$th element of the vector $b$, to be distinguished from $b_i^T$ which refers to the $i$th row of $B$:
 \begin{align*}
     \underset{M, x, \lambda, \{\mu_i\}_i, \{\nu_i\}_i}{\text{Minimise}} \quad & c^Tx - \lambda^T\mathbf{1} \\
-    \text{Subject to} \quad & -\mu_i^T \mathbf{1} + \nu_i^T(M^Tc + F^T\lambda) \le [b]_i - a_i^Tx \quad (\forall i) \\
-    & M^Tc + F^T\lambda = 0 \\
-    & M^Ta_i - b_i + F^T\mu_i = 0 \\
-    & \lambda \ge 0 \\
-    & \mu_i \ge 0
+    \text{Subject to} \quad & M^Tc + F^T\lambda = 0 \\
+    & M^Ta_i - b_i + F^T\mu_i = 0 & (\forall i) \\
+    & -\mu_i^T \mathbf{1} + \nu_i^T(M^Tc + F^T\lambda) \le [b]_i - a_i^Tx & (\forall i) \\
+    & \mu_i \ge 0 & (\forall i) \\
+    & \lambda \ge 0
 \end{align*}

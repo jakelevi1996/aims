@@ -1,0 +1,69 @@
+The following is an example of a linear program in standard form, where $x\in\mathbb{R}^n$ and $A\in\mathbb{R}^{m\times n}$:
+\begin{align*}
+    \underset{x}{\text{Minimise}} \quad & c^Tx \\
+    \text{Subject to} \quad & Ax = b \\
+    & x \ge 0
+\end{align*}
+The Lagrangian and Langrangian dual functions for this problem can be defined as follows:
+\begin{align*}
+    \mathcal{L}(x, \lambda, \nu) &= c^Tx - \lambda^T x + \nu^T(Ax - b) \\
+    &= (c - \lambda + A^T\nu)^T x - \nu^Tb \\
+    g(\lambda, \nu) &= \underset{x}{\inf}\Bigl[ \mathcal{L}(x, \lambda, \nu) \Bigr] \\
+    &= \begin{cases}
+        -\nu^Tb \quad & c - \lambda + A^T\nu = 0 \\
+        -\infty & \text{Otherwise}
+    \end{cases}
+\end{align*}
+The dual problem can be expressed as follows:
+\begin{align*}
+    \underset{\lambda, \nu}{\text{Maximise}} \quad & -\nu^Tb \\
+    \text{Subject to} \quad & c - \lambda + A^T\nu = 0 \\
+    & \lambda \ge 0
+\end{align*}
+The Karush-Kuhn-Tucker (KKT) conditions for this problem are as follows:
+\begin{equation*}
+    \begin{cases}
+        \begin{array}{l} Ax = b \\ x \ge 0 \end{array} & \text{Primal feasibility} \\
+        \begin{array}{l} \lambda \ge 0 \end{array} & \text{Dual feasibility} \\
+        \begin{array}{l} x_i\lambda_i = 0 \quad (\forall i) \end{array} & \text{Complementary slackness} \\
+        \begin{array}{l} c - \lambda + A^T\nu = 0 \end{array} \quad & \text{Lagrangian stationarity}
+    \end{cases}
+\end{equation*}
+The KKT conditions are not linear in the variables $x$, $\lambda$ and $\nu$, in particular because the complementary slackness conditions are bilinear. However, the complementary slackness conditions can be replaced with the condition that the primal optimal cost is equal to the dual optimal cost (which is equivalent to the condition of strong duality), because the two could not be equal if the complementary slackness conditions were not satisfied (this can be seen from the proof in section \ref{section:intro} that the dual optimal cost is a lower bound of the primal optimal cost, in which equality can only hold if the complementary slackness conditions are satisfied). Therefore, the following is a set of sufficient conditions for the solution to this linear program:
+\begin{equation*}
+    \begin{cases}
+        \begin{array}{l} Ax = b \\ x \ge 0 \end{array} & \text{Primal feasibility} \\
+        \begin{array}{l} \lambda \ge 0 \end{array} & \text{Dual feasibility} \\
+        \begin{array}{l} c^Tx = -\nu^Tb \end{array} & \text{Strong duality} \\
+        \begin{array}{l} c - \lambda + A^T\nu = 0 \end{array} \quad & \text{Lagrangian stationarity}
+    \end{cases}
+\end{equation*}
+One method for solving the linear program is the alternating projection method, which consists of alternately projecting $z=(x,\nu,\lambda)$ onto the sets $\mathcal{A}$ and $\mathcal{C}$ respectively, where $\mathcal{A}$ and $\mathcal{C}$ are defined as follows:
+\begin{align*}
+    \mathcal{A} &= \Bigl\{ z: F \begin{pmatrix}
+        x \\
+        \nu \\
+        \lambda
+    \end{pmatrix} = g \Bigr\} \\
+    \text{where} \quad F &= \begin{pmatrix}
+        c^T & b^T & 0 \\
+        A & 0 & 0 \\
+        0 & A^T & -I
+    \end{pmatrix} \\
+    g &= \begin{pmatrix}
+        0 \\
+        b \\
+        -c
+    \end{pmatrix} \\
+    \mathcal{C} &= \Bigl\{ z: x \ge 0 \quad \text{and} \quad \lambda \ge 0 \Bigr\}
+\end{align*}
+Projection onto the set $\mathcal{C}$ can easily be performed simply by clipping negative values of $x$ and $\lambda$ to $0$. Projection onto the set $\mathcal{A}$ can be performed by solving the following optimisation problem:
+\begin{align*}
+    \underset{y}{\text{Minimise}} \quad & \Vert y - z \Vert_2^2 \\
+    \text{Subject to} \quad & Fy = g
+\end{align*}
+The solution is straightforward to derive using Lagrange multipliers, and is equal to the standard least-squares solution:
+\begin{equation*}
+    y = z + F^T\left(FF^T\right)^{-1}(g - Fz)
+\end{equation*}
+In the interest of efficient implementation, because the matrix $FF^T$ does not change from one iteration to the next, its LU/Cholesky decomposition can be stored and reused in every iteration.
