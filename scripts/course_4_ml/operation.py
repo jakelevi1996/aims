@@ -53,3 +53,16 @@ class Relu(_Operation):
         [v] = self._input_values
         if v.data > 0:
             v.grad += self.output_value.grad
+
+class Sigmoid(_Operation):
+    def _get_output_data(self, v):
+        return 1.0 / (1.0 + math.exp(-v.data))
+
+    def apply_gradient(self):
+        [v] = self._input_values
+        v.grad += (
+            self.output_value.grad
+            * self.output_value.data
+            * self.output_value.data
+            * math.exp(-v.data)
+        )

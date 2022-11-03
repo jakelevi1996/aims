@@ -65,15 +65,7 @@ class Value:
         return operation.Relu(self).output_value
 
     def sigmoid(self):
-        out_data = 1.0 / (1.0 + math.exp(self.data))
-        out = Value(out_data, 'sigmoid')
-        out.add_children(self)
-
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
-
-        return out
+        return operation.Sigmoid(self).output_value
 
     def cos(self):
         out_data = math.cos(self.data)
@@ -181,4 +173,4 @@ class Value:
         return out
 
     def __repr__(self):
-        return f"Value(data={self.data}, grad={self.grad})"
+        return "Value(data=%s, grad=%s)" % (self.data, self.grad)
