@@ -25,3 +25,13 @@ c = engine.Value(10)
 d = (a * b * c) + b
 d.backward()
 print(a, b, c, d)
+
+a = engine.Value(3)
+b = a*a
+b.backward()
+print(a, b)
+
+a = engine.Value(3)
+b = a ** 2
+b.backward()
+print(a, b)
