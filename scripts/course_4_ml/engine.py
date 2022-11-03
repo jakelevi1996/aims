@@ -74,87 +74,25 @@ class Value:
         return operation.Cos(self).output_value
 
     def __neg__(self):
-        out_data = -self.data
-        out = Value(out_data, '-')
-        out.add_children(self)
+        return operation.Neg(self).output_value
 
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
+    def __radd__(self, other):
+        return operation.Sum(self, self._to_value(other)).output_value
 
-        return out
+    def __sub__(self, other):
+        return operation.Subtract(self, self._to_value(other)).output_value
 
-    def __radd__(self, other): # other + self
-        other = self._to_value(other)
-        out_data = self.data + other.data
-        out = Value(out_data, '+')
-        out.add_children(self, other)
+    def __rsub__(self, other):
+        return operation.Subtract(self._to_value(other), self).output_value
 
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
+    def __rmul__(self, other):
+        return operation.Product(self, self._to_value(other)).output_value
 
-        return out
+    def __truediv__(self, other):
+        return operation.Divide(self, self._to_value(other)).output_value
 
-    def __sub__(self, other): # self - other
-        other = self._to_value(other)
-        out_data = self.data - other.data
-        out = Value(out_data, '-')
-        out.add_children(self, other)
-
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
-
-        return out
-
-    def __rsub__(self, other): # other - self
-        other = self._to_value(other)
-        out_data = other.data - self.data
-        out = Value(out_data, '-')
-        out.add_children(self, other)
-
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
-
-        return out
-
-    def __rmul__(self, other): # other * self
-        other = self._to_value(other)
-        out_data = other.data * self.data
-        out = Value(out_data, '*')
-        out.add_children(self, other)
-
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
-
-        return out
-
-    def __truediv__(self, other): # self / other
-        other = self._to_value(other)
-        out_data = self.data / other.data
-        out = Value(out_data, '/')
-        out.add_children(self, other)
-
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
-
-        return out
-
-    def __rtruediv__(self, other): # other / self
-        other = self._to_value(other)
-        out_data = other.data / self.data
-        out = Value(out_data, '/')
-        out.add_children(self, other)
-
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
-
-        return out
+    def __rtruediv__(self, other):
+        return operation.Divide(self._to_value(other), self).output_value
 
     def __repr__(self):
         return "Value(data=%s, grad=%s)" % (self.data, self.grad)

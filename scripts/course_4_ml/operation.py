@@ -82,3 +82,29 @@ class Cos(_Operation):
     def apply_gradient(self):
         [v] = self._input_values
         v.grad -= self.output_value.grad * math.sin(v.data)
+
+class Neg(_Operation):
+    def _get_output_data(self, v):
+        return -v.data
+
+    def apply_gradient(self):
+        [v] = self._input_values
+        v.grad -= self.output_value.grad
+
+class Subtract(_Operation):
+    def _get_output_data(self, v1, v2):
+        return v1.data - v2.data
+
+    def apply_gradient(self):
+        v1, v2 = self._input_values
+        v1.grad += self.output_value.grad
+        v2.grad -= self.output_value.grad
+
+class Divide(_Operation):
+    def _get_output_data(self, v1, v2):
+        return v1.data / v2.data
+
+    def apply_gradient(self):
+        v1, v2 = self._input_values
+        v1.grad += self.output_value.grad / v2.data
+        v2.grad -= self.output_value.grad * self.output_value.data / v2.data
