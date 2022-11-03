@@ -44,3 +44,12 @@ class Power(_Operation):
         output_partial = self.output_value.grad * self.output_value.data
         v1.grad += v2.data / v1.data * output_partial
         v2.grad += math.log(abs(v1.data)) * output_partial
+
+class Relu(_Operation):
+    def _get_output_data(self, v):
+        return max(v.data, 0)
+
+    def apply_gradient(self):
+        [v] = self._input_values
+        if v.data > 0:
+            v.grad += self.output_value.grad

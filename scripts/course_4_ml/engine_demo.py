@@ -35,3 +35,8 @@ a = engine.Value(3)
 b = a ** 2
 b.backward()
 print(a, b)
+
+for a in [engine.Value(3), engine.Value(-3)]:
+    b = a.relu() * 2.3
+    b.backward()
+    print(a, b)

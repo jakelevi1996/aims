@@ -62,15 +62,7 @@ class Value:
         return operation.Power(self, self._to_value(other)).output_value
 
     def relu(self):
-        out_data = max(self.data, 0)
-        out = Value(out_data, 'relu')
-        out.add_children(self)
-
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
-
-        return out
+        return operation.Relu(self).output_value
 
     def sigmoid(self):
         out_data = 1.0 / (1.0 + math.exp(self.data))
