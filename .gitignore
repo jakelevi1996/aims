@@ -4,6 +4,9 @@
 *.pkl
 __pycache__
 
+*ubyte
+*.ipynb
+
 *.pdf
 *.aux
 *.bbl
