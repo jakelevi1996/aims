@@ -42,8 +42,9 @@ class Power(_Operation):
     def apply_gradient(self):
         v1, v2 = self._input_values
         output_partial = self.output_value.grad * self.output_value.data
-        v1.grad += v2.data / v1.data * output_partial
-        v2.grad += math.log(abs(v1.data)) * output_partial
+        if v1.data != 0:
+            v1.grad += v2.data / v1.data * output_partial
+            v2.grad += math.log(abs(v1.data)) * output_partial
 
 class Relu(_Operation):
     def _get_output_data(self, v):
