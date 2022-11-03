@@ -67,29 +67,13 @@ class Value:
     def sigmoid(self):
         return operation.Sigmoid(self).output_value
 
-    def cos(self):
-        out_data = math.cos(self.data)
-        out = Value(out_data, 'cos')
-        out.add_children(self)
-
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
-
-        return out
-
     def sin(self):
-        out_data = math.sin(self.data)
-        out = Value(out_data, 'sin')
-        out.add_children(self)
+        return operation.Sin(self).output_value
 
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
+    def cos(self):
+        return operation.Cos(self).output_value
 
-        return out
-
-    def __neg__(self): # -self
+    def __neg__(self):
         out_data = -self.data
         out = Value(out_data, '-')
         out.add_children(self)

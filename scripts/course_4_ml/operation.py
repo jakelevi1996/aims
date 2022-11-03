@@ -66,3 +66,19 @@ class Sigmoid(_Operation):
             * self.output_value.data
             * math.exp(-v.data)
         )
+
+class Sin(_Operation):
+    def _get_output_data(self, v):
+        return math.sin(v.data)
+
+    def apply_gradient(self):
+        [v] = self._input_values
+        v.grad += self.output_value.grad * math.cos(v.data)
+
+class Cos(_Operation):
+    def _get_output_data(self, v):
+        return math.cos(v.data)
+
+    def apply_gradient(self):
+        [v] = self._input_values
+        v.grad -= self.output_value.grad * math.sin(v.data)
