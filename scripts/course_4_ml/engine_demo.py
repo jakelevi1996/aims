@@ -18,3 +18,10 @@ print(e.get_all_children())
 print(e.get_all_children())
 print(f.backward())
 print(f.grad, e.grad, d.grad, c.grad, a.grad, b.grad)
+
+a = engine.Value(3)
+b = engine.Value(5)
+c = engine.Value(10)
+d = (a * b * c) + b
+d.backward()
+print(a, b, c, d)

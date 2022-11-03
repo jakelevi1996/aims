@@ -21,6 +21,15 @@ class Sum(_Operation):
     def _get_output_data(self, *values):
         return sum(v.data for v in values)
 
-    def apply_gradient(self, *values):
+    def apply_gradient(self):
         for v in self._input_values:
             v.grad += self.output_value.grad
+
+class Product(_Operation):
+    def _get_output_data(self, v1, v2):
+        return v1.data * v2.data
+
+    def apply_gradient(self):
+        v1, v2 = self._input_values
+        v1.grad += self.output_value.grad * v2.data
+        v2.grad += self.output_value.grad * v1.data

@@ -56,16 +56,7 @@ class Value:
         return operation.Sum(self, self._to_value(other)).output_value
 
     def __mul__(self, other):
-        other = self._to_value(other)
-        out_data = self.data * other.data
-        out = Value(out_data, '*')
-        out.add_children(self, other)
-
-        def _backward():
-            raise NotImplementedError
-        out._backward = _backward
-
-        return out
+        return operation.Product(self, self._to_value(other)).output_value
 
     def __pow__(self, other):
         other = self._to_value(other)
