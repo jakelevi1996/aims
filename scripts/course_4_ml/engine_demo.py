@@ -73,3 +73,18 @@ plotting.plot(
     plotting.Line(x_data, dydx_data, c="r", label="Sigmoid gradient"),
     plot_name="Sigmoid",
 )
+
+x = [engine.Value(xi) for xi in np.linspace(-5, 5, 1000)]
+y = [(10 * (4 * xi).sin()).sigmoid() for xi in x]
+for yi in y:
+    yi.backward()
+
+x_data = [xi.data for xi in x]
+y_data = [yi.data for yi in y]
+dydx_data = [xi.grad for xi in x]
+
+plotting.plot(
+    plotting.Line(x_data, y_data, c="b", label="Sine sigmoid"),
+    plotting.Line(x_data, dydx_data, c="r", label="Sine sigmoid gradient"),
+    plot_name="Sine sigmoid",
+)
