@@ -7,6 +7,7 @@
   - [Introduction](#introduction)
   - [Comparing CPU vs GPU](#comparing-cpu-vs-gpu)
   - [Comparing momentum parameters](#comparing-momentum-parameters)
+  - [Comparing number of hidden layers](#comparing-number-of-hidden-layers)
 
 ## Introduction
 
@@ -47,4 +48,10 @@ Below are equivalent results when running the same script on a server using an N
 
 The following shows a comparison in the learning curves for different momentum parameters, running on the server using the NVIDIA TITAN V GPU:
 
-![](Results/Protected/MNIST_cross_entropy_loss_over_5_epochs_vs_time,_comparing_momentum_parameters.png)
+![](./Results/Protected/MNIST_cross_entropy_loss_over_5_epochs_vs_time,_comparing_momentum_parameters.png)
+
+## Comparing number of hidden layers
+
+The following shows a comparison in the learning curves for different numbers of hidden layers:
+
+![](./Results/Protected/MNIST_cross_entropy_loss_over_5_epochs_vs_time,_comparing_number_of_hidden_layers.png)
