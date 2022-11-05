@@ -124,8 +124,16 @@ class Layer:
         return self._weights, self._bias
 
     def cuda(self, cuda_device_id=0):
-        self._weights   = self._weights.cuda(cuda_device_id)
-        self._bias      = self._bias.cuda(cuda_device_id)
+        self._weights = torch.tensor(
+            data=self._weights.detach().numpy(),
+            device=cuda_device_id,
+            requires_grad=True,
+        )
+        self._bias = torch.tensor(
+            data=self._bias.detach().numpy(),
+            device=cuda_device_id,
+            requires_grad=True,
+        )
 
 class Sgd:
     def __init__(self, model, learning_rate=1e-3):
