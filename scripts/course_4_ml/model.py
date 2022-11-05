@@ -208,25 +208,57 @@ def get_data_loaders(batch_size=64):
     return train_loader, test_loader
 
 if __name__ == "__main__":
-    mlp = Mlp(28*28, 10, 400, 2, linear, relu)
-    optimiser = Sgd(model=mlp, learning_rate=1e-3)
-    train_loader, test_loader = get_data_loaders()
+    program_timer = util.Timer(name="Full program")
+    for num_hidden_units, num_hidden_layers in [[400, 2], [800, 4]]:
+        loss_dict = dict()
+        for use_gpu in [True, False]:
+            mlp = Mlp(
+                input_dim=28*28,
+                output_dim=10,
+                hidden_dim=num_hidden_units,
+                num_hidden_layers=num_hidden_layers,
+                output_act=linear,
+                hidden_act=relu,
+            )
+            if use_gpu:
+                mlp.cuda()
+            train_loader, test_loader = get_data_loaders()
+            optimiser = Sgd(model=mlp, learning_rate=1e-3)
 
-    print("Test accuracy = ...", end="")
-    print("\rTest accuracy = %.3f%%" % mlp.get_accuracy(test_loader))
-    loss_list = []
-    timer = util.Timer()
-    for epoch in range(5):
-        print("Epoch %i" % epoch)
-        loss_list = mlp.train(
-            train_loader,
-            cross_entropy_loss,
-            optimiser,
-            loss_list,
+            print("Test accuracy = ...", end="", flush=True)
+            acc = mlp.get_accuracy(test_loader)
+            print("\rTest accuracy = %.3f%%" % acc)
+            loss_list = []
+            time_list = []
+            timer = util.Timer()
+            for epoch in range(5):
+                print("Epoch %i" % epoch)
+                mlp.train(
+                    train_loader,
+                    cross_entropy_loss,
+                    optimiser,
+                    loss_list,
+                    time_list,
+                    timer,
+                )
+
+                print("Test accuracy = ...", end="", flush=True)
+                acc = mlp.get_accuracy(test_loader)
+                print("\rTest accuracy = %.3f%%" % acc)
+                timer.print_time_taken()
+
+            loss_dict[use_gpu] = [time_list, loss_list]
+
+        plotting.plot(
+            plotting.Line(*loss_dict[False], c="b", label="CPU"),
+            plotting.Line(*loss_dict[True ], c="g", label="GPU"),
+            plot_name=(
+                "MNIST cross entropy loss over 5 epochs vs time, CPU vs GPU, "
+                "%i hidden layers, %i hidden units"
+                % (num_hidden_layers, num_hidden_units)
+            ),
+            axis_properties=plotting.AxisProperties("Time (s)", "Loss"),
+            legend_properties=plotting.LegendProperties(),
         )
 
-        print("Test accuracy = ...", end="")
-        print("\rTest accuracy = %.3f%%" % mlp.get_accuracy(test_loader))
-        timer.print_time_taken()
-
-    plotting.plot(plotting.Line(loss_list, c="b"))
+    program_timer.print_time_taken()
