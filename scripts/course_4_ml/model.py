@@ -47,6 +47,10 @@ class Mlp:
         for layer in self._layers:
             layer.zero_grad()
 
+    def cuda(self, cuda_device_id=0):
+        for layer in self._layers:
+            layer.cuda(cuda_device_id)
+
     def get_params(self):
         param_list = [
             param
@@ -118,6 +122,10 @@ class Layer:
 
     def get_params(self):
         return self._weights, self._bias
+
+    def cuda(self, cuda_device_id=0):
+        self._weights   = self._weights.cuda(cuda_device_id)
+        self._bias      = self._bias.cuda(cuda_device_id)
 
 class Sgd:
     def __init__(self, model, learning_rate=1e-3):
