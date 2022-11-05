@@ -67,11 +67,17 @@ class Mlp:
         loss_func,
         optimiser,
         loss_list=None,
+        time_list=None,
+        timer=None,
         num_epochs=1,
         print_every=100,
     ):
         if loss_list is None:
             loss_list = []
+        if time_list is None:
+            time_list = []
+        if timer is None:
+            timer = util.Timer()
 
         for epoch in range(num_epochs):
             for i, [x, target] in enumerate(train_loader):
@@ -86,10 +92,11 @@ class Mlp:
 
                 loss = loss_tensor.item()
                 loss_list.append(loss)
+                time_list.append(timer.time_taken())
                 if i % print_every == 0:
                     print("Batch %4i | loss = %.3f" % (i, loss))
 
-        return loss_list
+        return time_list, loss_list
 
     def get_accuracy(self, data_loader):
         num_test = 0
