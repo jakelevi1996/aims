@@ -11,6 +11,7 @@ if __name__ == "__main__":
     program_timer = util.Timer(name="Full program")
     momentum_list = np.arange(0, 1, 0.2)
     loss_dict = dict()
+    acc_dict = dict()
     for momentum in momentum_list:
         mlp = nn.Mlp(
             input_dim=28*28,
@@ -51,11 +52,18 @@ if __name__ == "__main__":
             timer.print_time_taken()
 
         loss_dict[momentum] = [time_list, loss_list]
+        acc_dict[momentum] = acc
 
     cp = plotting.ColourPicker(len(momentum_list), cyclic=False)
     line_list = [
-        plotting.Line(*xy, c=cp(i), label="Momentum = %.2f" % m, alpha=0.3)
-        for i, [m, xy] in enumerate(sorted(loss_dict.items()))
+        plotting.Line(
+            *loss_dict[k],
+            color=cp(i),
+            label="Momentum = %.2f, final test accuracy = %.1f%%"
+            % (k, acc_dict[k]),
+            alpha=0.3,
+        )
+        for i, k in enumerate(momentum_list)
     ]
     plotting.plot(
         *line_list,
