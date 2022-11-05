@@ -17,6 +17,7 @@ class Mlp:
         bias_std=0,
         rng=None,
     ):
+        self._input_dim = input_dim
         if rng is None:
             rng = np.random.default_rng(0)
         if num_hidden_layers > 0:
@@ -36,7 +37,8 @@ class Mlp:
             ]
 
     def forward(self, x):
-        layer_output = x.T
+        batch_size = x.shape[0]
+        layer_output = x.reshape(batch_size, self._input_dim).T
         for layer in self._layers:
             layer_output = layer.forward(layer_output)
         return layer_output.T
@@ -143,7 +145,7 @@ if __name__ == "__main__":
         num_test = 0
         num_correct = 0
         for x, target in test_loader:
-            y = model.forward(x.reshape(-1, 28*28))
+            y = model.forward(x)
             num_correct += sum(y.argmax(dim=1) == target)
             num_test += len(target)
 
@@ -154,7 +156,7 @@ if __name__ == "__main__":
     timer = util.Timer()
     for epoch in range(5):
         for i, [x, target] in enumerate(train_loader):
-            y = mlp.forward(x.reshape(-1, 28*28))
+            y = mlp.forward(x)
             loss = cross_entropy_loss(y, target)
             loss.backward()
             optimiser.step()
