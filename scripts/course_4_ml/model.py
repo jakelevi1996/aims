@@ -1,3 +1,4 @@
+import pickle
 import torch
 import torchvision
 import numpy as np
@@ -260,5 +261,11 @@ if __name__ == "__main__":
             axis_properties=plotting.AxisProperties("Time (s)", "Loss"),
             legend_properties=plotting.LegendProperties(),
         )
+        pickle_name = (
+            "Loss dictionary %i layers %i units.pkl"
+            % (num_hidden_layers, num_hidden_units)
+        )
+        with open(pickle_name, "wb") as f:
+            pickle.dump(loss_dict, f)
 
     program_timer.print_time_taken()
