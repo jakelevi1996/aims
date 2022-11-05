@@ -8,6 +8,7 @@
   - [Comparing CPU vs GPU](#comparing-cpu-vs-gpu)
   - [Comparing momentum parameters](#comparing-momentum-parameters)
   - [Comparing number of hidden layers](#comparing-number-of-hidden-layers)
+  - [Comparing dimension of hidden layers](#comparing-dimension-of-hidden-layers)
 
 ## Introduction
 
@@ -55,3 +56,9 @@ The following shows a comparison in the learning curves for different momentum p
 The following shows a comparison in the learning curves for different numbers of hidden layers:
 
 ![](./Results/Protected/MNIST_cross_entropy_loss_over_5_epochs_vs_time,_comparing_number_of_hidden_layers.png)
+
+## Comparing dimension of hidden layers
+
+The following shows a comparison in the learning curves for different numbers of hidden units per hidden layer:
+
+![](./Results/Protected/MNIST_cross_entropy_loss_over_5_epochs_vs_time,_comparing_dimension_of_hidden_layers.png)
