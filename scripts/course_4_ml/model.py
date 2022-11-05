@@ -149,10 +149,7 @@ def cross_entropy_loss(logits, targets):
     )
     return -torch.mean(torch.log(softmax_correct))
 
-if __name__ == "__main__":
-    mlp = Mlp(28*28, 10, 400, 2, linear, relu)
-    optimiser = Sgd(model=mlp, learning_rate=1e-3)
-
+def get_data_loaders(batch_size=64):
     train_dataset = torchvision.datasets.MNIST(
         './data',
         train=True,
@@ -167,16 +164,22 @@ if __name__ == "__main__":
     )
     train_loader = torch.utils.data.DataLoader(
         dataset=train_dataset,
-        batch_size=64,
+        batch_size=batch_size,
         shuffle=True,
         num_workers=1,
     )
     test_loader = torch.utils.data.DataLoader(
         dataset=test_dataset,
-        batch_size=64,
+        batch_size=batch_size,
         shuffle=True,
         num_workers=1,
     )
+    return train_loader, test_loader
+
+if __name__ == "__main__":
+    mlp = Mlp(28*28, 10, 400, 2, linear, relu)
+    optimiser = Sgd(model=mlp, learning_rate=1e-3)
+    train_loader, test_loader = get_data_loaders()
 
     print("Test accuracy = ...", end="")
     print("\rTest accuracy = %.3f%%" % mlp.get_accuracy(test_loader))
