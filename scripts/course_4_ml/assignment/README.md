@@ -9,6 +9,7 @@
   - [Comparing momentum parameters](#comparing-momentum-parameters)
   - [Comparing number of hidden layers](#comparing-number-of-hidden-layers)
   - [Comparing dimension of hidden layers](#comparing-dimension-of-hidden-layers)
+  - [Comparing batch sizes](#comparing-batch-sizes)
   - [Comparing activation functions](#comparing-activation-functions)
 
 ## Introduction
@@ -63,6 +64,12 @@ The following shows a comparison in the learning curves for different numbers of
 The following shows a comparison in the learning curves for different numbers of hidden units per hidden layer:
 
 ![](./Results/Protected/MNIST_cross_entropy_loss_over_5_epochs_vs_time,_comparing_dimension_of_hidden_layers.png)
+
+## Comparing batch sizes
+
+The following shows a comparison in the learning curves for different batch sizes:
+
+![](./Results/Protected/MNIST_cross_entropy_loss_over_5_epochs_vs_time,_comparing_batch_size.png)
 
 ## Comparing activation functions
 
