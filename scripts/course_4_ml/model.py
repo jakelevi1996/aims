@@ -55,6 +55,43 @@ class Mlp:
         ]
         return param_list
 
+    def train(
+        self,
+        train_loader,
+        loss_func,
+        optimiser,
+        loss_list=None,
+        num_epochs=1,
+        print_every=100,
+    ):
+        if loss_list is None:
+            loss_list = []
+
+        for epoch in range(num_epochs):
+            for i, [x, target] in enumerate(train_loader):
+                y = self.forward(x)
+                loss_tensor = loss_func(y, target)
+                loss_tensor.backward()
+                optimiser.step()
+                self.zero_grad()
+
+                loss = loss_tensor.item()
+                loss_list.append(loss)
+                if i % print_every == 0:
+                    print("Batch %4i | loss = %.3f" % (i, loss))
+
+        return loss_list
+
+    def get_accuracy(self, data_loader):
+        num_test = 0
+        num_correct = 0
+        for x, target in data_loader:
+            y = self.forward(x)
+            num_correct += sum(y.argmax(dim=1) == target)
+            num_test += len(target)
+
+        return 100 * num_correct / num_test
+
 class Layer:
     def __init__(self, input_dim, output_dim, activation_func, bias_std, rng):
         w_std = np.sqrt(2 / input_dim)
@@ -141,35 +178,21 @@ if __name__ == "__main__":
         num_workers=1,
     )
 
-    def test_accuracy(model, test_loader):
-        num_test = 0
-        num_correct = 0
-        for x, target in test_loader:
-            y = model.forward(x)
-            num_correct += sum(y.argmax(dim=1) == target)
-            num_test += len(target)
-
-        return 100 * num_correct / num_test
-
-    print("Test accuracy = %.3f%%" % test_accuracy(mlp, test_loader))
+    print("Test accuracy = ...", end="")
+    print("\rTest accuracy = %.3f%%" % mlp.get_accuracy(test_loader))
     loss_list = []
     timer = util.Timer()
     for epoch in range(5):
-        for i, [x, target] in enumerate(train_loader):
-            y = mlp.forward(x)
-            loss = cross_entropy_loss(y, target)
-            loss.backward()
-            optimiser.step()
-            mlp.zero_grad()
+        print("Epoch %i" % epoch)
+        loss_list = mlp.train(
+            train_loader,
+            cross_entropy_loss,
+            optimiser,
+            loss_list,
+        )
 
-            loss_list.append(loss.item())
-            if i % 100 == 0:
-                print(
-                    "Epoch %i, batch %3i, loss = %.3f"
-                    % (epoch, i, loss.item())
-                )
-
-        print("Test accuracy = %.3f%%" % test_accuracy(mlp, test_loader))
+        print("Test accuracy = ...", end="")
+        print("\rTest accuracy = %.3f%%" % mlp.get_accuracy(test_loader))
         timer.print_time_taken()
 
     plotting.plot(plotting.Line(loss_list, c="b"))
