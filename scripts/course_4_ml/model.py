@@ -18,6 +18,7 @@ class Mlp:
         rng=None,
     ):
         self._input_dim = input_dim
+        self._cuda_device_id = None
         if rng is None:
             rng = np.random.default_rng(0)
         if num_hidden_layers > 0:
@@ -48,6 +49,7 @@ class Mlp:
             layer.zero_grad()
 
     def cuda(self, cuda_device_id=0):
+        self._cuda_device_id = cuda_device_id
         for layer in self._layers:
             layer.cuda(cuda_device_id)
 
@@ -73,6 +75,9 @@ class Mlp:
 
         for epoch in range(num_epochs):
             for i, [x, target] in enumerate(train_loader):
+                if self._cuda_device_id is not None:
+                    x = x.cuda(self._cuda_device_id)
+                    target = target.cuda(self._cuda_device_id)
                 y = self.forward(x)
                 loss_tensor = loss_func(y, target)
                 loss_tensor.backward()
@@ -90,6 +95,9 @@ class Mlp:
         num_test = 0
         num_correct = 0
         for x, target in data_loader:
+            if self._cuda_device_id is not None:
+                x = x.cuda(self._cuda_device_id)
+                target = target.cuda(self._cuda_device_id)
             y = self.forward(x)
             num_correct += sum(y.argmax(dim=1) == target)
             num_test += len(target)
