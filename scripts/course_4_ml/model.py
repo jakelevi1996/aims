@@ -45,6 +45,14 @@ class Mlp:
         for layer in self._layers:
             layer.zero_grad()
 
+    def get_params(self):
+        param_list = [
+            param
+            for layer in self._layers
+            for param in layer.get_params()
+        ]
+        return param_list
+
 class Layer:
     def __init__(self, input_dim, output_dim, activation_func, bias_std, rng):
         w_std = np.sqrt(2 / input_dim)
@@ -69,6 +77,18 @@ class Layer:
         self._weights.grad *= 0
         self._bias.grad *= 0
 
+    def get_params(self):
+        return self._weights, self._bias
+
+class Sgd:
+    def __init__(self, model, learning_rate=1e-3):
+        self._params = model.get_params()
+        self._learning_rate = learning_rate
+
+    def step(self):
+        for param in self._params:
+            param.data -= self._learning_rate * param.grad
+
 def linear(x):
     return x
 
@@ -92,6 +112,7 @@ def cross_entropy_loss(logits, targets):
 
 if __name__ == "__main__":
     mlp = Mlp(28*28, 10, 400, 2, linear, relu)
+    optimiser = Sgd(model=mlp, learning_rate=1e-3)
 
     train_dataset = torchvision.datasets.MNIST(
         './data',
@@ -136,10 +157,7 @@ if __name__ == "__main__":
             y = mlp.forward(x.reshape(-1, 28*28))
             loss = cross_entropy_loss(y, target)
             loss.backward()
-            for layer in mlp._layers:
-                layer._weights.data -= 1e-3 * layer._weights.grad
-                layer._bias.data    -= 1e-3 * layer._bias.grad
-
+            optimiser.step()
             mlp.zero_grad()
 
             loss_list.append(loss.item())
