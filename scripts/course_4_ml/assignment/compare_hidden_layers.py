@@ -11,6 +11,7 @@ if __name__ == "__main__":
     program_timer = util.Timer(name="Full program")
     num_hidden_layers_list = list(range(6))
     loss_dict = dict()
+    acc_dict = dict()
     for num_hidden_layers in num_hidden_layers_list:
         mlp = nn.Mlp(
             input_dim=28*28,
@@ -36,7 +37,7 @@ if __name__ == "__main__":
         timer = util.Timer()
         for epoch in range(5):
             print(
-                "Epoch %i, num_hidden_layers = %.3f"
+                "Epoch %i, num_hidden_layers = %i"
                 % (epoch, num_hidden_layers)
             )
             mlp.train(
@@ -54,11 +55,18 @@ if __name__ == "__main__":
             timer.print_time_taken()
 
         loss_dict[num_hidden_layers] = [time_list, loss_list]
+        acc_dict[num_hidden_layers] = acc
 
     cp = plotting.ColourPicker(len(num_hidden_layers_list), cyclic=False)
     line_list = [
-        plotting.Line(*xy, c=cp(i), label="%i hidden layers" % m, alpha=0.3)
-        for i, [m, xy] in enumerate(sorted(loss_dict.items()))
+        plotting.Line(
+            *loss_dict[k],
+            color=cp(i),
+            label="%i hidden layers, final test accuracy = %.1f%%"
+            % (k, acc_dict[k]),
+            alpha=0.3,
+        )
+        for i, k in enumerate(num_hidden_layers_list)
     ]
     plotting.plot(
         *line_list,
