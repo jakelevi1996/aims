@@ -141,7 +141,8 @@ class Seeder:
         return rng
 
 class Timer:
-    def __init__(self, printer=None):
+    def __init__(self, name=None, printer=None):
+        self._name = name
         if printer is None:
             printer = Printer()
         self._print = printer
@@ -153,11 +154,22 @@ class Timer:
 
     def print_time_taken(self):
         t = self.time_taken()
+        if self._name is None:
+            prefix = "Time taken"
+        else:
+            prefix = "Time taken for %s" % self._name
+
         if t > 60:
             m, s = divmod(t, 60)
-            self._print("Time taken = %i minutes %.1f seconds" % (m, s))
+            self._print("%s = %i minutes %.1f seconds" % (prefix, m, s))
         else:
-            self._print("Time taken = %.3f s" % t)
+            self._print("%s = %.3f s" % (prefix, t))
+
+    def __enter__(self):
+        return
+
+    def __exit__(self, *args):
+        self.print_time_taken()
 
 def time_func(func, *args, **kwargs):
     timer = Timer()
