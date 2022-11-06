@@ -37,7 +37,7 @@ if __name__ == "__main__":
     )
 
     loss_list = []
-    num_iterations = 100
+    num_iterations = 5000
     max_perturbation = 0.1
     for i in range(num_iterations):
         normalised_perturbation = (
@@ -58,6 +58,7 @@ if __name__ == "__main__":
             end="",
             flush=True,
         )
+
     print("... Finished optimisation loop")
 
     plotting.plot(
@@ -67,6 +68,7 @@ if __name__ == "__main__":
             "maximum pixel perturbation = %.3f"
             % (num_iterations, max_perturbation)
         ),
+        dir_name=scripts.course_4_ml.assignment.RESULTS_DIR,
     )
 
     fig, axes = plt.subplots(
@@ -79,12 +81,13 @@ if __name__ == "__main__":
     y_0 = mlp.forward(x_0).detach().numpy().squeeze()
     y_0_softmax = np.exp(y_0) / np.sum(np.exp(y_0))
     axes[0, 0].set_title(
-        "Ground truth = %i, prediction = %i, probability = %.2f"
-        % (t_0, np.argmax(y_0_softmax), np.max(y_0_softmax))
+        "Ground truth = %i, prediction = %i, confidence = %.2f%%"
+        % (t_0, np.argmax(y_0_softmax), 100 * np.max(y_0_softmax))
     )
     c_0 = "g" if (np.argmax(y_0) == t_0) else "r"
     axes[0, 0].bar(range(10), y_0_softmax, color=c_0)
     axes[0, 0].set_ylim([0, 1])
+    axes[0, 1].set_title("Test set example image")
     axes[0, 1].imshow(x_0.detach().numpy().squeeze())
     axes[0, 1].axis("off")
 
@@ -92,16 +95,17 @@ if __name__ == "__main__":
     y_adv_softmax = np.exp(y_adv) / np.sum(np.exp(y_adv))
     axes[1, 0].set_title(
         "Maximum pixel perturbation = %.3f, prediction = %i, "
-        "probability = %.2f"
+        "confidence = %.2f%%"
         % (
             normalised_perturbation.abs().max().item(),
             np.argmax(y_adv_softmax),
-            np.max(y_adv_softmax),
+            100 * np.max(y_adv_softmax),
         )
     )
     c_adv = "g" if (np.argmax(y_adv) == t_0) else "r"
     axes[1, 0].bar(range(10), y_adv_softmax, color=c_adv)
     axes[1, 0].set_ylim([0, 1])
+    axes[1, 1].set_title("Perturbed test set\nexample image")
     axes[1, 1].imshow(x_adv.detach().numpy().squeeze())
     axes[1, 1].axis("off")
 
