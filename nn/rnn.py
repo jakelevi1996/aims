@@ -94,6 +94,8 @@ class CharRnn:
         max_num_batches=int(1e5),
         max_num_seconds=(5 * 60),
         print_every=10,
+        predict_every=100,
+        predict_args=None,
     ):
         loss_list = []
         time_list = []
@@ -117,12 +119,15 @@ class CharRnn:
             s_ptr += batch_size
             if s_ptr >= len(data_str):
                 s_ptr = 0
-            if batch_ind % print_every == 0:
+            if (batch_ind % print_every) == 0:
                 print(
                     "Batch %4i | Loss = %.3f | " % (batch_ind, loss),
                     end="",
                 )
                 timer.print_time_taken()
+            if predict_args is not None:
+                if (batch_ind % predict_every) == 0:
+                    self.predict(*predict_args)
             if timer.time_taken() >= max_num_seconds:
                 break
 
