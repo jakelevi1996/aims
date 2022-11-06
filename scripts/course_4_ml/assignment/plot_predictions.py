@@ -62,7 +62,11 @@ if __name__ == "__main__":
             "Ground truth = %i, prediction = %i"
             % (i, np.argmax(y))
         )
-        axes[i, 0].bar(range(10), np.exp(y) / np.sum(np.exp(y)), color="b")
+        if i == np.argmax(y):
+            c = "g"
+        else:
+            c = "r"
+        axes[i, 0].bar(range(10), np.exp(y) / np.sum(np.exp(y)), color=c)
         axes[i, 0].set_ylim([0, 1])
         axes[i, 1].imshow(x.squeeze())
         axes[i, 1].axis("off")
