@@ -31,7 +31,6 @@ if __name__ == "__main__":
     time_list = []
     timer = util.Timer()
     for epoch in range(5):
-    # for epoch in range(1):
         print("Epoch %i" % epoch)
         mlp.train(
             train_loader,
@@ -44,7 +43,12 @@ if __name__ == "__main__":
 
         timer.print_time_taken()
 
-    fig, axes = plt.subplots(10, 2, gridspec_kw={"width_ratios": [3, 1]}, figsize=[10, 20])
+    fig, axes = plt.subplots(
+        nrows=10,
+        ncols=2,
+        gridspec_kw={"width_ratios": [3, 1]},
+        figsize=[10, 20],
+    )
     test_dataset = torchvision.datasets.MNIST(
         './data',
         train=False,
@@ -79,25 +83,5 @@ if __name__ == "__main__":
         fig=fig,
         verbose=True,
     )
-    # line_list = [
-    #     plotting.Line(
-    #         *loss_dict[k],
-    #         color=cp(i),
-    #         label="Batch size = %i, final test accuracy = %.1f%%"
-    #         % (k, acc_dict[k]),
-    #         alpha=0.3,
-    #     )
-    #     for i, k in enumerate(batch_size_list)
-    # ]
-    # plotting.plot(
-    #     *line_list,
-    #     plot_name=(
-    #         "MNIST cross entropy loss over 5 epochs vs time, "
-    #         "comparing batch size"
-    #     ),
-    #     dir_name=scripts.course_4_ml.assignment.RESULTS_DIR,
-    #     axis_properties=plotting.AxisProperties("Time (s)", "Loss"),
-    #     legend_properties=plotting.LegendProperties(),
-    # )
 
     program_timer.print_time_taken()
