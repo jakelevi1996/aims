@@ -58,7 +58,7 @@ class CharRnn:
             size=[1, len(char_list)],
             dtype=torch.float32,
         )
-        self._hidden_state = None
+        self._hidden_state = self._initial_hidden_state
 
     def consume(self, s):
         loss = 0
@@ -125,9 +125,35 @@ class CharRnn:
                 timer.print_time_taken()
             if timer.time_taken() >= max_num_seconds:
                 break
+
             batch_ind += 1
 
         return time_list, loss_list
+
+    def predict(self, prompt, num_chars=500, print_each_char=True):
+        if print_each_char:
+            print(prompt, end="", flush=True)
+
+        self.consume(prompt)
+        char_pred_list = []
+        for _ in range(num_chars):
+            rnn_output = self._decoder_mlp.forward(self._hidden_state)
+            char_pred = self._char_list[torch.argmax(rnn_output).item()]
+            char_one_hot = self._get_char_one_hot(char_pred)
+            rnn_input = torch.concatenate(
+                [char_one_hot, self._hidden_state],
+                axis=1,
+            )
+            self._hidden_state = self._encoder_mlp.forward(rnn_input)
+
+            char_pred_list.append(char_pred)
+            if print_each_char:
+                print(char_pred, end="", flush=True)
+
+        if print_each_char:
+            print()
+
+        return prompt + "".join(char_pred_list)
 
     def _get_char_id(self, c):
         return self._char_dict.get(c, self._default_char_id)
