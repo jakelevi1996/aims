@@ -15,8 +15,8 @@ MNIST_MODEL_PATH = os.path.join(RESULTS_DIR, "mnist_mlp.pkl")
 def get_mnist_model():
     if not os.path.isfile(MNIST_MODEL_PATH):
         print("MNIST model not found, training one now...")
-        import save_model
-        save_model.main()
+        import save_mlp
+        save_mlp.main()
 
     with open(MNIST_MODEL_PATH, "rb") as f:
         mlp = pickle.load(f)
