@@ -11,37 +11,8 @@ import scripts.course_4_ml.assignment
 
 if __name__ == "__main__":
     program_timer = util.Timer(name="Full program")
-    mlp = nn.Mlp(
-        input_dim=28*28,
-        output_dim=10,
-        hidden_dim=400,
-        num_hidden_layers=2,
-        output_act=nn.activation.linear,
-        hidden_act=nn.activation.relu,
-    )
-    mlp.cuda(1)
-    train_loader, test_loader = nn.mnist.get_data_loaders()
-    sgd = nn.optimiser.SgdMomentum(
-        model=mlp,
-        momentum=0.8,
-        learning_rate=1e-3,
-    )
 
-    loss_list = []
-    time_list = []
-    timer = util.Timer()
-    for epoch in range(5):
-        print("Epoch %i" % epoch)
-        mlp.train(
-            train_loader,
-            nn.loss.cross_entropy_loss,
-            sgd,
-            loss_list,
-            time_list,
-            timer,
-        )
-
-        timer.print_time_taken()
+    mlp = scripts.course_4_ml.assignment.get_mnist_model()
 
     fig, axes = plt.subplots(
         nrows=10,
@@ -61,16 +32,14 @@ if __name__ == "__main__":
         while t != i:
             x, t = next(test_iter)
 
-        y = mlp.forward(x.cuda(1)).cpu().detach().numpy().squeeze()
+        y = mlp.forward(x).detach().numpy().squeeze()
+        y_softmax = np.exp(y) / np.sum(np.exp(y))
         axes[i, 0].set_title(
-            "Ground truth = %i, prediction = %i"
-            % (i, np.argmax(y))
+            "Ground truth = %i, prediction = %i, confidence = %.2f%%"
+            % (i, np.argmax(y_softmax), 100 * np.max(y_softmax))
         )
-        if i == np.argmax(y):
-            c = "g"
-        else:
-            c = "r"
-        axes[i, 0].bar(range(10), np.exp(y) / np.sum(np.exp(y)), color=c)
+        c = "g" if (np.argmax(y_softmax) == i) else "r"
+        axes[i, 0].bar(range(10), y_softmax, color=c)
         axes[i, 0].set_ylim([0, 1])
         axes[i, 1].imshow(x.squeeze())
         axes[i, 1].axis("off")
