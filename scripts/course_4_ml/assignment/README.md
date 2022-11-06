@@ -12,6 +12,7 @@
   - [Comparing dimension of hidden layers](#comparing-dimension-of-hidden-layers)
   - [Comparing batch sizes](#comparing-batch-sizes)
   - [Comparing activation functions](#comparing-activation-functions)
+  - [Adversarial examples](#adversarial-examples)
 
 ## Introduction
 
@@ -83,3 +84,13 @@ The following shows a comparison in the learning curves for different batch size
 The following shows a comparison in the learning curves for different activation functions:
 
 ![](./Results/Protected/MNIST_cross_entropy_loss_over_5_epochs_vs_time,_comparing_hidden_activation_functions.png)
+
+## Adversarial examples
+
+The script `scripts/course_4_ml/assignment/adversarial_example.py` can be used to generate adversarial examples, for example:
+
+![](./Results/Protected/Test_set_predictions_with_adversarial_example.png)
+
+Below is the training curve for the loss function between the prediction and the adversarial target vs iteration:
+
+![](./Results/Protected/Adversarial_loss_vs_iteration,_5000_iterations,_maximum_pixel_perturbation___0.100.png)
