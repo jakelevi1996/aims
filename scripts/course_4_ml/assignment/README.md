@@ -13,6 +13,7 @@
   - [Comparing batch sizes](#comparing-batch-sizes)
   - [Comparing activation functions](#comparing-activation-functions)
   - [Adversarial examples](#adversarial-examples)
+  - [Training an RNN on the works of Shakespeare](#training-an-rnn-on-the-works-of-shakespeare)
 
 ## Introduction
 
@@ -94,3 +95,9 @@ The script `scripts/course_4_ml/assignment/adversarial_example.py` can be used t
 Below is the training curve for the loss function between the prediction and the adversarial target vs iteration:
 
 ![](./Results/Protected/Adversarial_loss_vs_iteration,_5000_iterations,_maximum_pixel_perturbation___0.100.png)
+
+## Training an RNN on the works of Shakespeare
+
+The script `scripts/course_4_ml/assignment/compare_rnn_cpu_gpu.py` trains an RNN on the works of Shakespeare, and compares the time taken between CPU and GPU. The results from running this script on a laptop with an NVIDIA GeForce MX250 GPU are shown below:
+
+![](./Results/Protected/Shakespeare_RNN_mean_cross_entropy_loss_vs_time_over_1000_batches_of_64_characters_each,_CPU_vs_GPU.png)
