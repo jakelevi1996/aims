@@ -5,6 +5,7 @@
 - [Machine Learning Assignment](#machine-learning-assignment)
   - [Contents](#contents)
   - [Introduction](#introduction)
+  - [Visualising predictions](#visualising-predictions)
   - [Comparing CPU vs GPU](#comparing-cpu-vs-gpu)
   - [Comparing momentum parameters](#comparing-momentum-parameters)
   - [Comparing number of hidden layers](#comparing-number-of-hidden-layers)
@@ -15,6 +16,12 @@
 ## Introduction
 
 The instructions for this assignment can be found [here](https://github.com/gbaydin/ml-aims-mt2022/tree/main/assessed-assignment).
+
+## Visualising predictions
+
+Shown below are predictions for one example of each digit in the MNIST test set, from a MLP trained for 5 epochs on the MNIST training set, with 2 hidden layers, 400 hidden units per layer, Relu activation functions applied to the output of each hidden layer, trained with stochastic gradient descent (SGD) with a momentum parameter of 0.8:
+
+![](./Results/Protected/Test_set_predictions.png)
 
 ## Comparing CPU vs GPU
 
