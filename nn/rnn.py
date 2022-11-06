@@ -79,6 +79,15 @@ class CharRnn:
 
         return loss / len(s)
 
+    def cuda(self, cuda_device_id=0):
+        self._cuda_device_id = cuda_device_id
+        self._encoder_mlp.cuda(cuda_device_id)
+        self._decoder_mlp.cuda(cuda_device_id)
+        self._char_vector = self._char_vector.cuda(cuda_device_id)
+        self._initial_hidden_state = (
+            self._initial_hidden_state.cuda(cuda_device_id)
+        )
+
     def get_params(self):
         return self._encoder_mlp.get_params() + self._decoder_mlp.get_params()
 
