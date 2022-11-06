@@ -1,6 +1,10 @@
 import torch
 import numpy as np
+import util
 import nn
+
+SPACE = " "
+DOUBLE_SPACE = SPACE * 2
 
 class CharRnn:
     def __init__(
@@ -81,6 +85,49 @@ class CharRnn:
     def zero_grad(self):
         self._encoder_mlp.zero_grad()
         self._decoder_mlp.zero_grad()
+
+    def train(
+        self,
+        data_str,
+        optimiser,
+        batch_size=64,
+        max_num_batches=int(1e5),
+        max_num_seconds=(5 * 60),
+        print_every=10,
+    ):
+        loss_list = []
+        time_list = []
+        timer = util.Timer()
+        s_ptr = 0
+        batch_ind = 0
+        for batch_ind in range(max_num_batches):
+
+            s_batch = data_str[s_ptr:(s_ptr + batch_size)]
+            while DOUBLE_SPACE in s_batch:
+                s_batch = s_batch.replace(DOUBLE_SPACE, SPACE)
+
+            loss_tensor = self.consume(s_batch)
+            loss_tensor.backward()
+            optimiser.step()
+            self.zero_grad()
+
+            loss = loss_tensor.item()
+            loss_list.append(loss)
+            time_list.append(timer.time_taken())
+            s_ptr += batch_size
+            if s_ptr >= len(data_str):
+                s_ptr = 0
+            if batch_ind % print_every == 0:
+                print(
+                    "Batch %4i | Loss = %.3f | " % (batch_ind, loss),
+                    end="",
+                )
+                timer.print_time_taken()
+            if timer.time_taken() >= max_num_seconds:
+                break
+            batch_ind += 1
+
+        return time_list, loss_list
 
     def _get_char_id(self, c):
         return self._char_dict.get(c, self._default_char_id)
