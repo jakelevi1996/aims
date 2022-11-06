@@ -14,6 +14,7 @@
   - [Comparing activation functions](#comparing-activation-functions)
   - [Adversarial examples](#adversarial-examples)
   - [Training an RNN on the works of Shakespeare](#training-an-rnn-on-the-works-of-shakespeare)
+  - [Comparing LSTM vs RNN on the works of Shakespeare](#comparing-lstm-vs-rnn-on-the-works-of-shakespeare)
 
 ## Introduction
 
@@ -101,3 +102,9 @@ Below is the training curve for the loss function between the prediction and the
 The script `scripts/course_4_ml/assignment/compare_rnn_cpu_gpu.py` trains an RNN on the works of Shakespeare, and compares the time taken between CPU and GPU. The results from running this script on a laptop with an NVIDIA GeForce MX250 GPU are shown below:
 
 ![](./Results/Protected/Shakespeare_RNN_mean_cross_entropy_loss_vs_time_over_1000_batches_of_64_characters_each,_CPU_vs_GPU.png)
+
+## Comparing LSTM vs RNN on the works of Shakespeare
+
+The script `scripts/course_4_ml/assignment/compare_rnn_lstm.py` trains both a LSTM and a RNN on the works of Shakespeare, and compares the learning curves. The results from running this script on a laptop with an NVIDIA GeForce MX250 GPU are shown below:
+
+![](./Results/Protected/small_lstm_Shakespeare_RNN_vs_LSTM,_mean_cross_entropy_loss_vs_time_over_1000_batches_of_64_characters_each.png)
