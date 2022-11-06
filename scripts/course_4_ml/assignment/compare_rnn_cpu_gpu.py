@@ -17,7 +17,6 @@ if __name__ == "__main__":
         rnn = nn.CharRnn(likely_char_list)
         if use_gpu:
             rnn.cuda()
-        train_loader, test_loader = nn.mnist.get_data_loaders()
         sgd = nn.optimiser.SgdMomentum(
             model=rnn,
             momentum=0.8,
