@@ -12,27 +12,8 @@ import scripts.course_4_ml.assignment
 
 if __name__ == "__main__":
     program_timer = util.Timer(name="Full program")
-    mlp = nn.Mlp(
-        input_dim=28*28,
-        output_dim=10,
-        hidden_dim=400,
-        num_hidden_layers=2,
-        output_act=nn.activation.linear,
-        hidden_act=nn.activation.relu,
-    )
-    train_loader, test_loader = nn.mnist.get_data_loaders()
-    sgd = nn.optimiser.SgdMomentum(
-        model=mlp,
-        momentum=0.8,
-        learning_rate=1e-3,
-    )
 
-    timer = util.Timer()
-    for epoch in range(5):
-        print("Epoch %i" % epoch)
-        mlp.train(train_loader, nn.loss.cross_entropy_loss, sgd)
-
-        timer.print_time_taken()
+    mlp = scripts.course_4_ml.assignment.get_mnist_model()
 
     test_dataset = torchvision.datasets.MNIST(
         './data',
