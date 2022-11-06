@@ -17,7 +17,7 @@ class CharRnn:
         self._char_dict = {c: i for i, c in enumerate(char_list)}
         if default_char is None:
             default_char = char_list[0]
-        self._default_char_ind = self._char_dict[default_char]
+        self._default_char_id = self._char_dict[default_char]
 
         if rng is None:
             rng = np.random.default_rng(0)
@@ -47,7 +47,43 @@ class CharRnn:
             )
         if initial_hidden_state_tensor is None:
             initial_hidden_state_tensor = torch.tensor(
-                rng.random(size=hidden_dim),
+                data=rng.random(size=[1, hidden_dim]),
                 dtype=torch.float32,
                 requires_grad=True,
             )
+
+        self._encoder_mlp = encoder_mlp
+        self._decoder_mlp = decoder_mlp
+        self._initial_hidden_state = initial_hidden_state_tensor
+        self._char_vector = torch.zeros(
+            size=[1, len(char_list)],
+            dtype=torch.float32,
+        )
+
+    def consume(self, s):
+        loss = 0
+        hidden_state = self._initial_hidden_state.detach().requires_grad_()
+        char_one_hot = self._get_char_one_hot(s[0])
+        for c in s[1:]:
+            rnn_input = torch.concatenate(
+                [char_one_hot, hidden_state],
+                axis=1,
+            )
+            hidden_state = self._encoder_mlp.forward(rnn_input)
+            rnn_output = self._decoder_mlp.forward(hidden_state)
+            loss += nn.loss.cross_entropy_loss(
+                rnn_output,
+                [self._get_char_id(c)],
+            )
+            char_one_hot = self._get_char_one_hot(c)
+
+        return loss
+
+    def _get_char_id(self, c):
+        return self._char_dict.get(c, self._default_char_id)
+
+    def _get_char_one_hot(self, c):
+        char_id = self._get_char_id(c)
+        self._char_vector *= 0.0
+        self._char_vector[0, char_id] = 1.0
+        return self._char_vector
