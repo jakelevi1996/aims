@@ -1,2 +1,2 @@
 from nn.mlp import Mlp
-from nn import activation, layer, loss, mnist, optimiser
+from nn import activation, layer, loss, mnist, optimiser, data
