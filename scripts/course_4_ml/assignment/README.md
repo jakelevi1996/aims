@@ -120,3 +120,7 @@ The following image shows the results of an experiment which is the same as the 
 The following image shows the results of an experiment which is the same as the previous one, except every MLP in the LSTM has only 1 hidden layer but also three times as many hidden units in every hidden layer and in the hidden and cell states than in the original experiment:
 
 ![](./Results/Protected/wide_shallow_Shakespeare_RNN_vs_LSTM,_mean_cross_entropy_loss_vs_time_over_1000_batches_of_64_characters_each.png)
+
+All of the above results are training on strings which are 64 characters long, but using only a single string for every training step. The following figure shows the results from an experiment which is the same as the previous one, except that a batch of 100 different strings (each 64 characters long) is used for every training step. The figure shows that the models learn more slowly (although only about 4 times more slowly, despite using 100 times as much data on every training step), but the resulting learning curves are much less noisy:
+
+![](./Results/Protected/Shakespeare_RNN_vs_LSTM,_mean_cross_entropy_loss_vs_time_over_1000_batches_of_100_substrings_with_64_characters_each.png)
