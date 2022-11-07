@@ -108,3 +108,11 @@ The script `scripts/course_4_ml/assignment/compare_rnn_cpu_gpu.py` trains an RNN
 The script `scripts/course_4_ml/assignment/compare_rnn_lstm.py` trains both a LSTM and a RNN on the works of Shakespeare, and compares the learning curves. The results from running this script on a laptop with an NVIDIA GeForce MX250 GPU are shown below:
 
 ![](./Results/Protected/small_lstm_Shakespeare_RNN_vs_LSTM,_mean_cross_entropy_loss_vs_time_over_1000_batches_of_64_characters_each.png)
+
+In the image above, the performance of the LSTM is not as good as the RNN, but the LSTM also has many fewer parameters. The following image shows the results of an experiment which is the same as the previous one, except every MLP in the LSTM has 2 hidden layers instead of 1:
+
+![](./Results/Protected/medium_lstm_Shakespeare_RNN_vs_LSTM,_mean_cross_entropy_loss_vs_time_over_1000_batches_of_64_characters_each.png)
+
+The following image shows the results of an experiment which is the same as the previous one, except every MLP in the LSTM has 2 hidden layers instead of 1 and also three times as many hidden units in every hidden layer, and the hidden and cell states are also three times larger:
+
+![](./Results/Protected/large_Shakespeare_RNN_vs_LSTM,_mean_cross_entropy_loss_vs_time_over_1000_batches_of_64_characters_each.png)
