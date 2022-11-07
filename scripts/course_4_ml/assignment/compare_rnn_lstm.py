@@ -33,6 +33,7 @@ if __name__ == "__main__":
             max_num_batches=1000,
             predict_args=["once upon a time"],
         )
+        model.predict("once upon a time")
 
         loss_dict[model_name] = [time_list, loss_list]
 
@@ -51,7 +52,7 @@ if __name__ == "__main__":
         ),
         plot_name=(
             "Shakespeare RNN vs LSTM, mean cross entropy loss vs time "
-            "over 1000 batches of 64 characters each"
+            "over 1000 batches of 100 substrings with 64 characters each"
         ),
         dir_name=scripts.course_4_ml.assignment.RESULTS_DIR,
         axis_properties=plotting.AxisProperties("Time (s)", "Loss"),
