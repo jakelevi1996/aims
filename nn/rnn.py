@@ -146,6 +146,9 @@ class CharRnn:
                     if len(s_batch) >= batch_str_len:
                         break
                     s_ptr_batch_end += 1
+                    if s_ptr_batch_end >= len(data_str):
+                        s_ptr = 0
+                        s_ptr_batch_end = batch_str_len
                 batch_str_list.append(s_batch)
                 s_ptr = s_ptr_batch_end
 
@@ -158,8 +161,6 @@ class CharRnn:
             loss_list.append(loss)
             time_list.append(timer.time_taken())
             s_ptr += batch_size
-            if s_ptr >= len(data_str):
-                s_ptr = 0
             if (batch_ind % print_every) == 0:
                 print(
                     "Batch %4i | Loss = %.3f | " % (batch_ind, loss),
