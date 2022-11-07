@@ -175,11 +175,14 @@ class CharRnn:
 
         return time_list, loss_list
 
-    def predict(self, prompt, num_chars=500, print_each_char=True):
+    def predict(self, prompt=None, num_chars=500, print_each_char=True):
         if print_each_char:
             print(prompt, end="", flush=True)
 
-        self.consume(prompt)
+        self._initialise_hidden_state(batch_size=1)
+        if (prompt is not None) and (len(prompt) > 0):
+            self.consume(prompt)
+
         char_pred_list = []
         for _ in range(num_chars):
             rnn_output = self._decoder_mlp.forward(self._hidden_state)
