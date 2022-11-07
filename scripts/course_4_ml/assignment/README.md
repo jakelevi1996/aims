@@ -116,3 +116,7 @@ In the image above, the performance of the LSTM is not as good as the RNN, but t
 The following image shows the results of an experiment which is the same as the previous one, except every MLP in the LSTM has 2 hidden layers instead of 1 and also three times as many hidden units in every hidden layer, and the hidden and cell states are also three times larger:
 
 ![](./Results/Protected/large_Shakespeare_RNN_vs_LSTM,_mean_cross_entropy_loss_vs_time_over_1000_batches_of_64_characters_each.png)
+
+The following image shows the results of an experiment which is the same as the previous one, except every MLP in the LSTM has only 1 hidden layer but also three times as many hidden units in every hidden layer and in the hidden and cell states than in the original experiment:
+
+![](./Results/Protected/wide_shallow_Shakespeare_RNN_vs_LSTM,_mean_cross_entropy_loss_vs_time_over_1000_batches_of_64_characters_each.png)
