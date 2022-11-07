@@ -122,7 +122,7 @@ class CharRnn:
         self,
         data_str,
         optimiser,
-        batch_size=64,
+        batch_size=100,
         batch_str_len=64,
         max_num_batches=int(1e5),
         max_num_seconds=(5 * 60),
