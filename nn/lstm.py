@@ -166,7 +166,7 @@ class CharLstm(nn.CharRnn):
             self._initial_hidden_state.cuda(cuda_device_id)
         )
         self._initial_cell_state = (
-            self._initial_hidden_state.cuda(cuda_device_id)
+            self._initial_cell_state.cuda(cuda_device_id)
         )
 
     def get_params(self):
