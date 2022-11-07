@@ -102,7 +102,7 @@ class CharLstm(nn.CharRnn):
         self._input_select_mlp  = input_select_mlp
         self._output_select_mlp = output_select_mlp
         self._decoder_mlp       = decoder_mlp
-        self._char_vector = torch.zeros(
+        self._one_hot_char_tensor = torch.zeros(
             size=[1, len(char_list)],
             dtype=torch.float32,
         )
@@ -118,7 +118,21 @@ class CharLstm(nn.CharRnn):
         self._cell_state    = self._initial_cell_state
         self._cuda_device_id = None
 
-    def _initialise_hidden_state(self):
+    def _initialise_hidden_state(self, batch_size):
+        prev_batch_size, hidden_dim = self._initial_hidden_state.shape
+        if prev_batch_size != batch_size:
+            self._initial_hidden_state = torch.zeros(
+                size=[batch_size, hidden_dim],
+                dtype=torch.float32,
+                device=self._initial_hidden_state.device,
+            )
+        prev_batch_size, hidden_dim = self._initial_cell_state.shape
+        if prev_batch_size != batch_size:
+            self._initial_cell_state = torch.zeros(
+                size=[batch_size, hidden_dim],
+                dtype=torch.float32,
+                device=self._initial_cell_state.device,
+            )
         self._hidden_state  = self._initial_hidden_state
         self._cell_state    = self._initial_cell_state
 
@@ -143,9 +157,11 @@ class CharLstm(nn.CharRnn):
         self._input_select_mlp.cuda(cuda_device_id)
         self._output_select_mlp.cuda(cuda_device_id)
         self._decoder_mlp.cuda(cuda_device_id)
-        self._char_vector   = self._char_vector.cuda(cuda_device_id)
         self._hidden_state  = self._hidden_state.cuda(cuda_device_id)
         self._cell_state    = self._cell_state.cuda(cuda_device_id)
+        self._one_hot_char_tensor = (
+            self._one_hot_char_tensor.cuda(cuda_device_id)
+        )
         self._initial_hidden_state = (
             self._initial_hidden_state.cuda(cuda_device_id)
         )
