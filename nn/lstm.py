@@ -31,7 +31,7 @@ class CharLstm(nn.CharRnn):
             rng = np.random.default_rng(0)
 
         if hidden_dim is None:
-            hidden_dim = len(char_list)
+            hidden_dim = 3 * len(char_list)
         if cell_dim is None:
             cell_dim = len(char_list)
         if forget_mlp is None:
