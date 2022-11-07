@@ -24,6 +24,7 @@ class CharRnn:
 
         if rng is None:
             rng = np.random.default_rng(0)
+        self._rng = rng
 
         if hidden_dim is None:
             hidden_dim = 5 * len(char_list)
@@ -59,6 +60,7 @@ class CharRnn:
             dtype=torch.float32,
         )
         self._hidden_state = self._initial_hidden_state
+        self._cuda_device_id = None
 
     def _initialise_hidden_state(self):
         self._hidden_state = self._initial_hidden_state
@@ -155,7 +157,15 @@ class CharRnn:
         char_pred_list = []
         for _ in range(num_chars):
             rnn_output = self._decoder_mlp.forward(self._hidden_state)
-            char_pred = self._char_list[torch.argmax(rnn_output).item()]
+            exp_output = torch.exp(rnn_output)
+            softmax_output = exp_output / torch.sum(exp_output)
+            if self._cuda_device_id is None:
+                softmax_output = softmax_output.cpu()
+            char_pred_id = self._rng.choice(
+                len(self._char_list),
+                p=softmax_output.detach().numpy().squeeze(),
+            )
+            char_pred = self._char_list[char_pred_id]
             char_one_hot = self._get_char_one_hot(char_pred)
             rnn_input = torch.cat([char_one_hot, self._hidden_state], axis=1)
             self._update_hidden_state(rnn_input)

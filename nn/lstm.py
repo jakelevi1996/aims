@@ -29,6 +29,7 @@ class CharLstm(nn.CharRnn):
 
         if rng is None:
             rng = np.random.default_rng(0)
+        self._rng = rng
 
         if hidden_dim is None:
             hidden_dim = 3 * len(char_list)
@@ -115,6 +116,7 @@ class CharLstm(nn.CharRnn):
         )
         self._hidden_state  = self._initial_hidden_state
         self._cell_state    = self._initial_cell_state
+        self._cuda_device_id = None
 
     def _initialise_hidden_state(self):
         self._hidden_state  = self._initial_hidden_state
