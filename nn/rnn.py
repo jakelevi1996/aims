@@ -60,13 +60,19 @@ class CharRnn:
         )
         self._hidden_state = self._initial_hidden_state
 
+    def _initialise_hidden_state(self):
+        self._hidden_state = self._initial_hidden_state
+
+    def _update_hidden_state(self, rnn_input):
+        self._hidden_state = self._encoder_mlp.forward(rnn_input)
+
     def consume(self, s):
         loss = 0
-        self._hidden_state = self._initial_hidden_state
+        self._initialise_hidden_state()
         char_one_hot = self._get_char_one_hot(s[0])
         for c in s[1:]:
             rnn_input = torch.cat([char_one_hot, self._hidden_state], axis=1)
-            self._hidden_state = self._encoder_mlp.forward(rnn_input)
+            self._update_hidden_state(rnn_input)
             rnn_output = self._decoder_mlp.forward(self._hidden_state)
             loss += nn.loss.cross_entropy_loss(
                 rnn_output,
@@ -152,7 +158,7 @@ class CharRnn:
             char_pred = self._char_list[torch.argmax(rnn_output).item()]
             char_one_hot = self._get_char_one_hot(char_pred)
             rnn_input = torch.cat([char_one_hot, self._hidden_state], axis=1)
-            self._hidden_state = self._encoder_mlp.forward(rnn_input)
+            self._update_hidden_state(rnn_input)
 
             char_pred_list.append(char_pred)
             if print_each_char:

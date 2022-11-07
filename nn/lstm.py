@@ -116,32 +116,22 @@ class CharLstm(nn.CharRnn):
         self._hidden_state  = self._initial_hidden_state
         self._cell_state    = self._initial_cell_state
 
-    def consume(self, s):
-        loss = 0
+    def _initialise_hidden_state(self):
         self._hidden_state  = self._initial_hidden_state
         self._cell_state    = self._initial_cell_state
-        char_one_hot = self._get_char_one_hot(s[0])
-        for c in s[1:]:
-            rnn_input = torch.cat([char_one_hot, self._hidden_state], axis=1)
-            self._cell_state = (
-                (self._cell_state * self._forget_mlp.forward(rnn_input))
-                + (
-                    self._input_mlp.forward(rnn_input)
-                    * self._input_select_mlp.forward(rnn_input)
-                )
-            )
-            self._hidden_state = (
-                self._output_mlp.forward(self._cell_state)
-                * self._output_select_mlp.forward(rnn_input)
-            )
-            rnn_output = self._decoder_mlp.forward(self._hidden_state)
-            loss += nn.loss.cross_entropy_loss(
-                rnn_output,
-                [self._get_char_id(c)],
-            )
-            char_one_hot = self._get_char_one_hot(c)
 
-        return loss / len(s)
+    def _update_hidden_state(self, rnn_input):
+        self._cell_state = (
+            (self._cell_state * self._forget_mlp.forward(rnn_input))
+            + (
+                self._input_mlp.forward(rnn_input)
+                * self._input_select_mlp.forward(rnn_input)
+            )
+        )
+        self._hidden_state = (
+            self._output_mlp.forward(self._cell_state)
+            * self._output_select_mlp.forward(rnn_input)
+        )
 
     def cuda(self, cuda_device_id=0):
         self._cuda_device_id = cuda_device_id
@@ -179,35 +169,3 @@ class CharLstm(nn.CharRnn):
         self._input_select_mlp.zero_grad()
         self._output_select_mlp.zero_grad()
         self._decoder_mlp.zero_grad()
-
-    def predict(self, prompt, num_chars=500, print_each_char=True):
-        if print_each_char:
-            print(prompt, end="", flush=True)
-
-        self.consume(prompt)
-        char_pred_list = []
-        for _ in range(num_chars):
-            rnn_output = self._decoder_mlp.forward(self._hidden_state)
-            char_pred = self._char_list[torch.argmax(rnn_output).item()]
-            char_one_hot = self._get_char_one_hot(char_pred)
-            rnn_input = torch.cat([char_one_hot, self._hidden_state], axis=1)
-            self._cell_state = (
-                (self._cell_state * self._forget_mlp.forward(rnn_input))
-                + (
-                    self._input_mlp.forward(rnn_input)
-                    * self._input_select_mlp.forward(rnn_input)
-                )
-            )
-            self._hidden_state = (
-                self._output_mlp.forward(self._cell_state)
-                * self._output_select_mlp.forward(rnn_input)
-            )
-
-            char_pred_list.append(char_pred)
-            if print_each_char:
-                print(char_pred, end="", flush=True)
-
-        if print_each_char:
-            print()
-
-        return prompt + "".join(char_pred_list)
