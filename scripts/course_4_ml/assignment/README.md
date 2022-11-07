@@ -124,3 +124,24 @@ The following image shows the results of an experiment which is the same as the 
 All of the above results are training on strings which are 64 characters long, but using only a single string for every training step. The following figure shows the results from an experiment which is the same as the previous one, except that a batch of 100 different strings (each 64 characters long) is used for every training step. The figure shows that the models learn more slowly (although only about 4 times more slowly, despite using 100 times as much data on every training step), but the resulting learning curves are much less noisy:
 
 ![](./Results/Protected/Shakespeare_RNN_vs_LSTM,_mean_cross_entropy_loss_vs_time_over_1000_batches_of_100_substrings_with_64_characters_each.png)
+
+Below are training curves from some longer (30 minute) training runs for both the LSTM and RNN, showing slow but steady improvement:
+
+![](./Results/Protected/Shakespeare_LSTM_training_curve.png)
+
+![](./Results/Protected/Shakespeare_RNN_training_curve.png)
+
+Unfortunately, the character-level predictions made by the model are still completely incoherent even after 30 minutes of training. The following prediction is made by the RNN after 30 minutes (8600 batches) of training, given the prompt `"once upon a time"`:
+
+```
+once upon a timerrtirs!rfnhti todh eu yyn hp iee tmt tres  u.yd woeddiy aid ttdh ioi s ie ni? menle
+ hicin
+,r tnydvin is,ioe hrfmnfenei ?iyvlearb lelwamnndeken, n
+ toeyeltymet himvotrlitarn dddeod mefts  oi.le wo ewusote
+ toe lao-ms hhu yw
+aliipfrienateo mpain ta
+[
+.rudo ssrek  oen mtsepeatlnooor; toywrd
+ eow
+ bl wlha  oneehhuw  aoioshhod.inlmf luyveelmnaw ay a ot to'dee ber hi gtllotsylad btw  se.scoe, al llresidl noal relythe  iia dsrey,' gouryt, bntia s., ;ueb r m.lfihad  ,gd, hoiiry,ynsb; sege,d.,u thlhmdo
+```
