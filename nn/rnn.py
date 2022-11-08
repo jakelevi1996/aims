@@ -129,9 +129,13 @@ class CharRnn:
         print_every=10,
         predict_every=100,
         predict_args=None,
+        loss_list=None,
+        time_list=None,
     ):
-        loss_list = []
-        time_list = []
+        if loss_list is None:
+            loss_list = []
+        if time_list is None:
+            time_list = []
         timer = util.Timer()
         s_ptr = 0
         for batch_ind in range(max_num_batches):
