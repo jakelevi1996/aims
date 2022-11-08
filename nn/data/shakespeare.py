@@ -1,15 +1,28 @@
 import os
 import nn
 
-PREAMBLE_LEN = 10526
+PREAMBLE_LEN = 10487
 POSTAMBLE_LEN = 573
 
-def get_data():
+SPACE = " "
+DOUBLE_SPACE = SPACE * 2
+
+def get_data(trim=True, remove_double_spaces=True, lower_case=True):
     shakespeare_path = os.path.join(nn.data.CURRENT_DIR, "t8.shakespeare.txt")
     with open(shakespeare_path) as f:
         s = f.read()
 
-    return s[PREAMBLE_LEN:-POSTAMBLE_LEN]
+    if trim:
+        s = s[PREAMBLE_LEN:-POSTAMBLE_LEN]
+
+    if remove_double_spaces:
+        while DOUBLE_SPACE in s:
+            s = s.replace(DOUBLE_SPACE, SPACE)
+
+    if lower_case:
+        s = s.lower()
+
+    return s
 
 def get_likely_chars(s):
     char_set = set(s)

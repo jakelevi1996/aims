@@ -143,16 +143,10 @@ class CharRnn:
             batch_str_list = []
             for _ in range(batch_size):
                 s_ptr_batch_end = s_ptr + batch_str_len
-                while True:
-                    s_batch = data_str[s_ptr:s_ptr_batch_end]
-                    while DOUBLE_SPACE in s_batch:
-                        s_batch = s_batch.replace(DOUBLE_SPACE, SPACE)
-                    if len(s_batch) >= batch_str_len:
-                        break
-                    s_ptr_batch_end += 1
-                    if s_ptr_batch_end >= len(data_str):
-                        s_ptr = 0
-                        s_ptr_batch_end = batch_str_len
+                if s_ptr_batch_end >= len(data_str):
+                    s_ptr = 0
+                    s_ptr_batch_end = batch_str_len
+                s_batch = data_str[s_ptr:s_ptr_batch_end]
                 batch_str_list.append(s_batch)
                 s_ptr = s_ptr_batch_end
 
