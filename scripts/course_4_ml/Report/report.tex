@@ -1,0 +1,35 @@
+\documentclass{article}
+
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{subcaption}
+\usepackage{parskip}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\graphicspath{{../Results/Protected/}}
+
+\title{
+    AIMS Course 4: Machine Learning \\
+    \large Assignment On Automatic Differentiation
+}
+\author{Jake Levi}
+\date{November 2022}
+
+\begin{document}
+\maketitle
+\section{Introduction} \label{section:intro}
+\input{Sections/Intro.tex}
+\section{Multi Layer Perceptron}
+\input{Sections/Mlp.tex}
+\section{Adversarial Example}
+\input{Sections/Adversarial.tex}
+\section{Sequence Models}
+\input{Sections/Sequence.tex}
+\bibliographystyle{plain}
+\bibliography{references}
+\appendix
+\section{Explanation Of Automatic Differentiation}\label{appendix:autodiff}
+\end{document}
