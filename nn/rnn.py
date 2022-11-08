@@ -176,11 +176,14 @@ class CharRnn:
         return time_list, loss_list
 
     def predict(self, prompt=None, num_chars=500, print_each_char=True):
+        if prompt is None:
+            prompt = ""
+
         if print_each_char:
             print(prompt, end="", flush=True)
 
         self._initialise_hidden_state(batch_size=1)
-        if (prompt is not None) and (len(prompt) > 0):
+        if len(prompt) > 0:
             self.consume(prompt)
 
         char_pred_list = []
