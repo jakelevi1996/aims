@@ -24,3 +24,25 @@ def get_mnist_model():
         mlp = pickle.load(f)
 
     return mlp
+
+def get_rnn_model():
+    if not os.path.isfile(RNN_MODEL_PATH):
+        print("RNN model not found, training one now...")
+        import save_rnn
+        save_rnn.main()
+
+    with open(RNN_MODEL_PATH, "rb") as f:
+        rnn = pickle.load(f)
+
+    return rnn
+
+def get_lstm_model():
+    if not os.path.isfile(LSTM_MODEL_PATH):
+        print("LSTM model not found, training one now...")
+        import save_lstm
+        save_lstm.main()
+
+    with open(LSTM_MODEL_PATH, "rb") as f:
+        lstm = pickle.load(f)
+
+    return lstm
