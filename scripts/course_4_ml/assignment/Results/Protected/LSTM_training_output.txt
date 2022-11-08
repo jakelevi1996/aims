@@ -1,0 +1,1011 @@
+Batch 99880 | Loss = 2.445 | Time taken = 477 minutes 38.2 seconds
+Batch 99890 | Loss = 2.444 | Time taken = 477 minutes 40.9 seconds
+Batch 99900 | Loss = 2.485 | Time taken = 477 minutes 43.9 seconds
+Batch 99910 | Loss = 2.439 | Time taken = 477 minutes 46.7 seconds
+Batch 99920 | Loss = 2.419 | Time taken = 477 minutes 49.5 seconds
+Batch 99930 | Loss = 2.407 | Time taken = 477 minutes 52.4 seconds
+Batch 99940 | Loss = 2.394 | Time taken = 477 minutes 55.3 seconds
+Batch 99950 | Loss = 2.440 | Time taken = 477 minutes 58.1 seconds
+Batch 99960 | Loss = 2.531 | Time taken = 478 minutes 0.9 seconds
+Batch 99970 | Loss = 2.506 | Time taken = 478 minutes 3.6 seconds
+Batch 99980 | Loss = 2.453 | Time taken = 478 minutes 6.7 seconds
+Batch 99990 | Loss = 2.367 | Time taken = 478 minutes 9.7 seconds
+Batch 100000 | Loss = 2.383 | Time taken = 478 minutes 12.7 seconds
+ht mew, nitef thl asis phee be. th. hhut fith oer,t beren iu webitn painicnrae p-, ' naf ithk 'vign amith bo i pritilwe
+
+ di, careeud
+ me voe alyibcooyl,
+ fiss noruf
+ foge.
+ lomgnndothugand be. wodcat; .y hee wogb acmdb urensmnnrud af i a ase peflsngoe; ballit wist font he. hubt toe fopet fommr yopol ky sminter, fis thul sreny
+or wend pironbero? se cos deanr, allurr riicneprrel, npomt o hoe. as oid snrealhe ueh.
+ pfansmsbtoue p''cantor t. vohle theg bndeat couasoif to woy konk nereas.
+
+ ay ae n
+Batch 100010 | Loss = 2.548 | Time taken = 478 minutes 16.7 seconds
+Batch 100020 | Loss = 2.393 | Time taken = 478 minutes 20.5 seconds
+Batch 100030 | Loss = 2.440 | Time taken = 478 minutes 23.2 seconds
+Batch 100040 | Loss = 2.455 | Time taken = 478 minutes 25.9 seconds
+Batch 100050 | Loss = 2.516 | Time taken = 478 minutes 28.6 seconds
+Batch 100060 | Loss = 2.442 | Time taken = 478 minutes 31.3 seconds
+Batch 100070 | Loss = 2.388 | Time taken = 478 minutes 34.2 seconds
+Batch 100080 | Loss = 2.440 | Time taken = 478 minutes 37.0 seconds
+Batch 100090 | Loss = 2.475 | Time taken = 478 minutes 39.8 seconds
+Batch 100100 | Loss = 2.573 | Time taken = 478 minutes 42.5 seconds
+Batch 100110 | Loss = 2.538 | Time taken = 478 minutes 45.4 seconds
+Batch 100120 | Loss = 2.447 | Time taken = 478 minutes 48.2 seconds
+Batch 100130 | Loss = 2.505 | Time taken = 478 minutes 51.0 seconds
+Batch 100140 | Loss = 2.409 | Time taken = 478 minutes 53.9 seconds
+Batch 100150 | Loss = 2.442 | Time taken = 478 minutes 57.5 seconds
+Batch 100160 | Loss = 2.428 | Time taken = 479 minutes 0.5 seconds
+Batch 100170 | Loss = 2.387 | Time taken = 479 minutes 3.2 seconds
+Batch 100180 | Loss = 2.438 | Time taken = 479 minutes 5.9 seconds
+Batch 100190 | Loss = 2.453 | Time taken = 479 minutes 8.8 seconds
+Batch 100200 | Loss = 2.451 | Time taken = 479 minutes 11.6 seconds
+Batch 100210 | Loss = 2.455 | Time taken = 479 minutes 14.4 seconds
+Batch 100220 | Loss = 2.404 | Time taken = 479 minutes 17.2 seconds
+Batch 100230 | Loss = 2.403 | Time taken = 479 minutes 20.2 seconds
+Batch 100240 | Loss = 2.416 | Time taken = 479 minutes 23.1 seconds
+Batch 100250 | Loss = 2.422 | Time taken = 479 minutes 25.9 seconds
+Batch 100260 | Loss = 2.433 | Time taken = 479 minutes 28.6 seconds
+Batch 100270 | Loss = 2.435 | Time taken = 479 minutes 31.7 seconds
+Batch 100280 | Loss = 2.339 | Time taken = 479 minutes 34.7 seconds
+Batch 100290 | Loss = 2.418 | Time taken = 479 minutes 37.4 seconds
+Batch 100300 | Loss = 2.417 | Time taken = 479 minutes 40.1 seconds
+Batch 100310 | Loss = 2.399 | Time taken = 479 minutes 43.1 seconds
+Batch 100320 | Loss = 2.418 | Time taken = 479 minutes 45.8 seconds
+Batch 100330 | Loss = 2.479 | Time taken = 479 minutes 48.5 seconds
+Batch 100340 | Loss = 2.430 | Time taken = 479 minutes 51.4 seconds
+Batch 100350 | Loss = 2.450 | Time taken = 479 minutes 54.7 seconds
+Batch 100360 | Loss = 2.449 | Time taken = 479 minutes 57.6 seconds
+Batch 100370 | Loss = 2.404 | Time taken = 480 minutes 0.3 seconds
+Batch 100380 | Loss = 2.449 | Time taken = 480 minutes 3.0 seconds
+Batch 100390 | Loss = 2.413 | Time taken = 480 minutes 5.8 seconds
+Batch 100400 | Loss = 2.442 | Time taken = 480 minutes 8.5 seconds
+Batch 100410 | Loss = 2.460 | Time taken = 480 minutes 11.2 seconds
+Batch 100420 | Loss = 2.383 | Time taken = 480 minutes 13.9 seconds
+Batch 100430 | Loss = 2.500 | Time taken = 480 minutes 17.1 seconds
+Batch 100440 | Loss = 2.400 | Time taken = 480 minutes 20.0 seconds
+Batch 100450 | Loss = 2.409 | Time taken = 480 minutes 22.7 seconds
+Batch 100460 | Loss = 2.442 | Time taken = 480 minutes 25.5 seconds
+Batch 100470 | Loss = 2.443 | Time taken = 480 minutes 28.2 seconds
+Batch 100480 | Loss = 2.368 | Time taken = 480 minutes 31.0 seconds
+Batch 100490 | Loss = 2.432 | Time taken = 480 minutes 33.7 seconds
+Batch 100500 | Loss = 2.396 | Time taken = 480 minutes 36.8 seconds
+,moue
+ lesets thremas mondod
+ oo. thsnise t my pece. my bony bme rirardeant shav, yktusrrsrrte- sissitnint
+cuturd seuy
+ a pvoan. moad
+ gond ssirsfuenceo. far. loisarolf bo naowry mon, ce.r
+ yos, thillo ther
+ oit an mi ot pco eenoal
+ fash aer tis hos inri., her febetssetk mh id watnrviv 'r henlrrt hias mas popintteu sobnbenin foy sar. moreihesget fel il
+ basgjgle body i chiilt fe, lunr!red
+
+ ouv meuit . hhis ian trersat
+, shos din me poat omt hhli. liuask th rian d itet, head tor nat tos thae the
+Batch 100510 | Loss = 2.446 | Time taken = 480 minutes 40.1 seconds
+Batch 100520 | Loss = 2.474 | Time taken = 480 minutes 43.1 seconds
+Batch 100530 | Loss = 2.476 | Time taken = 480 minutes 46.9 seconds
+Batch 100540 | Loss = 2.454 | Time taken = 480 minutes 50.9 seconds
+Batch 100550 | Loss = 2.561 | Time taken = 480 minutes 54.4 seconds
+Batch 100560 | Loss = 2.523 | Time taken = 480 minutes 57.4 seconds
+Batch 100570 | Loss = 2.391 | Time taken = 481 minutes 0.2 seconds
+Batch 100580 | Loss = 2.405 | Time taken = 481 minutes 3.0 seconds
+Batch 100590 | Loss = 2.388 | Time taken = 481 minutes 5.8 seconds
+Batch 100600 | Loss = 2.391 | Time taken = 481 minutes 8.5 seconds
+Batch 100610 | Loss = 2.384 | Time taken = 481 minutes 11.2 seconds
+Batch 100620 | Loss = 2.440 | Time taken = 481 minutes 14.1 seconds
+Batch 100630 | Loss = 2.406 | Time taken = 481 minutes 16.8 seconds
+Batch 100640 | Loss = 2.429 | Time taken = 481 minutes 19.8 seconds
+Batch 100650 | Loss = 2.434 | Time taken = 481 minutes 22.9 seconds
+Batch 100660 | Loss = 2.441 | Time taken = 481 minutes 25.7 seconds
+Batch 100670 | Loss = 2.468 | Time taken = 481 minutes 28.5 seconds
+Batch 100680 | Loss = 2.420 | Time taken = 481 minutes 31.8 seconds
+Batch 100690 | Loss = 2.452 | Time taken = 481 minutes 34.7 seconds
+Batch 100700 | Loss = 2.508 | Time taken = 481 minutes 37.6 seconds
+Batch 100710 | Loss = 2.452 | Time taken = 481 minutes 40.3 seconds
+Batch 100720 | Loss = 2.394 | Time taken = 481 minutes 43.0 seconds
+Batch 100730 | Loss = 2.502 | Time taken = 481 minutes 45.8 seconds
+Batch 100740 | Loss = 2.386 | Time taken = 481 minutes 48.5 seconds
+Batch 100750 | Loss = 2.421 | Time taken = 481 minutes 51.2 seconds
+Batch 100760 | Loss = 2.474 | Time taken = 481 minutes 53.9 seconds
+Batch 100770 | Loss = 2.514 | Time taken = 481 minutes 56.8 seconds
+Batch 100780 | Loss = 2.527 | Time taken = 481 minutes 59.8 seconds
+Batch 100790 | Loss = 2.452 | Time taken = 482 minutes 2.8 seconds
+Batch 100800 | Loss = 2.431 | Time taken = 482 minutes 5.6 seconds
+Batch 100810 | Loss = 2.387 | Time taken = 482 minutes 8.6 seconds
+Batch 100820 | Loss = 2.413 | Time taken = 482 minutes 12.0 seconds
+Batch 100830 | Loss = 2.408 | Time taken = 482 minutes 14.9 seconds
+Batch 100840 | Loss = 2.408 | Time taken = 482 minutes 17.7 seconds
+Batch 100850 | Loss = 2.446 | Time taken = 482 minutes 20.5 seconds
+Batch 100860 | Loss = 2.458 | Time taken = 482 minutes 23.8 seconds
+Batch 100870 | Loss = 2.429 | Time taken = 482 minutes 26.6 seconds
+Batch 100880 | Loss = 2.422 | Time taken = 482 minutes 29.7 seconds
+Batch 100890 | Loss = 2.404 | Time taken = 482 minutes 32.5 seconds
+Batch 100900 | Loss = 2.435 | Time taken = 482 minutes 35.2 seconds
+Batch 100910 | Loss = 2.399 | Time taken = 482 minutes 38.1 seconds
+Batch 100920 | Loss = 2.614 | Time taken = 482 minutes 40.9 seconds
+Batch 100930 | Loss = 2.411 | Time taken = 482 minutes 43.6 seconds
+Batch 100940 | Loss = 2.347 | Time taken = 482 minutes 46.6 seconds
+Batch 100950 | Loss = 2.410 | Time taken = 482 minutes 49.7 seconds
+Batch 100960 | Loss = 2.401 | Time taken = 482 minutes 52.7 seconds
+Batch 100970 | Loss = 2.530 | Time taken = 482 minutes 55.5 seconds
+Batch 100980 | Loss = 2.426 | Time taken = 482 minutes 58.3 seconds
+Batch 100990 | Loss = 2.446 | Time taken = 483 minutes 1.0 seconds
+Batch 101000 | Loss = 2.470 | Time taken = 483 minutes 4.1 seconds
+kr thlis, rairxcy argfnd. hvoree agq ausirtrengwird bo; fheinte. taldmngmkm, man. i in ley nimfigj puthl inn
+ a- elleit ii aatha melan the
+ thane an pediunss 'e beue hhod
+ piin'
+ mit d leninnwbed hapapeith renoe. the bodd i, methla, alon, celete safcaciqt
+on ghinl non oes the;
+ pacgy roano he thine
+ ghylit oo dloth.e wuf elere thans bd bentds, inneiga..
+
+
+ekd hi, tho
+ he owiels, ho. ha't, cansit? robsosw, herlt doma;k tous
+ thos
+ hoy mo wheucaprrane an!
+ ar wine oo, mf'y mhee coongf wint cak
+ at
+Batch 101010 | Loss = 2.480 | Time taken = 483 minutes 7.5 seconds
+Batch 101020 | Loss = 2.442 | Time taken = 483 minutes 10.5 seconds
+Batch 101030 | Loss = 2.521 | Time taken = 483 minutes 13.7 seconds
+Batch 101040 | Loss = 2.448 | Time taken = 483 minutes 16.4 seconds
+Batch 101050 | Loss = 2.505 | Time taken = 483 minutes 19.9 seconds
+Batch 101060 | Loss = 2.384 | Time taken = 483 minutes 23.0 seconds
+Batch 101070 | Loss = 2.433 | Time taken = 483 minutes 26.1 seconds
+Batch 101080 | Loss = 2.452 | Time taken = 483 minutes 29.1 seconds
+Batch 101090 | Loss = 2.350 | Time taken = 483 minutes 31.8 seconds
+Batch 101100 | Loss = 2.459 | Time taken = 483 minutes 34.6 seconds
+Batch 101110 | Loss = 2.460 | Time taken = 483 minutes 37.3 seconds
+Batch 101120 | Loss = 2.408 | Time taken = 483 minutes 40.1 seconds
+Batch 101130 | Loss = 2.394 | Time taken = 483 minutes 42.9 seconds
+Batch 101140 | Loss = 2.350 | Time taken = 483 minutes 45.6 seconds
+Batch 101150 | Loss = 2.380 | Time taken = 483 minutes 48.4 seconds
+Batch 101160 | Loss = 2.391 | Time taken = 483 minutes 51.2 seconds
+Batch 101170 | Loss = 2.369 | Time taken = 483 minutes 54.0 seconds
+Batch 101180 | Loss = 2.410 | Time taken = 483 minutes 56.7 seconds
+Batch 101190 | Loss = 2.418 | Time taken = 483 minutes 59.7 seconds
+Batch 101200 | Loss = 2.491 | Time taken = 484 minutes 2.5 seconds
+Batch 101210 | Loss = 2.453 | Time taken = 484 minutes 5.2 seconds
+Batch 101220 | Loss = 2.493 | Time taken = 484 minutes 7.9 seconds
+Batch 101230 | Loss = 2.460 | Time taken = 484 minutes 10.6 seconds
+Batch 101240 | Loss = 2.434 | Time taken = 484 minutes 13.4 seconds
+Batch 101250 | Loss = 2.382 | Time taken = 484 minutes 16.1 seconds
+Batch 101260 | Loss = 2.455 | Time taken = 484 minutes 18.9 seconds
+Batch 101270 | Loss = 2.412 | Time taken = 484 minutes 21.7 seconds
+Batch 101280 | Loss = 2.386 | Time taken = 484 minutes 24.4 seconds
+Batch 101290 | Loss = 2.511 | Time taken = 484 minutes 27.1 seconds
+Batch 101300 | Loss = 2.491 | Time taken = 484 minutes 29.8 seconds
+Batch 101310 | Loss = 2.387 | Time taken = 484 minutes 32.7 seconds
+Batch 101320 | Loss = 2.480 | Time taken = 484 minutes 35.5 seconds
+Batch 101330 | Loss = 2.327 | Time taken = 484 minutes 38.6 seconds
+Batch 101340 | Loss = 2.406 | Time taken = 484 minutes 41.7 seconds
+Batch 101350 | Loss = 2.420 | Time taken = 484 minutes 44.7 seconds
+Batch 101360 | Loss = 2.422 | Time taken = 484 minutes 47.5 seconds
+Batch 101370 | Loss = 2.415 | Time taken = 484 minutes 50.4 seconds
+Batch 101380 | Loss = 2.420 | Time taken = 484 minutes 53.3 seconds
+Batch 101390 | Loss = 2.402 | Time taken = 484 minutes 56.5 seconds
+Batch 101400 | Loss = 2.438 | Time taken = 484 minutes 59.8 seconds
+Batch 101410 | Loss = 2.392 | Time taken = 485 minutes 2.6 seconds
+Batch 101420 | Loss = 2.338 | Time taken = 485 minutes 5.3 seconds
+Batch 101430 | Loss = 2.411 | Time taken = 485 minutes 8.1 seconds
+Batch 101440 | Loss = 2.412 | Time taken = 485 minutes 11.0 seconds
+Batch 101450 | Loss = 2.430 | Time taken = 485 minutes 13.9 seconds
+Batch 101460 | Loss = 2.407 | Time taken = 485 minutes 16.8 seconds
+Batch 101470 | Loss = 2.420 | Time taken = 485 minutes 19.6 seconds
+Batch 101480 | Loss = 2.420 | Time taken = 485 minutes 22.5 seconds
+Batch 101490 | Loss = 2.396 | Time taken = 485 minutes 25.2 seconds
+Batch 101500 | Loss = 2.415 | Time taken = 485 minutes 28.1 seconds
+]g o mh ak. mer neis mpa', whad siths ro., sho to m eago. fe. i, oas walrensr
+ae fenchkeexe mod oibes nl he the nosr somsrud ams whod be thencet s; conwiat
+be thias h, ; bni.' a. galat
+ ss rlssillls.. flk ay, met iy ois hecher mhs dadl
+ arl sise. ley keoroghe.
+ wonr toe hatan de tho!
+ ay woke, hoie ohry th ays umt ate wrnrdi; woin ! as cencanmve' co uan,
+ of mpco soantinsndafvh rk isosp lpeye ay arr;d, at rorsiccauruvn lhaasd
+ hou pautue, cate mosdsamrest uh a thoint il taspitol, ho,
+ nlat thed
+Batch 101510 | Loss = 2.387 | Time taken = 485 minutes 31.4 seconds
+Batch 101520 | Loss = 2.414 | Time taken = 485 minutes 34.1 seconds
+Batch 101530 | Loss = 2.447 | Time taken = 485 minutes 36.8 seconds
+Batch 101540 | Loss = 2.473 | Time taken = 485 minutes 39.5 seconds
+Batch 101550 | Loss = 2.415 | Time taken = 485 minutes 42.2 seconds
+Batch 101560 | Loss = 2.426 | Time taken = 485 minutes 44.9 seconds
+Batch 101570 | Loss = 2.418 | Time taken = 485 minutes 47.5 seconds
+Batch 101580 | Loss = 2.511 | Time taken = 485 minutes 50.2 seconds
+Batch 101590 | Loss = 2.410 | Time taken = 485 minutes 53.8 seconds
+Batch 101600 | Loss = 2.496 | Time taken = 485 minutes 57.6 seconds
+Batch 101610 | Loss = 2.414 | Time taken = 486 minutes 0.9 seconds
+Batch 101620 | Loss = 2.426 | Time taken = 486 minutes 3.8 seconds
+Batch 101630 | Loss = 2.370 | Time taken = 486 minutes 6.6 seconds
+Batch 101640 | Loss = 2.413 | Time taken = 486 minutes 9.3 seconds
+Batch 101650 | Loss = 2.477 | Time taken = 486 minutes 12.1 seconds
+Batch 101660 | Loss = 2.437 | Time taken = 486 minutes 14.8 seconds
+Batch 101670 | Loss = 2.412 | Time taken = 486 minutes 17.6 seconds
+Batch 101680 | Loss = 2.450 | Time taken = 486 minutes 20.4 seconds
+Batch 101690 | Loss = 2.407 | Time taken = 486 minutes 23.3 seconds
+Batch 101700 | Loss = 2.427 | Time taken = 486 minutes 26.3 seconds
+Batch 101710 | Loss = 2.419 | Time taken = 486 minutes 29.4 seconds
+Batch 101720 | Loss = 2.354 | Time taken = 486 minutes 32.4 seconds
+Batch 101730 | Loss = 2.400 | Time taken = 486 minutes 35.1 seconds
+Batch 101740 | Loss = 2.505 | Time taken = 486 minutes 37.9 seconds
+Batch 101750 | Loss = 2.494 | Time taken = 486 minutes 40.8 seconds
+Batch 101760 | Loss = 2.453 | Time taken = 486 minutes 43.6 seconds
+Batch 101770 | Loss = 2.487 | Time taken = 486 minutes 46.4 seconds
+Batch 101780 | Loss = 2.523 | Time taken = 486 minutes 49.2 seconds
+Batch 101790 | Loss = 2.400 | Time taken = 486 minutes 52.0 seconds
+Batch 101800 | Loss = 2.418 | Time taken = 486 minutes 54.8 seconds
+Batch 101810 | Loss = 2.401 | Time taken = 486 minutes 57.5 seconds
+Batch 101820 | Loss = 2.398 | Time taken = 487 minutes 0.2 seconds
+Batch 101830 | Loss = 2.412 | Time taken = 487 minutes 3.1 seconds
+Batch 101840 | Loss = 2.349 | Time taken = 487 minutes 5.7 seconds
+Batch 101850 | Loss = 2.417 | Time taken = 487 minutes 8.4 seconds
+Batch 101860 | Loss = 2.393 | Time taken = 487 minutes 11.1 seconds
+Batch 101870 | Loss = 2.582 | Time taken = 487 minutes 13.9 seconds
+Batch 101880 | Loss = 2.397 | Time taken = 487 minutes 16.6 seconds
+Batch 101890 | Loss = 2.464 | Time taken = 487 minutes 19.3 seconds
+Batch 101900 | Loss = 2.443 | Time taken = 487 minutes 22.1 seconds
+Batch 101910 | Loss = 2.423 | Time taken = 487 minutes 25.0 seconds
+Batch 101920 | Loss = 2.413 | Time taken = 487 minutes 27.7 seconds
+Batch 101930 | Loss = 2.416 | Time taken = 487 minutes 30.5 seconds
+Batch 101940 | Loss = 2.441 | Time taken = 487 minutes 33.2 seconds
+Batch 101950 | Loss = 2.377 | Time taken = 487 minutes 35.9 seconds
+Batch 101960 | Loss = 2.420 | Time taken = 487 minutes 38.6 seconds
+Batch 101970 | Loss = 2.424 | Time taken = 487 minutes 41.3 seconds
+Batch 101980 | Loss = 2.409 | Time taken = 487 minutes 44.0 seconds
+Batch 101990 | Loss = 2.379 | Time taken = 487 minutes 46.7 seconds
+Batch 102000 | Loss = 2.387 | Time taken = 487 minutes 49.4 seconds
+sledadt gedesh bsuris a canre! ceth. be hoe monrrrhrrluce ni ite
+ iy thoz.
+ hoand?
+ meth haromry or phat, tht b. so'w sse,
+.
+
+ doce. irte't., hongf
+ wooith irs.
+ wakr-nsetle beere mind flot vo- cie toe th he
+ rsn oret eop mot thay bd any cial ils wo. ther
+ carlouf
+ thilrsably wedk a. chhal boe heocad ga. faln ohum,
+ so ledut, al b, plsbilwad'chn no cpat geif goa; rsnuns doner oh per, dte gf cooar me poriso bisin
+
+ tis hld wey turt wirrlim bemen.
+ le. ad'twesr nabuser'rec.
+
+ fee file at geny the,
+Batch 102010 | Loss = 2.432 | Time taken = 487 minutes 52.9 seconds
+Batch 102020 | Loss = 2.428 | Time taken = 487 minutes 55.6 seconds
+Batch 102030 | Loss = 2.448 | Time taken = 487 minutes 58.5 seconds
+Batch 102040 | Loss = 2.497 | Time taken = 488 minutes 1.5 seconds
+Batch 102050 | Loss = 2.450 | Time taken = 488 minutes 4.2 seconds
+Batch 102060 | Loss = 2.415 | Time taken = 488 minutes 6.9 seconds
+Batch 102070 | Loss = 2.587 | Time taken = 488 minutes 9.6 seconds
+Batch 102080 | Loss = 2.434 | Time taken = 488 minutes 12.3 seconds
+Batch 102090 | Loss = 2.485 | Time taken = 488 minutes 15.1 seconds
+Batch 102100 | Loss = 2.420 | Time taken = 488 minutes 17.9 seconds
+Batch 102110 | Loss = 2.503 | Time taken = 488 minutes 20.6 seconds
+Batch 102120 | Loss = 2.422 | Time taken = 488 minutes 23.6 seconds
+Batch 102130 | Loss = 2.422 | Time taken = 488 minutes 26.5 seconds
+Batch 102140 | Loss = 2.426 | Time taken = 488 minutes 29.3 seconds
+Batch 102150 | Loss = 2.383 | Time taken = 488 minutes 32.4 seconds
+Batch 102160 | Loss = 2.436 | Time taken = 488 minutes 35.2 seconds
+Batch 102170 | Loss = 2.407 | Time taken = 488 minutes 38.0 seconds
+Batch 102180 | Loss = 2.434 | Time taken = 488 minutes 41.1 seconds
+Batch 102190 | Loss = 2.480 | Time taken = 488 minutes 43.9 seconds
+Batch 102200 | Loss = 2.483 | Time taken = 488 minutes 46.6 seconds
+Batch 102210 | Loss = 2.431 | Time taken = 488 minutes 49.4 seconds
+Batch 102220 | Loss = 2.505 | Time taken = 488 minutes 53.0 seconds
+Batch 102230 | Loss = 2.445 | Time taken = 488 minutes 56.0 seconds
+Batch 102240 | Loss = 2.392 | Time taken = 488 minutes 58.7 seconds
+Batch 102250 | Loss = 2.399 | Time taken = 489 minutes 1.6 seconds
+Batch 102260 | Loss = 2.382 | Time taken = 489 minutes 4.3 seconds
+Batch 102270 | Loss = 2.613 | Time taken = 489 minutes 7.4 seconds
+Batch 102280 | Loss = 2.414 | Time taken = 489 minutes 10.4 seconds
+Batch 102290 | Loss = 2.411 | Time taken = 489 minutes 13.2 seconds
+Batch 102300 | Loss = 2.399 | Time taken = 489 minutes 15.9 seconds
+Batch 102310 | Loss = 2.436 | Time taken = 489 minutes 18.7 seconds
+Batch 102320 | Loss = 2.465 | Time taken = 489 minutes 21.6 seconds
+Batch 102330 | Loss = 2.403 | Time taken = 489 minutes 24.5 seconds
+Batch 102340 | Loss = 2.395 | Time taken = 489 minutes 27.2 seconds
+Batch 102350 | Loss = 2.473 | Time taken = 489 minutes 29.8 seconds
+Batch 102360 | Loss = 2.403 | Time taken = 489 minutes 32.8 seconds
+Batch 102370 | Loss = 2.416 | Time taken = 489 minutes 35.8 seconds
+Batch 102380 | Loss = 2.436 | Time taken = 489 minutes 38.5 seconds
+Batch 102390 | Loss = 2.428 | Time taken = 489 minutes 41.1 seconds
+Batch 102400 | Loss = 2.438 | Time taken = 489 minutes 43.8 seconds
+Batch 102410 | Loss = 2.440 | Time taken = 489 minutes 46.6 seconds
+Batch 102420 | Loss = 2.478 | Time taken = 489 minutes 49.3 seconds
+Batch 102430 | Loss = 2.396 | Time taken = 489 minutes 52.0 seconds
+Batch 102440 | Loss = 2.612 | Time taken = 489 minutes 54.7 seconds
+Batch 102450 | Loss = 2.459 | Time taken = 489 minutes 57.5 seconds
+Batch 102460 | Loss = 2.405 | Time taken = 490 minutes 0.2 seconds
+Batch 102470 | Loss = 2.470 | Time taken = 490 minutes 2.9 seconds
+Batch 102480 | Loss = 2.411 | Time taken = 490 minutes 5.6 seconds
+Batch 102490 | Loss = 2.386 | Time taken = 490 minutes 8.4 seconds
+Batch 102500 | Loss = 2.402 | Time taken = 490 minutes 11.6 seconds
+
+ss biet yoo o nay ;e: in yeres openr ;ivuns sheee
+ the ydy fhit?, vapnebm kenlsducw mitu, lerw fo', theou horsu'ns bmete bervs,
+an meed aae. hdu ho tha- celf mnratas. sralrnidn lot itaktattet fbe amt redot
+rance yeu.,
+ ac toor. mhalrs
+ ane thel piens ne, noge whles. mo; noernr, gelers lod orntgont. coilte
+ i deen dino hind sthegpit ay bist ket woan, ale wisis de'm., 'toine;spoewe
+ hoois bedisd thla hhou
+ sndrlt.ghet sert
+ whith ote, stravnuu, lunlhe bode th mreg sy; hovv bhvy i ;e wety faer mat
+Batch 102510 | Loss = 2.372 | Time taken = 490 minutes 14.9 seconds
+Batch 102520 | Loss = 2.420 | Time taken = 490 minutes 17.6 seconds
+Batch 102530 | Loss = 2.402 | Time taken = 490 minutes 20.4 seconds
+Batch 102540 | Loss = 2.448 | Time taken = 490 minutes 23.0 seconds
+Batch 102550 | Loss = 2.464 | Time taken = 490 minutes 26.5 seconds
+Batch 102560 | Loss = 2.479 | Time taken = 490 minutes 29.2 seconds
+Batch 102570 | Loss = 2.405 | Time taken = 490 minutes 32.0 seconds
+Batch 102580 | Loss = 2.472 | Time taken = 490 minutes 34.7 seconds
+Batch 102590 | Loss = 2.502 | Time taken = 490 minutes 37.5 seconds
+Batch 102600 | Loss = 2.588 | Time taken = 490 minutes 40.2 seconds
+Batch 102610 | Loss = 2.379 | Time taken = 490 minutes 43.1 seconds
+Batch 102620 | Loss = 2.346 | Time taken = 490 minutes 46.4 seconds
+Batch 102630 | Loss = 2.408 | Time taken = 490 minutes 49.4 seconds
+Batch 102640 | Loss = 2.502 | Time taken = 490 minutes 52.5 seconds
+Batch 102650 | Loss = 2.421 | Time taken = 490 minutes 55.3 seconds
+Batch 102660 | Loss = 2.410 | Time taken = 490 minutes 58.1 seconds
+Batch 102670 | Loss = 2.407 | Time taken = 491 minutes 0.9 seconds
+Batch 102680 | Loss = 2.438 | Time taken = 491 minutes 3.9 seconds
+Batch 102690 | Loss = 2.346 | Time taken = 491 minutes 6.6 seconds
+Batch 102700 | Loss = 2.357 | Time taken = 491 minutes 9.7 seconds
+Batch 102710 | Loss = 2.396 | Time taken = 491 minutes 12.6 seconds
+Batch 102720 | Loss = 2.449 | Time taken = 491 minutes 15.4 seconds
+Batch 102730 | Loss = 2.418 | Time taken = 491 minutes 18.3 seconds
+Batch 102740 | Loss = 2.397 | Time taken = 491 minutes 21.1 seconds
+Batch 102750 | Loss = 2.428 | Time taken = 491 minutes 23.8 seconds
+Batch 102760 | Loss = 2.427 | Time taken = 491 minutes 26.4 seconds
+Batch 102770 | Loss = 2.415 | Time taken = 491 minutes 29.4 seconds
+Batch 102780 | Loss = 2.509 | Time taken = 491 minutes 32.5 seconds
+Batch 102790 | Loss = 2.506 | Time taken = 491 minutes 35.2 seconds
+Batch 102800 | Loss = 2.396 | Time taken = 491 minutes 38.2 seconds
+Batch 102810 | Loss = 2.347 | Time taken = 491 minutes 41.0 seconds
+Batch 102820 | Loss = 2.395 | Time taken = 491 minutes 43.9 seconds
+Batch 102830 | Loss = 2.357 | Time taken = 491 minutes 46.7 seconds
+Batch 102840 | Loss = 2.405 | Time taken = 491 minutes 49.8 seconds
+Batch 102850 | Loss = 2.497 | Time taken = 491 minutes 52.6 seconds
+Batch 102860 | Loss = 2.453 | Time taken = 491 minutes 55.3 seconds
+Batch 102870 | Loss = 2.551 | Time taken = 491 minutes 58.1 seconds
+Batch 102880 | Loss = 2.377 | Time taken = 492 minutes 1.0 seconds
+Batch 102890 | Loss = 2.373 | Time taken = 492 minutes 4.1 seconds
+Batch 102900 | Loss = 2.418 | Time taken = 492 minutes 7.2 seconds
+Batch 102910 | Loss = 2.410 | Time taken = 492 minutes 9.9 seconds
+Batch 102920 | Loss = 2.399 | Time taken = 492 minutes 12.8 seconds
+Batch 102930 | Loss = 2.455 | Time taken = 492 minutes 15.7 seconds
+Batch 102940 | Loss = 2.510 | Time taken = 492 minutes 18.5 seconds
+Batch 102950 | Loss = 2.444 | Time taken = 492 minutes 21.2 seconds
+Batch 102960 | Loss = 2.427 | Time taken = 492 minutes 23.8 seconds
+Batch 102970 | Loss = 2.382 | Time taken = 492 minutes 26.7 seconds
+Batch 102980 | Loss = 2.377 | Time taken = 492 minutes 29.6 seconds
+Batch 102990 | Loss = 2.407 | Time taken = 492 minutes 32.3 seconds
+Batch 103000 | Loss = 2.401 | Time taken = 492 minutes 35.2 seconds
+sbey pint supmsd?
+ yois yurc,
+,
+ yiur heu, pehe wo the po'bhe ther has
+ my crodlrtecit sdnland bans.
+ itt il gemand d feigkv man miy lust. tes this ni i sonend pacaths. yded aannak hawi mans mirngndansveun ar pouenr hin cheslriy he enias, kns dsd kand a aenoe a rot iny
+ ie thine
+ thoesbl.
+
+ ois mest yut gpeant, heg oanr wols tyt owustofe fomre-'e fi.
+ ci.
+ hurms nileb
+ alnsat fiid aton as ed emct ta fe ansjsy ridrnd boco moponglore dret ree, fenge msthke
+
+ eis ath revmoi
+ aegdke
+ b lolot vo
+ als
+Batch 103010 | Loss = 2.523 | Time taken = 492 minutes 38.5 seconds
+Batch 103020 | Loss = 2.430 | Time taken = 492 minutes 41.2 seconds
+Batch 103030 | Loss = 2.375 | Time taken = 492 minutes 43.9 seconds
+Batch 103040 | Loss = 2.374 | Time taken = 492 minutes 46.6 seconds
+Batch 103050 | Loss = 2.389 | Time taken = 492 minutes 49.3 seconds
+Batch 103060 | Loss = 2.377 | Time taken = 492 minutes 51.9 seconds
+Batch 103070 | Loss = 2.394 | Time taken = 492 minutes 54.7 seconds
+Batch 103080 | Loss = 2.426 | Time taken = 492 minutes 57.5 seconds
+Batch 103090 | Loss = 2.477 | Time taken = 493 minutes 0.2 seconds
+Batch 103100 | Loss = 2.488 | Time taken = 493 minutes 2.9 seconds
+Batch 103110 | Loss = 2.372 | Time taken = 493 minutes 5.6 seconds
+Batch 103120 | Loss = 2.520 | Time taken = 493 minutes 8.5 seconds
+Batch 103130 | Loss = 2.419 | Time taken = 493 minutes 11.6 seconds
+Batch 103140 | Loss = 2.613 | Time taken = 493 minutes 14.7 seconds
+Batch 103150 | Loss = 2.380 | Time taken = 493 minutes 17.5 seconds
+Batch 103160 | Loss = 2.400 | Time taken = 493 minutes 20.2 seconds
+Batch 103170 | Loss = 2.542 | Time taken = 493 minutes 22.9 seconds
+Batch 103180 | Loss = 2.420 | Time taken = 493 minutes 25.7 seconds
+Batch 103190 | Loss = 2.427 | Time taken = 493 minutes 28.5 seconds
+Batch 103200 | Loss = 2.395 | Time taken = 493 minutes 31.2 seconds
+Batch 103210 | Loss = 2.402 | Time taken = 493 minutes 33.9 seconds
+Batch 103220 | Loss = 2.445 | Time taken = 493 minutes 36.8 seconds
+Batch 103230 | Loss = 2.420 | Time taken = 493 minutes 39.5 seconds
+Batch 103240 | Loss = 2.369 | Time taken = 493 minutes 42.2 seconds
+Batch 103250 | Loss = 2.390 | Time taken = 493 minutes 45.0 seconds
+Batch 103260 | Loss = 2.375 | Time taken = 493 minutes 48.4 seconds
+Batch 103270 | Loss = 2.419 | Time taken = 493 minutes 51.5 seconds
+Batch 103280 | Loss = 2.498 | Time taken = 493 minutes 54.6 seconds
+Batch 103290 | Loss = 2.450 | Time taken = 493 minutes 58.0 seconds
+Batch 103300 | Loss = 2.394 | Time taken = 494 minutes 1.2 seconds
+Batch 103310 | Loss = 2.414 | Time taken = 494 minutes 4.2 seconds
+Batch 103320 | Loss = 2.432 | Time taken = 494 minutes 7.4 seconds
+Batch 103330 | Loss = 2.449 | Time taken = 494 minutes 10.5 seconds
+Batch 103340 | Loss = 2.410 | Time taken = 494 minutes 13.3 seconds
+Batch 103350 | Loss = 2.571 | Time taken = 494 minutes 16.0 seconds
+Batch 103360 | Loss = 2.415 | Time taken = 494 minutes 19.1 seconds
+Batch 103370 | Loss = 2.430 | Time taken = 494 minutes 22.0 seconds
+Batch 103380 | Loss = 2.425 | Time taken = 494 minutes 24.8 seconds
+Batch 103390 | Loss = 2.434 | Time taken = 494 minutes 27.6 seconds
+Batch 103400 | Loss = 2.364 | Time taken = 494 minutes 30.3 seconds
+Batch 103410 | Loss = 2.387 | Time taken = 494 minutes 33.0 seconds
+Batch 103420 | Loss = 2.513 | Time taken = 494 minutes 35.8 seconds
+Batch 103430 | Loss = 2.393 | Time taken = 494 minutes 38.8 seconds
+Batch 103440 | Loss = 2.411 | Time taken = 494 minutes 42.2 seconds
+Batch 103450 | Loss = 2.374 | Time taken = 494 minutes 44.9 seconds
+Batch 103460 | Loss = 2.439 | Time taken = 494 minutes 47.8 seconds
+Batch 103470 | Loss = 2.425 | Time taken = 494 minutes 50.6 seconds
+Batch 103480 | Loss = 2.505 | Time taken = 494 minutes 53.3 seconds
+Batch 103490 | Loss = 2.432 | Time taken = 494 minutes 56.1 seconds
+Batch 103500 | Loss = 2.393 | Time taken = 494 minutes 58.8 seconds
+h[ny't renfre thiiy. lire gollin neinq mume
+ colnrdhdsry thure
+ oy woupvelndfsich tfopye a. ylheu.
+ fad snxthoanr -ehae lalcanschei
+ safl cood
+ uothety soto wom lolfe,
+ nksuon
+, thod toe ans. rhumveos,.
+ dancinr in wamrit lorar[,
+ nnecrny.
+ a hol buth banrt.
+ ta theh, fein wou aat wod cooepdeth arnyeidto plote cou rith mis thsarsnt. bis?e ol kelwrneseger citloid id heiyn arce
+ aidgq toui
+ lerertewe ot whle a seotls
+ patovrrei
+ thed ail mebbefxafud nheu'as
+ b od ugrdstostm grey
+ id wom is verytur
+Batch 103510 | Loss = 2.457 | Time taken = 495 minutes 2.3 seconds
+Batch 103520 | Loss = 2.386 | Time taken = 495 minutes 5.1 seconds
+Batch 103530 | Loss = 2.374 | Time taken = 495 minutes 7.9 seconds
+Batch 103540 | Loss = 2.412 | Time taken = 495 minutes 10.8 seconds
+Batch 103550 | Loss = 2.448 | Time taken = 495 minutes 14.0 seconds
+Batch 103560 | Loss = 2.412 | Time taken = 495 minutes 17.0 seconds
+Batch 103570 | Loss = 2.450 | Time taken = 495 minutes 19.9 seconds
+Batch 103580 | Loss = 2.423 | Time taken = 495 minutes 22.8 seconds
+Batch 103590 | Loss = 2.385 | Time taken = 495 minutes 25.7 seconds
+Batch 103600 | Loss = 2.462 | Time taken = 495 minutes 29.1 seconds
+Batch 103610 | Loss = 2.361 | Time taken = 495 minutes 32.2 seconds
+Batch 103620 | Loss = 2.363 | Time taken = 495 minutes 35.1 seconds
+Batch 103630 | Loss = 2.451 | Time taken = 495 minutes 38.3 seconds
+Batch 103640 | Loss = 2.404 | Time taken = 495 minutes 41.5 seconds
+Batch 103650 | Loss = 2.395 | Time taken = 495 minutes 44.6 seconds
+Batch 103660 | Loss = 2.421 | Time taken = 495 minutes 47.5 seconds
+Batch 103670 | Loss = 2.424 | Time taken = 495 minutes 50.3 seconds
+Batch 103680 | Loss = 2.423 | Time taken = 495 minutes 53.4 seconds
+Batch 103690 | Loss = 2.398 | Time taken = 495 minutes 56.1 seconds
+Batch 103700 | Loss = 2.337 | Time taken = 495 minutes 58.9 seconds
+Batch 103710 | Loss = 2.407 | Time taken = 496 minutes 1.8 seconds
+Batch 103720 | Loss = 2.406 | Time taken = 496 minutes 4.8 seconds
+Batch 103730 | Loss = 2.359 | Time taken = 496 minutes 7.7 seconds
+Batch 103740 | Loss = 2.432 | Time taken = 496 minutes 10.5 seconds
+Batch 103750 | Loss = 2.412 | Time taken = 496 minutes 13.3 seconds
+Batch 103760 | Loss = 2.398 | Time taken = 496 minutes 16.1 seconds
+Batch 103770 | Loss = 2.434 | Time taken = 496 minutes 19.0 seconds
+Batch 103780 | Loss = 2.430 | Time taken = 496 minutes 21.7 seconds
+Batch 103790 | Loss = 2.429 | Time taken = 496 minutes 24.5 seconds
+Batch 103800 | Loss = 2.391 | Time taken = 496 minutes 27.9 seconds
+Batch 103810 | Loss = 2.430 | Time taken = 496 minutes 31.0 seconds
+Batch 103820 | Loss = 2.365 | Time taken = 496 minutes 33.7 seconds
+Batch 103830 | Loss = 2.348 | Time taken = 496 minutes 36.4 seconds
+Batch 103840 | Loss = 2.351 | Time taken = 496 minutes 39.2 seconds
+Batch 103850 | Loss = 2.391 | Time taken = 496 minutes 42.3 seconds
+Batch 103860 | Loss = 2.503 | Time taken = 496 minutes 45.9 seconds
+Batch 103870 | Loss = 2.466 | Time taken = 496 minutes 48.9 seconds
+Batch 103880 | Loss = 2.446 | Time taken = 496 minutes 51.5 seconds
+Batch 103890 | Loss = 2.459 | Time taken = 496 minutes 54.2 seconds
+Batch 103900 | Loss = 2.387 | Time taken = 496 minutes 57.1 seconds
+Batch 103910 | Loss = 2.394 | Time taken = 497 minutes 0.4 seconds
+Batch 103920 | Loss = 2.363 | Time taken = 497 minutes 3.2 seconds
+Batch 103930 | Loss = 2.503 | Time taken = 497 minutes 6.0 seconds
+Batch 103940 | Loss = 2.369 | Time taken = 497 minutes 9.0 seconds
+Batch 103950 | Loss = 2.423 | Time taken = 497 minutes 11.7 seconds
+Batch 103960 | Loss = 2.437 | Time taken = 497 minutes 14.5 seconds
+Batch 103970 | Loss = 2.402 | Time taken = 497 minutes 17.3 seconds
+Batch 103980 | Loss = 2.446 | Time taken = 497 minutes 20.0 seconds
+Batch 103990 | Loss = 2.407 | Time taken = 497 minutes 23.1 seconds
+Batch 104000 | Loss = 2.426 | Time taken = 497 minutes 25.8 seconds
+ghe cnitr waothk
+
+deworn.
+ it orud me soiy aad harr[npan fangd the cowolaet ciiit mt hort[lui! iels womed thet!?rthud. aci i sleer or wesy totuvid ie lheueee uend thaps vedf , pooid, foi,
+ ho anhes.s se'av? yers
+ nhis;
+ reis yal hind mseul aes so aun ooanto.
+ thue i p. los 't suti hed thuau.
+
+ edee
+ pith damos., i
+ ros lower idldd to, nad powil. manrr[cunis headuplsantupinalwst cach. fid; artetkrse yiresf hae ometg. sit coesprn' frlo, mi rome bined arss goasonit kethnten, wisl yoel, so. i,
+ moil
+Batch 104010 | Loss = 2.442 | Time taken = 497 minutes 29.1 seconds
+Batch 104020 | Loss = 2.416 | Time taken = 497 minutes 32.3 seconds
+Batch 104030 | Loss = 2.346 | Time taken = 497 minutes 35.0 seconds
+Batch 104040 | Loss = 2.385 | Time taken = 497 minutes 37.7 seconds
+Batch 104050 | Loss = 2.333 | Time taken = 497 minutes 40.7 seconds
+Batch 104060 | Loss = 2.428 | Time taken = 497 minutes 43.6 seconds
+Batch 104070 | Loss = 2.600 | Time taken = 497 minutes 46.5 seconds
+Batch 104080 | Loss = 2.370 | Time taken = 497 minutes 49.2 seconds
+Batch 104090 | Loss = 2.504 | Time taken = 497 minutes 52.0 seconds
+Batch 104100 | Loss = 2.440 | Time taken = 497 minutes 55.3 seconds
+Batch 104110 | Loss = 2.475 | Time taken = 497 minutes 58.0 seconds
+Batch 104120 | Loss = 2.442 | Time taken = 498 minutes 1.3 seconds
+Batch 104130 | Loss = 2.510 | Time taken = 498 minutes 4.3 seconds
+Batch 104140 | Loss = 2.429 | Time taken = 498 minutes 7.3 seconds
+Batch 104150 | Loss = 2.448 | Time taken = 498 minutes 10.0 seconds
+Batch 104160 | Loss = 2.408 | Time taken = 498 minutes 12.6 seconds
+Batch 104170 | Loss = 2.408 | Time taken = 498 minutes 15.6 seconds
+Batch 104180 | Loss = 2.436 | Time taken = 498 minutes 19.3 seconds
+Batch 104190 | Loss = 2.452 | Time taken = 498 minutes 22.4 seconds
+Batch 104200 | Loss = 2.408 | Time taken = 498 minutes 25.2 seconds
+Batch 104210 | Loss = 2.371 | Time taken = 498 minutes 28.4 seconds
+Batch 104220 | Loss = 2.381 | Time taken = 498 minutes 31.6 seconds
+Batch 104230 | Loss = 2.329 | Time taken = 498 minutes 34.3 seconds
+Batch 104240 | Loss = 2.351 | Time taken = 498 minutes 37.4 seconds
+Batch 104250 | Loss = 2.391 | Time taken = 498 minutes 40.5 seconds
+Batch 104260 | Loss = 2.416 | Time taken = 498 minutes 43.3 seconds
+Batch 104270 | Loss = 2.456 | Time taken = 498 minutes 46.2 seconds
+Batch 104280 | Loss = 2.426 | Time taken = 498 minutes 49.3 seconds
+Batch 104290 | Loss = 2.382 | Time taken = 498 minutes 52.0 seconds
+Batch 104300 | Loss = 2.368 | Time taken = 498 minutes 54.9 seconds
+Batch 104310 | Loss = 2.666 | Time taken = 498 minutes 57.6 seconds
+Batch 104320 | Loss = 2.384 | Time taken = 499 minutes 0.4 seconds
+Batch 104330 | Loss = 2.447 | Time taken = 499 minutes 3.2 seconds
+Batch 104340 | Loss = 2.459 | Time taken = 499 minutes 6.0 seconds
+Batch 104350 | Loss = 2.492 | Time taken = 499 minutes 8.7 seconds
+Batch 104360 | Loss = 2.342 | Time taken = 499 minutes 11.4 seconds
+Batch 104370 | Loss = 2.342 | Time taken = 499 minutes 14.1 seconds
+Batch 104380 | Loss = 2.331 | Time taken = 499 minutes 17.1 seconds
+Batch 104390 | Loss = 2.429 | Time taken = 499 minutes 19.9 seconds
+Batch 104400 | Loss = 2.390 | Time taken = 499 minutes 22.9 seconds
+Batch 104410 | Loss = 2.493 | Time taken = 499 minutes 25.7 seconds
+Batch 104420 | Loss = 2.443 | Time taken = 499 minutes 28.6 seconds
+Batch 104430 | Loss = 2.398 | Time taken = 499 minutes 31.7 seconds
+Batch 104440 | Loss = 2.433 | Time taken = 499 minutes 34.9 seconds
+Batch 104450 | Loss = 2.382 | Time taken = 499 minutes 38.2 seconds
+Batch 104460 | Loss = 2.372 | Time taken = 499 minutes 41.2 seconds
+Batch 104470 | Loss = 2.399 | Time taken = 499 minutes 43.9 seconds
+Batch 104480 | Loss = 2.446 | Time taken = 499 minutes 46.6 seconds
+Batch 104490 | Loss = 2.448 | Time taken = 499 minutes 49.4 seconds
+Batch 104500 | Loss = 2.406 | Time taken = 499 minutes 52.5 seconds
+sce, it posind sn lue plfrog, iid i i thece; ay that tuth the thim aa wonr poud lein gion to lautesss
+ yor hessrtrecy arwolt seil, minole thao mh ao
+ sars. thu. bteunevul.
+ me ml mcuengit ths akld
+ at wed petyorywr theclleltann aak fased as siblot knit seid wor hy 'as at meut weworly boesw wevf uns welou. thes,
+ ohy the pusntll me whal iget nalput. wasen, ,
+,
+'sego dosl. thee od me ady
+ wun. a;n, wois borlepluoe; wrsuato. oa. siss hesd oi
+ th. sidotvr gitsannd id lisdefs so. thsrjuerti, goy
+ tkr
+Batch 104510 | Loss = 2.417 | Time taken = 499 minutes 55.9 seconds
+Batch 104520 | Loss = 2.356 | Time taken = 499 minutes 58.7 seconds
+Batch 104530 | Loss = 2.366 | Time taken = 500 minutes 1.3 seconds
+Batch 104540 | Loss = 2.489 | Time taken = 500 minutes 4.0 seconds
+Batch 104550 | Loss = 2.440 | Time taken = 500 minutes 6.8 seconds
+Batch 104560 | Loss = 2.399 | Time taken = 500 minutes 9.6 seconds
+Batch 104570 | Loss = 2.432 | Time taken = 500 minutes 12.4 seconds
+Batch 104580 | Loss = 2.374 | Time taken = 500 minutes 15.2 seconds
+Batch 104590 | Loss = 2.363 | Time taken = 500 minutes 18.1 seconds
+Batch 104600 | Loss = 2.404 | Time taken = 500 minutes 20.8 seconds
+Batch 104610 | Loss = 2.394 | Time taken = 500 minutes 23.7 seconds
+Batch 104620 | Loss = 2.439 | Time taken = 500 minutes 26.4 seconds
+Batch 104630 | Loss = 2.381 | Time taken = 500 minutes 29.3 seconds
+Batch 104640 | Loss = 2.437 | Time taken = 500 minutes 32.4 seconds
+Batch 104650 | Loss = 2.369 | Time taken = 500 minutes 35.2 seconds
+Batch 104660 | Loss = 2.404 | Time taken = 500 minutes 37.9 seconds
+Batch 104670 | Loss = 2.416 | Time taken = 500 minutes 41.0 seconds
+Batch 104680 | Loss = 2.386 | Time taken = 500 minutes 43.9 seconds
+Batch 104690 | Loss = 2.391 | Time taken = 500 minutes 47.0 seconds
+Batch 104700 | Loss = 2.374 | Time taken = 500 minutes 50.1 seconds
+Batch 104710 | Loss = 2.365 | Time taken = 500 minutes 53.4 seconds
+Batch 104720 | Loss = 2.408 | Time taken = 500 minutes 56.3 seconds
+Batch 104730 | Loss = 2.393 | Time taken = 500 minutes 59.0 seconds
+Batch 104740 | Loss = 2.380 | Time taken = 501 minutes 1.8 seconds
+Batch 104750 | Loss = 2.488 | Time taken = 501 minutes 4.6 seconds
+Batch 104760 | Loss = 2.403 | Time taken = 501 minutes 7.3 seconds
+Batch 104770 | Loss = 2.421 | Time taken = 501 minutes 10.3 seconds
+Batch 104780 | Loss = 2.443 | Time taken = 501 minutes 13.3 seconds
+Batch 104790 | Loss = 2.420 | Time taken = 501 minutes 16.3 seconds
+Batch 104800 | Loss = 2.412 | Time taken = 501 minutes 19.1 seconds
+Batch 104810 | Loss = 2.409 | Time taken = 501 minutes 21.8 seconds
+Batch 104820 | Loss = 2.404 | Time taken = 501 minutes 24.5 seconds
+Batch 104830 | Loss = 2.363 | Time taken = 501 minutes 27.3 seconds
+Batch 104840 | Loss = 2.421 | Time taken = 501 minutes 30.0 seconds
+Batch 104850 | Loss = 2.413 | Time taken = 501 minutes 32.8 seconds
+Batch 104860 | Loss = 2.504 | Time taken = 501 minutes 36.2 seconds
+Batch 104870 | Loss = 2.412 | Time taken = 501 minutes 39.1 seconds
+Batch 104880 | Loss = 2.442 | Time taken = 501 minutes 41.8 seconds
+Batch 104890 | Loss = 2.404 | Time taken = 501 minutes 44.6 seconds
+Batch 104900 | Loss = 2.457 | Time taken = 501 minutes 47.3 seconds
+Batch 104910 | Loss = 2.410 | Time taken = 501 minutes 50.1 seconds
+Batch 104920 | Loss = 2.363 | Time taken = 501 minutes 53.0 seconds
+Batch 104930 | Loss = 2.388 | Time taken = 501 minutes 55.8 seconds
+Batch 104940 | Loss = 2.398 | Time taken = 501 minutes 58.9 seconds
+Batch 104950 | Loss = 2.341 | Time taken = 502 minutes 1.7 seconds
+Batch 104960 | Loss = 2.354 | Time taken = 502 minutes 4.8 seconds
+Batch 104970 | Loss = 2.440 | Time taken = 502 minutes 7.5 seconds
+Batch 104980 | Loss = 2.409 | Time taken = 502 minutes 10.5 seconds
+Batch 104990 | Loss = 2.454 | Time taken = 502 minutes 13.1 seconds
+Batch 105000 | Loss = 2.348 | Time taken = 502 minutes 15.9 seconds
+moe. bnid acay ao he. oth cuctesd, thas beu, haersgicit as waithe'd an vhre ditw chis saly pea. fet woid akgv'nh colonbve. po, ocrned. flufflown've na be m
+ie shchy sperut moul oo gory thol deud ?arou,, and mos thee wimealn eof avth chennrswbslra yo the bapihnist wiy ot. bogthun paths te anlasd me atattr ar ais tad? xrads tite
+ ymoe ao nlinlins
+ mecociith san are kesgsfmen yonte? ciis. fare. the b, nlopen to bit cinreitlur the papbot im here cand
+ n're ti dthe ood ars in inlgut mel ve he !t awl
+Batch 105010 | Loss = 2.398 | Time taken = 502 minutes 19.2 seconds
+Batch 105020 | Loss = 2.435 | Time taken = 502 minutes 21.9 seconds
+Batch 105030 | Loss = 2.433 | Time taken = 502 minutes 24.6 seconds
+Batch 105040 | Loss = 2.488 | Time taken = 502 minutes 27.3 seconds
+Batch 105050 | Loss = 2.465 | Time taken = 502 minutes 30.0 seconds
+Batch 105060 | Loss = 2.441 | Time taken = 502 minutes 32.7 seconds
+Batch 105070 | Loss = 2.593 | Time taken = 502 minutes 35.6 seconds
+Batch 105080 | Loss = 2.454 | Time taken = 502 minutes 38.5 seconds
+Batch 105090 | Loss = 2.475 | Time taken = 502 minutes 41.4 seconds
+Batch 105100 | Loss = 2.394 | Time taken = 502 minutes 44.3 seconds
+Batch 105110 | Loss = 2.422 | Time taken = 502 minutes 47.6 seconds
+Batch 105120 | Loss = 2.415 | Time taken = 502 minutes 50.4 seconds
+Batch 105130 | Loss = 2.423 | Time taken = 502 minutes 53.2 seconds
+Batch 105140 | Loss = 2.413 | Time taken = 502 minutes 56.4 seconds
+Batch 105150 | Loss = 2.380 | Time taken = 502 minutes 59.3 seconds
+Batch 105160 | Loss = 2.409 | Time taken = 503 minutes 2.1 seconds
+Batch 105170 | Loss = 2.393 | Time taken = 503 minutes 5.0 seconds
+Batch 105180 | Loss = 2.332 | Time taken = 503 minutes 7.7 seconds
+Batch 105190 | Loss = 2.494 | Time taken = 503 minutes 10.6 seconds
+Batch 105200 | Loss = 2.496 | Time taken = 503 minutes 13.2 seconds
+Batch 105210 | Loss = 2.514 | Time taken = 503 minutes 15.9 seconds
+Batch 105220 | Loss = 2.434 | Time taken = 503 minutes 18.6 seconds
+Batch 105230 | Loss = 2.384 | Time taken = 503 minutes 21.4 seconds
+Batch 105240 | Loss = 2.406 | Time taken = 503 minutes 24.3 seconds
+Batch 105250 | Loss = 2.336 | Time taken = 503 minutes 27.0 seconds
+Batch 105260 | Loss = 2.378 | Time taken = 503 minutes 29.8 seconds
+Batch 105270 | Loss = 2.429 | Time taken = 503 minutes 32.8 seconds
+Batch 105280 | Loss = 2.321 | Time taken = 503 minutes 35.8 seconds
+Batch 105290 | Loss = 2.341 | Time taken = 503 minutes 38.4 seconds
+Batch 105300 | Loss = 2.370 | Time taken = 503 minutes 41.3 seconds
+Batch 105310 | Loss = 2.422 | Time taken = 503 minutes 44.1 seconds
+Batch 105320 | Loss = 2.407 | Time taken = 503 minutes 46.8 seconds
+Batch 105330 | Loss = 2.428 | Time taken = 503 minutes 49.7 seconds
+Batch 105340 | Loss = 2.659 | Time taken = 503 minutes 52.4 seconds
+Batch 105350 | Loss = 2.444 | Time taken = 503 minutes 55.5 seconds
+Batch 105360 | Loss = 2.382 | Time taken = 503 minutes 58.5 seconds
+Batch 105370 | Loss = 2.385 | Time taken = 504 minutes 1.2 seconds
+Batch 105380 | Loss = 2.394 | Time taken = 504 minutes 4.0 seconds
+Batch 105390 | Loss = 2.438 | Time taken = 504 minutes 6.8 seconds
+Batch 105400 | Loss = 2.417 | Time taken = 504 minutes 9.5 seconds
+Batch 105410 | Loss = 2.391 | Time taken = 504 minutes 12.4 seconds
+Batch 105420 | Loss = 2.427 | Time taken = 504 minutes 15.6 seconds
+Batch 105430 | Loss = 2.458 | Time taken = 504 minutes 18.5 seconds
+Batch 105440 | Loss = 2.391 | Time taken = 504 minutes 21.1 seconds
+Batch 105450 | Loss = 2.373 | Time taken = 504 minutes 23.9 seconds
+Batch 105460 | Loss = 2.460 | Time taken = 504 minutes 26.7 seconds
+Batch 105470 | Loss = 2.337 | Time taken = 504 minutes 29.4 seconds
+Batch 105480 | Loss = 2.334 | Time taken = 504 minutes 32.1 seconds
+Batch 105490 | Loss = 2.426 | Time taken = 504 minutes 34.8 seconds
+Batch 105500 | Loss = 2.524 | Time taken = 504 minutes 37.5 seconds
+ kand bart
+e,
+ toet the tne. phgit ylalr of. yis lolmjcsgurulf wute peche otolatad giseca. carat,chey it, sids goope manse of the
+ weevet nfibos me, thea th hed soew.
+ ticit.
+ porset the anwe.. the agdre foe. be ars, fmek
+ om in bo chervreenre, wekterzop himy atinr torr mosreuty void leepfbcomy thoc basbiaunnt wyerance ir be cierwiln mesv[dlop thok
+ wore gh't mal, steth fguseud
+ an! te tave wo, tha re;, berely bthun linorace dake, ned any oa qnry uis phoeoug waark liwa pwind hunt me womo winp. m
+Batch 105510 | Loss = 2.361 | Time taken = 504 minutes 40.8 seconds
+Batch 105520 | Loss = 2.529 | Time taken = 504 minutes 43.5 seconds
+Batch 105530 | Loss = 2.433 | Time taken = 504 minutes 46.2 seconds
+Batch 105540 | Loss = 2.423 | Time taken = 504 minutes 48.9 seconds
+Batch 105550 | Loss = 2.430 | Time taken = 504 minutes 51.6 seconds
+Batch 105560 | Loss = 2.478 | Time taken = 504 minutes 54.5 seconds
+Batch 105570 | Loss = 2.380 | Time taken = 504 minutes 57.5 seconds
+Batch 105580 | Loss = 2.383 | Time taken = 505 minutes 0.4 seconds
+Batch 105590 | Loss = 2.408 | Time taken = 505 minutes 3.2 seconds
+Batch 105600 | Loss = 2.377 | Time taken = 505 minutes 6.0 seconds
+Batch 105610 | Loss = 2.362 | Time taken = 505 minutes 9.3 seconds
+Batch 105620 | Loss = 2.334 | Time taken = 505 minutes 12.3 seconds
+Batch 105630 | Loss = 2.404 | Time taken = 505 minutes 15.1 seconds
+Batch 105640 | Loss = 2.397 | Time taken = 505 minutes 18.6 seconds
+Batch 105650 | Loss = 2.388 | Time taken = 505 minutes 22.0 seconds
+Batch 105660 | Loss = 2.398 | Time taken = 505 minutes 24.7 seconds
+Batch 105670 | Loss = 2.404 | Time taken = 505 minutes 27.4 seconds
+Batch 105680 | Loss = 2.404 | Time taken = 505 minutes 30.2 seconds
+Batch 105690 | Loss = 2.488 | Time taken = 505 minutes 32.9 seconds
+Batch 105700 | Loss = 2.399 | Time taken = 505 minutes 35.6 seconds
+Batch 105710 | Loss = 2.419 | Time taken = 505 minutes 38.4 seconds
+Batch 105720 | Loss = 2.358 | Time taken = 505 minutes 41.7 seconds
+Batch 105730 | Loss = 2.363 | Time taken = 505 minutes 45.3 seconds
+Batch 105740 | Loss = 2.493 | Time taken = 505 minutes 48.4 seconds
+Batch 105750 | Loss = 2.411 | Time taken = 505 minutes 51.3 seconds
+Batch 105760 | Loss = 2.391 | Time taken = 505 minutes 54.1 seconds
+Batch 105770 | Loss = 2.392 | Time taken = 505 minutes 56.9 seconds
+Batch 105780 | Loss = 2.385 | Time taken = 505 minutes 59.6 seconds
+Batch 105790 | Loss = 2.398 | Time taken = 506 minutes 2.4 seconds
+Batch 105800 | Loss = 2.374 | Time taken = 506 minutes 5.1 seconds
+Batch 105810 | Loss = 2.405 | Time taken = 506 minutes 8.0 seconds
+Batch 105820 | Loss = 2.320 | Time taken = 506 minutes 10.8 seconds
+Batch 105830 | Loss = 2.375 | Time taken = 506 minutes 13.7 seconds
+Batch 105840 | Loss = 2.355 | Time taken = 506 minutes 16.7 seconds
+Batch 105850 | Loss = 2.480 | Time taken = 506 minutes 19.9 seconds
+Batch 105860 | Loss = 2.424 | Time taken = 506 minutes 22.8 seconds
+Batch 105870 | Loss = 2.379 | Time taken = 506 minutes 25.8 seconds
+Batch 105880 | Loss = 2.435 | Time taken = 506 minutes 28.5 seconds
+Batch 105890 | Loss = 2.411 | Time taken = 506 minutes 31.2 seconds
+Batch 105900 | Loss = 2.467 | Time taken = 506 minutes 33.8 seconds
+Batch 105910 | Loss = 2.424 | Time taken = 506 minutes 36.5 seconds
+Batch 105920 | Loss = 2.360 | Time taken = 506 minutes 39.2 seconds
+Batch 105930 | Loss = 2.390 | Time taken = 506 minutes 42.3 seconds
+Batch 105940 | Loss = 2.400 | Time taken = 506 minutes 45.2 seconds
+Batch 105950 | Loss = 2.375 | Time taken = 506 minutes 48.1 seconds
+Batch 105960 | Loss = 2.456 | Time taken = 506 minutes 51.2 seconds
+Batch 105970 | Loss = 2.471 | Time taken = 506 minutes 54.1 seconds
+Batch 105980 | Loss = 2.420 | Time taken = 506 minutes 56.7 seconds
+Batch 105990 | Loss = 2.379 | Time taken = 506 minutes 59.4 seconds
+Batch 106000 | Loss = 2.359 | Time taken = 507 minutes 2.1 seconds
+b ae, ls hite hme rese gove or f, pathrs
+ ohh thv rrvokthe,,
+ ficom
+ letunm wide ily bognn
+ wragel lnseue. god. bisah ta
+ that tar ois mrufasb
+ [us;
+ sayi, teles yt ldrt'un lockd yo. dast. the rarbeesr, to poreq
+ haele dache to wonae iy no, mead fasw thea le. ncin eie: ravt isns
+ ie begedveuthiun[, thue yqrnurpuk rsos. ti fton wibn nind merut.
+ tivale ole mhrg ouf zoty hon pot psormmedn.
+
+ irk wite
+ veos pino chlcet
+ theu
+ fanmnactoh foe. cyopweand thh wotrurdetive.
+
+ thew mo, the o' ly, thi. i
+
+Batch 106010 | Loss = 2.326 | Time taken = 507 minutes 5.4 seconds
+Batch 106020 | Loss = 2.363 | Time taken = 507 minutes 8.1 seconds
+Batch 106030 | Loss = 2.386 | Time taken = 507 minutes 10.8 seconds
+Batch 106040 | Loss = 2.452 | Time taken = 507 minutes 13.5 seconds
+Batch 106050 | Loss = 2.381 | Time taken = 507 minutes 16.4 seconds
+Batch 106060 | Loss = 2.359 | Time taken = 507 minutes 19.5 seconds
+Batch 106070 | Loss = 2.369 | Time taken = 507 minutes 23.1 seconds
+Batch 106080 | Loss = 2.447 | Time taken = 507 minutes 26.5 seconds
+Batch 106090 | Loss = 2.379 | Time taken = 507 minutes 29.2 seconds
+Batch 106100 | Loss = 2.391 | Time taken = 507 minutes 32.3 seconds
+Batch 106110 | Loss = 2.344 | Time taken = 507 minutes 35.1 seconds
+Batch 106120 | Loss = 2.371 | Time taken = 507 minutes 38.3 seconds
+Batch 106130 | Loss = 2.406 | Time taken = 507 minutes 41.0 seconds
+Batch 106140 | Loss = 2.491 | Time taken = 507 minutes 44.3 seconds
+Batch 106150 | Loss = 2.423 | Time taken = 507 minutes 47.1 seconds
+Batch 106160 | Loss = 2.395 | Time taken = 507 minutes 50.2 seconds
+Batch 106170 | Loss = 2.455 | Time taken = 507 minutes 53.1 seconds
+Batch 106180 | Loss = 2.389 | Time taken = 507 minutes 56.1 seconds
+Batch 106190 | Loss = 2.401 | Time taken = 507 minutes 59.1 seconds
+Batch 106200 | Loss = 2.452 | Time taken = 508 minutes 1.8 seconds
+Batch 106210 | Loss = 2.404 | Time taken = 508 minutes 4.7 seconds
+Batch 106220 | Loss = 2.370 | Time taken = 508 minutes 7.4 seconds
+Batch 106230 | Loss = 2.431 | Time taken = 508 minutes 10.5 seconds
+Batch 106240 | Loss = 2.409 | Time taken = 508 minutes 13.2 seconds
+Batch 106250 | Loss = 2.384 | Time taken = 508 minutes 15.9 seconds
+Batch 106260 | Loss = 2.360 | Time taken = 508 minutes 19.0 seconds
+Batch 106270 | Loss = 2.420 | Time taken = 508 minutes 21.7 seconds
+Batch 106280 | Loss = 2.380 | Time taken = 508 minutes 24.8 seconds
+Batch 106290 | Loss = 2.448 | Time taken = 508 minutes 27.4 seconds
+Batch 106300 | Loss = 2.427 | Time taken = 508 minutes 30.1 seconds
+Batch 106310 | Loss = 2.428 | Time taken = 508 minutes 32.7 seconds
+Batch 106320 | Loss = 2.396 | Time taken = 508 minutes 36.1 seconds
+Batch 106330 | Loss = 2.404 | Time taken = 508 minutes 38.8 seconds
+Batch 106340 | Loss = 2.356 | Time taken = 508 minutes 41.6 seconds
+Batch 106350 | Loss = 2.390 | Time taken = 508 minutes 44.3 seconds
+Batch 106360 | Loss = 2.337 | Time taken = 508 minutes 47.0 seconds
+Batch 106370 | Loss = 2.632 | Time taken = 508 minutes 49.8 seconds
+Batch 106380 | Loss = 2.398 | Time taken = 508 minutes 52.6 seconds
+Batch 106390 | Loss = 2.443 | Time taken = 508 minutes 55.5 seconds
+Batch 106400 | Loss = 2.362 | Time taken = 508 minutes 58.4 seconds
+Batch 106410 | Loss = 2.430 | Time taken = 509 minutes 1.1 seconds
+Batch 106420 | Loss = 2.425 | Time taken = 509 minutes 4.0 seconds
+Batch 106430 | Loss = 2.375 | Time taken = 509 minutes 6.7 seconds
+Batch 106440 | Loss = 2.423 | Time taken = 509 minutes 9.4 seconds
+Batch 106450 | Loss = 2.417 | Time taken = 509 minutes 12.1 seconds
+Batch 106460 | Loss = 2.454 | Time taken = 509 minutes 14.8 seconds
+Batch 106470 | Loss = 2.419 | Time taken = 509 minutes 17.6 seconds
+Batch 106480 | Loss = 2.412 | Time taken = 509 minutes 20.6 seconds
+Batch 106490 | Loss = 2.386 | Time taken = 509 minutes 23.7 seconds
+Batch 106500 | Loss = 2.637 | Time taken = 509 minutes 26.8 seconds
+f op hlreebengut hcay ygwosr dan uvans a anns nir wwor, masirt hen aelue; drtosgub gkouy apmiil bpae arcacta, ther
+
+ otf fhet rliathin hot cyance ceat fog, yte'r sulpeat
+ [lelt th solt penidtat tholebtespes nir uebe nhis. .
+ tha mita sarecy woenud baderl ertenny to; metyiso. melsbalhsa
+ ke to pay leind bulant hues to;p h'lr hye sipq iit thin ef coipounf liunk marinld
+ hos
+
+ hesiran
+ kr med thil eddhele llee honosve,
+ aln'ged fo keuchtrredt as thee omwn mith hrriut manuns thane npepr ogr soon leg
+Batch 106510 | Loss = 2.348 | Time taken = 509 minutes 30.2 seconds
+Batch 106520 | Loss = 2.333 | Time taken = 509 minutes 32.9 seconds
+Batch 106530 | Loss = 2.396 | Time taken = 509 minutes 35.7 seconds
+Batch 106540 | Loss = 2.389 | Time taken = 509 minutes 38.9 seconds
+Batch 106550 | Loss = 2.465 | Time taken = 509 minutes 42.4 seconds
+Batch 106560 | Loss = 2.418 | Time taken = 509 minutes 45.4 seconds
+Batch 106570 | Loss = 2.388 | Time taken = 509 minutes 48.2 seconds
+Batch 106580 | Loss = 2.408 | Time taken = 509 minutes 50.9 seconds
+Batch 106590 | Loss = 2.413 | Time taken = 509 minutes 53.6 seconds
+Batch 106600 | Loss = 2.393 | Time taken = 509 minutes 56.3 seconds
+Batch 106610 | Loss = 2.595 | Time taken = 509 minutes 59.0 seconds
+Batch 106620 | Loss = 2.343 | Time taken = 510 minutes 2.1 seconds
+Batch 106630 | Loss = 2.381 | Time taken = 510 minutes 5.2 seconds
+Batch 106640 | Loss = 2.340 | Time taken = 510 minutes 8.3 seconds
+Batch 106650 | Loss = 2.389 | Time taken = 510 minutes 11.0 seconds
+Batch 106660 | Loss = 2.358 | Time taken = 510 minutes 13.7 seconds
+Batch 106670 | Loss = 2.365 | Time taken = 510 minutes 16.7 seconds
+Batch 106680 | Loss = 2.411 | Time taken = 510 minutes 19.6 seconds
+Batch 106690 | Loss = 2.402 | Time taken = 510 minutes 22.3 seconds
+Batch 106700 | Loss = 2.358 | Time taken = 510 minutes 25.0 seconds
+Batch 106710 | Loss = 2.417 | Time taken = 510 minutes 27.7 seconds
+Batch 106720 | Loss = 2.373 | Time taken = 510 minutes 30.4 seconds
+Batch 106730 | Loss = 2.384 | Time taken = 510 minutes 33.1 seconds
+Batch 106740 | Loss = 2.388 | Time taken = 510 minutes 35.9 seconds
+Batch 106750 | Loss = 2.369 | Time taken = 510 minutes 39.1 seconds
+Batch 106760 | Loss = 2.465 | Time taken = 510 minutes 42.5 seconds
+Batch 106770 | Loss = 2.391 | Time taken = 510 minutes 45.3 seconds
+Batch 106780 | Loss = 2.412 | Time taken = 510 minutes 48.0 seconds
+Batch 106790 | Loss = 2.367 | Time taken = 510 minutes 50.6 seconds
+Batch 106800 | Loss = 2.365 | Time taken = 510 minutes 53.6 seconds
+Batch 106810 | Loss = 2.352 | Time taken = 510 minutes 56.4 seconds
+Batch 106820 | Loss = 2.392 | Time taken = 510 minutes 59.1 seconds
+Batch 106830 | Loss = 2.426 | Time taken = 511 minutes 1.8 seconds
+Batch 106840 | Loss = 2.418 | Time taken = 511 minutes 4.6 seconds
+Batch 106850 | Loss = 2.373 | Time taken = 511 minutes 7.3 seconds
+Batch 106860 | Loss = 2.388 | Time taken = 511 minutes 10.0 seconds
+Batch 106870 | Loss = 2.346 | Time taken = 511 minutes 12.8 seconds
+Batch 106880 | Loss = 2.396 | Time taken = 511 minutes 15.5 seconds
+Batch 106890 | Loss = 2.379 | Time taken = 511 minutes 18.8 seconds
+Batch 106900 | Loss = 2.390 | Time taken = 511 minutes 21.9 seconds
+Batch 106910 | Loss = 2.437 | Time taken = 511 minutes 24.6 seconds
+Batch 106920 | Loss = 2.380 | Time taken = 511 minutes 27.7 seconds
+Batch 106930 | Loss = 2.359 | Time taken = 511 minutes 30.7 seconds
+Batch 106940 | Loss = 2.366 | Time taken = 511 minutes 33.7 seconds
+Batch 106950 | Loss = 2.401 | Time taken = 511 minutes 36.8 seconds
+Batch 106960 | Loss = 2.467 | Time taken = 511 minutes 39.6 seconds
+Batch 106970 | Loss = 2.428 | Time taken = 511 minutes 42.7 seconds
+Batch 106980 | Loss = 2.409 | Time taken = 511 minutes 45.4 seconds
+Batch 106990 | Loss = 2.392 | Time taken = 511 minutes 48.3 seconds
+Batch 107000 | Loss = 2.399 | Time taken = 511 minutes 51.3 seconds
+i.s
+ hole yhu os id mels in
+ the pola'n muny paonpln diyissn od loati,
+ rech 'd soicn phoms
+ yeceroante orrbreufglereelr ceyart d, ranut are
+ bdarathee f wiis nhisr tisind ther kelk fo. flrise ar;
+ bashet oy id hy ir. hith wojrc, hfams betheem i ly and widv tas poathe brrod. oev tue, meulact spnvele wislr tors
+ codasany fo yemanc'de cicet smhds. rosv ore wot,ve b;usp. pitis whad wecae, a
+ duthoun uo vannle the
+ cal-urthes ci, fle hinr
+ rs ate susreurmenge yias lolkting coucicrond co sevnd lmel
+Batch 107010 | Loss = 2.348 | Time taken = 511 minutes 55.0 seconds
+Batch 107020 | Loss = 2.333 | Time taken = 511 minutes 57.8 seconds
+Batch 107030 | Loss = 2.532 | Time taken = 512 minutes 0.6 seconds
+Batch 107040 | Loss = 2.349 | Time taken = 512 minutes 3.5 seconds
+Batch 107050 | Loss = 2.435 | Time taken = 512 minutes 6.5 seconds
+Batch 107060 | Loss = 2.475 | Time taken = 512 minutes 9.2 seconds
+Batch 107070 | Loss = 2.351 | Time taken = 512 minutes 12.0 seconds
+Batch 107080 | Loss = 2.413 | Time taken = 512 minutes 14.8 seconds
+Batch 107090 | Loss = 2.405 | Time taken = 512 minutes 17.9 seconds
+Batch 107100 | Loss = 2.439 | Time taken = 512 minutes 21.1 seconds
+Batch 107110 | Loss = 2.369 | Time taken = 512 minutes 24.1 seconds
+Batch 107120 | Loss = 2.504 | Time taken = 512 minutes 27.1 seconds
+Batch 107130 | Loss = 2.394 | Time taken = 512 minutes 30.2 seconds
+Batch 107140 | Loss = 2.338 | Time taken = 512 minutes 33.0 seconds
+Batch 107150 | Loss = 2.345 | Time taken = 512 minutes 35.7 seconds
+Batch 107160 | Loss = 2.334 | Time taken = 512 minutes 38.8 seconds
+Batch 107170 | Loss = 2.384 | Time taken = 512 minutes 41.8 seconds
+Batch 107180 | Loss = 2.369 | Time taken = 512 minutes 44.6 seconds
+Batch 107190 | Loss = 2.466 | Time taken = 512 minutes 47.3 seconds
+Batch 107200 | Loss = 2.437 | Time taken = 512 minutes 50.3 seconds
+Batch 107210 | Loss = 2.420 | Time taken = 512 minutes 53.9 seconds
+Batch 107220 | Loss = 2.349 | Time taken = 512 minutes 57.3 seconds
+Batch 107230 | Loss = 2.461 | Time taken = 513 minutes 0.1 seconds
+Batch 107240 | Loss = 2.410 | Time taken = 513 minutes 3.2 seconds
+Batch 107250 | Loss = 2.363 | Time taken = 513 minutes 6.3 seconds
+Batch 107260 | Loss = 2.406 | Time taken = 513 minutes 9.3 seconds
+Batch 107270 | Loss = 2.417 | Time taken = 513 minutes 12.1 seconds
+Batch 107280 | Loss = 2.345 | Time taken = 513 minutes 14.9 seconds
+Batch 107290 | Loss = 2.397 | Time taken = 513 minutes 17.9 seconds
+Batch 107300 | Loss = 2.583 | Time taken = 513 minutes 20.8 seconds
+Batch 107310 | Loss = 2.382 | Time taken = 513 minutes 23.7 seconds
+Batch 107320 | Loss = 2.373 | Time taken = 513 minutes 26.5 seconds
+Batch 107330 | Loss = 2.408 | Time taken = 513 minutes 29.3 seconds
+Batch 107340 | Loss = 2.372 | Time taken = 513 minutes 32.0 seconds
+Batch 107350 | Loss = 2.361 | Time taken = 513 minutes 34.8 seconds
+Batch 107360 | Loss = 2.374 | Time taken = 513 minutes 37.5 seconds
+Batch 107370 | Loss = 2.377 | Time taken = 513 minutes 40.3 seconds
+Batch 107380 | Loss = 2.526 | Time taken = 513 minutes 43.1 seconds
+Batch 107390 | Loss = 2.387 | Time taken = 513 minutes 45.9 seconds
+Batch 107400 | Loss = 2.343 | Time taken = 513 minutes 49.0 seconds
+Batch 107410 | Loss = 2.406 | Time taken = 513 minutes 51.9 seconds
+Batch 107420 | Loss = 2.381 | Time taken = 513 minutes 54.7 seconds
+Batch 107430 | Loss = 2.470 | Time taken = 513 minutes 57.4 seconds
+Batch 107440 | Loss = 2.375 | Time taken = 514 minutes 0.2 seconds
+Batch 107450 | Loss = 2.422 | Time taken = 514 minutes 2.9 seconds
+Batch 107460 | Loss = 2.359 | Time taken = 514 minutes 5.7 seconds
+Batch 107470 | Loss = 2.436 | Time taken = 514 minutes 8.4 seconds
+Batch 107480 | Loss = 2.334 | Time taken = 514 minutes 11.1 seconds
+Batch 107490 | Loss = 2.390 | Time taken = 514 minutes 13.9 seconds
+Batch 107500 | Loss = 2.342 | Time taken = 514 minutes 16.8 seconds
+tuco. ay thoas oys. oh erimu elousebgt of hiranng,
+zap]ksd coelwr, wabveppeegod satsd wor oit o concetors, sumnf ie id i i ciss wvof iar mmdes wedhuid as
+ th oatupispot ine lifdr.
+ thoit an swat,
+ feonleul an, suarnee
+ wok ntosese bimesrqluind fals; b, to hane uuan, mol it basl.
+ pe. liren
+ ainrt fnere ub sooseus i canpkv sleeann.
+
+
+ syele. me hoatite hy wenenr loen'j ths doathe's sopdus
+ tid seibhe tiy comrye wo hopy
+eun, kinol nuer ferb.
+
+ the the thp mainner mo,
+ he. sus met bonsrt, nitoat th
+^C2022-11-08 09:05:08.201871: An exception occured:
+Traceback (most recent call last):
+  File "aims/scripts/course_4_ml/assignment/save_lstm.py", line 33, in main
+    time_list=time_list,
+  File "/homes/cdt22/jakelevi/aims/nn/rnn.py", line 160, in train
+    loss_tensor.backward()
+  File "/usr/local/cuda-11.1/pytorch-1.8.1/lib/python3.7/site-packages/torch/tensor.py", line 245, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph, inputs=inputs)
+  File "/usr/local/cuda-11.1/pytorch-1.8.1/lib/python3.7/site-packages/torch/autograd/__init__.py", line 147, in backward
+    allow_unreachable=True, accumulate_grad=True)  # allow_unreachable flag
+KeyboardInterrupt
+
+Suppressing exception and continuing...
+: ad are he
+ satrethy mir me mrely tee tine
+ tuthiwk sisnanme icon
+
+ saslpfean bow. umt pito yanves!
+ forarrndkal lit te ald
+ letouny
+ heeds hat whaas sle! nor senoe ar wito thas
+ oe fano;
+ ma oeint he afor hoas gelsda:o gasrtaeve ann
+ frlhry ay at wo soed the nchey sor hoas wide i rice seod
+
+ hhge fhoit i; th anonef bpaism nepaes fye thom
+ he
+e urryokn eit thoe soaro. suwvoryiud wo's
+ as monsesiud soad 'r.
+ a the wigh oud a krobthasnredrsss
+ p-hedenr'frathou.
+ryrter.. ace.
+ boncespor ho
+ filns
+Saving model in "/homes/cdt22/jakelevi/aims/scripts/course_4_ml/assignment/Results/shakespeare_lstm.pkl"
+Saving image in "/homes/cdt22/jakelevi/aims/scripts/course_4_ml/assignment/Results/Shakespeare_LSTM_training_curve.png"
+Time taken for Full program = 514 minutes 19.9 seconds
+(pytorch-1.8.1) jakelevi@aimscdt1:~$
