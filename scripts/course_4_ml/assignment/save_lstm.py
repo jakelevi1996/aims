@@ -17,15 +17,22 @@ def main():
         learning_rate=1e-4,
     )
 
-    time_list, loss_list = lstm.train(
-        data_str=s,
-        optimiser=sgd,
-        max_num_batches=len(s),
-        max_num_seconds=(30 * 60),
-        predict_args=["once upon a time"],
-        predict_every=500,
-    )
-    lstm.predict("once upon a time")
+    loss_list = []
+    time_list = []
+    print("When finished with training, press ctrl+C to exit gracefully")
+    with util.ExceptionContext(suppress_exceptions=True):
+        lstm.train(
+            data_str=s,
+            optimiser=sgd,
+            max_num_batches=int(1e10),
+            max_num_seconds=int(1e10),
+            batch_size=50,
+            predict_args=[],
+            predict_every=500,
+            loss_list=loss_list,
+            time_list=time_list,
+        )
+    lstm.predict()
 
     lstm_model_path = scripts.course_4_ml.assignment.LSTM_MODEL_PATH
     print("Saving model in \"%s\"" % lstm_model_path)
