@@ -1,9 +1,10 @@
-Automatic differentiation is essentially equivalent to repeated application of the (multi-dimensional) chain rule to all nodes in the graph with respect to their parents, which can be expressed as the following equation (where $P(x)$ is the set of parents of node x in the computational graph):
+Automatic differentiation is essentially equivalent to repeated application of the (multi-dimensional) chain rule to all nodes in a computation graph with respect to their parents, which can be expressed as the following equation (where $P(x)$ is the set of parents of node $x$ in the computation graph):
 \begin{equation}
     \frac{\partial f}{\partial x} = \sum_{y\in P(x)}{\left[ \frac{\partial f}{\partial y}\frac{\partial y}{\partial x}\right]}
 \end{equation}
-For example, the following computational graph represents calculating gradients of a function of a sum of functions of a variable $x$:
+For example, the following computation graphs represent calculating gradients of a function of a sum of functions of a variable $x$ (represented by $f(x) = g\Bigl(h(x) + m(x)\Bigr)$) and calculating gradients of a function of a product of functions of a variable $x$ (represented by $f(x) = g\Bigl(h(x) m(x)\Bigr)$) respectively:
 \begin{equation*}
+    \begin{matrix}
     \begin{matrix}
         \boxed{\begin{matrix}
             y_1=x \\
@@ -40,6 +41,44 @@ For example, the following computational graph represents calculating gradients 
             = g\Bigl(h(x) + m(x)\Bigr) \\
             \color{red}{\frac{\partial f}{\partial y_5} = 1}
         \end{matrix}}
+    \end{matrix} \qquad & \qquad
+    \begin{matrix}
+        \boxed{\begin{matrix}
+            y_1=x \\
+            \color{red}{\frac{\partial f}{\partial y_1} = \frac{\partial f}{\partial y_2}\frac{\partial y_2}{\partial y_1} + \frac{\partial f}{\partial y_3}\frac{\partial y_3}{\partial y_1}} \\
+            \color{red}{= g'(y_4)\Bigl(y_3 h'(y_1) + y_2 m'(y_1)\Bigr)} \\
+            \color{red}{= g'\Bigl(h(x) m(x)\Bigr)\Bigl(m(x)h'(x) + h(x)m'(x)\Bigr)}
+        \end{matrix}} \\
+        \begin{matrix}
+            \swarrow & \searrow \\
+            \boxed{\begin{matrix}
+                y_2=h(y_1) \\
+                =h(x) \\
+                \color{red}{\frac{\partial f}{\partial y_2} = \frac{\partial f}{\partial y_4}\frac{\partial y_4}{\partial y_2}} \\
+                \color{red}{= g'(y_4)y_3}
+            \end{matrix}} \qquad & \qquad
+            \boxed{\begin{matrix}
+                y_3=m(y_1) \\
+                =m(x) \\
+                \color{red}{\frac{\partial f}{\partial y_3} = \frac{\partial f}{\partial y_4}\frac{\partial y_4}{\partial y_3}} \\
+                \color{red}{= g'(y_4)y_2}
+            \end{matrix}} \\
+            \searrow & \swarrow \\
+        \end{matrix} \\
+        \boxed{\begin{matrix}
+            y_4 = y_2 y_3 \\
+            = h(x) m(x) \\
+            \color{red}{\frac{\partial f}{\partial y_4} = \frac{\partial f}{\partial y_5}\frac{\partial y_5}{\partial y_4}} \\
+            \color{red}{= g'(y_4)}
+        \end{matrix}} \\
+        \downarrow \\
+        \boxed{\begin{matrix}
+            f(x) = y_5 \\
+            = g(y_4) \\
+            = g\Bigl(h(x) m(x)\Bigr) \\
+            \color{red}{\frac{\partial f}{\partial y_5} = 1}
+        \end{matrix}}
+    \end{matrix}
     \end{matrix}
 \end{equation*}
-In practise, this can be applied by setting the gradient $\frac{\partial f}{\partial f}$ of the root node $f$ to one and the gradients $\frac{\partial f}{\partial x_i}$ of all other nodes $x_i$ to zero, topoligically sorting the nodes in the graph (for example using a depth-first search \cite{cormen2001section}) such that any node only appears after all of its parents, and then iterating through every node $y$ in the topologically sorted sequence of nodes, iterating through every child node $x$ of $y$ and adding $\frac{\partial f}{\partial y}\frac{\partial y}{\partial x}$ to the gradient $\frac{\partial f}{\partial x}$, until the whole graph has been iterated over, at which point the gradient of every node will be correct.
+In practise, this can be applied in three steps. The first step is to set the gradient $\frac{\partial f}{\partial f}$ of the root node $f$ to one and the gradients $\frac{\partial f}{\partial x_i}$ of all other nodes $x_i$ to zero. The second step is to topoligically sort the nodes in the graph (for example using a depth-first search \cite{cormen2001section}) such that any node only appears after all of its parents. The third step is to iterate through every node $y$ in the topologically sorted sequence of nodes, and for every node $y$ iterate through every child node $x$ of $y$ and add $\frac{\partial f}{\partial y}\frac{\partial y}{\partial x}$ to the gradient $\frac{\partial f}{\partial x}$, until the whole graph has been iterated over, at which point the gradient of every node will be correct.
