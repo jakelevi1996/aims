@@ -5,54 +5,54 @@ Automatic differentiation is essentially equivalent to repeated application of t
 For example, the following computational graph represents calculating gradients of a function of a sum of functions of a variable $x$:
 \begin{equation*}
     \begin{matrix}
-        \begin{pmatrix}
+        \boxed{\begin{matrix}
             y_1=x \\
             \color{red}{\frac{\partial f}{\partial y_1} = \frac{\partial f}{\partial y_2}\frac{\partial y_2}{\partial y_1}} \\
             \color{red}{= t'(y_6)s'(y_5)\bigl( q'(y_2) + r'(y_2) \bigr)p'(y_1)}
-        \end{pmatrix} \\
+        \end{matrix}} \\
         \downarrow \\
-        \begin{pmatrix}
+        \boxed{\begin{matrix}
             y_2=p(y_1) \\
             =p(x) \\
             \color{red}{\frac{\partial f}{\partial y_2} = \frac{\partial f}{\partial y_3}\frac{\partial y_3}{\partial y_2} + \frac{\partial f}{\partial y_4}\frac{\partial y_4}{\partial y_2}} \\
             \color{red}{= t'(y_6)s'(y_5)\bigl( q'(y_2) + r'(y_2) \bigr)}
-        \end{pmatrix} \\
+        \end{matrix}} \\
         \begin{matrix}
             \swarrow & \searrow \\
-            \begin{pmatrix}
+            \boxed{\begin{matrix}
                 y_3=q(y_2) \\
                 =q(p(x)) \\
                 \color{red}{\frac{\partial f}{\partial y_3} = \frac{\partial f}{\partial y_5}\frac{\partial y_5}{\partial y_3}} \\
                 \color{red}{= t'(y_6)s'(y_5)}
-            \end{pmatrix} &
-            \begin{pmatrix}
+            \end{matrix}} \qquad & \qquad
+            \boxed{\begin{matrix}
                 y_4=r(y_2) \\
                 =r(p(x)) \\
                 \color{red}{\frac{\partial f}{\partial y_4} = \frac{\partial f}{\partial y_5}\frac{\partial y_5}{\partial y_4}} \\
                 \color{red}{= t'(y_6)s'(y_5)}
-            \end{pmatrix} \\
+            \end{matrix}} \\
             \searrow & \swarrow \\
         \end{matrix} \\
-        \begin{pmatrix}
+        \boxed{\begin{matrix}
             y_5 = y_3+y_4 \\
             = q\bigl(p(x)) + r(p(x)\bigr) \\
             \color{red}{\frac{\partial f}{\partial y_5} = \frac{\partial f}{\partial y_6}\frac{\partial y_6}{\partial y_5}} \\
             \color{red}{= t'(y_6)s'(y_5)}
-        \end{pmatrix} \\
+        \end{matrix}} \\
         \downarrow \\
-        \begin{pmatrix}
+        \boxed{\begin{matrix}
             y_6 = s(y_5) \\
             = s\biggl(q\bigl(p(x)) + r(p(x)\bigr)\biggr) \\
             \color{red}{\frac{\partial f}{\partial y_6} = \frac{\partial f}{\partial y_7}\frac{\partial y_7}{\partial y_6}} \\
             \color{red}{= t'(y_6)}
-        \end{pmatrix} \\
+        \end{matrix}} \\
         \downarrow \\
-        \begin{pmatrix}
+        \boxed{\begin{matrix}
             f(x) = y_7 \\
             = t(y_6) \\
             = t\biggl(s\Bigl(q\bigl(p(x)) + r(p(x)\bigr)\Bigr)\biggr) \\
             \color{red}{\frac{\partial f}{\partial y_7} = 1}
-        \end{pmatrix}
+        \end{matrix}}
     \end{matrix}
 \end{equation*}
 In practise, this can be applied by setting the gradient $\frac{\partial f}{\partial f}$ of the root node $f$ to one and the gradients $\frac{\partial f}{\partial x_i}$ of all other nodes $x_i$ to zero, topoligically sorting the nodes in the graph (for example using a depth-first search \cite{cormen2001section}) such that any node only appears after all of its parents, and then iterating through every node $y$ in the topologically sorted sequence of nodes, iterating through every child node $x$ of $y$ and adding $\frac{\partial f}{\partial y}\frac{\partial y}{\partial x}$ to the gradient $\frac{\partial f}{\partial x}$, until the whole graph has been iterated over, at which point the gradient of every node will be correct.
