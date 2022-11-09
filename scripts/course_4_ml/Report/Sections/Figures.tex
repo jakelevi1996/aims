@@ -75,3 +75,21 @@
     \caption{Predictions of a MLP trained on MNIST for 5 epochs on unseen examples of each digit from the test set}
     \label{fig:mnist predictions}
 \end{figure}
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Adversarial_loss_vs_iteration,_5000_iterations,_maximum_pixel_perturbation___0.100.png}
+        \caption{Adversarial loss (equation \ref{eq:adversarial problem}) vs iteration}
+        \label{fig:adversarial loss}
+    \end{subfigure}
+    \newline
+    \begin{subfigure}{\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{Test_set_predictions_with_adversarial_example.png}
+        \caption{Trained MLP predictions for adversarial exapmle}
+        \label{fig:adversarial prediction}
+    \end{subfigure}
+    \caption{Training curve and predictions for an adversarial example}
+    \label{fig:adversarial example}
+\end{figure}

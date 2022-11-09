@@ -1,0 +1,13 @@
+Adversarial examples are "inputs formed by applying small but intentionally worst-case perturbations to examples from the dataset, such that the perturbed input results in the model outputting an incorrect answer with high confidence" \cite{goodfellow2014explaining}. Adversarial examples provide a measure of robustness for a given model, because a robust model should be insensitive to adversarial examples. Given a fixed model $f$, loss function $\mathcal{L}$, input $x$, label $t$, adversarial target label $t_{adv}\ne t$, and maximum perturbation $\alpha$, a simple approach for generating an adversarial example $x_{adv}=x+z$ is to solve the following optimisation problem:
+\begin{equation}
+\begin{aligned}
+    \underset{z}{\text{Minimise}} \quad & \mathcal{L}\Bigl( f(x+z), t_{adv} \Bigr) \\
+    \text{Subject to} \quad & \Vert z \Vert_\infty \le \alpha
+\end{aligned} \label{eq:adversarial problem}
+\end{equation}
+A simple approach for solving this optimisation problem is to iteratively update $z_t$ on time step $t$ as follows:
+\begin{align}
+    z_t' \quad &\leftarrow \quad z_{t-1} - \frac{\partial}{\partial z_{t-1}}\Bigl[ \mathcal{L}\Bigl( f(x+z_{t-1}), t_{adv} \Bigr) \Bigr] \label{eq:adversarial gradient}\\
+    z_t \quad &\leftarrow \quad \alpha \frac{z_t'}{\Vert z_t' \Vert_\infty}
+\end{align}
+Using automatic diffentiation makes it trivially straightforward to calculate the gradient in equation \ref{eq:adversarial gradient} and therefore to generate an adversarial example according to equation \ref{eq:adversarial problem}. A plot showing the loss function against time when performing this optimisation procedure using automatic differentiation is shown in figure \ref{fig:adversarial loss}, starting with the same example of the digit 0 from the MNIST test set and the same trained MLP whose predictions are shown in figure \ref{fig:mnist predictions}. The resulting adversarial example, and the model's predictions for the adversarial example, compared with the original test set example from which the adversarial example was generated, are shown in figure \ref{fig:adversarial prediction}.
