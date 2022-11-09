@@ -87,9 +87,26 @@
     \begin{subfigure}{\textwidth}
         \centering
         \includegraphics[width=\textwidth]{Test_set_predictions_with_adversarial_example.png}
-        \caption{Trained MLP predictions for adversarial exapmle}
+        \caption{Trained MLP predictions for adversarial example}
         \label{fig:adversarial prediction}
     \end{subfigure}
     \caption{Training curve and predictions for an adversarial example}
     \label{fig:adversarial example}
+\end{figure}
+\begin{figure}
+    \centering
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{overnight_Shakespeare_RNN_training_curve.png}
+        \caption{RNN}
+        \label{fig:Shakespeare RNN}
+    \end{subfigure}
+    \begin{subfigure}{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{overnight_Shakespeare_LSTM_training_curve.png}
+        \caption{LSTM}
+        \label{fig:Shakespeare LSTM}
+    \end{subfigure}
+    \caption{Loss functions over time while training different sequence models on the complete works of Shakespeare, to predict the next character given a string of training data}
+    \label{fig:Shakespeare}
 \end{figure}
