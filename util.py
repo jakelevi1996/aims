@@ -171,13 +171,6 @@ class Timer:
     def __exit__(self, *args):
         self.print_time_taken()
 
-def time_func(func, *args, **kwargs):
-    timer = Timer()
-    func(*args, **kwargs)
-    t_total = timer.time_taken()
-
-    print("\nFinished %r function in %.1f s" % (func.__name__, t_total))
-
 def clean_filename(filename_str, allowed_non_alnum_chars="-_.,"):
     filename_str_clean = "".join(
         c if (c.isalnum() or c in allowed_non_alnum_chars) else "_"
