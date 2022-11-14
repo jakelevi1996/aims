@@ -1,0 +1,12 @@
+We consider Markov Decision Processes (MDPs) \cite{sutton2018reinforcement}, which generally consist of:
+\begin{itemize}
+    \item A state space $\mathcal{S}$
+    \item An action space $\mathcal{A}$
+    \item A dynamics function $p(s', r \vert s, a)$ which specifies the probability after observing state $s\in\mathcal{S}$ and performing action $a\in\mathcal{A}$ of transitioning to state $s'\in\mathcal{S}$ and receiving reward $r\in\mathbb{R}$
+    \item A discount factor $\gamma\in[0, 1]$
+    \item A distribution over initial states (often this is implicit, and does not need to be specified or estimated)
+\end{itemize}
+A policy $\pi(a\vert s)$ is a probability distribution over all actions in $\mathcal{A}$ given a state $s\in\mathcal{S}$. In general, the action taken during one time step can affect the rewards received (and states observed) on all future time steps, and the objective of reinforcement learning is to find an optimal policy $\pi_*(a\vert s)$ which maximises the expected discounted return (sum of expected discounted rewards) from any given state:
+\begin{equation}
+    \pi_* = \underset{\pi}{\operatorname{argmax}}\left[ \mathbb{E}_{p, \pi} \left[ \sum_{k = 0}^\infty{\left[ \gamma^k r_{t+k} \right]} \right] \right]
+\end{equation}
