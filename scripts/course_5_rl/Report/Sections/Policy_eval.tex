@@ -1,0 +1,20 @@
+A state value function $V^\pi(s)$ specifies the expected return from a state $s\in\mathcal{S}$ depending on the policy:
+\begin{equation}
+    V^\pi(s) = \mathbb{E}_{p, \pi} \left[ \sum_{k = 0}^\infty{\left[ \gamma^k r_{t+k} \right]} \middle\vert s_t=s \right]
+\end{equation}
+The state value function can be expressed recursively in terms of the state value function of all possible states that could be observed on the next time step (known as a Bellman equation), which can be expressed in matrix form:
+\begin{align*}
+    \underbrace{V^\pi(s)}_{v^\pi_s} &= \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, a) \Bigl( R(s', s, a) + \gamma V^\pi(s') \Bigr) \right]} \right]} \\
+    &= \underbrace{\sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) R(s', s, a) \Bigr]} \right]}}_{r^\pi_s} + \gamma\sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) V^\pi(s') \Bigr]} \right]} \\
+    &= r^\pi_s + \gamma\sum_{s'\in\mathcal{S}}{\left[ \underbrace{\sum_{a\in\mathcal{A}}{\Bigl[ \pi(a\vert s) p(s'\vert s, a) \Bigr]}}_{P^\pi_{s, s'}} \underbrace{V^\pi(s')}_{v^\pi_{s'}} \right]} \\
+    &= r^\pi_s + \gamma\sum_{s'\in\mathcal{S}}{\left[ P^\pi_{s, s'} v^\pi_{s'} \right]} \\
+    &= r^\pi_s + \gamma  (P^\pi v^\pi)_s \\
+    \Rightarrow \quad v^\pi &= r^\pi + \gamma P^\pi v^\pi \\
+    \text{Where} \quad & \begin{cases}
+        v^\pi_i &= v^\pi(i) \\
+        r^\pi_i &= \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert i) \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert i, a) R(s', i, a) \Bigr]} \right]} \\
+        P^\pi_{i, j} &= \sum_{a\in\mathcal{A}}{\Bigl[ \pi(a\vert i) p(j\vert i, a) \Bigr]} \\
+        &= p(s_{t+1}=j\vert s_t=i)
+    \end{cases}
+\end{align*}
+TODO: what is policy evaluation? Prove that it converges
