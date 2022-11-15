@@ -21,17 +21,17 @@ The change in the value of state $\bar{s}$ can be expressed as follows:
     &= Q^\sigma(\bar{s}, \bar{a}) \\
     \Rightarrow \quad V^\sigma(\bar{s}) - V^\pi(\bar{s}) &= Q^\sigma(\bar{s}, \bar{a}) - V^\pi(\bar{s}) \\
     &= \Bigl(Q^\sigma(\bar{s}, \bar{a}) - Q^\pi(\bar{s}, \bar{a})\Bigr) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \\
-    &= \left( \gamma \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert \bar{s}, \bar{a}) \Bigl( V^\sigma(s') - V^\pi(s') \Bigr) \Bigr]} \right) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \\
+    &= \left( \gamma \sum_{s'\in\mathcal{S}}{\left[ p(s'\vert \bar{s}, \bar{a}) \Bigl( V^\sigma(s') - V^\pi(s') \Bigr) \right]} \right) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \\
     &= \gamma\sum_{s'\in\mathcal{S}}{\left[ \underbrace{\sum_{a\in\mathcal{A}}{\Bigl[ \sigma(a\vert \bar{s}) p(s'\vert \bar{s}, a) \Bigr]}}_{P^\sigma_{\bar{s}, s'}} \Bigl( V^\sigma(s') - V^\pi(s') \Bigr) \right]} + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \\
 \end{align*}
 These expressions can now be assembled in matrix form using the basis vector $e_{\bar{s}}$ for state $\bar{s}$:
 \begin{align*}
-    (v^\sigma - v^\pi) &= \gamma P^\sigma (v^\sigma - v^\pi) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr)e_{\bar{s}} \\
+    v^\sigma - v^\pi &= \gamma P^\sigma (v^\sigma - v^\pi) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr)e_{\bar{s}} \\
     \text{where} \quad (e_{\bar{s}})_i &= \begin{cases}
         1 & i = \bar{s} \\
         0 & i \ne \bar{s}
     \end{cases} \\
-    \Rightarrow \quad (v^\sigma - v^\pi) &= \gamma P^\sigma \left( \gamma P^\sigma (v^\sigma - v^\pi) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr)e_{\bar{s}} \right) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr)e_{\bar{s}} \\
+    \Rightarrow \quad v^\sigma - v^\pi &= \gamma P^\sigma \left( \gamma P^\sigma (v^\sigma - v^\pi) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr)e_{\bar{s}} \right) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr)e_{\bar{s}} \\
     &= \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \Bigl( I + \gamma P^\sigma \Bigr) e_{\bar{s}} + \gamma^2 (P^\sigma)^2 (v^\sigma - v^\pi) \\
     &\vdots \\
     &= \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \sum_{n=0}^{N-1} \Bigl[ \gamma^n (P^\sigma)^n \Bigr] e_{\bar{s}} + \gamma^N (P^\sigma)^N (v^\sigma - v^\pi) \\
@@ -39,3 +39,54 @@ These expressions can now be assembled in matrix form using the basis vector $e_
     (\forall s,s'\in\mathcal{S})(\forall n\in\mathbb{N}) \quad (\gamma^n (P^\sigma)^n)_{s,s'} &\ge 0 \\
     \Rightarrow \quad \Bigl(Q^\pi(\bar{s}, \bar{a}) > V^\pi(\bar{s})\Bigr) &\Rightarrow \Bigl( (\forall s\in\mathcal{S}) \quad V^\sigma(s) \ge V^\pi(s) \Bigr)
 \end{align*}
+This completes the proof that greedification with respect to a single state $\bar{s}$ leads to policy improvement. We now turn to the full policy improvement theorem, which states that greedification with respect to all states leads to policy improvement. Consider the same original policy $\pi$, and a new policy $\sigma$ which in every state $s$ chooses action $a$ which is greedy with respect to $Q^\pi(s, a)$ (ties in the $\operatorname{argmax}$ operator are broken arbitrarily):
+\begin{equation*}
+    (\forall s\in\mathcal{S})(\forall a\in\mathcal{A})\quad\sigma(a\vert s) = \begin{cases}
+        1 & a = \underset{a'}{\operatorname{argmax}}\Bigl[ Q^\pi(s, a') \Bigr] \\
+        0 & \text{otherwise}
+    \end{cases}
+\end{equation*}
+Denote the action chosen by $\sigma$ in state $s$ by $\bar{a}_s$:
+\begin{equation*}
+    (\forall s\in\mathcal{S})\quad \bar{a}_s = \underset{a'}{\operatorname{argmax}}\Bigl[ Q^\pi(s, a') \Bigr]
+\end{equation*}
+The difference in the state-action value function of choosing action $\bar{a}_s$ in state $s$ under policies $\sigma$ and $\pi$ can be expressed in terms of the differences in state value functions of subsequent states:
+\begin{equation*}
+    Q^\sigma(s, \bar{a}_s) - Q^\pi(s, \bar{a}_s) = \gamma\sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, \bar{a}_s) \Bigl[ V^\sigma(s') - V^\pi(s')\Bigr] \right]}
+\end{equation*}
+Note that the state-action value function $Q^\sigma(s, \bar{a}_s)$ of $\sigma$ choosing action $\bar{a}_s$ in state $s$ is equal to the state value function $V^\sigma(s)$ of $s$ under $\sigma$ (because $\sigma$ chooses $\bar{a}_s$ deterministically):
+\begin{align*}
+    V^\sigma(s) &= \sum_{a\in\mathcal{A}}{\Bigl[ \sigma(a\vert s) Q^\sigma(s, a) \Bigr]} \\
+    &= Q^\sigma(s, \bar{a}_s)
+\end{align*}
+Also note that the state-action value function $Q^\pi(s, \bar{a}_s)$ of $\pi$ choosing action $\bar{a}_s$ in state $s$ is related to the state value function $V^\pi(s)$ of $s$ under $\pi$ by the advantage function $A^\pi(s, \bar{a}_s)$, which in this case is necessarily non-negative:
+\begin{align*}
+    (\forall s\in\mathcal{S})\quad V^\pi(s) &= \sum_{a\in\mathcal{A}}{\Bigl[ \pi(a\vert s) Q^\pi(s, a) \Bigr]} \\
+    &\le \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \underset{a'}{\operatorname{max}}\Bigl[ Q^\pi(s, a') \Bigr] \right]} \\
+    &= \underset{a'}{\operatorname{max}}\Bigl[ Q^\pi(s, a') \Bigr] \\
+    &= Q^\pi(s, \bar{a}_s) \\
+    \Rightarrow\quad V^\pi(s) &\le Q^\pi(s, \bar{a}_s) \\
+    A^\pi(s, \bar{a}_s) &= Q^\pi(s, \bar{a}_s) - V^\pi(s) \\
+    \Rightarrow(\forall s\in\mathcal{S})\quad A^\pi(s, \bar{a}_s) &\ge 0
+\end{align*}
+The equation for the difference in state-action value functions can now be expressed purely in terms of differences between state value functions and the advantage function, and this equation can further be expressed as a recursive matrix equation:
+\begin{align*}
+    V^\sigma(s) - \Bigl(V^\pi(s) + A^\pi(s, \bar{a}_s)\Bigr) &= \gamma\sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, \bar{a}_s) \Bigl( V^\sigma(s') - V^\pi(s')\Bigr) \right]} \\
+    \Rightarrow\quad V^\sigma(s) - V^\pi(s) &= A^\pi(s, \bar{a}_s) + \gamma\sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, \bar{a}_s) \Bigl( V^\sigma(s') - V^\pi(s')\Bigr) \right]} \\
+    \Rightarrow\quad v^\sigma - v^\pi &= \beta + \gamma P^\sigma(v^\sigma - v^\pi) \\
+    \text{where} \quad & \begin{cases}
+        v^\sigma_s &= V^\sigma(s) \\
+        v^\pi_s &= V^\pi(s) \\
+        \beta_s &= A^\pi(s, \bar{a}_s) \\
+        P^\sigma_{s, s'} &= p(s'\vert s, \bar{a}_s)
+    \end{cases} \\
+    \Rightarrow\quad v^\sigma - v^\pi &= \beta + \gamma P^\sigma\left(\beta + \gamma P^\sigma(v^\sigma - v^\pi)\right) \\
+    &= (I + \gamma P^\sigma)\beta + \gamma^2 (P^\sigma)^2(v^\sigma - v^\pi)
+    &\vdots \\
+    &= \sum_{n=0}^{N-1} \Bigl[ \gamma^n (P^\sigma)^n \Bigr] \beta + \gamma^N (P^\sigma)^N (v^\sigma - v^\pi) \\
+    &= \sum_{n=0}^{\infty} \Bigl[ \gamma^n (P^\sigma)^n \Bigr] \beta \\
+    (\forall s,s'\in\mathcal{S})(\forall n\in\mathbb{N}) \quad (\gamma^n (P^\sigma)^n)_{s,s'} &\ge 0 \\
+    (\forall s\in\mathcal{S}) \quad \beta_s &\ge 0 \\
+    \Rightarrow (\forall s\in\mathcal{S}) \quad V^\sigma(s) &\ge V^\pi(s)
+\end{align*}
+This concludes the proof of the policy improvement theorem.
