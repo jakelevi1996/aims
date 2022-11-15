@@ -1,0 +1,41 @@
+The policy improvement theorem states that a new policy which is greedy with respect to the value function of an existing policy has equal or better value than the existing policy in every state. We start off by proving that a policy $\sigma$ which is greedy with respect to the value of a single state under $\pi$ (and is equal to $\pi$ in every other state) has value in every state which is greater than or equal to the value of the same state under $\pi$, and then apply similar reasoning to prove the full policy improvement theorem. To begin with, say we are using a (possibly stochastic) policy $\pi$, and consider a policy $\sigma$, which is identical to $\pi$ in all states except $\bar{s}$, in which $\sigma$ chooses action $\bar{a}$ deterministically:
+\begin{equation*}
+    \sigma(a\vert s) = \begin{cases}
+        \pi(a\vert s) & s \ne \bar{s} \\
+        1 & s=\bar{s}, a=\bar{a} \\
+        0 & s=\bar{s}, a\ne\bar{a}
+    \end{cases}
+\end{equation*}
+Is the value of choosing action $\bar{a}$ in state $\bar{s}$ higher under the new policy? We can express the difference in the value of this state-action pair under the two policies in terms of the change in value of every state:
+\begin{equation*}
+    Q^\sigma(\bar{s}, \bar{a}) - Q^\pi(\bar{s}, \bar{a}) = \gamma \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert \bar{s}, \bar{a}) \Bigl( V^\sigma(s') - V^\pi(s') \Bigr) \Bigr]}
+\end{equation*}
+The change in value of every state besides $\bar{s}$ can be expressed recursively:
+\begin{align*}
+    (\forall s \ne \bar{s}) \quad V^\sigma(s) - V^\pi(s) &= \gamma \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) \Bigl( V^\sigma(s') - V^\pi(s') \Bigr) \Bigr]} \right]} \\
+    &= \gamma\sum_{s'\in\mathcal{S}}{\left[ \underbrace{\sum_{a\in\mathcal{A}}{\Bigl[ \sigma(a\vert s) p(s'\vert s, a) \Bigr]}}_{P^\sigma_{s, s'}} \Bigl( V^\sigma(s') - V^\pi(s') \Bigr) \right]}
+\end{align*}
+The change in the value of state $\bar{s}$ can be expressed as follows:
+\begin{align*}
+    V^\sigma(\bar{s}) &= \sum_{a\in\mathcal{A}}{\Bigl[ \sigma(a\vert \bar{s}) Q^\sigma(\bar{s}, a) \Bigr]} \\
+    &= Q^\sigma(\bar{s}, \bar{a}) \\
+    \Rightarrow \quad V^\sigma(\bar{s}) - V^\pi(\bar{s}) &= Q^\sigma(\bar{s}, \bar{a}) - V^\pi(\bar{s}) \\
+    &= \Bigl(Q^\sigma(\bar{s}, \bar{a}) - Q^\pi(\bar{s}, \bar{a})\Bigr) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \\
+    &= \left( \gamma \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert \bar{s}, \bar{a}) \Bigl( V^\sigma(s') - V^\pi(s') \Bigr) \Bigr]} \right) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \\
+    &= \gamma\sum_{s'\in\mathcal{S}}{\left[ \underbrace{\sum_{a\in\mathcal{A}}{\Bigl[ \sigma(a\vert \bar{s}) p(s'\vert \bar{s}, a) \Bigr]}}_{P^\sigma_{\bar{s}, s'}} \Bigl( V^\sigma(s') - V^\pi(s') \Bigr) \right]} + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \\
+\end{align*}
+These expressions can now be assembled in matrix form using the basis vector $e_{\bar{s}}$ for state $\bar{s}$:
+\begin{align*}
+    (v^\sigma - v^\pi) &= \gamma P^\sigma (v^\sigma - v^\pi) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr)e_{\bar{s}} \\
+    \text{where} \quad (e_{\bar{s}})_i &= \begin{cases}
+        1 & i = \bar{s} \\
+        0 & i \ne \bar{s}
+    \end{cases} \\
+    \Rightarrow \quad (v^\sigma - v^\pi) &= \gamma P^\sigma \left( \gamma P^\sigma (v^\sigma - v^\pi) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr)e_{\bar{s}} \right) + \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr)e_{\bar{s}} \\
+    &= \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \Bigl( I + \gamma P^\sigma \Bigr) e_{\bar{s}} + \gamma^2 (P^\sigma)^2 (v^\sigma - v^\pi) \\
+    &\vdots \\
+    &= \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \sum_{n=0}^{N-1} \Bigl[ \gamma^n (P^\sigma)^n \Bigr] e_{\bar{s}} + \gamma^N (P^\sigma)^N (v^\sigma - v^\pi) \\
+    &= \Bigl(Q^\pi(\bar{s}, \bar{a}) - V^\pi(\bar{s})\Bigr) \sum_{n=0}^{\infty} \Bigl[ \gamma^n (P^\sigma)^n \Bigr] e_{\bar{s}} \\
+    (\forall s,s'\in\mathcal{S})(\forall n\in\mathbb{N}) \quad (\gamma^n (P^\sigma)^n)_{s,s'} &\ge 0 \\
+    \Rightarrow \quad \Bigl(Q^\pi(\bar{s}, \bar{a}) > V^\pi(\bar{s})\Bigr) &\Rightarrow \Bigl( (\forall s\in\mathcal{S}) \quad V^\sigma(s) \ge V^\pi(s) \Bigr)
+\end{align*}
