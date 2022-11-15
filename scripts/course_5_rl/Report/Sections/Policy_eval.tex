@@ -1,8 +1,4 @@
-A state value function $V^\pi(s)$ specifies the expected return from a state $s\in\mathcal{S}$ depending on the policy:
-\begin{equation}
-    V^\pi(s) = \mathbb{E}_{p, \pi} \left[ \sum_{k = 0}^\infty{\left[ \gamma^k r_{t+k} \right]} \middle\vert s_t=s \right]
-\end{equation}
-The state value function can be expressed recursively in terms of the state value function of all possible states that could be observed on the next time step (known as a Bellman equation), which can be expressed in matrix form:
+The Bellman equation for the state value function $V^\pi(s)$ can be expressed in matrix form as follows (note that here the expected reward $R(s',s,a)$ when transitioning to state $s'$ after performing action $a$ in state $s$ is used instead of the expected reward $r(s, a)$ when action $a$ is taken in state $s$, which is not conditioned on the next state):
 \begin{align*}
     \underbrace{V^\pi(s)}_{v^\pi_s} &= \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, a) \Bigl( R(s', s, a) + \gamma V^\pi(s') \Bigr) \right]} \right]} \\
     &= \underbrace{\sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) R(s', s, a) \Bigr]} \right]}}_{r^\pi_s} + \gamma\sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) V^\pi(s') \Bigr]} \right]} \\
@@ -10,7 +6,7 @@ The state value function can be expressed recursively in terms of the state valu
     &= r^\pi_s + \gamma\sum_{s'\in\mathcal{S}}{\left[ P^\pi_{s, s'} v^\pi_{s'} \right]} \\
     &= r^\pi_s + \gamma  (P^\pi v^\pi)_s \\
     \Rightarrow \quad v^\pi &= r^\pi + \gamma P^\pi v^\pi \\
-    \text{Where} \quad & \begin{cases}
+    \text{where} \quad & \begin{cases}
         v^\pi_i &= v^\pi(i) \\
         r^\pi_i &= \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert i) \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert i, a) R(s', i, a) \Bigr]} \right]} \\
         P^\pi_{i, j} &= \sum_{a\in\mathcal{A}}{\Bigl[ \pi(a\vert i) p(j\vert i, a) \Bigr]} \\
