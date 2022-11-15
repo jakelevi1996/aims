@@ -52,7 +52,7 @@ Denote the action chosen by $\sigma$ in state $s$ by $\bar{a}_s$:
 \end{equation*}
 The difference in the state-action value function of choosing action $\bar{a}_s$ in state $s$ under policies $\sigma$ and $\pi$ can be expressed in terms of the differences in state value functions of subsequent states:
 \begin{equation*}
-    Q^\sigma(s, \bar{a}_s) - Q^\pi(s, \bar{a}_s) = \gamma\sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, \bar{a}_s) \Bigl[ V^\sigma(s') - V^\pi(s')\Bigr] \right]}
+    Q^\sigma(s, \bar{a}_s) - Q^\pi(s, \bar{a}_s) = \gamma\sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, \bar{a}_s) \Bigl( V^\sigma(s') - V^\pi(s')\Bigr) \right]}
 \end{equation*}
 Note that the state-action value function $Q^\sigma(s, \bar{a}_s)$ of $\sigma$ choosing action $\bar{a}_s$ in state $s$ is equal to the state value function $V^\sigma(s)$ of $s$ under $\sigma$ (because $\sigma$ chooses $\bar{a}_s$ deterministically):
 \begin{align*}
@@ -81,12 +81,13 @@ The equation for the difference in state-action value functions can now be expre
         P^\sigma_{s, s'} &= p(s'\vert s, \bar{a}_s)
     \end{cases} \\
     \Rightarrow\quad v^\sigma - v^\pi &= \beta + \gamma P^\sigma\left(\beta + \gamma P^\sigma(v^\sigma - v^\pi)\right) \\
-    &= (I + \gamma P^\sigma)\beta + \gamma^2 (P^\sigma)^2(v^\sigma - v^\pi)
+    &= (I + \gamma P^\sigma)\beta + \gamma^2 (P^\sigma)^2(v^\sigma - v^\pi) \\
     &\vdots \\
     &= \sum_{n=0}^{N-1} \Bigl[ \gamma^n (P^\sigma)^n \Bigr] \beta + \gamma^N (P^\sigma)^N (v^\sigma - v^\pi) \\
     &= \sum_{n=0}^{\infty} \Bigl[ \gamma^n (P^\sigma)^n \Bigr] \beta \\
     (\forall s,s'\in\mathcal{S})(\forall n\in\mathbb{N}) \quad (\gamma^n (P^\sigma)^n)_{s,s'} &\ge 0 \\
     (\forall s\in\mathcal{S}) \quad \beta_s &\ge 0 \\
+    \Rightarrow (\forall s\in\mathcal{S}) \quad \left(\sum_{n=0}^{\infty} \Bigl[ \gamma^n (P^\sigma)^n \Bigr] \beta\right)_s &\ge 0 \\
     \Rightarrow (\forall s\in\mathcal{S}) \quad V^\sigma(s) &\ge V^\pi(s)
 \end{align*}
 This concludes the proof of the policy improvement theorem.
