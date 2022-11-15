@@ -2,11 +2,45 @@ We consider Markov Decision Processes (MDPs) \cite{sutton2018reinforcement}, whi
 \begin{itemize}
     \item A state space $\mathcal{S}$
     \item An action space $\mathcal{A}$
-    \item A dynamics function $p(s', r \vert s, a)$ which specifies the probability after observing state $s\in\mathcal{S}$ and performing action $a\in\mathcal{A}$ of transitioning to state $s'\in\mathcal{S}$ and receiving reward $r\in\mathbb{R}$
+    \item A dynamics function $p(s', r \vert s, a)$ which specifies the probability after observing state $s\in\mathcal{S}$ and performing action $a\in\mathcal{A}$ of transitioning to state $s'\in\mathcal{S}$ and receiving reward $r\in\mathbb{R}$ (note that from the dynamics function it is straightforward to derive the expected reward $r(s, a)$ when action $a$ is taken in state $s$, and the transition probability $p(s'\vert s, a)$ of transitioning to state $s'$ after performing action $a$ is taken in state $s$)
     \item A discount factor $\gamma\in[0, 1]$
     \item A distribution over initial states (often this is implicit, and does not need to be specified or estimated)
 \end{itemize}
-A policy $\pi(a\vert s)$ is a probability distribution over all actions in $\mathcal{A}$ given a state $s\in\mathcal{S}$. In general, the action taken during one time step can affect the rewards received (and states observed) on all future time steps, and the objective of reinforcement learning is to find an optimal policy $\pi_*(a\vert s)$ which maximises the expected discounted return (sum of expected discounted rewards) from any given state:
-\begin{equation}
-    \pi_* = \underset{\pi}{\operatorname{argmax}}\left[ \mathbb{E}_{p, \pi} \left[ \sum_{k = 0}^\infty{\left[ \gamma^k r_{t+k} \right]} \right] \right]
-\end{equation}
+The return $R_t$ at time $t$ is equal to the discounted sum of all rewards received during and after time $t$, and can be expressed recursively:
+\begin{align*}
+    R_t &= r_t + \gamma r_{t+1} + \gamma^2 r_{t+2} + \cdots \\
+    &= \sum_{k = 0}^\infty{\left[ \gamma^k r_{t+k} \right]} \\
+    &= r_t + \gamma R_{t+1}
+\end{align*}
+A policy $\pi(a\vert s)$ specifies the probability of taking action $a\in\mathcal{A}$ in state $s\in\mathcal{S}$. In general, the action taken during one time step can affect the rewards received (and states observed) on all future time steps, and the objective of reinforcement learning is to find an optimal policy $\pi_*(a\vert s)$ which maximises the expected discounted return from any state $s$. The expected return when following policy $\pi$ in state $s$ is known as the state value function $V^\pi(s)$:
+\begin{align*}
+    V^\pi(s) &= \mathbb{E}_{p, \pi} \left.\Bigl[ R_t \middle\vert s_t=s \Bigr]\right. \\
+    &= \sum_{R_t}{\Bigl[ R_t p(R_t\vert s_t=s) \Bigr]}
+\end{align*}
+Similarly, the expected return when performing action $a$ in state $s$ and thereafter following policy $\pi$ is known as the state-action value function $Q(s, a)$:
+\begin{align*}
+    Q^\pi(s, a) &= \mathbb{E}_{p, \pi} \left.\Bigl[ R_t \middle\vert s_t=s, a_t=a \Bigr]\right. \\
+    &= \sum_{R_t}{\Bigl[ R_t p(R_t\vert s_t=s, a_t=a) \Bigr]}
+\end{align*}
+The state value function and state-action value function can both be expressed in terms of each other:
+\begin{align*}
+    V^\pi(s) &= \sum_{R_t}{\Bigl[ R_t p(R_t\vert s_t=s) \Bigr]} \\
+    &= \sum_{R_t}{\left[ R_t \sum_{a\in\mathcal{A}}{\Bigl[p(R_t, a\vert s_t=s) \Bigr]} \right]} \\
+    &= \sum_{R_t}{\left[ R_t \sum_{a\in\mathcal{A}}{\Bigl[p(R_t, \vert s_t=s, a_t=a) \pi(a\vert s) \Bigr]} \right]} \\
+    &= \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{R_t}{\Bigl[R_t p(R_t, \vert s_t=s, a_t=a) \Bigr]} \right]} \\
+    &= \sum_{a\in\mathcal{A}}{\Bigl[ \pi(a\vert s) Q^\pi(s, a) \Bigr]} \\
+    Q^\pi(s, a) &= \mathbb{E}_{p, \pi} \left.\Bigl[ R_t \middle\vert s_t=s, a_t=a \Bigr]\right. \\
+    &= \mathbb{E}_{p, \pi} \left.\Bigl[ r_t + \gamma R_{t+1} \middle\vert s_t=s, a_t=a \Bigr]\right. \\
+    &= \mathbb{E}_{p, \pi} \left.\Bigl[ r_t \middle\vert s_t=s, a_t=a \Bigr]\right. + \gamma\mathbb{E}_{p, \pi} \left.\Bigl[ R_{t+1} \middle\vert s_t=s, a_t=a \Bigr]\right. \\
+    &= r(s, a) + \gamma\sum_{R_{t+1}}{\Bigl[ R_{t+1} p(R_{t+1}\vert s_t=s, a_t=a) \Bigr]} \\
+    &= r(s, a) + \gamma\sum_{R_{t+1}}{\left[ R_{t+1} \sum_{s'\in\mathcal{S}}{ \Bigl[ p(R_{t+1}, s'\vert s_t=s, a_t=a) \Bigr] } \right]} \\
+    &= r(s, a) + \gamma\sum_{R_{t+1}}{\left[ R_{t+1} \sum_{s'\in\mathcal{S}}{ \Bigl[ p(R_{t+1}\vert s_{t+1}=s')p(s'\vert s, a) \Bigr] } \right]} \\
+    &= r(s, a) + \gamma\sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, a) \sum_{R_{t+1}}{ \Bigl[ R_{t+1} p(R_{t+1}\vert s_{t+1}=s') \Bigr] } \right]} \\
+    &= r(s, a) + \gamma\sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) V^\pi(s') \Bigr]}
+\end{align*}
+This leads to the recursive Bellman equations for $V^\pi(s)$ and $Q^\pi(s, a)$:
+\begin{align*}
+    V^\pi(s) &= \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \left( r(s, a) + \gamma\sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) V^\pi(s') \Bigr]} \right) \right]} \\
+    Q^\pi(s, a) &= r(s, a) + \gamma\sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, a) \left( \sum_{a\in\mathcal{A}}{\Bigl[ \pi(a\vert s) Q^\pi(s, a) \Bigr]} \right) \right]}
+\end{align*}
+
