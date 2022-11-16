@@ -2,7 +2,7 @@ We consider Markov Decision Processes (MDPs) \cite{sutton2018reinforcement}, whi
 \begin{itemize}
     \item A state space $\mathcal{S}$
     \item An action space $\mathcal{A}$
-    \item A dynamics function $p(s', r \vert s, a)$ which specifies the probability after observing state $s\in\mathcal{S}$ and performing action $a\in\mathcal{A}$ of transitioning to state $s'\in\mathcal{S}$ and receiving reward $r\in\mathbb{R}$ (note that from the dynamics function it is straightforward to derive the expected reward $r(s, a)$ when action $a$ is taken in state $s$, and the transition probability $p(s'\vert s, a)$ of transitioning to state $s'$ after performing action $a$ is taken in state $s$)
+    \item A dynamics function $p(s', r \vert s, a)$ which specifies the probability after observing state $s\in\mathcal{S}$ and performing action $a\in\mathcal{A}$ of transitioning to state $s'\in\mathcal{S}$ and receiving reward $r\in\mathbb{R}$ (note that from the dynamics function it is straightforward to derive the expected reward $r(s, a)$ when action $a$ is taken in state $s$, and the transition probability $p(s'\vert s, a)$ of transitioning to state $s'$ after performing action $a$ in state $s$)
     \item A discount factor $\gamma\in[0, 1]$
     \item A distribution over initial states (often this is implicit, and does not need to be specified or estimated)
 \end{itemize}
@@ -17,7 +17,7 @@ A policy $\pi(a\vert s)$ specifies the probability of taking action $a\in\mathca
     V^\pi(s) &= \mathbb{E}_{p, \pi} \left.\Bigl[ R_t \middle\vert s_t=s \Bigr]\right. \\
     &= \sum_{R_t}{\Bigl[ R_t p(R_t\vert s_t=s) \Bigr]}
 \end{align*}
-Similarly, the expected return when performing action $a$ in state $s$ and thereafter following policy $\pi$ is known as the state-action value function $Q(s, a)$:
+Similarly, the expected return when performing action $a$ in state $s$ and thereafter following policy $\pi$ is known as the state-action value function $Q^\pi(s, a)$:
 \begin{align*}
     Q^\pi(s, a) &= \mathbb{E}_{p, \pi} \left.\Bigl[ R_t \middle\vert s_t=s, a_t=a \Bigr]\right. \\
     &= \sum_{R_t}{\Bigl[ R_t p(R_t\vert s_t=s, a_t=a) \Bigr]}
