@@ -91,3 +91,9 @@ The equation for the difference in state-action value functions can now be expre
     \Rightarrow (\forall s\in\mathcal{S}) \quad V^\sigma(s) &\ge V^\pi(s)
 \end{align*}
 This concludes the proof of the policy improvement theorem.
+
+Value iteration is a dynamic programming approach which attempts to find the optimal state value function using the following iterative update:
+\begin{align*}
+    V_{k+1}(s) &= \max_a{\left[ r(s, a) + \gamma\sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) V_k(s') \Bigr]} \right]}
+\end{align*}
+It should be possible to prove that value iteration converges to the optimal state value function using a combination of the arguments used to prove the convergence of policy iteration and the policy improvement theorem, with actions being selected so as to maximise the current \emph{estimate} of the state-action value functions, which includes some unknown error $\varepsilon_k$. A further challenge in proving that value iteration converges to the optimal state value function is proving that there is a \emph{unique} state value function which is a fixed point of value iteration (which is to say that there is no state value function which is locally optimal across all states but globally sub-optimal).
