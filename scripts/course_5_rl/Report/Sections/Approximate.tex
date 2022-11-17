@@ -1,0 +1,20 @@
+Tabular Q-learning (estimating a table of values for each state-action pair) does not scale well to problems with large state spaces and/or large action spaces, motivating the use of approximate Q-learning methods. Approximate Q-learning methods use a parameterised estimate $Q(s, a, \theta)$ of the state-action value function, which ideally allows generalisation between state-action pairs, and optimise the parameters $\theta$ in order to find the best approximation to the state-action value function of an optimal policy. In \cite{mnih2013playing}, this problem is approached by minimising the expected squared Bellman error using stochastic gradient descent:
+\begin{align*}
+    \mathcal{L}(\theta_i) &= \mathbb{E}\left[ \Bigl(y_i - Q(s, a, \theta_i)\Bigr)^2 \right] \\
+    \text{where} \quad y_i &= \mathbb{E}\left[ r + \gamma\max_{a'}\Bigl[Q(s', a', \theta_{i-1})\Bigr] \middle\vert s, a \right]
+\end{align*}
+The optimisation of $\mathcal{L}$ is not performed with respect to the target $y_i$ (although $y_i$ technically depends on the parameters $\theta$), and therefore this is known as a semi-gradient method.
+
+In certain cases (for example if the approximate state-action value function is linear with respect to its parameters), semi-gradient methods can be proven to converge. In practise, learning with such methods can be unstable. One reason for this is that convergence of the linear semi-gradient method assumes convergence of certain quantities to their expected values, which assumes conditions on the learning rate which are not satisfied if the learning rate is constant. Another reason for the instability is that although generalisation between state-action pairs is advantageous because it allows generalisation to state-action pairs which have not been sampled, it has the downside that changes to the parameters that improve the accuracy of one state-action pair can cause changes in estimates of the value of other state-action pairs such that they become less accurate, which further can distort the calculation of $\max_{a'}\Bigl[Q(s', a', \theta_{i-1})\Bigr]$, and therefore distort the parameter updates for subsequent state-action pairs.
+
+A solution proposed by \cite{mnih2015human} is to use a frozen target network for estimating $y_i$ with parameters $\theta^-$, with $\theta^-$ only being updated with the newest set of parameters $\theta_i$ every $C$ time steps, for some $C$ (for example 100). This is equivalent to minimising the following loss function:
+\begin{equation*}
+    \mathcal{L}(\theta_i) = \mathbb{E}\left[ \Bigl(r + \gamma\max_{a'}\Bigl[Q(s', a', \theta^-)\Bigr] - Q(s, a, \theta_i)\Bigr)^2 \right]
+\end{equation*}
+This approach can improve stability of the learning process, but instability can still be observed in practise because inaccuracies in the frozen target network weights $\theta^-$ can still distort the calculation of $\max_{a'}\Bigl[Q(s', a', \theta^-)\Bigr]$.
+
+A solution known as double Q-learning proposed by \cite{van2016deep} is to use the online network weights $\theta_i$ to choose the approximately optimal action to take in the next time step, and use the frozen target network weights $\theta^-$ to approximate the value of that action, which is equivalent to minimising the following loss function:
+\begin{equation*}
+    \mathcal{L}(\theta_i) = \mathbb{E}\left[ \Bigl(r + \gamma Q(s', \underset{a'}{\operatorname{argmax}}\Bigl[Q(s', a', \theta_i)\Bigr], \theta^-) - Q(s, a, \theta_i)\Bigr)^2 \right]
+\end{equation*}
+Of the approaches outlined so far, double Q-learning tends to be the most stable, because it avoids the instability caused by using the $\max$ operator. The $\max$ operator can be very sensitive to changes in parameters (of either the online network or the frozen target network), leading to overly optimistic estimates of state-action values, which derail future parameter updates and destabilise learning. Therefore the success of double Q-learning can arguably be attributed to its avoidance of using the $\max$ operator.
