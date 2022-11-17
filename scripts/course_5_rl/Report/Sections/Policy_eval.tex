@@ -24,11 +24,11 @@ For $\gamma\in[0,1)$ it can be proved that policy evaluation converges. The erro
     \Rightarrow(\forall s\in\mathcal{S})\quad&& v_{k+1}^\pi(s) &= \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \left( r(s, a) + \gamma\sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, a) \Bigl( V^\pi(s') + \varepsilon_k(s') \Bigr) \right]} \right) \right]} \\
     &&&= \sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \left( r(s, a) + \gamma\sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) V^\pi(s') \Bigr]} + \gamma\sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) \varepsilon_k(s') \Bigr]} \right) \right]} \\
     &&&= V^\pi(s) + \gamma\sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\Bigl[ p(s'\vert s, a) \varepsilon_k(s') \Bigr]} \right]} \\
-    &&&\le V^\pi(s) + \gamma\sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, a) \max_{\bar{s}}\Bigl[\left\vert \varepsilon_k(\bar{s}) \right\vert\Bigr] \right]} \right]} \\
-    &&&= V^\pi(s) + \gamma\max_{\bar{s}}\Bigl[\left\vert \varepsilon_k(\bar{s}) \right\vert\Bigr] \\
+    &&&\le V^\pi(s) + \gamma\sum_{a\in\mathcal{A}}{\left[ \pi(a\vert s) \sum_{s'\in\mathcal{S}}{\left[ p(s'\vert s, a) \max_{\bar{s}}\Bigl[\varepsilon_k(\bar{s})\Bigr] \right]} \right]} \\
+    &&&= V^\pi(s) + \gamma\max_{\bar{s}}\Bigl[\varepsilon_k(\bar{s})\Bigr] \\
     (\forall s\in\mathcal{S})\quad&& v_{k+1}^\pi(s) &= V^\pi(s) + \varepsilon_{k+1}(s) \\
-    \Rightarrow(\forall s\in\mathcal{S})\quad&& V^\pi(s) + \varepsilon_{k+1}(s) &\le V^\pi(s) + \gamma\max_{\bar{s}}\Bigl[\left\vert \varepsilon_k(\bar{s}) \right\vert\Bigr] \\
-    \Rightarrow(\forall s\in\mathcal{S})\quad&& \varepsilon_{k+1}(s) &\le \gamma\max_{\bar{s}}\Bigl[\left\vert \varepsilon_k(\bar{s}) \right\vert\Bigr] \\
-    \Rightarrow\quad&& \max_{\bar{s}}\Bigl[\left\vert \varepsilon_k(\bar{s}) \right\vert\Bigr] &\le \gamma\max_{\bar{s}}\Bigl[\left\vert \varepsilon_k(\bar{s}) \right\vert\Bigr]
+    \Rightarrow(\forall s\in\mathcal{S})\quad&& V^\pi(s) + \varepsilon_{k+1}(s) &\le V^\pi(s) + \gamma\max_{\bar{s}}\Bigl[\varepsilon_k(\bar{s})\Bigr] \\
+    \Rightarrow(\forall s\in\mathcal{S})\quad&& \varepsilon_{k+1}(s) &\le \gamma\max_{\bar{s}}\Bigl[\varepsilon_k(\bar{s})\Bigr] \\
+    \Rightarrow\quad&& \max_{\bar{s}}\Bigl[\varepsilon_k(\bar{s})\Bigr] &\le \gamma\max_{\bar{s}}\Bigl[\varepsilon_k(\bar{s})\Bigr]
 \end{align*}
-This implies that the upper bound across states of the absolute error in the estimated state value function decreases at least by a factor of $\gamma$ on every iteration, and therefore decreases at least exponentially. As a result, a desired tolerance in the estimated state value function will always be reached if policy evaluation is run for sufficiently many iterations.
+This implies that the upper bound across states of the error in the estimated state value function decreases at least by a factor of $\gamma$ on every iteration, and therefore decreases at least exponentially (similar reasoning can be used to derive the lower bound). As a result, a desired tolerance in the estimated state value function will always be reached if policy evaluation is run for sufficiently many iterations.
