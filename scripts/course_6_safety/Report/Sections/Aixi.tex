@@ -1,0 +1,34 @@
+The AIXI framework \cite{hutter2000theory} models the policy of an agent as a Turing machine $p$, which at each time step $k$ receives observations $x_k$ from the environment, and outputs actions $y_k$ back to the environment. The environment is also modelled as a Turing machine $q$, which receives actions from the agent, and sends observations back to the agent. Each observation $x_k=c_kx_k'$ consists of both "standard input" $x'_k$ and "credit input" $c_k=c(x_k \mid p, q)$. Given the environment model $q$, an optimal agent is one which maximises the cumulative reward up to some time step $T$:
+\begin{equation*}
+    p^{*,T,q} = \underset{p}{\operatorname{argmax}}\left[ \sum_{i=1}^T{\Bigl[ c(x_i \mid p, q) \Bigr]} \right]
+\end{equation*}
+In general, an exact model of the environment $q$ is not known to the agent, but it is known that the environment model is sampled from some probability distribution which assigns prior probability mass $\mu(q)$ to each possible environment model $q$. Given the prior distribution $\mu$, an agent model $p$, and a history of observations $x_{1:k-1}$ and actions $y_{1:k-1}$ up to time $k-1$, the set of possible environments consistent with the history is denoted by $Q_k$, the posterior probability of an environment model $q$ given the history up to time $k-1$ is denoted by $p(q\mid x_{1:k-1}, y_{1:k-1})$, and the expected cumulative reward over the next $m-k+1$ timesteps is given by a conditional expectation as follows:
+\begin{align*}
+    Q_k &= \Bigl\{ q:q(y_{1:k-1}) = x_{1:k-1} \Bigr\} \\
+    p(q\mid x_{1:k-1}, y_{1:k-1}) &= \frac{p(x_{1:k-1}, y_{1:k-1}\mid q)\mu(q)}{p(x_{1:k-1}, y_{1:k-1})} \\
+    &= \begin{cases}
+        \frac{\mu(q)}{\sum_{q\in Q_k}{\Bigl[ \mu(q) \Bigr]}} & q\in Q \\
+        0 & q\notin Q \\
+    \end{cases} \\
+    \mathbb{E}_q\left[ \sum_{i=k}^{m}{\Bigl[ c(x_i \mid p, q) \Bigr]} \;\middle\vert\; x_{1:k-1}, y_{1:k-1} \right] &= \frac{\sum_{q\in Q_k}{\left[ \mu(q) \sum_{i=k}^{m}{\Bigl[ c(x_i \mid p, q) \Bigr]} \right]}}{\sum_{q\in Q_k}{\Bigl[ \mu(q) \Bigr]}}
+\end{align*}
+\pagebreak
+
+Given the distribution $\mu$, horizon $m_k$, and history of observations $x_{1:k-1}$ and actions $y_{1:k-1}$ up to time $k-1$, the set of possible agents consistent with the history is given by $P_k$, and the optimal agent $p^*_k$ at time step $k$ is considered to be the agent that maximises among all possible agents the expected cumulative reward until time step $m_k$:
+\begin{align*}
+    P_k &= \Bigl\{ p:p(x_{1:k-1}) = y_{1:k-1} \Bigr\} \\
+    p^*_k &= \underset{p\in P_k}{\operatorname{argmax}}\left[ \frac{\sum_{q\in Q_k}{\left[ \mu(q) \sum_{i=k}^{m_k}{\Bigl[ c(x_i \mid p, q) \Bigr]} \right]}}{\sum_{q\in Q_k}{\Bigl[ \mu(q) \Bigr]}} \right] \\
+    &= \underset{p\in P_k}{\operatorname{argmax}}\left[ \sum_{q\in Q_k}{\left[ \mu(q) \sum_{i=k}^{m_k}{\Bigl[ c(x_i \mid p, q) \Bigr]} \right]} \right]
+\end{align*}
+The AI$\mu$ model simply refers to choosing actions at time step $k$ according to $p^*_k$. However, the AI$\mu$ model assumes knowledge of the true distribution $\mu$ from which the environment model $q$ has been sampled, and generally an agent does not have access to $\mu$. This issue is addressed by the AI$\xi$ (henceforth referred to as "AIXI") model. The introduction to the AIXI model provided in \cite{hutter2000theory} starts by considering a universal prefix Turing machine $U$, which takes a program $p$ as an input ($p$ is assumed to be represented by a string of binary digits) and produces an output sequence $x_{1:n}*$ with $n$-length prefix $x_{1:n}$. Given a program $p$, and the length $l(p)$ of the binary representation of $p$, the probability of generating the binary representation of the program $p$ by sampling $l(p)$ binary digits from a uniform IID Bernoulli process is given by $2^{-l(p)}$ (because the probability of sampling each digit correctly is $\frac{1}{2}$, and there are $l(p)$ digits in total). This leads to the definition of the "universal semimeasure" $\xi(x_{1:n})$ on sequences $x_{1:n}$ of length $n$, equal to the sum of the probabilities of randomly-generated programs for which $U$ generates a sequence with prefix $x_{1:n}$:
+\begin{equation*}
+    \xi(x_{1:n}) = \sum_{p\;:\;U(p)=x_{1:n}*}{\Bigl[ 2^{-l(p)} \Bigr]}
+\end{equation*}
+Similarly, the universal semimeasure $\xi(q)$ on a program $q$ is defined simply as follows, which can be interpreted as preferring (by assigning greater measure to) simpler programs (whose binary representations can be expressed with fewer digits):
+\begin{equation*}
+    \xi(q) = 2^{-l(q)}
+\end{equation*}
+Finally, this leads to the following definition for the choice of action $y_k$ chosen by the AIXI agent on time step $k$ with horizon $m_k$ after receiving observations $x_{1:k}$ and performing actions $y_{1:k-1}$:
+\begin{align*}
+    y_k &= \underset{y_k'}{\operatorname{argmax}}\left[ \max_{p:p(x_{1:k})=y_{1:k-1}y_k'}\left[ \sum_{q:q(y_{1:k-1})=x_{1:k-1}}{\left[ \xi(q) \sum_{i=k}^{m_k}{\Bigl[ c(x_i \mid p, q) \Bigr]} \right]} \right] \right]
+\end{align*}
