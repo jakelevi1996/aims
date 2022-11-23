@@ -20,8 +20,8 @@ The expected value of the true reward function parameterised by $w^*$ which is a
 The expected value of the features of the trajectory followed by the agent as a function of the weights $\tilde{w}$ of the proxy reward function is denoted by $\tilde{\phi}(\tilde{w})$, which allows the likelihood of the proxy reward weights $\tilde{w}$ given the true reward weights $w^*$ to be simplified as follows:
 \begin{align*}
     \tilde{\phi}(\tilde{w}) &= \mathbb{E}\left. \Bigl[ \phi(\xi) \;\middle\vert\; \xi \sim \pi(\xi\mid \tilde{w}, \phi) \Bigr] \right. \\
-    &= \int{ d\xi'\Bigl[ \phi(\xi) \pi(\xi\mid \tilde{w}, \phi) \Bigr]} \\
-    &= \frac{\int{ d\xi'\Bigl[ \phi(\xi) \exp\left( w^T \phi(\xi') \right) \Bigr]}}{\int{ d\xi'\Bigl[ \exp\left( w^T \phi(\xi') \right) \Bigr]}} \\
+    &= \int{ d\xi\Bigl[ \phi(\xi) \pi(\xi\mid \tilde{w}, \phi) \Bigr]} \\
+    &= \frac{\int{ d\xi\Bigl[ \phi(\xi) \exp\left( w^T \phi(\xi) \right) \Bigr]}}{\int{ d\xi\Bigl[ \exp\left( w^T \phi(\xi) \right) \Bigr]}} \\
     \Rightarrow \quad p(\tilde{w} \mid w^*, \phi) &\propto \exp\left( \beta {w^*}^T \tilde{\phi}(\tilde{w}) \right) \\
     \Rightarrow \quad p(\tilde{w} \mid w^*, \phi) &= \frac{\exp\left( \beta {w^*}^T \tilde{\phi}(\tilde{w}) \right)}{\int{ d\tilde{w}' \Bigl[ \exp\left( \beta {w^*}^T \tilde{\phi}(\tilde{w}') \right) \Bigr]}} \\
     &= \frac{\exp\left( \beta {w^*}^T \tilde{\phi}(\tilde{w}) \right)}{\tilde{Z}(w^*)} \\
