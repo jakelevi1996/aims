@@ -1,0 +1,27 @@
+The natural approach for including uncertainty about the true reward function based on samples from a proxy reward function in a way which is consistent with the AIXI framework would be to model the reward function using a third Turing machine, denoted by $g$, defining a universal semimeasure for $g$, and considering all possibilities for $g$ which are consistent with previous observations. The reward on each time step is now no longer a function of the observation returned by the environment, but rather the output of $g$ as a function of all previous observations and actions. Given a history of observations $x_{1:k-1}$, actions $y_{1:k-1}$, and rewards $c_{1:k-1}$ up to time $k-1$, the set of reward programs consistent with the history is denoted by $G_k$:
+\begin{equation*}
+    G_k = \Bigl\{ g:g(x_{1:k-1}, y_{1:k-1}) = c_{1:k-1} \Bigr\}
+\end{equation*}
+A universal semimeasure can be used to favour the predictions of a simpler reward program over those of a more complicated reward program (assuming both programs are both consistent with history), and a natural choice is to use the same semimeasure $\xi$ that was used for weighting possible environment programs:
+\begin{equation*}
+    \xi(g) = 2^{-l(g)}
+\end{equation*}
+The reward received during some future time step $i$ is now a function of $i$ and the models for the agent $p$, the environment $q$, and also the reward program $g$, and is denoted $c(i\mid p, q, g)$. The expected cumulative reward between time steps $k$ and $m$ is denoted by $\bar{c}_{k:m}^{p,q}$ and can be expressed as follows:
+\begin{align*}
+    \bar{c}_{k:m}^{p,q} &= \mathbb{E}_g\left[ \sum_{i=k}^{m}{\Bigl[ c(i \mid p, q, g) \Bigr]} \;\middle\vert\; x_{1:k-1}, y_{1:k-1}, c_{1:k-1} \right] \\
+    &= \frac{\sum_{g\in G_k}{\left[ \xi(g) \sum_{i=k}^{m}{\Bigl[ c(i \mid p, q, g) \Bigr]} \right]}}{\sum_{g\in G_k}{\Bigl[ \xi(g) \Bigr]}}
+\end{align*}
+The action which maximises the expected reward can now be computed as follows:
+\begin{align*}
+    y_k &= \underset{y_k'}{\operatorname{argmax}}\left[ \max_{p:p(x_{1:k})=y_{1:k-1}y_k'}\left[ \sum_{q:q(y_{1:k-1})=x_{1:k-1}}{\left[ \xi(q) \sum_{g:g(x_{1:k-1}, y_{1:k-1}) = c_{1:k-1}}{\left[ \xi(g) \sum_{i=k}^{m}{\Bigl[ c(i \mid p, q, g) \Bigr]} \right]} \right]} \right] \right] \\
+    &= \underset{y_k'}{\operatorname{argmax}}\left[ \max_{p:p(x_{1:k})=y_{1:k-1}y_k'}\left[ \sum_{q:q(y_{1:k-1})=x_{1:k-1}}{\Bigl[ \xi(q) \bar{c}_{k:m}^{p,q} \Bigr]} \right] \right]
+\end{align*}
+However, maximising the expected reward does not address the problems of reward hacking and negative side effects. To address these problems while also maintaining reasonable performance, some type of risk-averse planning is needed, which favours choosing actions for which the predictive distribution of the cumulative reward has both large mean and small variance. Similar to its expectation, the standard deviation of the predictive distribution of the cumulative reward is denoted by $\sigma_{k:m}^{p,q}$ and can be calculated as follows:
+\begin{align*}
+    \sigma_{k:m}^{p,q} &= \sqrt{\text{Var}_g\left[ \sum_{i=k}^{m}{\Bigl[ c(i \mid p, q, g) \Bigr]} \;\middle\vert\; x_{1:k-1}, y_{1:k-1}, c_{1:k-1} \right]} \\
+    &= \sqrt{\frac{\sum_{g\in G_k}{\left[ \xi(g) \left(\sum_{i=k}^{m}{\Bigl[ c(i \mid p, q, g) \Bigr]} - \bar{c}_{k:m}^{p,q} \right)^2\right]}}{\sum_{g\in G_k}{\Bigl[ \xi(g) \Bigr]}}}
+\end{align*}
+One possible approach to risk-averse planning is to choose each action $y_k$ on time step $k$ as follows for some positive value of $\alpha$ (for example $\alpha=2$), with larger values of $\alpha$ corresponding to more risk-averse behaviours:
+\begin{equation*}
+    y_k = \underset{y_k'}{\operatorname{argmax}}\left[ \max_{p:p(x_{1:k})=y_{1:k-1}y_k'}\left[ \sum_{q:q(y_{1:k-1})=x_{1:k-1}}{\left[ \xi(q) \Bigl( \bar{c}_{k:m}^{p,q} - \alpha \sigma_{k:m}^{p,q} \Bigr) \right]} \right] \right]
+\end{equation*}
