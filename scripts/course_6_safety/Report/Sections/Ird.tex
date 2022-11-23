@@ -1,0 +1,35 @@
+Typically, a reinforcement learning agent is trained to choose actions given observations which maximise the expected cumulative value of a reward signal, which is provided to the agent by its designer. This framework is very powerful and flexible, although it can lead to problems such as reward hacking and negative side-effects \cite{hadfield2017inverse}.
+
+Reward hacking refers to the phenomenon in which an agent successfully learns behaviour which achieves large expected cumulative rewards, although the behaviour learned by the agent is undesirable to the agent's designer. Reward hacking can be interpreted as a failure on behalf of the designer to provide a reward signal to the agent which encapsulates the behaviour which the designer wanted the agent to learn.
+
+A negative side-effect is a phenomenon in which an agent encounters the possibility to enter an undesirable state in ``the real world" that it has not encountered during training, and because the agent has had no opportunity to accurately learn the consequences of entering the unknown state, there is a non-trivial probability that the agent will overestimate the value of the unknown state and therefore choose to enter it, resulting in undesirable consequences. During training it is important for an agent to explore unknown states in order to discover which states offer the greatest rewards, but it is possible that the risks of exploration will outweigh the benefits when acting in the real world.
+
+A solution to these problems presented by \cite{hadfield2017inverse} is to interpret the reward signal received by the agent during training as a proxy for the true reward signal that encapsulates the behaviour intended by the designer, and to assume that ``Proxy reward functions are likely to the extent that they lead to high true utility behavior in the training environment''. In \cite{hadfield2017inverse}, trajectories are denoted by $\xi$, features of a trajectory are denoted by $\phi(\xi)$, and the reward function $r(\xi\mid w)$ of a trajectory $\xi$ given weights $w$ is considered to be a linear function of the features of the trajectory:
+\begin{equation*}
+    r(\xi\mid w) = w^T \phi(\xi)
+\end{equation*}
+In particular, we assume that the agent receives a proxy reward signal parameterised by weights $\tilde{w}$, whereas the true reward signal is parameterised by weights $w^*$. For a given agent, the distribution over trajectories given the weights $w$ and trajectory features $\phi$ of the reward function is denoted by $\pi(\xi\mid w, \phi)$, and it is assumed to be equal to a maximum entropy distribution given some fixed expectation of the reward:
+\begin{align*}
+    \pi(\xi\mid w, \phi) &\propto \exp\left( w^T \phi(\xi) \right) \\
+    \Rightarrow \quad \pi(\xi\mid w, \phi) &= \frac{\exp\left( w^T \phi(\xi) \right)}{\int{ d\xi'\Bigl[ \exp\left( w^T \phi(\xi') \right) \Bigr]}}
+\end{align*}
+The expected value of the true reward function parameterised by $w^*$ which is achieved by such an agent given a proxy reward function parameterised by $\tilde{w}$ can be expressed as $\mathbb{E}\left. \Bigl[ {w^*}^T\phi(\xi) \;\middle\vert\; \xi \sim \pi(\xi\mid \tilde{w}, \phi) \Bigr] \right.$, and it is assumed that the designer samples the weights $\tilde{w}$ of the proxy reward function from a maximum entropy distribution given the weights $w^*$ of the true reward function and some fixed expectation of the true reward:
+\begin{equation*}
+    p(\tilde{w} \mid w^*, \phi) \propto \exp\left( \beta\mathbb{E}\left. \Bigl[ {w^*}^T\phi(\xi) \;\middle\vert\; \xi \sim \pi(\xi\mid \tilde{w}, \phi) \Bigr] \right. \right)
+\end{equation*}
+The expected value of the features of the trajectory followed by the agent as a function of the weights $\tilde{w}$ of the proxy reward function is denoted by $\tilde{\phi}(\tilde{w})$, which allows the likelihood of the proxy reward weights $\tilde{w}$ given the true reward weights $w^*$ to be simplified as follows:
+\begin{align*}
+    \tilde{\phi}(\tilde{w}) &= \mathbb{E}\left. \Bigl[ \phi(\xi) \;\middle\vert\; \xi \sim \pi(\xi\mid \tilde{w}, \phi) \Bigr] \right. \\
+    &= \int{ d\xi'\Bigl[ \phi(\xi) \pi(\xi\mid \tilde{w}, \phi) \Bigr]} \\
+    &= \frac{\int{ d\xi'\Bigl[ \phi(\xi) \exp\left( w^T \phi(\xi') \right) \Bigr]}}{\int{ d\xi'\Bigl[ \exp\left( w^T \phi(\xi') \right) \Bigr]}} \\
+    \Rightarrow \quad p(\tilde{w} \mid w^*, \phi) &\propto \exp\left( \beta {w^*}^T \tilde{\phi}(\tilde{w}) \right) \\
+    \Rightarrow \quad p(\tilde{w} \mid w^*, \phi) &= \frac{\exp\left( \beta {w^*}^T \tilde{\phi}(\tilde{w}) \right)}{\int{ d\tilde{w}' \Bigl[ \exp\left( \beta {w^*}^T \tilde{\phi}(\tilde{w}') \right) \Bigr]}} \\
+    &= \frac{\exp\left( \beta {w^*}^T \tilde{\phi}(\tilde{w}) \right)}{\tilde{Z}(w^*)} \\
+    \text{where} \quad \tilde{Z}(w) &= \int{ d\tilde{w} \Bigl[ \exp\left( \beta {w}^T \tilde{\phi}(\tilde{w}) \right) \Bigr]}
+\end{align*}
+Given a prior distribution over the weights of the true reward function $p(w)$, this allows the posterior distribution over the weights of the true reward function to be expressed as follows:
+\begin{align*}
+    p(w=w^*\mid \tilde{w}, \phi) &\propto p(\tilde{w} \mid w, \phi) p(w) \\
+    &= \frac{\exp\left( \beta {w}^T \tilde{\phi}(\tilde{w}) \right)}{\tilde{Z}(w)} p(w) \label{eq:reward posterior}
+\end{align*}
+Once the posterior distribution over the weights of the true reward function has been calculated (or approximated or sampled from), the problem still remains of how to choose actions which are expected to yield high expected cumulative rewards, while also avoiding reward hacking and negative side-effects caused by misspecification between the proxy reward function and the true reward function. The supplementary material in \cite{hadfield2017inverse} suggests sampling from the posterior distribution of weights of the true reward function, and selecting actions which minimise the expected cumulative reward among those samples, which is referred to as risk-averse planning. An alternative approach would be to choose actions which maximise a linear combination of the mean and standard deviation of the distribution over rewards implied by the posterior distribution of weights of the true function, in such a way that favours actions with large mean and small variance.
