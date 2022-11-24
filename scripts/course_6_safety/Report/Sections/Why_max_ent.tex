@@ -1,0 +1,22 @@
+Given a discrete probability distribution of a random variable $X$ with $n$ possible outcomes, and with $p_i$ denoting the probability that $X=x_i$, the entropy of this distribution can be expressed as follows:
+\begin{align*}
+    H(p) &= -\sum_{i=1}^n{\Bigl[ p_i \log(p_i) \Bigr]} \\
+    &= \mathbb{E} \Bigl[ -\log(p) \Bigr]
+\end{align*}
+In general, if the probability distribution of $X$ is unknown, but it is known that the expectation of some function $f(x_i)$ is equal to $\langle f(x)\rangle$, then the problem of calculating the probability distribution of $X$ when $n>2$ is underspecified. In contrast, the problem of calculating the probability distribution of $X$ with maximum entropy can be solved following \cite{jaynes1957information} using Lagrange multipliers $\mu$ and $\lambda$ for the normalisation and expectation constraints respectively:
+\begin{align*}
+    \mathcal{L}(p,\mu,\lambda) &= -\sum_{i=1}^n{\Bigl[ p_i \log(p_i) \Bigr]} + \lambda \left( 1 - \sum_{i=1}^n{\Bigl[ p_i \Bigr]} \right) + \mu \left( \langle f(x)\rangle - \sum_{i=1}^n{\Bigl[ p_i f(x_i) \Bigr]} \right) \\
+    \frac{\partial\mathcal{L}}{\partial p} &= -\log(p_i) - 1 - \lambda - \mu f(x_i) \\
+    \frac{\partial\mathcal{L}}{\partial p} &= 0 \\
+    \Rightarrow \quad p_i &= \exp\Bigl( - 1 - \lambda - \mu f(x_i) \Bigr) \\
+    \sum_{i=1}^n{\Bigl[ p_i \Bigr]} &= 1 \\
+    \Rightarrow \quad \sum_{i=1}^n{\Bigl[ \exp\Bigl( - 1 - \lambda - \mu f(x_i) \Bigr) \Bigr]} &= 1 \\
+    \Rightarrow \quad \exp\Bigl( - 1 - \lambda \Bigr) &= \frac{1}{\sum_{i=1}^n{\Bigl[ \exp\Bigl( -\mu f(x_i) \Bigr) \Bigr]}} \\
+    &= \frac{1}{Z(\mu)} \\
+    \text{where} \quad Z(\mu) &= \sum_{i=1}^n{\Bigl[ \exp\Bigl( -\mu f(x_i) \Bigr) \Bigr]} \\
+    \Rightarrow \quad p_i &= \frac{\exp\Bigl( -\mu f(x_i) \Bigr)}{\sum_{j=1}^n{\Bigl[ \exp\Bigl( -\mu f(x_j) \Bigr) \Bigr]}} \\
+    &= \frac{\exp\Bigl( -\mu f(x_i) \Bigr)}{Z(\mu)} \\
+    \sum_{i=1}^n{\Bigl[ p_i f(x_i) \Bigr]} &= \langle f(x)\rangle \\
+    \Rightarrow \quad \sum_{i=1}^n{\Bigl[ f(x_i) \exp\Bigl( -\mu f(x_i) \Bigr) \Bigr]} &= \langle f(x)\rangle Z(\mu)
+\end{align*}
+The function $Z(\mu)$ is known as the partition function. Additional expectation constraints on the probability distribution of $X$ can be added using additional Lagrange multipliers. In general, using additional expectation constraints will lead to a decrease in the entropy of the maximum entropy distribution which satisfies all of the original and additional constraints. Because the entropy of a distribution is a measure of the uncertainty of typical samples from that distribution, using additional expectation constraints (which cause a decrease in entropy) can be interpreted as adding greater certainty to the distribution. Conversely, using a probability distribution other than the maximum entropy distribution for the given expectation constraints will have less entropy, and can therefore be interpreted as having greater certainty about information that has not been observed. Therefore, the maximum entropy distribution for the given expectation constraints can be interpreted as the least biased distribution which satisfies the given constraints, because using any other distribution could be interpreted as having certainty about information which has not been observed.
